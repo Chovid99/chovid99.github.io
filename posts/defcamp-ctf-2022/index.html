@@ -1127,6 +1127,7 @@ How to do that? The main idea is we need to:</p>
 
 </section>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/js/tocbot.min.js"></script>
 
 <script type="text/javascript">
@@ -1135,12 +1136,28 @@ How to do that? The main idea is we need to:</p>
       tocSelector: '.js-toc',
       
       contentSelector: '.js-toc-content',
-      headingSelector: 'h1, h2, h3, h4',
+      headingSelector: 'h1, h2, h3',
       orderedList: false,
       headingLabelCallback: s => s.substr(0, s.length-2),
       collapseDepth: 2
   });
-  </script>
+  function initTOC() {
+    var windowWidth = 1316;
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+  }
+  window.onload = initTOC;
+
+  var lastWindowWidth = $(window).width();
+  $(window).resize(function() {
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    console.log("hehe", (lastLeft/lastWindowWidth)*$(window).width() + "vw")
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+    lastWindowWidth = $(window).width();
+  });
+</script>
 
     </main>
     

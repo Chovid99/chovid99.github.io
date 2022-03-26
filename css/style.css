@@ -198,13 +198,19 @@ aside {
 }
 .toc-container {
   position: fixed;
-  top: 120px;
-  left: calc((100% - 864px)/2 - 250px);
+  top: 90px;
+  left: 7.8vw;
   width: 250px;
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+@media (max-width: 1240px) {
+  .toc-container {
+    display: none;
+  }
 }
 
 .toc-list-item {
@@ -430,7 +436,6 @@ aside {
   color: #84848f;
 }
 
-
 #archive {
   max-width: 580px;
   margin: 0 auto;
@@ -442,7 +447,7 @@ aside {
 }
 
 #archive .group {
-  margin: 24px auto; 
+  margin: 24px auto;
 }
 #archive .group .key {
   font-size: 20px;
