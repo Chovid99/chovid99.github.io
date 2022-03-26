@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/</link>
+    <description>Recent content on Chovid99&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 14 Feb 2022 20:02:14 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DefCamp CTF 2022</title>
+      <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>
+      <pubDate>Mon, 14 Feb 2022 20:02:14 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/defcamp-ctf-2022/</guid>
+      <description>Writeup for DefCamp CTF 2022 by Chovid99</description>
+    </item>
+    
+    <item>
+      <title>PBCTF 2021</title>
+      <link>https://chovid99.github.io/posts/pbctf-2021/</link>
+      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
+      <description>Writeup for PBCTF 2021 by Chovid99</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>https://chovid99.github.io/about/</link>
+      <pubDate>Tue, 01 Jan 2019 01:01:01 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/about/</guid>
+      <description>Who is Chovid99?</description>
+    </item>
+    
+  </channel>
+</rss>

