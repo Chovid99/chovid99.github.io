@@ -344,8 +344,8 @@ $$
 where $x$ is small. Notes that we can get the $\varphi(n)$ value if we know $p+q$. See below equation:
 $$
 \begin{align}
-\varphi(n) = (p-1)*(q-1)\\
-= pq - (p+q) + 1
+\varphi(n) &amp;= (p-1)*(q-1)\\
+&amp;= pq - (p+q) + 1\\
 \end{align}
 $$</p>
 <p>To solve this chall, we just need to bruteforce $p+q$ based on first equation, and then try to decrypt the $c$ with the calculated $\varphi(n)$. Below is my solver (I use sagemath).</p>

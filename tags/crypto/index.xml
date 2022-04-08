@@ -43,5 +43,14 @@
       <description>Writeup for PBCTF 2021 by Chovid99</description>
     </item>
     
+    <item>
+      <title>CSAW CTF 2019</title>
+      <link>https://chovid99.github.io/posts/csaw-ctf-2019/</link>
+      <pubDate>Mon, 16 Sep 2019 20:02:14 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/csaw-ctf-2019/</guid>
+      <description>Writeup for DefCamp CTF 2019 by Chovid99</description>
+    </item>
+    
   </channel>
 </rss>
