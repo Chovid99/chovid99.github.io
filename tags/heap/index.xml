@@ -6,7 +6,16 @@
     <description>Recent content in heap on Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Feb 2022 20:02:14 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/heap/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Mar 2022 08:01:00 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/heap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pragyan CTF 2022</title>
+      <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
+      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
+      <description>Writeup for Pragyan CTF 2022 by Chovid99</description>
+    </item>
+    
     <item>
       <title>DefCamp CTF 2022</title>
       <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>

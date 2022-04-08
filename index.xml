@@ -6,7 +6,25 @@
     <description>Recent content on Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Feb 2022 20:02:14 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 11 Mar 2022 20:31:19 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>zer0pts CTF 2022</title>
+      <link>https://chovid99.github.io/posts/zer0pts-ctf-2022/</link>
+      <pubDate>Fri, 11 Mar 2022 20:31:19 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/zer0pts-ctf-2022/</guid>
+      <description>Writeup for zer0pts CTF 2022 by Chovid99</description>
+    </item>
+    
+    <item>
+      <title>Pragyan CTF 2022</title>
+      <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
+      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
+      <description>Writeup for Pragyan CTF 2022 by Chovid99</description>
+    </item>
+    
     <item>
       <title>DefCamp CTF 2022</title>
       <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>
@@ -14,6 +32,24 @@
       
       <guid>https://chovid99.github.io/posts/defcamp-ctf-2022/</guid>
       <description>Writeup for DefCamp CTF 2022 by Chovid99</description>
+    </item>
+    
+    <item>
+      <title>DiceCTF 2022</title>
+      <link>https://chovid99.github.io/posts/dicectf-2022/</link>
+      <pubDate>Mon, 07 Feb 2022 08:01:00 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
+      <description>Writeup for DiceCTF 2022 by Chovid99</description>
+    </item>
+    
+    <item>
+      <title>GCC 3.0 CTF 2022</title>
+      <link>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</link>
+      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</guid>
+      <description>Writeup for GCC 3.0 CTF 2022 by Chovid99</description>
     </item>
     
     <item>
