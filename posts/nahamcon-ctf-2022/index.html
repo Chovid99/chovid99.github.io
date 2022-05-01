@@ -1049,8 +1049,10 @@ I tried to spend my saturday to do the NahamCon CTF 2022, but I had a lot of eve
 <ul>
 <li>Create a large chunk in <code>comment</code></li>
 <li>Alloc a new chunk below it to prevent consolidation</li>
-<li>Freed all the object
-After freed all the object, we will have:</li>
+<li>Freed all the object</li>
+</ul>
+<p>After freed all the object, we will have:</p>
+<ul>
 <li>1 chunk inside unsorted_bin (<code>comment</code>)</li>
 <li>1 chunk inside tcache[0x20] (<code>added street</code>)</li>
 <li>1 chunk inside tcache[0x30] (<code>edited street</code>)</li>
