@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Angstrom CTF 2022 | Welcome to Chovid99&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta property="og:title" content="Angstrom CTF 2022" />
+<meta property="og:description" content="Writeup for Angstrom CTF 2022 by Chovid99" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/angstrom-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-05T11:10:29+07:00" />
+<meta property="article:modified_time" content="2022-05-05T11:10:29+07:00" />
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://chovid99.github.io/site-feature-image.jpg"/>
+
+<meta name="twitter:title" content="Angstrom CTF 2022"/>
+<meta name="twitter:description" content="Writeup for Angstrom CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@https://twitter.com/Chovid99"/>
+
+<meta property="og:site_name" content="Chovid99's Blog">
+
+<meta name="generator" content="Hugo 0.95.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/tocbot.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+ 
+    
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Posts</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">Angstrom CTF 2022</h1>
+
+    <div class="tip">
+        <time datetime="2022-05-05 11:10:29 &#43;0700 WIB">May 5, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          2214 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          11 minute read
+        </span>
+    </div>
+
+    <div class="content">
+      <div class="post-content js-toc-content">
+        <p><p class="markdown-image">
+  <img src="https://i.imgur.com/1OlmrMC.png" alt=""  />
+</p>
+On this CTF, I managed to solve only one problem as I don&rsquo;t have much time to work on it. Here&rsquo;s my writeup for that problem.</p>
+<h2 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h2>
+<h3 id="prophet">Prophet <a href="#prophet" class="anchor">#</a></h3>
+<h4 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h4>
+<p>We were given a source code like below</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">package</span> main
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#c30">&#34;encoding/binary&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#c30">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#c30">&#34;math/rand&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">func</span> <span style="color:#c0f">main</span>() {
+</span></span><span style="display:flex;"><span>    flag <span style="color:#555">:=</span> <span style="color:#c30">&#34;actf{REDACTEDREDACTEDREDACTED!!}&#34;</span>
+</span></span><span style="display:flex;"><span>    rand.<span style="color:#c0f">Seed</span>(<span style="color:#f60">12345</span>) <span style="color:#09f;font-style:italic">// the actual seed is not 12345
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>    <span style="color:#09f;font-style:italic">// drastically slow down naive brute force
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#f60">0</span>; i &lt; <span style="color:#f60">100000</span>; i <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>        rand.<span style="color:#c0f">Uint64</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#f60">0</span>; i &lt; <span style="color:#f60">4</span>; i <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#c0f">Printf</span>(<span style="color:#c30">&#34;flag chunk: %d\n&#34;</span>, binary.LittleEndian.<span style="color:#c0f">Uint64</span>([]<span style="color:#366">byte</span>(flag)[i<span style="color:#555">*</span><span style="color:#f60">8</span>:i<span style="color:#555">*</span><span style="color:#f60">8</span><span style="color:#555">+</span><span style="color:#f60">8</span>])^rand.<span style="color:#c0f">Uint64</span>())
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    gap <span style="color:#555">:=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#f60">0</span>; i &lt; <span style="color:#f60">607</span>; i <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#c0f">Println</span>(rand.<span style="color:#c0f">Uint64</span>())
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">for</span> j <span style="color:#555">:=</span> <span style="color:#f60">0</span>; j &lt; gap; j <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>            rand.<span style="color:#c0f">Uint64</span>()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        gap = (gap <span style="color:#555">+</span> <span style="color:#f60">1</span>) <span style="color:#555">%</span> <span style="color:#f60">13</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Skimming through the code, what this code do is basically:</p>
+<ul>
+<li>Call <code>rand.Uint64()</code> for 100000 times</li>
+<li>Call <code>rand.Uint64()</code> for 4 times. Each value will be xored with the flag chunk</li>
+<li>Print value of the <code>rand.Uint64()</code> for 607 times, but there will be a gap between each print (So we don&rsquo;t get the full complete sequence of it).</li>
+</ul>
+<h4 id="attack-plan">Attack Plan <a href="#attack-plan" class="anchor">#</a></h4>
+<p>Seems like we need to attack the golang <code>math/rand</code> PRNG. So, we need to dive into the <code>math/rand</code> source code first to see how golang implements it. Below is the relevant source code:
+<a href="https://github.com/golang/go/blob/master/src/math/rand/rand.go" target="_blank" rel="noopener">go/rand.go</a></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// A Source represents a source of uniformly-distributed
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// pseudo-random int64 values in the range [0, 1&lt;&lt;63).
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">type</span> Source <span style="color:#069;font-weight:bold">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#c0f">Int63</span>() <span style="color:#078;font-weight:bold">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#c0f">Seed</span>(seed <span style="color:#078;font-weight:bold">int64</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// A Source64 is a Source that can also generate
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// uniformly-distributed pseudo-random uint64 values in
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// the range [0, 1&lt;&lt;64) directly.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// If a Rand r&#39;s underlying Source s implements Source64,
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// then r.Uint64 returns the result of one call to s.Uint64
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// instead of making two calls to s.Int63.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">type</span> Source64 <span style="color:#069;font-weight:bold">interface</span> {
+</span></span><span style="display:flex;"><span>	Source
+</span></span><span style="display:flex;"><span>	<span style="color:#c0f">Uint64</span>() <span style="color:#078;font-weight:bold">uint64</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// A Rand is a source of random numbers.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">type</span> Rand <span style="color:#069;font-weight:bold">struct</span> {
+</span></span><span style="display:flex;"><span>	src Source
+</span></span><span style="display:flex;"><span>	s64 Source64 <span style="color:#09f;font-style:italic">// non-nil if src is source64
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#09f;font-style:italic">// readVal contains remainder of 63-bit integer used for bytes
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	<span style="color:#09f;font-style:italic">// generation during most recent Read call.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	<span style="color:#09f;font-style:italic">// It is saved so next Read call can start where the previous
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	<span style="color:#09f;font-style:italic">// one finished.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	readVal <span style="color:#078;font-weight:bold">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#09f;font-style:italic">// readPos indicates the number of low-order bytes of readVal
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	<span style="color:#09f;font-style:italic">// that are still valid.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	readPos <span style="color:#078;font-weight:bold">int8</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// Seed uses the provided seed value to initialize the generator to a deterministic state.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// Seed should not be called concurrently with any other Rand method.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">func</span> (r <span style="color:#555">*</span>Rand) <span style="color:#c0f">Seed</span>(seed <span style="color:#078;font-weight:bold">int64</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">if</span> lk, ok <span style="color:#555">:=</span> r.src.(<span style="color:#555">*</span>lockedSource); ok {
+</span></span><span style="display:flex;"><span>		lk.<span style="color:#c0f">seedPos</span>(seed, <span style="color:#555">&amp;</span>r.readPos)
+</span></span><span style="display:flex;"><span>		<span style="color:#069;font-weight:bold">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	r.src.<span style="color:#c0f">Seed</span>(seed)
+</span></span><span style="display:flex;"><span>	r.readPos = <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// Uint64 returns a pseudo-random 64-bit value as a uint64.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">func</span> (r <span style="color:#555">*</span>Rand) <span style="color:#c0f">Uint64</span>() <span style="color:#078;font-weight:bold">uint64</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">if</span> r.s64 <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#069;font-weight:bold">return</span> r.s64.<span style="color:#c0f">Uint64</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">return</span> <span style="color:#366">uint64</span>(r.<span style="color:#c0f">Int63</span>())<span style="color:#555">&gt;&gt;</span><span style="color:#f60">31</span> | <span style="color:#366">uint64</span>(r.<span style="color:#c0f">Int63</span>())<span style="color:#555">&lt;&lt;</span><span style="color:#f60">32</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And below is the <code>rngSource</code> which implements <code>Source</code> interface
+<a href="https://github.com/golang/go/blob/master/src/math/rand/rng.go" target="_blank" rel="noopener">go/rng.go</a></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">const</span> (
+</span></span><span style="display:flex;"><span>	rngLen   = <span style="color:#f60">607</span>
+</span></span><span style="display:flex;"><span>	rngTap   = <span style="color:#f60">273</span>
+</span></span><span style="display:flex;"><span>	rngMax   = <span style="color:#f60">1</span> <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">63</span>
+</span></span><span style="display:flex;"><span>	rngMask  = rngMax <span style="color:#555">-</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>	int32max = (<span style="color:#f60">1</span> <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">31</span>) <span style="color:#555">-</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">type</span> rngSource <span style="color:#069;font-weight:bold">struct</span> {
+</span></span><span style="display:flex;"><span>	tap  <span style="color:#078;font-weight:bold">int</span>           <span style="color:#09f;font-style:italic">// index into vec
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	feed <span style="color:#078;font-weight:bold">int</span>           <span style="color:#09f;font-style:italic">// index into vec
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>	vec  [rngLen]<span style="color:#078;font-weight:bold">int64</span> <span style="color:#09f;font-style:italic">// current feedback register
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// Seed uses the provided seed value to initialize the generator to a deterministic state.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">func</span> (rng <span style="color:#555">*</span>rngSource) <span style="color:#c0f">Seed</span>(seed <span style="color:#078;font-weight:bold">int64</span>) {
+</span></span><span style="display:flex;"><span>	rng.tap = <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>	rng.feed = rngLen <span style="color:#555">-</span> rngTap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	seed = seed <span style="color:#555">%</span> int32max
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">if</span> seed &lt; <span style="color:#f60">0</span> {
+</span></span><span style="display:flex;"><span>		seed <span style="color:#555">+=</span> int32max
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">if</span> seed <span style="color:#555">==</span> <span style="color:#f60">0</span> {
+</span></span><span style="display:flex;"><span>		seed = <span style="color:#f60">89482311</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	x <span style="color:#555">:=</span> <span style="color:#366">int32</span>(seed)
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#555">-</span><span style="color:#f60">20</span>; i &lt; rngLen; i<span style="color:#555">++</span> {
+</span></span><span style="display:flex;"><span>		x = <span style="color:#c0f">seedrand</span>(x)
+</span></span><span style="display:flex;"><span>		<span style="color:#069;font-weight:bold">if</span> i <span style="color:#555">&gt;=</span> <span style="color:#f60">0</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#069;font-weight:bold">var</span> u <span style="color:#078;font-weight:bold">int64</span>
+</span></span><span style="display:flex;"><span>			u = <span style="color:#366">int64</span>(x) <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">40</span>
+</span></span><span style="display:flex;"><span>			x = <span style="color:#c0f">seedrand</span>(x)
+</span></span><span style="display:flex;"><span>			u ^= <span style="color:#366">int64</span>(x) <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">20</span>
+</span></span><span style="display:flex;"><span>			x = <span style="color:#c0f">seedrand</span>(x)
+</span></span><span style="display:flex;"><span>			u ^= <span style="color:#366">int64</span>(x)
+</span></span><span style="display:flex;"><span>			u ^= rngCooked[i]
+</span></span><span style="display:flex;"><span>			rng.vec[i] = u
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">// Uint64 returns a non-negative pseudo-random 64-bit integer as an uint64.
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">func</span> (rng <span style="color:#555">*</span>rngSource) <span style="color:#c0f">Uint64</span>() <span style="color:#078;font-weight:bold">uint64</span> {
+</span></span><span style="display:flex;"><span>	rng.tap<span style="color:#555">--</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">if</span> rng.tap &lt; <span style="color:#f60">0</span> {
+</span></span><span style="display:flex;"><span>		rng.tap <span style="color:#555">+=</span> rngLen
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	rng.feed<span style="color:#555">--</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">if</span> rng.feed &lt; <span style="color:#f60">0</span> {
+</span></span><span style="display:flex;"><span>		rng.feed <span style="color:#555">+=</span> rngLen
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	x <span style="color:#555">:=</span> rng.vec[rng.feed] <span style="color:#555">+</span> rng.vec[rng.tap]
+</span></span><span style="display:flex;"><span>	rng.vec[rng.feed] = x
+</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">return</span> <span style="color:#366">uint64</span>(x)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, basically, the way golang RNG works are:</p>
+<ul>
+<li>Seed will determine the initial value of <code>vec</code></li>
+<li>Set the initial value of <code>tap</code> and <code>feed</code> (<code>tap=0</code>, <code>feed=rngLen-rngTap=334</code>)</li>
+<li>To generate a random number, it will:
+<ul>
+<li>Decrement <code>tap</code> by 1</li>
+<li>Decrement <code>feed</code> by 1</li>
+<li>Calculate <code>x = (vec[feed]+vec[tap]) % 2**64</code></li>
+<li>Set <code>vec[feed] = x</code></li>
+<li>Return <code>vec[feed]</code></li>
+</ul>
+</li>
+</ul>
+<p>Notes that the <code>tap</code> and <code>feed</code> is circular, so it will point to the <code>vec</code> last element if it got decremented when point to the <code>vec</code> first element.</p>
+<p>So basically, the way it generated a random number is through linear equations. Now notice this given code on the problem.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>    gap <span style="color:#555">:=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#f60">0</span>; i &lt; <span style="color:#f60">607</span>; i <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#c0f">Println</span>(rand.<span style="color:#c0f">Uint64</span>())
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">for</span> j <span style="color:#555">:=</span> <span style="color:#f60">0</span>; j &lt; gap; j <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>            rand.<span style="color:#c0f">Uint64</span>()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        gap = (gap <span style="color:#555">+</span> <span style="color:#f60">1</span>) <span style="color:#555">%</span> <span style="color:#f60">13</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The given problem gave us some leaked of the generated random value, but it has a gap, so we don&rsquo;t know the full sequence numbers of it. But, the plan is, from the given sequences, we must need to somehow reconstruct the <code>vec</code> internal state.</p>
+<h4 id="solution">Solution <a href="#solution" class="anchor">#</a></h4>
+<p>Now, let see the given code</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>    flag <span style="color:#555">:=</span> <span style="color:#c30">&#34;actf{REDACTEDREDACTEDREDACTED!!}&#34;</span>
+</span></span><span style="display:flex;"><span>    rand.<span style="color:#c0f">Seed</span>(<span style="color:#f60">12345</span>) <span style="color:#09f;font-style:italic">// the actual seed is not 12345
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>    <span style="color:#09f;font-style:italic">// drastically slow down naive brute force
+</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#f60">0</span>; i &lt; <span style="color:#f60">100000</span>; i <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>        rand.<span style="color:#c0f">Uint64</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#555">:=</span> <span style="color:#f60">0</span>; i &lt; <span style="color:#f60">4</span>; i <span style="color:#555">+=</span> <span style="color:#f60">1</span> {
+</span></span><span style="display:flex;"><span>        fmt.<span style="color:#c0f">Printf</span>(<span style="color:#c30">&#34;flag chunk: %d\n&#34;</span>, binary.LittleEndian.<span style="color:#c0f">Uint64</span>([]<span style="color:#366">byte</span>(flag)[i<span style="color:#555">*</span><span style="color:#f60">8</span>:i<span style="color:#555">*</span><span style="color:#f60">8</span><span style="color:#555">+</span><span style="color:#f60">8</span>])^rand.<span style="color:#c0f">Uint64</span>())
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Actually, we can ignore the 100000 loops because we don&rsquo;t need that at all. What we need is only the internal state just before the call <code>rand.Uint64()</code> during xoring the flag chunk, so we don&rsquo;t care the internal state of <code>vec</code> <strong>before 100000 calls</strong>.</p>
+<p>From observation, it is just linear equations, and it seems like even though what we got is only partial sequences, I think it shold be enough to recover needed internal states to generate the random number those are xored with the flag chunks.</p>
+<p>Because I&rsquo;m too lazy, well let&rsquo;s simply try to solve it with the help of z3 😃. Turn out, z3 is only able to find some internal states of the <code>vec</code>, but this is enough to generate the 4 random values those are xored with the flag chunks.</p>
+<p>Below is the full solver script</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">z3</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>leaked <span style="color:#555">=</span> [<span style="color:#f60">1967981989159506896</span>, <span style="color:#f60">12417576839900903143</span>, <span style="color:#f60">5391827788107581754</span>, <span style="color:#f60">9211837354618349619</span>, <span style="color:#f60">11911979448172444251</span>, <span style="color:#f60">436461377053033951</span>, <span style="color:#f60">8394439408169944148</span>, <span style="color:#f60">9103763829763273513</span>, <span style="color:#f60">7101121394772592963</span>, <span style="color:#f60">18180164424805091773</span>, <span style="color:#f60">10980218005670728650</span>, <span style="color:#f60">3592195252851566282</span>, <span style="color:#f60">15982088259081365278</span>, <span style="color:#f60">18366993356901645139</span>, <span style="color:#f60">16470043187318505301</span>, <span style="color:#f60">12529639613890366320</span>, <span style="color:#f60">5405453295559550962</span>, <span style="color:#f60">3219566894479483465</span>, <span style="color:#f60">16987169033331910230</span>, <span style="color:#f60">9344236955639961560</span>, <span style="color:#f60">3745615208872438517</span>, <span style="color:#f60">3388187019357417407</span>, <span style="color:#f60">17198114806622348859</span>, <span style="color:#f60">9334174653951229381</span>, <span style="color:#f60">1009948000446937143</span>, <span style="color:#f60">14650385610612467309</span>, <span style="color:#f60">14912852548935159537</span>, <span style="color:#f60">8230750145803377492</span>, <span style="color:#f60">13210874570097825431</span>, <span style="color:#f60">4261899336407377866</span>, <span style="color:#f60">2573134042538913249</span>, <span style="color:#f60">10562921983129619234</span>, <span style="color:#f60">4481733723106553150</span>, <span style="color:#f60">6693876041704064709</span>, <span style="color:#f60">13772536884257081061</span>, <span style="color:#f60">4814655535784567940</span>, <span style="color:#f60">17117043381738664412</span>, <span style="color:#f60">10014777550587990992</span>, <span style="color:#f60">7013436321029132294</span>, <span style="color:#f60">953436847296933558</span>, <span style="color:#f60">13864297711807309149</span>, <span style="color:#f60">11312345922389074726</span>, <span style="color:#f60">2199867878612078091</span>, <span style="color:#f60">8402220611296899976</span>, <span style="color:#f60">10378165238796511161</span>, <span style="color:#f60">16078363467890630054</span>, <span style="color:#f60">7098501269083835059</span>, <span style="color:#f60">1681679444219081187</span>, <span style="color:#f60">17235013401211119472</span>, <span style="color:#f60">2203917752371077442</span>, <span style="color:#f60">9217070900827478302</span>, <span style="color:#f60">10058277698897632667</span>, <span style="color:#f60">15972660907870375806</span>, <span style="color:#f60">6622838346930090221</span>, <span style="color:#f60">12586537260105593109</span>, <span style="color:#f60">6433719167686925168</span>, <span style="color:#f60">3032065173778278418</span>, <span style="color:#f60">9743104590135308267</span>, <span style="color:#f60">7391368162387036788</span>, <span style="color:#f60">10725912781903875779</span>, <span style="color:#f60">9846554056484719855</span>, <span style="color:#f60">12343982921622455581</span>, <span style="color:#f60">36206366241642941</span>, <span style="color:#f60">11813694384750487006</span>, <span style="color:#f60">5494944593056217372</span>, <span style="color:#f60">17617075954936948791</span>, <span style="color:#f60">15958686524489577932</span>, <span style="color:#f60">11727447540781267578</span>, <span style="color:#f60">13380151820153190493</span>, <span style="color:#f60">9349098470649357156</span>, <span style="color:#f60">13803047902546235975</span>, <span style="color:#f60">17286479261703485395</span>, <span style="color:#f60">14722281154768715543</span>, <span style="color:#f60">12612473994461271801</span>, <span style="color:#f60">14312822945784769203</span>, <span style="color:#f60">15609063854644643395</span>, <span style="color:#f60">14708036210562969600</span>, <span style="color:#f60">13796313732450064136</span>, <span style="color:#f60">10307023727568972101</span>, <span style="color:#f60">17513680648877824019</span>, <span style="color:#f60">16702438782110391465</span>, <span style="color:#f60">3652001414219721007</span>, <span style="color:#f60">5265625636739631457</span>, <span style="color:#f60">10654632704447374504</span>, <span style="color:#f60">7511078814006349210</span>, <span style="color:#f60">9140982706528528010</span>, <span style="color:#f60">16223838721279393322</span>, <span style="color:#f60">10420524606533750516</span>, <span style="color:#f60">16701377323767306114</span>, <span style="color:#f60">3750804369080437426</span>, <span style="color:#f60">1274885552917066026</span>, <span style="color:#f60">4230518916834636384</span>, <span style="color:#f60">6690624599507792675</span>, <span style="color:#f60">15478451784117638719</span>, <span style="color:#f60">13534840562459518131</span>, <span style="color:#f60">12163976775461276142</span>, <span style="color:#f60">9476524941230848424</span>, <span style="color:#f60">1443362190438042863</span>, <span style="color:#f60">1456911544696158525</span>, <span style="color:#f60">13438749309336286137</span>, <span style="color:#f60">13766436007254005985</span>, <span style="color:#f60">8432370224361500748</span>, <span style="color:#f60">3203865476118736526</span>, <span style="color:#f60">4420206307832455609</span>, <span style="color:#f60">10496653657337759511</span>, <span style="color:#f60">2775211754574419515</span>, <span style="color:#f60">16696355141624962972</span>, <span style="color:#f60">16768338839510607900</span>, <span style="color:#f60">10202318454385533892</span>, <span style="color:#f60">12554418635459033218</span>, <span style="color:#f60">1708421080877496043</span>, <span style="color:#f60">11341735535211029325</span>, <span style="color:#f60">13622421994908208944</span>, <span style="color:#f60">16469847339176897411</span>, <span style="color:#f60">10935449642259488944</span>, <span style="color:#f60">5989762449076810195</span>, <span style="color:#f60">16678533334885732063</span>, <span style="color:#f60">9391936203669602898</span>, <span style="color:#f60">15958497913540135719</span>, <span style="color:#f60">15152164795107255721</span>, <span style="color:#f60">17424538298476802068</span>, <span style="color:#f60">13476846617758916522</span>, <span style="color:#f60">15469288240231942444</span>, <span style="color:#f60">1042058457773191313</span>, <span style="color:#f60">1437682614378048888</span>, <span style="color:#f60">7791872198157832698</span>, <span style="color:#f60">3337812416348112405</span>, <span style="color:#f60">1784790255299050697</span>, <span style="color:#f60">17002639445141763699</span>, <span style="color:#f60">12767980465486129482</span>, <span style="color:#f60">17612162068890083773</span>, <span style="color:#f60">16407551756979473145</span>, <span style="color:#f60">6870903950833453651</span>, <span style="color:#f60">15216520006678599318</span>, <span style="color:#f60">11037528050111055664</span>, <span style="color:#f60">8264794268732416280</span>, <span style="color:#f60">17709510308375523833</span>, <span style="color:#f60">10870329587473006478</span>, <span style="color:#f60">4209076136454212823</span>, <span style="color:#f60">10311372832283085221</span>, <span style="color:#f60">16154509542645742462</span>, <span style="color:#f60">951684807689880439</span>, <span style="color:#f60">2739768274435630200</span>, <span style="color:#f60">15514988817801737887</span>, <span style="color:#f60">11903497272094080274</span>, <span style="color:#f60">14010700631489000318</span>, <span style="color:#f60">8168148822285776139</span>, <span style="color:#f60">15256711994087827473</span>, <span style="color:#f60">6451657483371937183</span>, <span style="color:#f60">7135447898628744494</span>, <span style="color:#f60">5780088181865624760</span>, <span style="color:#f60">6989372305949144334</span>, <span style="color:#f60">16143055753880844914</span>, <span style="color:#f60">17070871628364636997</span>, <span style="color:#f60">17845325327638564426</span>, <span style="color:#f60">11252650532709168300</span>, <span style="color:#f60">8689336205199825409</span>, <span style="color:#f60">7434630126551769888</span>, <span style="color:#f60">14509873386914702491</span>, <span style="color:#f60">11590268219228522253</span>, <span style="color:#f60">6198329276216609561</span>, <span style="color:#f60">11335367112307160031</span>, <span style="color:#f60">6862703832858865940</span>, <span style="color:#f60">16095983259296342520</span>, <span style="color:#f60">4053164335011250682</span>, <span style="color:#f60">17746859978905550439</span>, <span style="color:#f60">11203484631061948861</span>, <span style="color:#f60">13068966305827836785</span>, <span style="color:#f60">17576153053645041814</span>, <span style="color:#f60">3397744133652191854</span>, <span style="color:#f60">14210396404767979432</span>, <span style="color:#f60">832520310222841641</span>, <span style="color:#f60">12993614654248441024</span>, <span style="color:#f60">5971850475856808185</span>, <span style="color:#f60">238574801556615180</span>, <span style="color:#f60">3266474603761581602</span>, <span style="color:#f60">2034926208326210458</span>, <span style="color:#f60">7959880505534650249</span>, <span style="color:#f60">5223282126385860453</span>, <span style="color:#f60">9023127018974238669</span>, <span style="color:#f60">3769567776153636493</span>, <span style="color:#f60">16447344062257806832</span>, <span style="color:#f60">11594390737828822413</span>, <span style="color:#f60">12960041364170007231</span>, <span style="color:#f60">14328319423697083505</span>, <span style="color:#f60">3160154057912510660</span>, <span style="color:#f60">4359044101862451509</span>, <span style="color:#f60">1771349416916391552</span>, <span style="color:#f60">10701387249528119333</span>, <span style="color:#f60">7454181388372329852</span>, <span style="color:#f60">10193237782067880860</span>, <span style="color:#f60">11409283486710807834</span>, <span style="color:#f60">13931727607061863648</span>, <span style="color:#f60">12942968879660231478</span>, <span style="color:#f60">15645948770775587825</span>, <span style="color:#f60">12213288520365533176</span>, <span style="color:#f60">13988040192872290430</span>, <span style="color:#f60">4199713191956978186</span>, <span style="color:#f60">6765946140427179581</span>, <span style="color:#f60">18149742629467781128</span>, <span style="color:#f60">9358470377774505826</span>, <span style="color:#f60">4181580646934571736</span>, <span style="color:#f60">11761756415525998340</span>, <span style="color:#f60">10042926784088060877</span>, <span style="color:#f60">5067835985447795792</span>, <span style="color:#f60">18300732716144522639</span>, <span style="color:#f60">14306304517937131978</span>, <span style="color:#f60">16719268577219265090</span>, <span style="color:#f60">8638464310536291519</span>, <span style="color:#f60">15672756635128514803</span>, <span style="color:#f60">10996148629154702020</span>, <span style="color:#f60">2338742778696722106</span>, <span style="color:#f60">6118424250314589408</span>, <span style="color:#f60">3576387217904727585</span>, <span style="color:#f60">16396068811351621328</span>, <span style="color:#f60">15697480172561236031</span>, <span style="color:#f60">6515775876966862332</span>, <span style="color:#f60">6608472476658256484</span>, <span style="color:#f60">6011737076705937171</span>, <span style="color:#f60">11602240412095671278</span>, <span style="color:#f60">4887262940815095667</span>, <span style="color:#f60">1728593519225716985</span>, <span style="color:#f60">12925038171302350851</span>, <span style="color:#f60">90888454155540380</span>, <span style="color:#f60">7369230194366723483</span>, <span style="color:#f60">7317136921293836973</span>, <span style="color:#f60">12082722249199476773</span>, <span style="color:#f60">971754854524357986</span>, <span style="color:#f60">6642730636302083314</span>, <span style="color:#f60">11144922589757761299</span>, <span style="color:#f60">9598715342896599540</span>, <span style="color:#f60">2922994873083091744</span>, <span style="color:#f60">7854873715768913334</span>, <span style="color:#f60">6670726563807133294</span>, <span style="color:#f60">8086257198858594819</span>, <span style="color:#f60">6212636838339361432</span>, <span style="color:#f60">8107140509430732926</span>, <span style="color:#f60">13755318446376323915</span>, <span style="color:#f60">5167544324749873523</span>, <span style="color:#f60">7054782057945799124</span>, <span style="color:#f60">1526161334406003779</span>, <span style="color:#f60">4255211424472345138</span>, <span style="color:#f60">9441508038017073687</span>, <span style="color:#f60">4389728361916511863</span>, <span style="color:#f60">6644677021040028381</span>, <span style="color:#f60">2254482152083342988</span>, <span style="color:#f60">6435168706358440261</span>, <span style="color:#f60">13693189497937442312</span>, <span style="color:#f60">10885862492982242128</span>, <span style="color:#f60">7849235561927071598</span>, <span style="color:#f60">6391907113707972788</span>, <span style="color:#f60">14828962073252161086</span>, <span style="color:#f60">2876503123100726408</span>, <span style="color:#f60">10885090941428747169</span>, <span style="color:#f60">5338465317393070206</span>, <span style="color:#f60">1137998109085147501</span>, <span style="color:#f60">6090513144357782932</span>, <span style="color:#f60">11819986903687603314</span>, <span style="color:#f60">12881756187512916604</span>, <span style="color:#f60">1976632829063897381</span>, <span style="color:#f60">17359004626847963595</span>, <span style="color:#f60">13766469682650618030</span>, <span style="color:#f60">14767869774356980798</span>, <span style="color:#f60">15329110699901373732</span>, <span style="color:#f60">14457512632645866752</span>, <span style="color:#f60">17306004375585337226</span>, <span style="color:#f60">5155218838341812711</span>, <span style="color:#f60">6331009131442304780</span>, <span style="color:#f60">14914490365911397792</span>, <span style="color:#f60">5484660559942057989</span>, <span style="color:#f60">8403773674380751349</span>, <span style="color:#f60">9057552016854155792</span>, <span style="color:#f60">5663579537065523519</span>, <span style="color:#f60">12733199451408301190</span>, <span style="color:#f60">2475413419854628033</span>, <span style="color:#f60">3060568102591068186</span>, <span style="color:#f60">5501812154734653159</span>, <span style="color:#f60">5346651138403433319</span>, <span style="color:#f60">17321470947055342</span>, <span style="color:#f60">3024691803881787448</span>, <span style="color:#f60">9578227694185769148</span>, <span style="color:#f60">3937732843967753549</span>, <span style="color:#f60">11576647145248770725</span>, <span style="color:#f60">12502558906956667465</span>, <span style="color:#f60">16140681523595189504</span>, <span style="color:#f60">403532231898314336</span>, <span style="color:#f60">9375862167444011146</span>, <span style="color:#f60">14762566527264320944</span>, <span style="color:#f60">12917429116215508760</span>, <span style="color:#f60">16434833897796033665</span>, <span style="color:#f60">5883358706972236206</span>, <span style="color:#f60">7944339108548522200</span>, <span style="color:#f60">16083241360387240578</span>, <span style="color:#f60">15000988351122298376</span>, <span style="color:#f60">15444302627022279479</span>, <span style="color:#f60">9605058712130171968</span>, <span style="color:#f60">2386147020831105373</span>, <span style="color:#f60">11034594787498161455</span>, <span style="color:#f60">7802886467027138095</span>, <span style="color:#f60">1350348277231420649</span>, <span style="color:#f60">16437772745511742326</span>, <span style="color:#f60">16369087367283592028</span>, <span style="color:#f60">3398142503158684448</span>, <span style="color:#f60">4054500637066219363</span>, <span style="color:#f60">5467732778534042094</span>, <span style="color:#f60">6077068069353599623</span>, <span style="color:#f60">15307440136630175772</span>, <span style="color:#f60">8069986704297517454</span>, <span style="color:#f60">16125439950077907217</span>, <span style="color:#f60">12770442876499254350</span>, <span style="color:#f60">4937869616514010993</span>, <span style="color:#f60">8632605460419517226</span>, <span style="color:#f60">6932674954712492885</span>, <span style="color:#f60">302286771578914423</span>, <span style="color:#f60">4343274388536329381</span>, <span style="color:#f60">16646734744492414458</span>, <span style="color:#f60">5139470350573425351</span>, <span style="color:#f60">9616036813843654882</span>, <span style="color:#f60">17399179731673970573</span>, <span style="color:#f60">7559528504137334194</span>, <span style="color:#f60">11792606559736666883</span>, <span style="color:#f60">1931507146899857039</span>, <span style="color:#f60">5138370435813932146</span>, <span style="color:#f60">4682773184333805937</span>, <span style="color:#f60">10015207433908529921</span>, <span style="color:#f60">9158749731870430634</span>, <span style="color:#f60">8026456545492596810</span>, <span style="color:#f60">12220799030369774434</span>, <span style="color:#f60">7429597862103555736</span>, <span style="color:#f60">11738648338629309695</span>, <span style="color:#f60">12334067470465034063</span>, <span style="color:#f60">5385763743086178029</span>, <span style="color:#f60">5154059608961020935</span>, <span style="color:#f60">17698784779105622467</span>, <span style="color:#f60">3770879550769068934</span>, <span style="color:#f60">13227750224933879492</span>, <span style="color:#f60">12331717833041804921</span>, <span style="color:#f60">12687283598432761553</span>, <span style="color:#f60">10198512429289087736</span>, <span style="color:#f60">12799227013745144224</span>, <span style="color:#f60">523893901052610925</span>, <span style="color:#f60">4536140612243831949</span>, <span style="color:#f60">152612941811494342</span>, <span style="color:#f60">11558245922891825026</span>, <span style="color:#f60">10283332526363148674</span>, <span style="color:#f60">15838544722789069949</span>, <span style="color:#f60">2504998818100882442</span>, <span style="color:#f60">6611156300324888802</span>, <span style="color:#f60">7688416891303398949</span>, <span style="color:#f60">6227734655341631822</span>, <span style="color:#f60">10820712144602739488</span>, <span style="color:#f60">15295866970180183410</span>, <span style="color:#f60">3923775810346856986</span>, <span style="color:#f60">991517840166328938</span>, <span style="color:#f60">13114481036694260634</span>, <span style="color:#f60">17049900349182653424</span>, <span style="color:#f60">15100697373785712871</span>, <span style="color:#f60">17231054948403101577</span>, <span style="color:#f60">1635904888551988210</span>, <span style="color:#f60">2403414502881271059</span>, <span style="color:#f60">10367682491889175581</span>, <span style="color:#f60">951809985567679985</span>, <span style="color:#f60">47190420647530861</span>, <span style="color:#f60">6193844265048354679</span>, <span style="color:#f60">8067214936989577532</span>, <span style="color:#f60">1174186205004829237</span>, <span style="color:#f60">15972266219068792232</span>, <span style="color:#f60">11367330706071309285</span>, <span style="color:#f60">1656166667934101515</span>, <span style="color:#f60">5463970542004253172</span>, <span style="color:#f60">15428201938850621155</span>, <span style="color:#f60">14981375974377338893</span>, <span style="color:#f60">15392722228991260355</span>, <span style="color:#f60">5055774487388236697</span>, <span style="color:#f60">13771878092723980305</span>, <span style="color:#f60">14908149214778130335</span>, <span style="color:#f60">4458186772455489664</span>, <span style="color:#f60">1621667363915125240</span>, <span style="color:#f60">12242768691020426622</span>, <span style="color:#f60">16738845235660713409</span>, <span style="color:#f60">1533699165556559812</span>, <span style="color:#f60">4587476094298035934</span>, <span style="color:#f60">2716560561312445378</span>, <span style="color:#f60">9779924594083073649</span>, <span style="color:#f60">16491677495012511194</span>, <span style="color:#f60">13539593605599043897</span>, <span style="color:#f60">15618178338061388078</span>, <span style="color:#f60">10785520677372826562</span>, <span style="color:#f60">17564186308887261427</span>, <span style="color:#f60">1131615290806612735</span>, <span style="color:#f60">2531759660122767543</span>, <span style="color:#f60">12505298531338987879</span>, <span style="color:#f60">492474029227676482</span>, <span style="color:#f60">2737723667282226472</span>, <span style="color:#f60">5979715854853815329</span>, <span style="color:#f60">12779393250154068472</span>, <span style="color:#f60">15295134981686930526</span>, <span style="color:#f60">3507166897496589599</span>, <span style="color:#f60">7341284119395282052</span>, <span style="color:#f60">99949099216076235</span>, <span style="color:#f60">664459355355827092</span>, <span style="color:#f60">5673557022786916384</span>, <span style="color:#f60">4062280886680509198</span>, <span style="color:#f60">3753143692796227591</span>, <span style="color:#f60">9720744323602756112</span>, <span style="color:#f60">15852739373484525101</span>, <span style="color:#f60">4713193192098424552</span>, <span style="color:#f60">11823808585405534972</span>, <span style="color:#f60">7395477688904110211</span>, <span style="color:#f60">3353869124291586677</span>, <span style="color:#f60">17557000440802126351</span>, <span style="color:#f60">1628751339615514676</span>, <span style="color:#f60">499401432804547034</span>, <span style="color:#f60">17373987220646173978</span>, <span style="color:#f60">850336189753160398</span>, <span style="color:#f60">7881956685885300504</span>, <span style="color:#f60">14932489532829173746</span>, <span style="color:#f60">5010989908827863313</span>, <span style="color:#f60">2585509541810523167</span>, <span style="color:#f60">785739870952630663</span>, <span style="color:#f60">11524762024341349167</span>, <span style="color:#f60">6487440112081514312</span>, <span style="color:#f60">12419979263166138897</span>, <span style="color:#f60">14975831105848915410</span>, <span style="color:#f60">7424567364931297202</span>, <span style="color:#f60">15864065278641652233</span>, <span style="color:#f60">18241514788379522028</span>, <span style="color:#f60">7585943313151271840</span>, <span style="color:#f60">10777535152767413064</span>, <span style="color:#f60">225352719270554060</span>, <span style="color:#f60">10997854994497947340</span>, <span style="color:#f60">10272524832164367390</span>, <span style="color:#f60">5242722485383108914</span>, <span style="color:#f60">9323186992411810505</span>, <span style="color:#f60">943805476769405658</span>, <span style="color:#f60">13051010949973843988</span>, <span style="color:#f60">2650605602224782842</span>, <span style="color:#f60">13569018774736913874</span>, <span style="color:#f60">17203657932538731512</span>, <span style="color:#f60">1625197206395123841</span>, <span style="color:#f60">15377572960789566178</span>, <span style="color:#f60">9301532123636801844</span>, <span style="color:#f60">14760470123965786633</span>, <span style="color:#f60">8367033491696096616</span>, <span style="color:#f60">10541048689330497316</span>, <span style="color:#f60">7116607694979695611</span>, <span style="color:#f60">8656306571304113443</span>, <span style="color:#f60">17763160180793285792</span>, <span style="color:#f60">5558652331691804532</span>, <span style="color:#f60">5275697913309919881</span>, <span style="color:#f60">1675941760263045537</span>, <span style="color:#f60">4674605593929983262</span>, <span style="color:#f60">16295648997945326650</span>, <span style="color:#f60">1442185522994780593</span>, <span style="color:#f60">11230035595522639358</span>, <span style="color:#f60">3175022609628443847</span>, <span style="color:#f60">3317179187532987473</span>, <span style="color:#f60">13378403612152884546</span>, <span style="color:#f60">16178462099943891018</span>, <span style="color:#f60">18255894057637720718</span>, <span style="color:#f60">11543214599469751009</span>, <span style="color:#f60">839348084968491956</span>, <span style="color:#f60">15890683711376892834</span>, <span style="color:#f60">3885972505999875921</span>, <span style="color:#f60">9710873193668078772</span>, <span style="color:#f60">1300519432012927879</span>, <span style="color:#f60">5463740936865881094</span>, <span style="color:#f60">14286731208206815520</span>, <span style="color:#f60">18077789592312997300</span>, <span style="color:#f60">8039909510360026888</span>, <span style="color:#f60">1233795886259778003</span>, <span style="color:#f60">335572017272601195</span>, <span style="color:#f60">5975457390139226395</span>, <span style="color:#f60">16561983814830793736</span>, <span style="color:#f60">554015178009661516</span>, <span style="color:#f60">8141418930723554</span>, <span style="color:#f60">12686461009914623685</span>, <span style="color:#f60">1712011832860339914</span>, <span style="color:#f60">11174036971166107003</span>, <span style="color:#f60">7881429032376172567</span>, <span style="color:#f60">3292235123280856452</span>, <span style="color:#f60">8909172722044512468</span>, <span style="color:#f60">17288391302220119350</span>, <span style="color:#f60">15168447606498070850</span>, <span style="color:#f60">14457891814374977663</span>, <span style="color:#f60">6816220750672664043</span>, <span style="color:#f60">17863109280009362027</span>, <span style="color:#f60">9146329203831295</span>, <span style="color:#f60">12329913431311522245</span>, <span style="color:#f60">7349498783049961921</span>, <span style="color:#f60">12250629111452342067</span>, <span style="color:#f60">3891765578451892606</span>, <span style="color:#f60">17576068641665712874</span>, <span style="color:#f60">1848431952530289179</span>, <span style="color:#f60">3000454474338203842</span>, <span style="color:#f60">15247593725994393921</span>, <span style="color:#f60">16573318812369844409</span>, <span style="color:#f60">17807213439559405694</span>, <span style="color:#f60">1889379107953427725</span>, <span style="color:#f60">12042616032274298043</span>, <span style="color:#f60">17557428588942076181</span>, <span style="color:#f60">15253873143659821984</span>, <span style="color:#f60">4736308695753036319</span>, <span style="color:#f60">13050293414344546051</span>, <span style="color:#f60">15674547191274178435</span>, <span style="color:#f60">1666469461345144225</span>, <span style="color:#f60">6669247726270200121</span>, <span style="color:#f60">1787839338823175048</span>, <span style="color:#f60">17324651576862668835</span>, <span style="color:#f60">15370644847914142756</span>, <span style="color:#f60">7760139382203898397</span>, <span style="color:#f60">12392979245409850870</span>, <span style="color:#f60">13979305019762894353</span>, <span style="color:#f60">9564748253335071593</span>, <span style="color:#f60">6645122352072304485</span>, <span style="color:#f60">1825660249356343909</span>, <span style="color:#f60">17688170642718706735</span>, <span style="color:#f60">12202049781628487753</span>, <span style="color:#f60">3508826209444940930</span>, <span style="color:#f60">18086605743722408026</span>, <span style="color:#f60">13565810346354754908</span>, <span style="color:#f60">16950334234603684677</span>, <span style="color:#f60">9403715093755418423</span>, <span style="color:#f60">9580166515402339921</span>, <span style="color:#f60">13334267048245247352</span>, <span style="color:#f60">16620023138838541923</span>, <span style="color:#f60">4729304793048586313</span>, <span style="color:#f60">766813325456740861</span>, <span style="color:#f60">4280327670129976483</span>, <span style="color:#f60">2313322226619393660</span>, <span style="color:#f60">13956914145403286335</span>, <span style="color:#f60">3371111601902487671</span>, <span style="color:#f60">12421037663463004669</span>, <span style="color:#f60">13392560939925046553</span>, <span style="color:#f60">16641944828201280615</span>, <span style="color:#f60">16230339472638516764</span>, <span style="color:#f60">1036411126112899615</span>, <span style="color:#f60">5784231465751852965</span>, <span style="color:#f60">16717221626204281305</span>, <span style="color:#f60">14505329184100083633</span>, <span style="color:#f60">12718491686522986967</span>, <span style="color:#f60">6178494218747816912</span>, <span style="color:#f60">13747900580296447665</span>, <span style="color:#f60">1295719700844734181</span>, <span style="color:#f60">17751263004647575848</span>, <span style="color:#f60">7951434078512558856</span>, <span style="color:#f60">8450121669017454567</span>, <span style="color:#f60">11334455214030781095</span>, <span style="color:#f60">4915738691082134560</span>, <span style="color:#f60">11646111888203774318</span>, <span style="color:#f60">4492674189854122445</span>, <span style="color:#f60">5243434139721421509</span>, <span style="color:#f60">15989052481195537838</span>, <span style="color:#f60">2044543755996076625</span>, <span style="color:#f60">7289401186222225003</span>, <span style="color:#f60">9774957470550651866</span>, <span style="color:#f60">15039586876738796477</span>, <span style="color:#f60">9359371168565703229</span>, <span style="color:#f60">6136604659038796164</span>, <span style="color:#f60">8206024178592261742</span>, <span style="color:#f60">8703210566078213246</span>, <span style="color:#f60">10083020087511115396</span>, <span style="color:#f60">3819883451607411990</span>, <span style="color:#f60">4901503900799540431</span>, <span style="color:#f60">18332034971698881837</span>, <span style="color:#f60">1633299431052025396</span>, <span style="color:#f60">16785686797835701210</span>, <span style="color:#f60">12161756702506149050</span>, <span style="color:#f60">4730594470653837285</span>, <span style="color:#f60">4328499025625952708</span>, <span style="color:#f60">13020700501141530049</span>, <span style="color:#f60">11786400644664054959</span>, <span style="color:#f60">17949844595708384380</span>, <span style="color:#f60">14432907448866140440</span>, <span style="color:#f60">18079002962639073070</span>, <span style="color:#f60">8385909909162861536</span>, <span style="color:#f60">9631903929008173624</span>, <span style="color:#f60">10521106663947071756</span>, <span style="color:#f60">12085621303188816726</span>, <span style="color:#f60">14983599073748502003</span>, <span style="color:#f60">5307818786703978170</span>, <span style="color:#f60">16481433912306567164</span>, <span style="color:#f60">17611012155395367736</span>, <span style="color:#f60">5249288808613375214</span>, <span style="color:#f60">10937751337369966951</span>, <span style="color:#f60">13984714090355081924</span>, <span style="color:#f60">17674814227444345918</span>, <span style="color:#f60">1039466783262400588</span>, <span style="color:#f60">16382420583956810637</span>, <span style="color:#f60">3776588883106511897</span>, <span style="color:#f60">18293727554065967560</span>, <span style="color:#f60">8536871507858159695</span>, <span style="color:#f60">3364069778379681390</span>, <span style="color:#f60">8955870647567369228</span>, <span style="color:#f60">12554204225953208702</span>, <span style="color:#f60">10856968400226224975</span>, <span style="color:#f60">2494859052506628689</span>, <span style="color:#f60">5574467717088748989</span>, <span style="color:#f60">10208855288783468268</span>, <span style="color:#f60">2745532725932792793</span>, <span style="color:#f60">13779513989779142756</span>, <span style="color:#f60">5645543700963755899</span>, <span style="color:#f60">7803574006104008947</span>, <span style="color:#f60">17573461540708036956</span>, <span style="color:#f60">6574608239417173062</span>, <span style="color:#f60">15788008303691725659</span>, <span style="color:#f60">15670582911951089980</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag_chunks <span style="color:#555">=</span> []
+</span></span><span style="display:flex;"><span>flag_chunks<span style="color:#555">.</span>append(<span style="color:#f60">4301770859063564088</span>)
+</span></span><span style="display:flex;"><span>flag_chunks<span style="color:#555">.</span>append(<span style="color:#f60">3588343789060400015</span>)
+</span></span><span style="display:flex;"><span>flag_chunks<span style="color:#555">.</span>append(<span style="color:#f60">16743982520636489794</span>)
+</span></span><span style="display:flex;"><span>flag_chunks<span style="color:#555">.</span>append(<span style="color:#f60">14486217089676259227</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rngLen   <span style="color:#555">=</span> <span style="color:#f60">607</span>
+</span></span><span style="display:flex;"><span>rngTap   <span style="color:#555">=</span> <span style="color:#f60">273</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>initial_vec <span style="color:#555">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(rngLen):
+</span></span><span style="display:flex;"><span>    initial_vec<span style="color:#555">.</span>append(BitVec(<span style="color:#c30">&#34;x&#34;</span><span style="color:#555">+</span><span style="color:#366">str</span>(i), <span style="color:#f60">64</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">class</span> <span style="color:#0a8;font-weight:bold">RNG</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> __init__(self, init_val):
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>vec <span style="color:#555">=</span> init_val
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>tap <span style="color:#555">=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>feed <span style="color:#555">=</span> rngLen <span style="color:#555">-</span> rngTap
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">next</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>tap <span style="color:#555">-=</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> self<span style="color:#555">.</span>tap <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#555">.</span>tap <span style="color:#555">=</span> rngLen <span style="color:#555">-</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>feed <span style="color:#555">-=</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> self<span style="color:#555">.</span>feed <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#555">.</span>feed <span style="color:#555">=</span> rngLen <span style="color:#555">-</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>vec[self<span style="color:#555">.</span>feed] <span style="color:#555">=</span> (self<span style="color:#555">.</span>vec[self<span style="color:#555">.</span>feed] <span style="color:#555">+</span> self<span style="color:#555">.</span>vec[self<span style="color:#555">.</span>tap]) <span style="color:#555">%</span> (<span style="color:#f60">2</span><span style="color:#555">**</span><span style="color:#f60">64</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> self<span style="color:#555">.</span>vec[self<span style="color:#555">.</span>feed]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">init_feed_tap</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>tap <span style="color:#555">-=</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> self<span style="color:#555">.</span>tap <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#555">.</span>tap <span style="color:#555">=</span> rngLen <span style="color:#555">-</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>feed <span style="color:#555">-=</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> self<span style="color:#555">.</span>feed <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#555">.</span>feed <span style="color:#555">=</span> rngLen <span style="color:#555">-</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s <span style="color:#555">=</span> Solver()
+</span></span><span style="display:flex;"><span>rng <span style="color:#555">=</span> RNG(initial_vec)
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">100000</span>):
+</span></span><span style="display:flex;"><span>    rng<span style="color:#555">.</span>init_feed_tap() <span style="color:#09f;font-style:italic"># Set the initial feed and tap value after the 100000 loops</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Start crafting the z3 equations</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">4</span>):
+</span></span><span style="display:flex;"><span>    rng<span style="color:#555">.</span>next()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>gap <span style="color:#555">=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>leaked_idx <span style="color:#555">=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">607</span>):
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> rng<span style="color:#555">.</span>next()
+</span></span><span style="display:flex;"><span>    s<span style="color:#555">.</span>add(x <span style="color:#555">==</span> leaked[leaked_idx])
+</span></span><span style="display:flex;"><span>    leaked_idx <span style="color:#555">+=</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> j <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(gap):
+</span></span><span style="display:flex;"><span>        rng<span style="color:#555">.</span>next()
+</span></span><span style="display:flex;"><span>    gap <span style="color:#555">=</span> (gap <span style="color:#555">+</span> <span style="color:#f60">1</span>) <span style="color:#555">%</span> <span style="color:#f60">13</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">&#39;Checking whether it is sat or not...&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">if</span> s<span style="color:#555">.</span>check() <span style="color:#555">==</span> sat:
+</span></span><span style="display:flex;"><span>    <span style="color:#366">print</span>(<span style="color:#c30">&#39;It is sat, reconstruct the RNG internal state...&#39;</span>)
+</span></span><span style="display:flex;"><span>    new_vec <span style="color:#555">=</span> []
+</span></span><span style="display:flex;"><span>    model <span style="color:#555">=</span> s<span style="color:#555">.</span>model()
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(rngLen):
+</span></span><span style="display:flex;"><span>        key <span style="color:#555">=</span> BitVec(<span style="color:#c30">&#34;x&#34;</span><span style="color:#555">+</span><span style="color:#366">str</span>(i), <span style="color:#f60">64</span>)
+</span></span><span style="display:flex;"><span>        val_model <span style="color:#555">=</span> model[key]
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> val_model <span style="color:#000;font-weight:bold">is</span> <span style="color:#000;font-weight:bold">not</span> <span style="color:#069;font-weight:bold">None</span>:
+</span></span><span style="display:flex;"><span>            new_vec<span style="color:#555">.</span>append(val_model<span style="color:#555">.</span>as_long())
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#09f;font-style:italic"># Well, some of the internal vec states couldn&#39;t be recovered, but it&#39;s okay</span>
+</span></span><span style="display:flex;"><span>            new_vec<span style="color:#555">.</span>append(<span style="color:#555">-</span><span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># Create new RNG with the internal states found by z3</span>
+</span></span><span style="display:flex;"><span>    new_rng <span style="color:#555">=</span> RNG(new_vec)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># Init the correct feed and tap pointer</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">100000</span>):
+</span></span><span style="display:flex;"><span>        new_rng<span style="color:#555">.</span>init_feed_tap()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#366">print</span>(<span style="color:#c30">&#39;Retrieving the flag...&#39;</span>)
+</span></span><span style="display:flex;"><span>    flag <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">4</span>):
+</span></span><span style="display:flex;"><span>        x <span style="color:#555">=</span> new_rng<span style="color:#555">.</span>next()
+</span></span><span style="display:flex;"><span>        flag_int <span style="color:#555">=</span> (flag_chunks[i]<span style="color:#555">^</span>x)
+</span></span><span style="display:flex;"><span>        flag <span style="color:#555">+=</span> flag_int<span style="color:#555">.</span>to_bytes((flag_int<span style="color:#555">.</span>bit_length() <span style="color:#555">+</span> <span style="color:#f60">7</span>) <span style="color:#555">//</span> <span style="color:#f60">8</span>, byteorder<span style="color:#555">=</span><span style="color:#c30">&#39;little&#39;</span>) <span style="color:#09f;font-style:italic"># The flag was converted back to bytes following the LittleEndian convention</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Flag: </span><span style="color:#a00">{</span>flag<span style="color:#555">.</span>decode()<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: actf{i_c4n_f0rs33_th3_p4s7_t00_}</p>
+</blockquote>
+<h2 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h2>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
+
+      </div>
+      
+        
+  <aside class="toc-container">
+    <a href="#" style="font-weight: 700; color: black;">Angstrom CTF 2022</a>
+    <div class="js-toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#crypto">Crypto</a>
+      <ul>
+        <li><a href="#prophet">Prophet</a></li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </div>
+  </aside>
+
+
+      
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
+            
+                <a href="https://chovid99.github.io/tags/angstromctf">AngstromCTF</a>
+            
+                <a href="https://chovid99.github.io/tags/prng">PRNG</a>
+            
+                <a href="https://chovid99.github.io/tags/crypto">crypto</a>
+            
+                <a href="https://chovid99.github.io/tags/2022">2022</a>
+            
+        </div>
+    
+    
+    
+  <div id="comment">
+    
+    
+  </div>
+
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/tocbot.min.js"></script>
+
+<script type="text/javascript">
+  tocbot.init({
+      
+      tocSelector: '.js-toc',
+      
+      contentSelector: '.js-toc-content',
+      headingSelector: 'h1, h2, h3',
+      orderedList: false,
+      headingLabelCallback: s => s.substr(0, s.length-2),
+      collapseDepth: 2
+  });
+  function initTOC() {
+    var windowWidth = 1316;
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+  }
+  window.onload = initTOC;
+
+  var lastWindowWidth = $(window).width();
+  $(window).resize(function() {
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    console.log("hehe", (lastLeft/lastWindowWidth)*$(window).width() + "vw")
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+    lastWindowWidth = $(window).width();
+  });
+</script>
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Chovid99
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>
