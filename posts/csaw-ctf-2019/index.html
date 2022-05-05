@@ -9,12 +9,12 @@
 <meta property="og:title" content="CSAW CTF 2019" />
 <meta property="og:description" content="Writeup for CSAW CTF 2019 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/csaw-ctf-2019/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/csaw-ctf-2019/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-09-16T20:02:14+07:00" />
 <meta property="article:modified_time" content="2019-09-16T20:02:14+07:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpg"/>
+<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
 
 <meta name="twitter:title" content="CSAW CTF 2019"/>
 <meta name="twitter:description" content="Writeup for CSAW CTF 2019 by Chovid99"/>
@@ -809,7 +809,6 @@ After that, we can simply decrypt the real flag. Below is my solver:</p>
   $(window).resize(function() {
     var $block_2 = $(".toc-container");
     var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    console.log("hehe", (lastLeft/lastWindowWidth)*$(window).width() + "vw")
     $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
     lastWindowWidth = $(window).width();
   });
