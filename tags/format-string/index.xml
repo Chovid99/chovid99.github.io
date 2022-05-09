@@ -6,7 +6,16 @@
     <description>Recent content in format string on Welcome to Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Mar 2022 08:01:00 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/format-string/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 May 2022 08:54:22 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/format-string/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SanDiego CTF 2022</title>
+      <link>https://chovid99.github.io/posts/sandiego-ctf-2022/</link>
+      <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/sandiego-ctf-2022/</guid>
+      <description>Writeup for SanDiego CTF 2022 by Chovid99</description>
+    </item>
+    
     <item>
       <title>Pragyan CTF 2022</title>
       <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
