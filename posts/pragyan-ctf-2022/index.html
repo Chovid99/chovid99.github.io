@@ -103,9 +103,9 @@
   <img src="https://i.imgur.com/hcj0igf.png" alt=""  />
 </p>
 I spend my Sunday doing Pragyan CTF 2022. I&rsquo;m very grateful that I got 17th place even though I play it solo. Below is my writeup for challenges that I solved and don&rsquo;t forget to follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">Twitter</a> 🙂</p>
-<h2 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h2>
-<h3 id="database">Database <a href="#database" class="anchor">#</a></h3>
-<h4 id="intro">Intro <a href="#intro" class="anchor">#</a></h4>
+<h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
+<h2 id="database">Database <a href="#database" class="anchor">#</a></h2>
+<h3 id="intro">Intro <a href="#intro" class="anchor">#</a></h3>
 <p>We were given a binary, let&rsquo;s decompile it. Below is the main function.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -498,8 +498,8 @@ I spend my Sunday doing Pragyan CTF 2022. I&rsquo;m very grateful that I got 17t
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Okay, PIE is enabled</p>
-<h4 id="analysis">Analysis <a href="#analysis" class="anchor">#</a></h4>
-<h5 id="main">main <a href="#main" class="anchor">#</a></h5>
+<h3 id="analysis">Analysis <a href="#analysis" class="anchor">#</a></h3>
+<h4 id="main">main <a href="#main" class="anchor">#</a></h4>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -511,11 +511,11 @@ I spend my Sunday doing Pragyan CTF 2022. I&rsquo;m very grateful that I got 17t
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Reading through the code, I notice that the binary leak us the main address, which mean the PIE mitigation isn&rsquo;t matter at all. We can calculate the address of available functions, plt, got, etc.</p>
-<h5 id="insert_item">insert_item <a href="#insert_item" class="anchor">#</a></h5>
+<h4 id="insert_item">insert_item <a href="#insert_item" class="anchor">#</a></h4>
 <p>Observation on the <code>insert_item</code> method, we can control the malloc chunk size.</p>
-<h5 id="delete_item">delete_item <a href="#delete_item" class="anchor">#</a></h5>
+<h4 id="delete_item">delete_item <a href="#delete_item" class="anchor">#</a></h4>
 <p>Observation on the <code>delete_item</code> method, the pointer was nulled after free, so we couldn&rsquo;t do UAF or Double Free.</p>
-<h5 id="update_item">update_item <a href="#update_item" class="anchor">#</a></h5>
+<h4 id="update_item">update_item <a href="#update_item" class="anchor">#</a></h4>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -681,7 +681,7 @@ I spend my Sunday doing Pragyan CTF 2022. I&rsquo;m very grateful that I got 17t
 </div>
 </div><p>As you can see, we can overwrite the tcache next pointer. That means we can control the allocated chunk address during calling the malloc. Take the above example, if we call <code>malloc(0x10)</code> twice, the second malloc chunk address will be stored at <code>0xdeadbeefdeadbabe</code>
 This is the bug that we can use to solve the challenge.</p>
-<h4 id="solution">Solution <a href="#solution" class="anchor">#</a></h4>
+<h3 id="solution">Solution <a href="#solution" class="anchor">#</a></h3>
 <p>My idea is to overwrite the <code>puts</code> GOT value to <code>secret</code> address with the heap-overflow bug, so that when we call <code>leave</code>, the <code>puts</code> will print the flag. To achieve that, my plan is:</p>
 <ul>
 <li>Create three items with size 0x10 via <code>insert_item</code></li>
@@ -847,8 +847,8 @@ This is the bug that we can use to solve the challenge.</p>
 </div><blockquote>
 <p>Flag: p_ctf{Ch4Ng3_1T_t0_M4x1Mum}</p>
 </blockquote>
-<h3 id="poly-flow">Poly-Flow <a href="#poly-flow" class="anchor">#</a></h3>
-<h4 id="intro-1">Intro <a href="#intro-1" class="anchor">#</a></h4>
+<h2 id="poly-flow">Poly-Flow <a href="#poly-flow" class="anchor">#</a></h2>
+<h3 id="intro-1">Intro <a href="#intro-1" class="anchor">#</a></h3>
 <p>We were given a binary, let&rsquo;s decompile it. Below is the main function</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -994,13 +994,13 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="analysis-1">Analysis <a href="#analysis-1" class="anchor">#</a></h4>
+</div><h3 id="analysis-1">Analysis <a href="#analysis-1" class="anchor">#</a></h3>
 <p>Okay, so the flow is:</p>
 <ul>
 <li>Need to pass <code>check</code> function, where we need to pass a string, where if it get splitted into 4 chunks where a chunk consist of 4 bytes, the sum of the 4 chunks is <code>0xdeadbeef</code>.</li>
 <li>After that we will go to <code>input</code> method. Notice that there is a buffer overflow, where we can replace the return value of <code>input</code></li>
 </ul>
-<h4 id="solution-1">Solution <a href="#solution-1" class="anchor">#</a></h4>
+<h3 id="solution-1">Solution <a href="#solution-1" class="anchor">#</a></h3>
 <p>So, below is the solver script, where we simply:</p>
 <ul>
 <li>Pass a string that the 4 chunks sum is <code>0xdeadbeef</code></li>
@@ -1053,8 +1053,8 @@ This is the bug that we can use to solve the challenge.</p>
 </div><blockquote>
 <p>Flag: p_ctf{mUlT1Pl3_BuFf3R_Ov3rF|0w}</p>
 </blockquote>
-<h3 id="portal">Portal <a href="#portal" class="anchor">#</a></h3>
-<h4 id="intro-2">Intro <a href="#intro-2" class="anchor">#</a></h4>
+<h2 id="portal">Portal <a href="#portal" class="anchor">#</a></h2>
+<h3 id="intro-2">Intro <a href="#intro-2" class="anchor">#</a></h3>
 <p>We were given a binary. Below is the main decompiled:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1287,7 +1287,7 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h4 id="analysis-2">Analysis <a href="#analysis-2" class="anchor">#</a></h4>
+</div><h3 id="analysis-2">Analysis <a href="#analysis-2" class="anchor">#</a></h3>
 <p>Reading through the decompiled code, some notes that we could take:</p>
 <ul>
 <li>Reading through the <code>see_balance</code> method, we notice bug where format string attack is applicable.</li>
@@ -1313,7 +1313,7 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Okay so the PIE is enabled, which mean we might need to leak the binary base address first.</p>
-<h4 id="solution-2">Solution <a href="#solution-2" class="anchor">#</a></h4>
+<h3 id="solution-2">Solution <a href="#solution-2" class="anchor">#</a></h3>
 <p>Based on those notes, my idea to solve this is:</p>
 <ul>
 <li>With the format string bug on <code>see_balance</code>, I will try to leak the <code>main</code> address, so that I can retrieve the binary base address</li>
@@ -1406,8 +1406,8 @@ This is the bug that we can use to solve the challenge.</p>
 </div><blockquote>
 <p>Flag: p_ctf{W3ll_1t_W4s_3aSy_0n1y}</p>
 </blockquote>
-<h2 id="web">Web <a href="#web" class="anchor">#</a></h2>
-<h3 id="php-train">PHP Train <a href="#php-train" class="anchor">#</a></h3>
+<h1 id="web">Web <a href="#web" class="anchor">#</a></h1>
+<h2 id="php-train">PHP Train <a href="#php-train" class="anchor">#</a></h2>
 <p>We were given a website with the below source code</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1536,24 +1536,24 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>So we need to bypass all this check to retrieve the full flag.</p>
-<h4 id="flag-1">Flag 1 <a href="#flag-1" class="anchor">#</a></h4>
+<h3 id="flag-1">Flag 1 <a href="#flag-1" class="anchor">#</a></h3>
 <p>To bypass strcmp, we can simply pass <code>param1[]=a</code>. We got <code>p_ctf{ech0_</code>.</p>
-<h4 id="flag-2">Flag 2 <a href="#flag-2" class="anchor">#</a></h4>
+<h3 id="flag-2">Flag 2 <a href="#flag-2" class="anchor">#</a></h3>
 <p>To bypass sha1 collision, we can simply pass array to both params (<code>param2[]=a&amp;param3[]=b</code>). We got <code>1f_7h3_7r41n_</code>.</p>
-<h4 id="flag-3">Flag 3 <a href="#flag-3" class="anchor">#</a></h4>
+<h3 id="flag-3">Flag 3 <a href="#flag-3" class="anchor">#</a></h3>
 <p>We just need to pass <code>param4=1200</code> becaue <code>1.2e3</code> is equals to <code>1200</code>. We got <code>d035_n07_</code>.</p>
-<h4 id="flag-4">Flag 4 <a href="#flag-4" class="anchor">#</a></h4>
+<h3 id="flag-4">Flag 4 <a href="#flag-4" class="anchor">#</a></h3>
 <p>We just need to pass <code>param5=89%20</code> because the value checking is using loose comparison, so the whitespace will be discarded. We got <code>5t0p_1n_y0ur_</code>.</p>
-<h4 id="flag-5">Flag 5 <a href="#flag-5" class="anchor">#</a></h4>
+<h3 id="flag-5">Flag 5 <a href="#flag-5" class="anchor">#</a></h3>
 <p>We just need to pass magic hash as <code>param6=gH0nAdHk</code>, where the hash result prefix is <code>0e</code> because of the loose comparison. We got <code>5t4t10n_7h3n_</code>.</p>
-<h4 id="flag-6">Flag 6 <a href="#flag-6" class="anchor">#</a></h4>
+<h3 id="flag-6">Flag 6 <a href="#flag-6" class="anchor">#</a></h3>
 <p>We just need to pass <code>param7=hellohelloworldworld</code>, so that after the <code>preg_replace</code>, the <code>param7</code> value will be <code>helloworld</code>. We got <code>1t5_n07_</code>.</p>
-<h4 id="flag-7">Flag 7 <a href="#flag-7" class="anchor">#</a></h4>
+<h3 id="flag-7">Flag 7 <a href="#flag-7" class="anchor">#</a></h3>
 <p>We just need to pass <code>param8=1.env</code> because <code>in_array</code> use loose comparison, so as long as our first string start with <code>1</code>, <code>in_array</code> will return true. We got <code>y0ur_7r41n}</code>.</p>
 <blockquote>
 <p>Flag: p_ctf{ech0_1f_7h3_7r41n_d035_n07_5t0p_1n_y0ur_5t4t10n_7h3n_1t5_n07_y0ur_7r41n}</p>
 </blockquote>
-<h3 id="inception">Inception <a href="#inception" class="anchor">#</a></h3>
+<h2 id="inception">Inception <a href="#inception" class="anchor">#</a></h2>
 <p>We were given a website. Checking the source code, we got obfuscated javascript. Now, we just need to examine properly the obfuscated.
 The first part is this code</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1621,7 +1621,7 @@ We got the flag :D</p>
 <blockquote>
 <p>Flag: p_ctf{INfjnity5_b3g1n5_w1th_4n_1nc3pt10n}</p>
 </blockquote>
-<h3 id="code-of-chaos">Code of Chaos <a href="#code-of-chaos" class="anchor">#</a></h3>
+<h2 id="code-of-chaos">Code of Chaos <a href="#code-of-chaos" class="anchor">#</a></h2>
 <p>We were given a website, where we need to bypass the login page.
 <p class="markdown-image">
   <img src="https://i.imgur.com/lRJfRlZ.png" alt=""  />
@@ -1710,8 +1710,8 @@ Forged jwt: <code>eyJ0eXAiOiAiSldTIiwgImFsZyI6ICJub25lIn0.eyJ1c2VyIjogImFkbWluIn
 <blockquote>
 <p>Flag: p_ctf{un1c0de_4nd_j3t_m4kes_fu7}</p>
 </blockquote>
-<h2 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h2>
-<h3 id="one-try">One Try <a href="#one-try" class="anchor">#</a></h3>
+<h1 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h1>
+<h2 id="one-try">One Try <a href="#one-try" class="anchor">#</a></h2>
 <p>We were given a file like below</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1873,7 +1873,7 @@ Forged jwt: <code>eyJ0eXAiOiAiSldTIiwgImFsZyI6ICJub25lIn0.eyJ1c2VyIjogImFkbWluIn
 </div><blockquote>
 <p>Flag: p_ctf{0ne_T1m3_Pads_are_1ns3cur5}</p>
 </blockquote>
-<h3 id="blind-scout">Blind Scout <a href="#blind-scout" class="anchor">#</a></h3>
+<h2 id="blind-scout">Blind Scout <a href="#blind-scout" class="anchor">#</a></h2>
 <p>We were given base64 of encrypted text, and 5 pem file. I try to check whether there is common factor between the modulus of each file, and I found a common modulus between the second and the fourth pem, which mean now we can factor the second and the fourth pem. Trying to decrypt the encrypted with the second pem gave me the result.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1953,8 +1953,8 @@ Forged jwt: <code>eyJ0eXAiOiAiSldTIiwgImFsZyI6ICJub25lIn0.eyJ1c2VyIjogImFkbWluIn
 <blockquote>
 <p>Flag: p_ctf{I_AM_DAREDEVIL}</p>
 </blockquote>
-<h2 id="rev">Rev <a href="#rev" class="anchor">#</a></h2>
-<h3 id="oak">Oak <a href="#oak" class="anchor">#</a></h3>
+<h1 id="rev">Rev <a href="#rev" class="anchor">#</a></h1>
+<h2 id="oak">Oak <a href="#oak" class="anchor">#</a></h2>
 <p>We were given a file <code>Oak.class</code>. We can decompile it and it will give us this result</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -2220,31 +2220,52 @@ Basically, what it do is only <code>flag[i] &lt;&lt; 8 + flag[i+1]</code>. And b
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#pwn">Pwn</a>
+    <li><a href="#database">Database</a>
       <ul>
-        <li><a href="#database">Database</a></li>
-        <li><a href="#poly-flow">Poly-Flow</a></li>
-        <li><a href="#portal">Portal</a></li>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#analysis">Analysis</a></li>
+        <li><a href="#solution">Solution</a></li>
       </ul>
     </li>
-    <li><a href="#web">Web</a>
+    <li><a href="#poly-flow">Poly-Flow</a>
       <ul>
-        <li><a href="#php-train">PHP Train</a></li>
-        <li><a href="#inception">Inception</a></li>
-        <li><a href="#code-of-chaos">Code of Chaos</a></li>
+        <li><a href="#intro-1">Intro</a></li>
+        <li><a href="#analysis-1">Analysis</a></li>
+        <li><a href="#solution-1">Solution</a></li>
       </ul>
     </li>
-    <li><a href="#crypto">Crypto</a>
+    <li><a href="#portal">Portal</a>
       <ul>
-        <li><a href="#one-try">One Try</a></li>
-        <li><a href="#blind-scout">Blind Scout</a></li>
+        <li><a href="#intro-2">Intro</a></li>
+        <li><a href="#analysis-2">Analysis</a></li>
+        <li><a href="#solution-2">Solution</a></li>
       </ul>
     </li>
-    <li><a href="#rev">Rev</a>
+  </ul>
+
+  <ul>
+    <li><a href="#php-train">PHP Train</a>
       <ul>
-        <li><a href="#oak">Oak</a></li>
+        <li><a href="#flag-1">Flag 1</a></li>
+        <li><a href="#flag-2">Flag 2</a></li>
+        <li><a href="#flag-3">Flag 3</a></li>
+        <li><a href="#flag-4">Flag 4</a></li>
+        <li><a href="#flag-5">Flag 5</a></li>
+        <li><a href="#flag-6">Flag 6</a></li>
+        <li><a href="#flag-7">Flag 7</a></li>
       </ul>
     </li>
+    <li><a href="#inception">Inception</a></li>
+    <li><a href="#code-of-chaos">Code of Chaos</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#one-try">One Try</a></li>
+    <li><a href="#blind-scout">Blind Scout</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#oak">Oak</a></li>
   </ul>
 </nav>
           </div>

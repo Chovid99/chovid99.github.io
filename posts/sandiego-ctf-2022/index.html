@@ -103,9 +103,9 @@
   <img src="https://i.imgur.com/pvHiD15.png" alt=""  />
 </p>
 SanDiego CTF is pretty unique because the CTF platform is using Discord. I only have time to look at the pwn challenge, so here&rsquo;s my writeup for some challenge that I solved</p>
-<h2 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h2>
-<h3 id="horoscope">Horoscope <a href="#horoscope" class="anchor">#</a></h3>
-<h4 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h4>
+<h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
+<h2 id="horoscope">Horoscope <a href="#horoscope" class="anchor">#</a></h2>
+<h3 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h3>
 <p>We were given a binary. Let&rsquo;s disassemble it:</p>
 <p><strong>main</strong></p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -318,9 +318,9 @@ SanDiego CTF is pretty unique because the CTF platform is using Discord. I only 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Notes that the if else doesn&rsquo;t matter, because we can directly use the <code>system</code> line instead of the start of the <code>test</code> function</p>
-<h4 id="exploitation-plan">Exploitation Plan <a href="#exploitation-plan" class="anchor">#</a></h4>
+<h3 id="exploitation-plan">Exploitation Plan <a href="#exploitation-plan" class="anchor">#</a></h3>
 <p>Well, simply use the buffer overflow bug to overwrite the <code>main</code> ret to the given <code>system</code> line of code. Also make sure that our buffer overflow payload should follow the <code>processInput</code> validation (which is a date).</p>
-<h4 id="solution">Solution <a href="#solution" class="anchor">#</a></h4>
+<h3 id="solution">Solution <a href="#solution" class="anchor">#</a></h3>
 <p>Below is the full solver script to buffer overflow it:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -393,8 +393,8 @@ SanDiego CTF is pretty unique because the CTF platform is using Discord. I only 
 <blockquote>
 <p>Flag: sdctf{S33ms_y0ur_h0rO5c0p3_W4s_g00d_1oD4y}</p>
 </blockquote>
-<h3 id="secure-horoscope">Secure-Horoscope <a href="#secure-horoscope" class="anchor">#</a></h3>
-<h4 id="initial-analysis-1">Initial Analysis <a href="#initial-analysis-1" class="anchor">#</a></h4>
+<h2 id="secure-horoscope">Secure-Horoscope <a href="#secure-horoscope" class="anchor">#</a></h2>
+<h3 id="initial-analysis-1">Initial Analysis <a href="#initial-analysis-1" class="anchor">#</a></h3>
 <p>We were given a binary and dockerfile. Let&rsquo;s disassemble it first.</p>
 <p><strong>main</strong></p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -506,7 +506,7 @@ SanDiego CTF is pretty unique because the CTF platform is using Discord. I only 
 </div>
 </div><p>Okay, no canary! However, 20-bytes are pretty small. To leak a libc function address, AFAIK, we need to have at least 24-bytes (<code>pop_rdi + libc_got + puts_plt</code>) 😢</p>
 <p>Looking at the <code>Dockerfile</code>, we can simply build it and get the used <code>libc</code> file for the challenge in the server.</p>
-<h4 id="exploitation-plan-1">Exploitation Plan <a href="#exploitation-plan-1" class="anchor">#</a></h4>
+<h3 id="exploitation-plan-1">Exploitation Plan <a href="#exploitation-plan-1" class="anchor">#</a></h3>
 <p>First, with the buffer overflow, we can simply overwrite the return address of <code>getInfo</code> to <code>getInfo</code> again, so that it won&rsquo;t return to the main. This means the limitation of <code>getInfo</code> in the main (only 2 times to input) is bypassed.</p>
 <p>Second, through observation via GDB, everytime we overwrite <code>getInfo</code> return address to <code>getInfo</code> again, the new stack RSP address is increased by 8. Look at the below gdb result.
 <p class="markdown-image">
@@ -520,7 +520,7 @@ After overwrite the ret to <code>getInfo</code> again, notice that the RSP just 
 <p>Based on above, our input in <code>getInfo</code> will be placed just above our previous input in <code>main</code> (during storing how you feel question). This means that our buffer overflow will be technically increased from 20-bytes only to 60-bytes <strong>after</strong> we overwrite <code>getInfo</code> ret to <code>getInfo</code> again (20-bytes + input in <code>main</code> size).</p>
 <p>From the above information, that means we can definitely leak address of any libc function. The plan is to split our ROP chain to leak the libc. The first part will be stored during <code>getInfo</code>, the second part will be stored via main.</p>
 <p>After leaking the libc, we can simply ret to <code>getInfo</code> again, and then overwrite the return pointer to system. We can use <code>one_gadget</code> to help us get the shell address.</p>
-<h4 id="solution-1">Solution <a href="#solution-1" class="anchor">#</a></h4>
+<h3 id="solution-1">Solution <a href="#solution-1" class="anchor">#</a></h3>
 <p>Okay, so now, we need to craft our ROP chain to leak the libc address. With the help of <code>ROPGadget</code>, we can find address which will do <code>pop rdi; ret</code>. So, my ROP chain would be like this:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -798,8 +798,8 @@ Below is the full solver script:</p>
 </div><blockquote>
 <p>Flag: sdctf{Th0s3_d4rN_P15C3s_g0t_m3}</p>
 </blockquote>
-<h3 id="oil-spill">Oil Spill <a href="#oil-spill" class="anchor">#</a></h3>
-<h4 id="initial-analysis-2">Initial Analysis <a href="#initial-analysis-2" class="anchor">#</a></h4>
+<h2 id="oil-spill">Oil Spill <a href="#oil-spill" class="anchor">#</a></h2>
+<h3 id="initial-analysis-2">Initial Analysis <a href="#initial-analysis-2" class="anchor">#</a></h3>
 <p>We were given a binary and Dockerfile. Let&rsquo;s disassemble the binary first</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -869,7 +869,7 @@ Below is the full solver script:</p>
   <img src="https://i.imgur.com/bwFIgcU.png" alt=""  />
 </p></p>
 <p>Looking at the given <code>Dockerfile</code>, we can simply build it, and then take the <code>libc</code> file of the binary.</p>
-<h4 id="exploitation-plan-2">Exploitation Plan <a href="#exploitation-plan-2" class="anchor">#</a></h4>
+<h3 id="exploitation-plan-2">Exploitation Plan <a href="#exploitation-plan-2" class="anchor">#</a></h3>
 <p>Based on the initial analysis, what we already have are:</p>
 <ul>
 <li>Libc file (from <code>Dockerfile</code>)</li>
@@ -878,7 +878,7 @@ Below is the full solver script:</p>
 </ul>
 <p>Note that we can overwrite value with format string bug via <code>%n</code>. For example, if we do <code>%20$n</code>, then it will overwrite the 20th element with how many characters have we printed.</p>
 <p>Based on those, my plan is to overwrite the <code>puts</code> to <code>system</code>, and <code>x</code> to <code>/bin/sh\x00</code>. So that after reading our payload, when the binary call <code>puts(x)</code>, they will call <code>system('/bin/sh\x00')</code> instead.</p>
-<h4 id="solution-2">Solution <a href="#solution-2" class="anchor">#</a></h4>
+<h3 id="solution-2">Solution <a href="#solution-2" class="anchor">#</a></h3>
 <p>So, in order to execute the plan, what I do is:</p>
 <ul>
 <li>Overwrite <code>x</code> value byte per byte (via <code>%hhn</code>)</li>
@@ -1164,7 +1164,7 @@ Below is the full solver script:</p>
 </div><blockquote>
 <p>Flag: sdctf{th4nks_f0r_S4V1nG_tH3_duCk5}</p>
 </blockquote>
-<h2 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h2>
+<h1 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
 
       </div>
@@ -1179,14 +1179,27 @@ Below is the full solver script:</p>
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#pwn">Pwn</a>
+    <li><a href="#horoscope">Horoscope</a>
       <ul>
-        <li><a href="#horoscope">Horoscope</a></li>
-        <li><a href="#secure-horoscope">Secure-Horoscope</a></li>
-        <li><a href="#oil-spill">Oil Spill</a></li>
+        <li><a href="#initial-analysis">Initial Analysis</a></li>
+        <li><a href="#exploitation-plan">Exploitation Plan</a></li>
+        <li><a href="#solution">Solution</a></li>
       </ul>
     </li>
-    <li><a href="#social-media">Social Media</a></li>
+    <li><a href="#secure-horoscope">Secure-Horoscope</a>
+      <ul>
+        <li><a href="#initial-analysis-1">Initial Analysis</a></li>
+        <li><a href="#exploitation-plan-1">Exploitation Plan</a></li>
+        <li><a href="#solution-1">Solution</a></li>
+      </ul>
+    </li>
+    <li><a href="#oil-spill">Oil Spill</a>
+      <ul>
+        <li><a href="#initial-analysis-2">Initial Analysis</a></li>
+        <li><a href="#exploitation-plan-2">Exploitation Plan</a></li>
+        <li><a href="#solution-2">Solution</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
           </div>

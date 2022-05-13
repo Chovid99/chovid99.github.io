@@ -103,9 +103,9 @@
   <img src="https://i.imgur.com/1OlmrMC.png" alt=""  />
 </p>
 On this CTF, I managed to solve only one problem as I don&rsquo;t have much time to work on it. Here&rsquo;s my writeup for that problem.</p>
-<h2 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h2>
-<h3 id="prophet">Prophet <a href="#prophet" class="anchor">#</a></h3>
-<h4 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h4>
+<h1 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h1>
+<h2 id="prophet">Prophet <a href="#prophet" class="anchor">#</a></h2>
+<h3 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h3>
 <p>We were given a source code like below</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -173,7 +173,7 @@ On this CTF, I managed to solve only one problem as I don&rsquo;t have much time
 <li>Call <code>rand.Uint64()</code> for 4 times. Each value will be xored with the flag chunk</li>
 <li>Print value of the <code>rand.Uint64()</code> for 607 times, but there will be a gap between each print (So we don&rsquo;t get the full complete sequence of it).</li>
 </ul>
-<h4 id="attack-plan">Attack Plan <a href="#attack-plan" class="anchor">#</a></h4>
+<h3 id="attack-plan">Attack Plan <a href="#attack-plan" class="anchor">#</a></h3>
 <p>Seems like we need to attack the golang <code>math/rand</code> PRNG. So, we need to dive into the <code>math/rand</code> source code first to see how golang implements it. Below is the relevant source code:
 <a href="https://github.com/golang/go/blob/master/src/math/rand/rand.go" target="_blank" rel="noopener">go/rand.go</a></p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -451,7 +451,7 @@ On this CTF, I managed to solve only one problem as I don&rsquo;t have much time
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The given problem gave us some leaked of the generated random value, but it has a gap, so we don&rsquo;t know the full sequence numbers of it. But, the plan is, from the given sequences, we must need to somehow reconstruct the <code>vec</code> internal state.</p>
-<h4 id="solution">Solution <a href="#solution" class="anchor">#</a></h4>
+<h3 id="solution">Solution <a href="#solution" class="anchor">#</a></h3>
 <p>Now, let see the given code</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -668,7 +668,7 @@ On this CTF, I managed to solve only one problem as I don&rsquo;t have much time
 </div><blockquote>
 <p>Flag: actf{i_c4n_f0rs33_th3_p4s7_t00_}</p>
 </blockquote>
-<h2 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h2>
+<h1 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
 
       </div>
@@ -683,12 +683,13 @@ On this CTF, I managed to solve only one problem as I don&rsquo;t have much time
           <div>
               <nav id="TableOfContents">
   <ul>
-    <li><a href="#crypto">Crypto</a>
+    <li><a href="#prophet">Prophet</a>
       <ul>
-        <li><a href="#prophet">Prophet</a></li>
+        <li><a href="#initial-analysis">Initial Analysis</a></li>
+        <li><a href="#attack-plan">Attack Plan</a></li>
+        <li><a href="#solution">Solution</a></li>
       </ul>
     </li>
-    <li><a href="#social-media">Social Media</a></li>
   </ul>
 </nav>
           </div>
