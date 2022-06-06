@@ -6,13 +6,112 @@
     <description>Recent content in Tags on Welcome to Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 03 Jun 2022 21:08:00 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 06 Jun 2022 21:50:32 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2022</title>
       <link>https://chovid99.github.io/tags/2022/</link>
-      <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>buffer overflow</title>
+      <link>https://chovid99.github.io/tags/buffer-overflow/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/buffer-overflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>crypto</title>
+      <link>https://chovid99.github.io/tags/crypto/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/crypto/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fermat</title>
+      <link>https://chovid99.github.io/tags/fermat/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/fermat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>format string</title>
+      <link>https://chovid99.github.io/tags/format-string/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/format-string/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heap</title>
+      <link>https://chovid99.github.io/tags/heap/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/heap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>math</title>
+      <link>https://chovid99.github.io/tags/math/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/math/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://chovid99.github.io/tags/pwn/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python jail</title>
+      <link>https://chovid99.github.io/tags/python-jail/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/python-jail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rsa</title>
+      <link>https://chovid99.github.io/tags/rsa/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/rsa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SEETF</title>
+      <link>https://chovid99.github.io/tags/seetf/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/seetf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Writeup</title>
+      <link>https://chovid99.github.io/tags/writeup/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/writeup/</guid>
       <description></description>
     </item>
     
@@ -35,15 +134,6 @@
     </item>
     
     <item>
-      <title>pwn</title>
-      <link>https://chovid99.github.io/tags/pwn/</link>
-      <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>reflection</title>
       <link>https://chovid99.github.io/tags/reflection/</link>
       <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
@@ -58,15 +148,6 @@
       <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/tech/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>crypto</title>
-      <link>https://chovid99.github.io/tags/crypto/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/crypto/</guid>
       <description></description>
     </item>
     
@@ -116,51 +197,6 @@
     </item>
     
     <item>
-      <title>rsa</title>
-      <link>https://chovid99.github.io/tags/rsa/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/rsa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Writeup</title>
-      <link>https://chovid99.github.io/tags/writeup/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/writeup/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>buffer overflow</title>
-      <link>https://chovid99.github.io/tags/buffer-overflow/</link>
-      <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/buffer-overflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>format string</title>
-      <link>https://chovid99.github.io/tags/format-string/</link>
-      <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/format-string/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>heap</title>
-      <link>https://chovid99.github.io/tags/heap/</link>
-      <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/heap/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>SanDiego CTF</title>
       <link>https://chovid99.github.io/tags/sandiego-ctf/</link>
       <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
@@ -193,15 +229,6 @@
       <pubDate>Sun, 01 May 2022 08:12:50 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/nahamconctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Fermat</title>
-      <link>https://chovid99.github.io/tags/fermat/</link>
-      <pubDate>Fri, 11 Mar 2022 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/fermat/</guid>
       <description></description>
     </item>
     
