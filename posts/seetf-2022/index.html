@@ -87,7 +87,7 @@
           ·
         </span>
         <span>
-          5781 words
+          5859 words
         </span>
         <span class="split">
           ·
@@ -1256,7 +1256,11 @@ Let&rsquo;s move to the logic inside the conditional block to understand why we 
 <p>Okay, so turn out, it is the <code>battler</code> object, which stored a pointer which point to the array of its internal method address pointer, and also the <code>pokemon</code> variable.</p>
 <p>After trying the format string payload several times, we found:</p>
 <ul>
-<li><code>%7$p</code> will point to <code>$rbp-8</code>, which contains <code>0x00555555558150</code></li>
+<li><code>%7$p</code> will point to <code>$rbp-8</code>, which contains <code>0x00555555558150</code>.
+<ul>
+<li>If you are confused why the stack leak is in 7th parameter. Basically, in x64, if you call a function, the 6th first param will be passed via register (consecutively rdi, rsi, rdx, rcx, r8 r9), and the rest will be fetched from the stack. So, 1st is rsi, 2nd is rdx, 3rd is rcx, 4th is r8, 5th is r9, 6th is [rsp], and 7th is [rsp+8] or [rbp-8], which is the address that we got here.</li>
+</ul>
+</li>
 <li><code>%8$p</code> will point to <code>$rbp</code>, which contain saved <code>rbp</code> value of the previous call stack, which is null, so we can&rsquo;t do much on this value.</li>
 </ul>
 <h3 id="exploitation-plan-2">Exploitation Plan <a href="#exploitation-plan-2" class="anchor">#</a></h3>
@@ -1362,7 +1366,7 @@ main -&gt; Play() -&gt; Play(). Another thing is, if during the second call of P
 <li>On the second call, we will leak the <code>rbp</code> address of the first call via <code>%8$p</code>.</li>
 <li>On the third call, we will overwrite the second <code>rbp</code> value to <code>leak-0x20-0x20-0x20+8</code>, which is the calculated address of the return address of the fourth call.</li>
 <li>On the fourth call, we will get the second <code>rbp</code> value (which now points to the fourth call return address), and overwrite its return address with the <code>win</code> function.</li>
-<li>On the fifth call, we will overwrite the <code>battler</code> valu of the address to the array of internal method back to the beginning (overwrite the last byte from <code>0x70</code> to <code>0x68</code>).</li>
+<li>On the fifth call, we will overwrite the <code>battler</code> value of the address to the array of internal method back to the beginning (overwrite the last byte from <code>0x70</code> to <code>0x68</code>).</li>
 <li>After that, it will continue to the fourth call address, and then when the fourth call finished, it will return to win function instead of to the third call.</li>
 </ul>
 <h3 id="solution-3">Solution <a href="#solution-3" class="anchor">#</a></h3>
