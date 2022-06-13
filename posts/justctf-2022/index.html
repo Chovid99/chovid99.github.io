@@ -87,7 +87,7 @@
           ·
         </span>
         <span>
-          3862 words
+          3886 words
         </span>
         <span class="split">
           ·
@@ -474,6 +474,7 @@
 <p>Well, because NX is disabled, my final goal will be using the format string bug to put shellcode in the stack, and then pivot the stack so that it&rsquo;ll return to my shellcode.</p>
 <p>However, this is an <code>arm</code> binary, which is this is my first time seeing an <code>arm</code> binary. So, what I do is learning some basic <code>arm</code> instruction and general concept on how does it run.</p>
 <h4 id="basic-info-about-arm64-binary">Basic info about arm64 binary <a href="#basic-info-about-arm64-binary" class="anchor">#</a></h4>
+<p>Reading through the previous mentioned articles and this <a href="https://blog.perfect.blue/ROPing-on-Aarch64" target="_blank" rel="noopener">article</a> from perfect blue team helps me a lot on understanding how an arm64 instructions works.</p>
 <p>First, let&rsquo;s talk about the available registers. It has 31 main registers, ranging from <code>x0</code> to <code>x30</code>. <code>x29</code> is used to store the function frame pointer, while <code>x30</code> is used to store the function return address.</p>
 <p>Because we want to abuse format string vuln, we need to learn also on how arm64 handled function arguments. The answer is it will use <code>x0</code> - <code>x7</code> as its args first, and will use the stack for the remaining args.</p>
 <p>Last, one of the unique thing that we need to know is, in arm64, when we call a function (via <code>bl</code> instruction), it will store the return address in <code>x30</code> first. And then, the called function will preserve these values on top of the stack (<code>[sp]</code> and <code>[sp+8]</code>). So, this is difference with what x86_64 do, where it preserves those values on the bottom of the stack. See below example to see the usual setup of arm64 function.</p>
