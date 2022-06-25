@@ -6,13 +6,94 @@
     <description>Recent content in Tags on Welcome to Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jun 2022 13:11:24 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Jun 2022 10:04:10 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>2022</title>
       <link>https://chovid99.github.io/tags/2022/</link>
-      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>browser</title>
+      <link>https://chovid99.github.io/tags/browser/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/browser/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>firefox</title>
+      <link>https://chovid99.github.io/tags/firefox/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/firefox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heap</title>
+      <link>https://chovid99.github.io/tags/heap/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/heap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JIT</title>
+      <link>https://chovid99.github.io/tags/jit/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/jit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>oob</title>
+      <link>https://chovid99.github.io/tags/oob/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/oob/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://chovid99.github.io/tags/pwn/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpiderMonkey</title>
+      <link>https://chovid99.github.io/tags/spidermonkey/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/spidermonkey/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TyphoonCon</title>
+      <link>https://chovid99.github.io/tags/typhooncon/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/typhooncon/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Writeup</title>
+      <link>https://chovid99.github.io/tags/writeup/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/writeup/</guid>
       <description></description>
     </item>
     
@@ -62,29 +143,11 @@
     </item>
     
     <item>
-      <title>pwn</title>
-      <link>https://chovid99.github.io/tags/pwn/</link>
-      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>rop</title>
       <link>https://chovid99.github.io/tags/rop/</link>
       <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/rop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Writeup</title>
-      <link>https://chovid99.github.io/tags/writeup/</link>
-      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/writeup/</guid>
       <description></description>
     </item>
     
@@ -103,15 +166,6 @@
       <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/fermat/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>heap</title>
-      <link>https://chovid99.github.io/tags/heap/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/heap/</guid>
       <description></description>
     </item>
     
