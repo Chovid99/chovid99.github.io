@@ -79,7 +79,8 @@ tr:nth-child(odd)>td {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
   font-weight: 600;
 }
 .content h1 {
@@ -92,6 +93,16 @@ h4 {
   border-bottom: 1px solid #eee;
 }
 .content h2, h3, h4 {
+  margin-block-start: 0.8em;
+  margin-block-end: 0em;
+}
+.content h4 {
+  font-size: 1.07em;
+  margin-block-start: 0.8em;
+  margin-block-end: 0em;
+}
+.content h5 {
+  font-size: 1em;
   margin-block-start: 0.8em;
   margin-block-end: 0em;
 }
