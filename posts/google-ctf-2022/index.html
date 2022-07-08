@@ -87,13 +87,13 @@
           ·
         </span>
         <span>
-          9710 words
+          9905 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          46 minute read
+          47 minute read
         </span>
     </div>
 
@@ -777,10 +777,65 @@
 <li>Check whether the size is &lt;= <code>0x1f</code></li>
 <li>Read your name and put it in local variable in stack called <code>local_38</code> (placed in <code>rbp-0x30</code>)</li>
 </ul>
-<p>But, notice that there is a <strong>buffer overflow bug</strong> in these LOCs. In case you haven&rsquo;t known yet, <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="noopener">Buffer overflow</a> is a type of security bug where due to incorrect bound check, the attackers can write more data then it supposed to be, so that they can overwrite adjacent values those aren&rsquo;t supposed to be able to be overwritten.</p>
-<p>Back to the LOCs, notice that there is actually a bound check to make sure that the inputted size by the user is less than or equals to <code>0x1f</code>, so that user doesn&rsquo;t able to write data larger than the defined size.</p>
+<p>But, notice that there is a <strong>buffer overflow bug</strong> in these LOCs. In case you haven&rsquo;t known yet, <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="noopener">Buffer overflow</a> is a type of security bug where due to incorrect bound check, the attackers can write more data then it supposed to be, so that they can overwrite adjacent values those aren&rsquo;t supposed to be able to be overwritten. For example:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Let say we have a stack like below, and we have 2 local variables &#34;x&#34; and &#34;y&#34;,
+</span></span><span style="display:flex;"><span>where the size of the &#34;x&#34; variable supposed to be 0x10 only
+</span></span><span style="display:flex;"><span>Lower Address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>| ........                         | &lt;- x variable location in stack
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| ........                         |
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| other values                     | &lt;- y variable location in stack
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>Higher Address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Due to buffer overflow bug during reading &#34;x&#34; value, we are allowed to write let say input with size 0x18.
+</span></span><span style="display:flex;"><span>Now, due to this bug, &#34;y&#34; variable is got overwritten even though it shouldn&#39;t be overwritten. Below is the
+</span></span><span style="display:flex;"><span>stack condition after we send &#34;a&#34;*0x18 as the input
+</span></span><span style="display:flex;"><span>Lower Address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>| aaaaaaaa                         | &lt;- x variable location in stack
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| aaaaaaaa                         |
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| aaaaaaaa                         | &lt;- y variable location in stack and got overwritten
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>Higher Address
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Back to the LOCs, notice that there is actually a bound check to make sure that the inputted size by the user is less than or equals to <code>0x1f</code>, so that user doesn&rsquo;t able to write data larger than the defined size.</p>
 <p>However, after they print the warning message, the if block logic doesn&rsquo;t return or stop the method, instead it will goes outside the if block and still continue reading the input, which makes buffer overflow is still possible. This improper bound checking leads to the buffer overflow bug, where we can simply set a large size, and then we can overwrite not only the name variable, but also the other values which address is higher than the name variable.</p>
-<p>Now, if we able to use this buffer overflow bug, we can modify the program flow and get our RCE. Usually if we have a buffer overflow bug in the stack, our common target is to overwrite the saved return pointer in the bottom of the stack (<code>rbp+8</code>). By overwriting the saved return pointer, we will have full control on the execution flow of the vulnerable binary. In this case, our name variable is placed in <code>rbp-0x30</code>, so to overwrite the return pointer, we will need to set the input size to at least <code>0x38</code>.</p>
+<p>Now, if we able to use this buffer overflow bug, we can modify the program flow and get our RCE. Usually if we have a buffer overflow bug in the stack, our common target is to overwrite the saved return pointer in the bottom of the stack (<code>rbp+8</code>). If you still don&rsquo;t know about how to use BOF to perform RCE, it&rsquo;s okay. I will try to explain the detail on this later during crafting our exploitation plan.</p>
+<p>By overwriting the saved return pointer, we will have full control on the execution flow of the vulnerable binary. In this case, our name variable is placed in <code>rbp-0x30</code>, so to overwrite the return pointer, we will need to set the input size to at least <code>0x38</code>.</p>
 <p>However, looking through the code, this binary has already done a mitigation from buffer overflow bug by having a <code>canary</code> to prevent stack smashing. Below LOCs is the conditional logic to check the <code>canary</code> value:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
