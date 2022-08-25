@@ -82,12 +82,12 @@
     <h1 class="title">Google CTF 2022</h1>
 
     <div class="tip">
-        <time datetime="2022-07-04 02:00:00 &#43;0800 &#43;08">Jul 4, 2022</time>
+        <time datetime="2022-07-04 02:00:00 &#43;0800 &#43;0800">Jul 4, 2022</time>
         <span class="split">
           ·
         </span>
         <span>
-          9905 words
+          9927 words
         </span>
         <span class="split">
           ·
@@ -102,7 +102,7 @@
         <p><p class="markdown-image">
   <img src="https://i.imgur.com/VybOsNj.jpg" alt=""  />
 </p></p>
-<p>During this weekend, I played GoogleCTF with my team <code>idek</code>. I managed to solve two challenges, collaborating with my super teammates. We managed to got the 20th place 😄</p>
+<p>During this weekend, I played GoogleCTF with my team <code>idek</code>. I managed to solve two challenges, collaborating with my super teammates. We managed to get 20th place 😄</p>
 <h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
 <h2 id="fixed-aslr">Fixed ASLR <a href="#fixed-aslr" class="anchor">#</a></h2>
 <blockquote>
@@ -113,7 +113,7 @@
 <p><p class="markdown-image">
   <img src="https://i.imgur.com/voaPMwJ.png" alt=""  />
 </p></p>
-<p>We were given a lot of files, where one of it is the main binary called <code>loader</code>, and the rest are object files.</p>
+<p>We were given a lot of files, where one of them is the main binary called <code>loader</code>, and the rest are object files.</p>
 <p>Now, let&rsquo;s try to run the program first so that we can know how the program works.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -301,22 +301,22 @@
 </span></span><span style="display:flex;"><span>WINNER: Gary
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Ah okay. Playing around the binary gave us enough knowledge on how the binary works. We have 4 menus that we can interact:</p>
+</div><p>Ah okay. Playing around with the binary gave us enough knowledge of how the binary works. We have 4 menus that we can interact:</p>
 <ul>
-<li>First menu will start the math game
+<li>The first menu will start the math game
 <ul>
 <li>Each correct answer gave you <code>5 pts</code></li>
-<li>If your score is high enough to be placed in the scoreboard, they will ask your name and then store it to the scoreboard</li>
+<li>If your score is high enough to be placed on the scoreboard, they will ask your name and then store it on the scoreboard</li>
 </ul>
 </li>
-<li>Second menu will show the full scoreboard</li>
-<li>Third menu will show the score value of the <code>scoreboard[input_idx]</code></li>
-<li>Fourth menu will exit the game</li>
+<li>The second menu will show the full scoreboard</li>
+<li>The third menu will show the score value of the <code>scoreboard[input_idx]</code></li>
+<li>The fourth menu will exit the game</li>
 </ul>
-<p>Now we&rsquo;ve got the idea on how the binary works, let&rsquo;s try analyzing all of the given files. I use <a href="https://github.com/NationalSecurityAgency/ghidra/releases" target="_blank" rel="noopener">Ghidra</a> as my binary analyzer.</p>
+<p>Now we&rsquo;ve got the idea of how the binary works, let&rsquo;s try analyzing all of the given files. I use <a href="https://github.com/NationalSecurityAgency/ghidra/releases" target="_blank" rel="noopener">Ghidra</a> as my binary analyzer.</p>
 <h4 id="decompilation-of-gameo">Decompilation of <code>game.o</code> <a href="#decompilation-of-gameo" class="anchor">#</a></h4>
-<p>Looking around the given file, turn out, most of the above game methods are defined under <code>game.o</code> file. So, let&rsquo;s try to analyze the <code>game.o</code> file decompiled result to understand better.</p>
-<p>We can start by checking the <code>menu</code> method, which checking the decompiled version is pretty similar with what we have interacted before.</p>
+<p>Looking around the given file, turn out that most of the above game methods are defined under <code>game.o</code> file. So, let&rsquo;s try to analyze the <code>game.o</code> file decompiled results to understand better.</p>
+<p>We can start by checking the <code>menu</code> method, which checking the decompiled version is pretty similar to what we have interacted with before.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -433,8 +433,8 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>From this <code>menu</code> method, we can see that for each menu that we chose before, they have their own method to handle the menu.</p>
-<p>Let&rsquo;s try to check the first main menu decompiled result, which defined under <code>game</code> method.</p>
+</div><p>From this <code>menu</code> method, we can see that each menu that we chose before, they have its method to handle the menu.</p>
+<p>Let&rsquo;s try to check the first main menu decompiled result, which is defined under <code>game</code> method.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -553,7 +553,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Reading through the source code, it will be initialize a loop to give us questions. If we gave the correct answer to the question, it will stay in loop. It also has its own variable to store the points that we get from answering the questions (which is 5-pts per correct answer). If we gave the wrong answer, it will break the loop and call <code>check_scoreboard</code> with parameter our total score. Let&rsquo;s check what does the method do.</p>
+</div><p>Reading through the source code, we can see that it will initialize a loop to give us questions. If we gave the correct answer to the question, it will stay in the loop. It also has a variable to store the points that we get from answering the questions (which is 5 pts per correct answer). If we gave the wrong answer, it will break the loop and call <code>check_scoreboard</code> with the parameter of our total score. Let&rsquo;s check what the method does.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -614,7 +614,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Reading through the source code, we can see that in this method, if our score is higher than one of the value stored in the <code>game_scoreboard</code>, this method will call <code>shift_scoreboard</code> and <code>get_playername</code>. Let&rsquo;s try to decompile each of it to understand better.</p>
+</div><p>Reading through the source code, we can see that in this method, if our score is higher than one of the values stored in the <code>game_scoreboard</code>, this method will call <code>shift_scoreboard</code> and <code>get_playername</code>. Let&rsquo;s try to decompile each of them to understand better.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -657,7 +657,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This method doesn&rsquo;t have anything suspicious LOC, it just shifting the array in order to put our score to the scoreboard array.</p>
+</div><p>This method doesn&rsquo;t have anything suspicious LOC, it just shifts the array to put our score to the scoreboard array.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -738,7 +738,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This method will be used to store our name in the scoreboard, where we will need to send our name as the input, and the scoreboard will be updated. There is something wrong with this method. Let&rsquo;s see the <code>get_player_name</code> method, especially on the below LOC:</p>
+</div><p>This method will be used to store our name in the scoreboard, where we will need to send our name as the input, and the scoreboard will be updated. There is something wrong with this method. Let&rsquo;s see the <code>get_player_name</code> method, especially on the below LOC.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -771,13 +771,13 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>First thing to notice is that these LOCs will:</p>
+</div><p>The first thing to notice is that these LOCs will:</p>
 <ul>
 <li>Ask you the size of your name</li>
 <li>Check whether the size is &lt;= <code>0x1f</code></li>
-<li>Read your name and put it in local variable in stack called <code>local_38</code> (placed in <code>rbp-0x30</code>)</li>
+<li>Read your name and put it in the local variable in the stack called <code>local_38`` (placed in </code>rbp-0x30`)</li>
 </ul>
-<p>But, notice that there is a <strong>buffer overflow bug</strong> in these LOCs. In case you haven&rsquo;t known yet, <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="noopener">Buffer overflow</a> is a type of security bug where due to incorrect bound check, the attackers can write more data then it supposed to be, so that they can overwrite adjacent values those aren&rsquo;t supposed to be able to be overwritten. For example:</p>
+<p>But, notice that there is a <strong>buffer overflow bug</strong> in these LOCs. In case you haven&rsquo;t known yet, <a href="https://en.wikipedia.org/wiki/Buffer_overflow" target="_blank" rel="noopener">Buffer overflow</a> is a type of security bug where due to an incorrect bound check, the attackers can write more data than it is supposed to be so that they can overwrite adjacent values that aren&rsquo;t supposed to be able to be overwritten. For example:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -832,11 +832,11 @@
 </span></span><span style="display:flex;"><span>Higher Address
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Back to the LOCs, notice that there is actually a bound check to make sure that the inputted size by the user is less than or equals to <code>0x1f</code>, so that user doesn&rsquo;t able to write data larger than the defined size.</p>
-<p>However, after they print the warning message, the if block logic doesn&rsquo;t return or stop the method, instead it will goes outside the if block and still continue reading the input, which makes buffer overflow is still possible. This improper bound checking leads to the buffer overflow bug, where we can simply set a large size, and then we can overwrite not only the name variable, but also the other values which address is higher than the name variable.</p>
-<p>Now, if we able to use this buffer overflow bug, we can modify the program flow and get our RCE. Usually if we have a buffer overflow bug in the stack, our common target is to overwrite the saved return pointer in the bottom of the stack (<code>rbp+8</code>). If you still don&rsquo;t know about how to use BOF to perform RCE, it&rsquo;s okay. I will try to explain the detail on this later during crafting our exploitation plan.</p>
-<p>By overwriting the saved return pointer, we will have full control on the execution flow of the vulnerable binary. In this case, our name variable is placed in <code>rbp-0x30</code>, so to overwrite the return pointer, we will need to set the input size to at least <code>0x38</code>.</p>
-<p>However, looking through the code, this binary has already done a mitigation from buffer overflow bug by having a <code>canary</code> to prevent stack smashing. Below LOCs is the conditional logic to check the <code>canary</code> value:</p>
+</div><p>Back to the LOCs, notice that there is actually a bound check to make sure that the inputted size by the user is less than or equal to <code>0x1f</code>, so that user isn&rsquo;t able to write data larger than the defined size.</p>
+<p>However, after they print the warning message, the if block logic doesn&rsquo;t return or stop the method, instead it will goes outside the if block and still continue reading the input, which makes buffer overflow is still possible. This improper bound checking leads to the buffer overflow bug, where we can simply set a large size, and then we can overwrite not only the name variable but also the other values whose address is higher than the name variable.</p>
+<p>Now, if we are able to use this buffer overflow bug, we can modify the program flow and get our RCE. Usually, if we have a buffer overflow bug in the stack, our common target is to overwrite the saved return pointer at the bottom of the stack (<code>rbp+8</code>). If you still don&rsquo;t know how to use BOF to perform RCE, it&rsquo;s okay. I will try to explain the detail on this later during crafting our exploitation plan.</p>
+<p>By overwriting the saved return pointer, we will have full control of the execution flow of the vulnerable binary. In this case, our name variable is placed in <code>rbp-0x30</code>, so to overwrite the return pointer, we will need to set the input size to at least <code>0x38</code>.</p>
+<p>However, looking through the code, this binary has already done mitigation from buffer overflow bug by having a <code>canary</code> to prevent stack smashing. Below LOCs is the conditional logic to check the <code>canary</code> value:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -851,7 +851,7 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>In case you didn&rsquo;t know what that is, <a href="https://en.wikipedia.org/wiki/Stack_buffer_overflow#Stack_canaries" target="_blank" rel="noopener">canary</a> is a secret value that is placed near the stack return pointer (<code>rbp-8</code>). The purpose of this is to detect whether buffer overflow is performed or not. How to detect it? Well during sending our buffer overflow payload to overwrite the stack return pointer, because <code>canary</code> is placed before the return pointer, that means if we try to overwrite the return pointer of the stack, by default the <code>canary</code> will be overwritten also. And then before jump to the new return pointer, the binary will check whether the <code>canary</code> in the stack is correct or not (compared to the stored value in <code>fs</code> register), and then return <code>Stack smashing detected</code> if this value is changed from the stack. Below is the example demonstration:</p>
+</div><p>In case you didn&rsquo;t know what that is, <a href="https://en.wikipedia.org/wiki/Stack_buffer_overflow#Stack_canaries" target="_blank" rel="noopener">canary</a> is a secret value that is placed near the stack return pointer (<code>rbp-8</code>). The purpose of this is to detect whether buffer overflow is performed or not. How to detect it? Well during sending our buffer overflow payload to overwrite the stack return pointer, because <code>canary</code> is placed before the return pointer, that means if we try to overwrite the return pointer of the stack, by default the <code>canary</code> will be overwritten also. And then before jumping to the new return pointer, the binary will check whether the <code>canary</code> in the stack is correct or not (compared to the stored value in <code>fs</code> register), and then return <code>Stack smashing detected</code> if this value is changed from the stack. Below is the example demonstration:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -880,8 +880,8 @@
 </span></span><span style="display:flex;"><span>Stack smashing detected - mischief not managed!
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The above example happened due to our example buffer overflow input, where the <code>canary</code> value got replaced with <code>aaaaaaaa</code>. So, how do we usually bypass this? The answer is simple. We need to know the <code>canary</code> value, so that we can carefully craft our payload, so that when we do buffer overflow, we can place the <code>canary</code> value in our payload before our overwritten return pointer, so that when the binary do the <code>canary</code> check, the check will be passed. So, in order to do this, we need a way to leak the <code>canary</code>.</p>
-<p>A common idea to leak it would be to overflow our inputted name until just before the canary (stop at <code>rbp-0x8</code>), so that the <code>canary</code> will be included as part of our name in the scoreboard. To give illustration, consider this LOC in the <code>game</code> method:</p>
+</div><p>The above example happened due to our example buffer overflow input, where the <code>canary</code> value got replaced with <code>aaaaaaaa</code>. So, how do we usually bypass this? The answer is simple. We need to know the <code>canary</code> value so that we can carefully craft our payload. After that, when we do buffer overflow, we can place the <code>canary</code> value in our payload before our overwritten return pointer, so that when the binary does the <code>canary</code> check, the check will be passed. So, to do this, we need a way to leak the <code>canary</code>.</p>
+<p>A common idea to leak it would be to overflow our inputted name until just before the canary (stop at <code>rbp-0x8</code>), so that the <code>canary</code> will be included as part of our name on the scoreboard. To give an illustration, consider this LOC in the <code>game</code> method:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -890,7 +890,7 @@
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>strcpy(game_names <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)param_1 <span style="color:#555">*</span> <span style="color:#f60">0x20</span>,(<span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>)<span style="color:#555">&amp;</span>local_38);
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The above LOC will basically copy our inputted string to <code>game_names</code> until it found null terminator <code>\x00</code>. The idea is to overflow our name and stop just before the <code>canary</code> value so that the null terminator <code>\x00</code> detected by <code>strcpy</code> will be null after <code>canary</code> value. Example:</p>
+</div><p>The above LOC will copy our inputted string to <code>game_names</code> until it found a null terminator <code>\x00</code>. The idea is to overflow our name and stop just before the <code>canary</code> value so that the null terminator <code>\x00</code> detected by <code>strcpy</code> will be null after <code>canary</code> value. Example:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -929,7 +929,7 @@
 </span></span><span style="display:flex;"><span>because the null terminator is found in 0x7fffffffdb40
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>However, notice that <strong>we can&rsquo;t do this</strong> to leak the <code>canary</code>, because this LOC in <code>game</code> method <code>local_20 = local_20 &amp; 0xffffffffffffff;</code>, which is placed just before the <code>strcpy</code> LOC, and it will always set a null terminator (<code>\x00</code>) on <code>0x20</code> from our inputted name address before do the <code>strcpy</code>. So, even though we can overflow the inputted name, the stored name copied to the scoreboard will be only our first <code>0x1f</code> characters, which implies that the above idea is a pitfall idea. See below illustration to understand it better:</p>
+</div><p>However, notice that <strong>we can&rsquo;t do this</strong> to leak the <code>canary</code>, because this LOC in <code>game</code> method <code>local_20 = local_20 &amp; 0xffffffffffffff;</code>, which is placed just before the <code>strcpy</code> LOC, and it will always set a null terminator (<code>\x00</code>) on <code>0x20</code> from our inputted name address before doing the <code>strcpy</code>. So, even though we can overflow the inputted name, the stored name copied to the scoreboard will be only our first <code>0x1f</code> characters, which implies that the above idea is a pitfall idea. See the illustration below to understand it better:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -972,7 +972,7 @@
 </span></span><span style="display:flex;"><span>because the null terminator is found in 0x7fffffffdb2f
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>So let&rsquo;s dive further to the code to find a way to leak the <code>canary</code> value. Let&rsquo;s check another method defined in this object file, especially on the third menu function, which allow us to see the score in the <code>scoreboard[inputted_offset]</code>.</p>
+</div><p>So let&rsquo;s dive further into the code to find a way to leak the <code>canary</code> value. Let&rsquo;s check another method defined in this object file, especially on the third menu function, which allows us to see the score in the <code>scoreboard[inputted_offset]</code>.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1043,14 +1043,14 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that we found our second bug, where we can do out-of-bounds (OOB) read on the scoreboard array. There isn&rsquo;t any bound checking when accessing the <code>game_scoreboard</code> array, which mean we can leak any value even though it is placed outside the array. So with this bug, hopefully we can leak useful value later. Keep in mind that our goal is to leak the <code>canary</code> value.</p>
+</div><p>Notice that we found our second bug, where we can do out-of-bounds (OOB) read on the scoreboard array. There isn&rsquo;t any bound checking when accessing the <code>game_scoreboard</code> array, which means we can leak any value even though it is placed outside the array. So with this bug, hopefully, we can leak useful value later. Keep in mind that our goal is to leak the <code>canary</code> value.</p>
 <h4 id="decompilation-of-loader">Decompilation of loader <a href="#decompilation-of-loader" class="anchor">#</a></h4>
-<p>Now we have understand the <code>game.o</code> object file, we still haven&rsquo;t found a way to leak the canary value, so that we can use the buffer overflow bug. Remember the chall desc:</p>
+<p>Now we have understood the <code>game.o</code> object file, we still haven&rsquo;t found a way to leak the canary value, so that we can use the buffer overflow bug. Remember the challenge desc:</p>
 <blockquote>
 <p>I wasn&rsquo;t happy with the default ASLR, so I fixed it.</p>
 </blockquote>
-<p>Reading through it, it seems like this binary is implementing their own <a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" rel="noopener">ASLR</a>. In case you didn&rsquo;t know ASLR, it is a common mitigation technique to make it harder for attacker to exploit a binary, by setting a random address for the binary function address, stack address, heap, including the used libraries also, so that it will be harder for attacker to predict the address of each properties during crafting their exploit because each new run will have different addresses.</p>
-<p>We can deduce that maybe <code>loader</code> file is the one who has the implementation of the custom ASLR as it is the main binary. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one.</p>
+<p>Reading through it, it seems like this binary is implementing its own <a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" rel="noopener">ASLR</a>. In case you didn&rsquo;t know ASLR, it is a common mitigation technique to make it harder for an attacker to exploit a binary, by setting a random address for the binary function address, stack address, heap, including the used libraries also, so that it will be harder for the attacker to predict the address of each property during crafting their exploit because each new run will have different addresses.</p>
+<p>We can deduce that maybe <code>loader</code> file is the one that has the implementation of the custom ASLR as it is the main binary. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one.</p>
 <p>Let&rsquo;s start by decompiling the <code>_start</code> method, which is the first entry of the loader.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -1126,16 +1126,16 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Reading through the decompiled code, seems like this <code>loader</code> will:</p>
+</div><p>After reading through the decompiled codes, seems like this <code>loader</code> will:</p>
 <ul>
 <li>Initialize random state</li>
-<li>Iniitalize canary stack value</li>
+<li>Initialize canary stack value</li>
 <li>Load the given object files to the loader</li>
 <li>Run the main program</li>
 </ul>
-<p>Let&rsquo;s try to go through with it step by step.</p>
+<p>Let&rsquo;s try to go through it step by step.</p>
 <h5 id="initialize-random-state">Initialize Random State <a href="#initialize-random-state" class="anchor">#</a></h5>
-<p>On this step, the <code>loader</code> will initialize its random state before running the <code>game</code> object file. Let&rsquo;s check the LOC of this step:</p>
+<p>In this step, the <code>loader</code> will initialize its random state before running the <code>game</code> object file. Let&rsquo;s check the LOC of this step:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1227,11 +1227,11 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Basically what this method want to aim is generating the <code>canary</code> value from the custom <code>rand()</code> method. Also if you read the assembly, before calling <code>rand()</code>, it actually set the <code>edi</code> to <code>0x40</code>:</p>
+</div><p>Basically what this method wants to aim is to generate the <code>canary</code> value from the custom <code>rand()</code> method. Also if you read the assembly, before calling <code>rand()</code>, it set the <code>edi</code> to <code>0x40</code>:</p>
 <p><p class="markdown-image">
   <img src="https://i.imgur.com/VQQgYIT.png" alt=""  />
 </p></p>
-<p>Let&rsquo;s check the <code>rand()</code> method to understand it better how it generates the canary value.</p>
+<p>Let&rsquo;s check the <code>rand()</code> method to understand better how it generates the canary value.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1322,19 +1322,19 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>To explain this, basically the way <code>rand</code> is work is:</p>
+</div><p>To explain this, basically, the way <code>rand</code> work is:</p>
 <ul>
-<li>Set <code>edi</code> before calling <code>rand()</code>. <code>edi</code> will be used as how much bit do the random integer that we want to generate. In this case, it is 64-bit (0x40).</li>
-<li><code>rand_extract_bit(n)</code> is basically just take the n-th bit of the <code>rand_state</code></li>
+<li>Set <code>edi</code> before calling <code>rand()</code>. <code>edi</code> will be used as how many bits do the random integer that we want to generate. In this case, it is 64-bit (0x40).</li>
+<li><code>rand_extract_bit(n)</code> is basically a function that will just take the n-th bit of the <code>rand_state</code></li>
 <li><code>rand_get_bit()</code> is basically will generate a bit which is the result of:
 <ul>
 <li><code>rand_extract_bit(63) ^ rand_extract_bit(61) ^ rand_extract_bit(60) ^ rand_extract_bit(58) ^ 1</code>.</li>
-<li>And also notice that after generating the random bit, it will remove the MSB of the <code>rand_state</code> by doing left shift by 1 (<code>&lt;&lt; 1</code>), and then put the generated bit as the new LSB.</li>
+<li>And also notice that after generating the random bit, it will remove the MSB of the <code>rand_state</code> by doing a left shift by 1 (<code>&lt;&lt; 1</code>), and then put the generated bit as the new LSB.</li>
 </ul>
 </li>
 </ul>
 <p>The rand method is pretty linear, so keep in mind that we might be able to recover this <code>rand_state</code> if we know enough of the result of <code>rand()</code> values.</p>
-<p>Back to the <code>init_stack_guard</code> method, one of important thing that we can notice from this method is that after calling this <code>rand()</code>, <strong>the <code>canary</code> is basically will be set as the latest <code>rand_state</code></strong>, which mean after this call, the next n <code>rand()</code> calls will be based on the <code>canary</code> of the binary as its initial state. This piece of information will be useful later.</p>
+<p>Back to the <code>init_stack_guard</code> method, one of the important thing that we can notice from this method is that after calling this <code>rand()</code>, <strong>the <code>canary</code> is basically will be set as the latest <code>rand_state</code></strong>, which mean after this call, the next n <code>rand()</code> calls will be based on the <code>canary</code> of the binary as its initial state. This piece of information will be useful later.</p>
 <h5 id="load-the-given-object-files-to-the-loader">Load the given object files to the loader <a href="#load-the-given-object-files-to-the-loader" class="anchor">#</a></h5>
 <p>Now, let&rsquo;s move to the below LOC</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -1353,7 +1353,7 @@
 </span></span><span style="display:flex;"><span>  }
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>What is <code>files</code>? Inspecting it via gdb, it is an array consist of our object filenames. (Notes that the <code>loader</code> binary is No PIE, so the address of global variable such as <code>files</code> and <code>rand_state</code> is consistent, which in this case, <code>files</code> address is <code>0x4041e0</code>).</p>
+</div><p>What is <code>files</code>? Inspecting it via gdb, it is an array consisting of our object filenames. (Notes that the <code>loader</code> binary is No PIE, so the address of global variables such as <code>files</code> and <code>rand_state</code> is consistent, which in this case, <code>files</code> address is <code>0x4041e0</code>).</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1400,7 +1400,7 @@
 </span></span><span style="display:flex;"><span>0x40302f:	&#34;debug.o&#34;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>So, that LOC will iterate array of object filenames, and then pass it to the <code>load_o_phase_1</code> method. To understand it better, let&rsquo;s check the method decompiled result.</p>
+</div><p>So, that LOC will iterate an array of object filenames, and then pass it to the <code>load_o_phase_1</code> method. To understand it better, let&rsquo;s check the method decompiled result.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
@@ -1657,7 +1657,7 @@
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Quite long, but basically, it is used to load each object file those were given in the chall. There are 7 files, so the method <code>load_o_phase_1</code> will be called 7 times. We just need to go to the important LOC in the <code>load_o_phase_1</code> method.</p>
+</div><p>Quite long, but basically, it is used to load each object file those were given in the challenge. There are 7 files, so the method <code>load_o_phase_1</code> will be called 7 times. We just need to go to the important LOC in the <code>load_o_phase_1</code> method.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1719,20 +1719,20 @@
 <p class="markdown-image">
   <img src="https://i.imgur.com/OFroRDt.png" alt=""  />
 </p></p>
-<p>Now we have find the custom aslr method! Turn out, the way it do the ASLR is, it will called <code>rand()</code> method to get 12-bits (0xc) of random number, and use this value as the first 12-bit base address of the loaded object file. After getting this base address, later on the object file method will be mapped to the generated address.</p>
+<p>Now we have found the custom aslr method! Turn out, the way it does the ASLR is, it will call <code>rand()</code> method to get 12-bits (0xc) of a random number, and use this value as the first 12-bit base address of the loaded object file. After getting this base address, later on, the object file method will be mapped to the generated address.</p>
 <p>And checking through Ghidra, after initializing the canary stack value, <code>rand()</code> will be only called during assigning the aslr of the loaded object via this method. You can see in below picture that <code>rand()</code> is only used in <code>init_stack_guard</code> (0x402163) and <code>aslr_get_addr</code> (0x40160c) method.
 <p class="markdown-image">
   <img src="https://i.imgur.com/jWXxfiQ.png" alt=""  />
 </p></p>
-<p>Remember from the previous analysis, that if we somehow manage to get the n <code>rand()</code> call values after the call of <code>init_stack_guard</code>, we might be able to recover the <code>rand_state</code> after the <code>init_stack_guard</code> call, which is equivalent to the <code>canary</code> value set in our binary. And turn out, each of the n <code>rand()</code> call values are used as the aslr base address of each loaded files.</p>
-<p>So, if we somehow able to retrieve these aslr addresses (which constructed from the <code>rand()</code> value result), it will be great for us, because that means we will be able to recover consecutive <code>rand()</code> results, where the <code>rand()</code> call is based on a <code>rand_state</code> that is equivalent to the <code>canary</code> value. And using these recovered values, we will try to reconstruct the initial <code>rand_state</code> (which is our <code>canary</code>).</p>
-<p>To summarize, <code>loader</code> will load 7 object files (because we were given 7 object files in the chall), which mean there will be 7 consecutive calls to <code>rand()</code> after the <code>rand_state</code> is equivalent to <code>canary</code> value. And our target is to leak these 7 aslr addresses.</p>
+<p>Remember from the previous analysis, that if we somehow manage to get the n <code>rand()</code> call values after the call of <code>init_stack_guard</code>, we might be able to recover the <code>rand_state</code> after the <code>init_stack_guard</code> call, which is equivalent to the <code>canary</code> value set in our binary. And turn out, each of the n <code>rand()</code> call values is used as the aslr base address of each loaded file.</p>
+<p>So, if we&rsquo;re somehow able to retrieve these aslr addresses (which is constructed from the <code>rand()</code> value result), it will be great for us, because that means we will be able to recover consecutive <code>rand()</code> results, where the <code>rand()</code> call is based on a <code>rand_state</code> that is equivalent to the <code>canary</code> value. And using these recovered values, we will try to reconstruct the initial <code>rand_state</code> (which is our <code>canary</code>).</p>
+<p>To summarize, <code>loader</code> will load 7 object files (because we were given 7 object files in the challenge), which means there will be 7 consecutive calls to <code>rand()</code> after the <code>rand_state</code> is equivalent to <code>canary</code> value. And our target is to leak these 7 aslr addresses.</p>
 <h5 id="run-the-main-program">Run the main program <a href="#run-the-main-program" class="anchor">#</a></h5>
-<p>Well yeah, after the <code>loader</code> finished all of its object files, it will run the <code>main</code> program, which basically run the methods defined in <code>game.o</code> file.</p>
+<p>Well yeah, after the <code>loader</code> finished all of its object files, it will run the <code>main</code> program, which run the methods defined in the <code>game.o</code> file.</p>
 <h3 id="exploitation-plan">Exploitation Plan <a href="#exploitation-plan" class="anchor">#</a></h3>
 <p>Now we have finished our initial analysis, we will need to craft a plan. From the above initial analysis, what we have gathered so far:</p>
 <ul>
-<li>We can leak the <code>canary</code> value if we able to retrieve the <code>rand()</code> results of the <code>aslr_get_addr</code> value, which is basically the aslr base address of each loaded object file region.</li>
+<li>We can leak the <code>canary</code> value if we&rsquo;re able to retrieve the <code>rand()</code> results of the <code>aslr_get_addr</code> value, which is the aslr base address of each loaded object file region.</li>
 <li>There is BOF in the <code>get_player_name</code> method.
 <ul>
 <li>This indicates that to be able to perform ROP, we will need to play the game until we got into the scoreboard + we need <code>canary</code> value.</li>
@@ -1746,8 +1746,8 @@
 </li>
 </ul>
 <h4 id="recover-rand-value">Recover rand() value <a href="#recover-rand-value" class="anchor">#</a></h4>
-<p>Our first step will be recovering the <code>rand()</code> values which is used as the aslr of each loaded object regions.</p>
-<p>So, let&rsquo;s try to setup our gdb and then exploring how the value initialized. This is my breakpoint setup</p>
+<p>Our first step will be recovering the <code>rand()</code> values which are used as the aslr of each loaded object region.</p>
+<p>So, let&rsquo;s try to set up our gdb and then explore how the values are initialized. This is my breakpoint setup</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1759,7 +1759,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The first breakpoint will be used to get the <code>canary</code> value just for sanity checking. The second breakpoint will be used to retrieve the <code>rand()</code> result of the <code>aslr</code> method.</p>
-<p>Let&rsquo;s try to stepping on the gdb.</p>
+<p>Let&rsquo;s try stepping on the gdb.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1855,8 +1855,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>We hit our first breakpoint, and <code>rax</code> is the <code>canary</code> value.</p>
-<p>Let&rsquo;s continue and take notes on the <code>rax</code> value on each breakpoint, because it is the <code>rand()</code> result. I won&rsquo;t display the result on here because it&rsquo;s too long.</p>
-<p>After stepping 7 times, these are the <code>rand()</code> consecutive results (which retrieved from <code>rax</code> values on each break).</p>
+<p>Let&rsquo;s continue and take notes on the <code>rax</code> value on each breakpoint because it is the <code>rand()</code> result. I won&rsquo;t display the result here because it&rsquo;s too long.</p>
+<p>After stepping 7 times, these are the <code>rand()</code> consecutive results (which are retrieved from <code>rax</code> values on each break).</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -1865,7 +1865,7 @@
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>0x42f, 0xf90, 0x97e, 0x7ab, 0xc92, 0x6fe, 0xf0b
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Now, let&rsquo;s check the vmmap to confirm that this 12-bits number is indeed used as the base address of our each loaded objects.</p>
+</div><p>Now, let&rsquo;s check the vmmap to confirm that this 12-bits number is indeed used as the base address of each loaded object.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -1942,20 +1942,20 @@
 </span></span><span style="display:flex;"><span>Out[260]: &#39;0x42f0002060&#39;
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that the first 12-bits of the number is actually the <code>rand()</code> result (Specifically the first <code>rand()</code> result after <code>rand_state = canary</code>). So basically our goal is with this OOB, we will try to leak all the aslr address generated by the <code>rand()</code> method.</p>
-<p>Also, we actually can use negative index. But we need to convert it to unsigned first. For example, if you want to put <code>-1</code>, then send <code>2**64-1</code> as the offset value.</p>
-<p>After playing throughout the gdb, we notice a consistent pattern on each run, which we will explained below:</p>
+</div><p>Notice that the first 12-bits of the number are the <code>rand()</code> result (Specifically the first <code>rand()</code> result after <code>rand_state = canary</code>). So basically our goal is with this OOB, we will try to leak all the aslr addresses generated by the <code>rand()</code> method.</p>
+<p>Also, we actually can use a negative index. But we need to convert it to unsigned first. For example, if you want to put <code>-1</code>, then send <code>2**64-1</code> as the offset value.</p>
+<p>After playing throughout the gdb, we notice a consistent pattern on each run, which we will explain below:</p>
 <ul>
 <li>Offset 512 -&gt; Leak the 1st rand() result (<code>base_1</code> region address)</li>
 <li>Offset -1017 -&gt; Leak the 3rd rand() result (<code>base_3</code> region address)</li>
 <li>Offset -1019 -&gt; Leak the 5th rand() result (<code>base_5</code> region address)</li>
-<li>After leaking the 5th rand(), we notice that the address region started with 5th rand() value contains the 4th and 6th rand() result. So subtracting the 5th leaked address with the 1st leaked address can leak the 4th and 6th rand() value.</li>
-<li>After leaking the 4th rand(), we notice that the address region started with the 4th rand() value contains the 2nd rand() result. So subtracting the 4th leaked with the 1st leaked can leak the 2nd rand() value.</li>
+<li>After leaking the 5th rand(), we notice that the address region started with the 5th <code>rand()</code>&rsquo;s value contains the 4th and 6th <code>rand()</code>&rsquo;s results. So subtracting the 5th leaked address with the 1st leaked address can leak the 4th and 6th <code>rand()</code> value.</li>
+<li>After leaking the 4th <code>rand()</code>, we notice that the address region started with the 4th <code>rand()</code>s value contains the 2nd <code>rand()</code> result. So subtracting the 4th leaked with the 1st leaked can leak the 2nd <code>rand()</code> value.</li>
 </ul>
-<p>You can see my shared script later if you quite confused, but basically with correct OOB offsets, we managed to leak the first 6 of the aslr addresses where the first 12-bit of each address is generated by <code>rand()</code>.</p>
+<p>You can see my shared script later if you&rsquo;re quite confused, but, basically, with correct OOB offsets, we managed to leak the first 6 of the aslr addresses where the first 12-bit of each address is generated by <code>rand()</code>.</p>
 <h4 id="recover-canary-value">Recover <code>canary</code> value <a href="#recover-canary-value" class="anchor">#</a></h4>
-<p>Now that we have leaked 6 consecutive of the <code>rand()</code> values, this is actually enough to recover our <code>canary</code> value. How to do this? Just translate the <code>rand()</code> method to python and put it in <code>z3</code> 😂. <code>z3</code> is a SMT solver, where given some constraints, it will try to check whether any solution that can satisfy the constraints exist or not.</p>
-<p>In this case, the constraints that we will use is the leaked <code>rand()</code> values, while the solution that we try to find a 64-bit number (which is the <code>rand_state</code>). So, what we can do is simply re-write the <code>rand()</code> algo that we see in the decompiled result to python, and then try to construct the constraints for our target solution (<code>rand_state</code>) by adding equality constraint, where each <code>rand()</code> call result need to be equal to our leaked value.</p>
+<p>Now that we have leaked 6 consecutive of the <code>rand()</code> values, this is actually enough to recover our <code>canary</code> value. How to do this? Just translate the <code>rand()</code> method to python and put it in <code>z3</code> 😂. <code>z3</code> is an SMT solver. Given some constraints, it will try to check whether any solution that can satisfy the constraints exists or not.</p>
+<p>In this case, the constraints that we will use are the leaked <code>rand()</code> values, while the solution that we try to find is a 64-bit number (which is the <code>rand_state</code>). So, what we can do is simply re-write the <code>rand()</code> algorithm that we see in the decompiled result to python, and then try to construct the constraints for our target solution (<code>rand_state</code>) by adding equality constraint, where each <code>rand()</code> call result need to be equal to our leaked value.</p>
 <p>Here is the sample POC, where we will use the previous value that we get from GDB.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -2107,7 +2107,7 @@
 </span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Recovered Addr  : </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(recovered_known_state7)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Executing the above POC will be the proof that z3 is able to recover the <code>canary</code> value. Also after we recovered the initial <code>rand_state</code>, we can simply get the 7th <code>rand()</code> by calling <code>rand()</code> 7 times. This will be useful later! Below is the POC result.</p>
+</div><p>Executing the above POC will be proof that z3 is able to recover the <code>canary</code> value. Also after we recovered the initial <code>rand_state</code>, we can simply get the 7th <code>rand()</code> by calling <code>rand()</code> 7 times. This will be useful later! Below is the POC result.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -2125,8 +2125,8 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="leverage-the-bof-bug-to-perform-rce">Leverage the BOF bug to perform RCE <a href="#leverage-the-bof-bug-to-perform-rce" class="anchor">#</a></h4>
-<p>Now we have POC to recover our canary value, we can use the BOF bug to perform RCE by overwriting the saved return pointer. One of the common technique to achieve RCE via BOF is called return oriented programming (<a href="https://en.wikipedia.org/wiki/Return-oriented_programming" target="_blank" rel="noopener">ROP</a>).</p>
-<p>Basically, what we need to do is, because we control the stack due to the buffer overflow bug, we will try to carefully chose some available instructions in the binary (called <code>gadgets</code>), which can be used to build our shellcode. Usually, what we&rsquo;re looking for is instruction that can pop a stack value (which we can control) to chosen register (such as <code>rdi</code>, <code>rsp</code>, <code>rsi</code>, <code>rax</code>, etc.), and it usually end with <code>ret</code> instruction, so that we can jump to another chosen instruction that we have put in the stack.</p>
+<p>Now we have POC to recover our canary value, we can use the BOF bug to perform RCE by overwriting the saved return pointer. One of the common techniques to achieve RCE via BOF is called return oriented programming (<a href="https://en.wikipedia.org/wiki/Return-oriented_programming" target="_blank" rel="noopener">ROP</a>).</p>
+<p>What we need to do is, because we control the stack due to the buffer overflow bug, we will try to carefully choose some available instructions in the binary (called <code>gadgets</code>), which can be used to build our shellcode. Usually, what we&rsquo;re looking for is an instruction that can pop a stack value (which we can control) to chosen register (such as <code>rdi</code>, <code>rsp</code>, <code>rsi</code>, <code>rax</code>, etc.), and it usually ends with <code>ret</code> instruction, so that we can jump to another chosen instruction that we have put in the stack.</p>
 <p>For example, imagine that we have a buffer overflow bug in method X:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -2234,7 +2234,7 @@
 </span></span><span style="display:flex;"><span>Now, We finally able to do RCE leveraging BOF bug.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As you can see in thhe above example, with buffer overflow, we can do RCE via ROP to execute our desired execution.</p>
+</div><p>As you can see in the above example, with buffer overflow, we can do RCE via ROP to execute our desired execution.</p>
 <p>So, the last step is only to build a ROP chain. Inspecting via gdb, we notice that the 7th <code>rand()</code> address region contains a lot of gadgets that we can use (Such as <code>pop rdi; ret;</code>, <code>pop rsi; ret</code>, <code>pop rax; ret</code>). We also notice in the 2nd <code>rand()</code> address region, there is <code>syscall</code> gadget.</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -2284,7 +2284,7 @@
 <li>call <code>syscall</code></li>
 </ul>
 <h3 id="solution">Solution <a href="#solution" class="anchor">#</a></h3>
-<p>Following the above exploitation plan, below is the full script that I used to execute the plan. I&rsquo;ve provided detailed comments to explain what does the script do.</p>
+<p>Following the above exploitation plan, below is the full script that I used to execute the plan. I&rsquo;ve provided detailed comments to explain what the script does.</p>
 <blockquote>
 <p>Notes that sometimes z3 couldn&rsquo;t recover the correct <code>canary</code> value, but we simply retry it, and at somepoint, it will be able to recover the correct <code>canary</code>.</p>
 </blockquote>
@@ -2671,12 +2671,12 @@
 <p>Every single archive manager unpacks this to a different file&hellip;</p>
 </blockquote>
 <h3 id="analysis--solution">Analysis &amp; Solution <a href="#analysis--solution" class="anchor">#</a></h3>
-<p>We were given a zip file called <code>dump.zip</code>. Trying to extracting it, I found that the size of the file&rsquo;s output doesn&rsquo;t make sense. So, let&rsquo;s try to open it in hex editor.</p>
-<p>Turn out, as you can see, there are a lot of zip files on there. What makes it more interesting is that, there are a lot of zip files with the same name (Example: there are a lot of <code>flag00.zip</code> in the file), but with different contents. There are flag00.zip - flag18.zip. Each zip file with the same name content only one char. In fact, the name indicate the n-th character of the flags. So, with deduction, we can guess that:</p>
+<p>We were given a zip file called <code>dump.zip</code>. Trying to extract it, I found that the size of the file&rsquo;s output doesn&rsquo;t make sense. So, let&rsquo;s try to open it in a hex editor.</p>
+<p>Turn out, as you can see, there are a lot of zip files on there. What makes it more interesting is there are a lot of zip files with the same name (Example: there is a lot of <code>flag00.zip</code> in the file), but with different contents. There are flag00.zip - flag18.zip. Each zip file with the same name contains only one char. In fact, the name indicates the n-th character of the flags. So, with deduction, we can guess that:</p>
 <ul>
 <li>To get the flag n-th character, we need to know which flag{n}.zip is the correct zip. If we found it, that means the content of its zip is the n-th character of our flag</li>
 </ul>
-<p>But how do we know the correct zip file? Reading through the <a href="https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT" target="_blank" rel="noopener">appnote.txt</a> of the ZIP file, we can understand how the ZIP signatures works, especially on part 4.3.1</p>
+<p>But how do we know the correct zip file? Reading through the <a href="https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT" target="_blank" rel="noopener">appnote.txt</a> of the ZIP file, we can understand how the ZIP signatures work, especially in part 4.3.1</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -2695,7 +2695,7 @@
 </span></span><span style="display:flex;"><span>   storage requirements for individual ZIP files.
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Now, let&rsquo;s check the signature of the end of central directory record</p>
+</div><p>Now, let&rsquo;s check the signature of the end of the central directory record</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -2760,7 +2760,7 @@
 </span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>50 4B 05 06 00 00 00 00 01 00 01 00 00 EE 00 00 CC 00 00 00 B8 01 
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>50 4B 05 06 00 00 00 00 01 00 01 00 00 EE 00 00 CC 00 00 00 B8 01
 </span></span><span style="display:flex;"><span>50 4B 05 06 00 00 00 00 01 00 01 00 5A E4 00 00 88 0A 00 00 A2 01
 </span></span><span style="display:flex;"><span>50 4B 05 06 00 00 00 00 01 00 01 00 93 D7 00 00 65 17 00 00 8C 01
 </span></span><span style="display:flex;"><span>50 4B 05 06 00 00 00 00 01 00 01 00 CC CA 00 00 42 24 00 00 76 01
@@ -2783,13 +2783,13 @@
 </span></span><span style="display:flex;"><span>50 4B 05 06 00 00 00 00 01 00 01 00 34 F0 00 00 50 00 00 00 00 00
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This make sense, as technically, there are 21 zip in the given file.</p>
+</div><p>This makes sense, as technically, there is 21 zip in the given file.</p>
 <ul>
 <li>dump.zip contains hello.txt</li>
 <li>a zip contains hi.txt</li>
 <li>19 zips flag{n}.zip</li>
 </ul>
-<p>With this end of central directory, we can know which zip is the correct one. Notice that each end of central directory have 4-bytes which is thhe offset of the start of the central directory of the file. With this, we can know which zip is the correct one for each n-th character of the flag.</p>
+<p>With this end of the central directory, we can know which zip is the correct one. Notice that each end of the central directory has 4-bytes which is the offset of the start of the central directory of the file. With this, we can know which zip is the correct one for each n-th character of the flag.</p>
 <p>Example:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
