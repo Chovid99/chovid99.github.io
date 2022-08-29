@@ -87,7 +87,7 @@
           ·
         </span>
         <span>
-          4586 words
+          4585 words
         </span>
         <span class="split">
           ·
@@ -317,13 +317,13 @@
 <ul>
 <li>Overwrite the 10th param last byte with <code>0xed</code> again, so that the <code>go()</code> will be looped again. Notes that the 10th param is our crafted gadget from the previous loop.</li>
 <li>Overwrite the 6th param <strong>pointed</strong> address last byte with <code>0xf8</code>, so that the 8th param will point to <code>0x007fffffffdbf8</code> instead of <code>0x007fffffffdbe0</code>.</li>
-<li>Overwrite the 8th param <strong>pointed</strong> address two last bytes with our calculated win address (8th param is pointing to the saved return pointer of <code>main()</code> method which is stored in <code>0x007fffffffdbf8</code>).</li>
+<li>Overwrite the 8th param <strong>pointed</strong> address two last bytes with our two last bytes of the calculated win address (8th param is pointing to the saved return pointer of <code>main()</code> method which is stored in <code>0x007fffffffdbf8</code>).</li>
 </ul>
 <p>The second payload will be <code>%c%c%c%c%100x%hhn%133x%10$hhn%51732x%8$hn</code>.</p>
 <p>Now, on the final loop, the last format string loop would be used to:</p>
 <ul>
-<li>Overwrite the 6th param <strong>pointed</strong> address last byte with <code>0xf8+2</code>, so that the 8th param will point to <code>0x007fffffffdbf8</code> instead of <code>0x007fffffffdbe0</code>.</li>
-<li>Overwrite the 8th param <strong>pointed</strong> address two last bytes with our calculated win address (8th param is pointing to the saved return pointer of <code>main()</code> method which is stored in <code>0x007fffffffdbf8</code>).</li>
+<li>Overwrite the 6th param <strong>pointed</strong> address last byte with <code>0xf8+2</code>, so that the 8th param will point to <code>0x007fffffffdbfa</code> instead of <code>0x007fffffffdbe0</code>. We&rsquo;re trying to overwrite the third last byte.</li>
+<li>Overwrite the 8th param <strong>pointed</strong> address last bytes with our third LSB of the calculated win address.</li>
 </ul>
 <p>The final payload will be <code>%c%c%c%c%100x%hhn%133x%10$hhn%51732x%8$hn</code>. Because we didn&rsquo;t overwrite the saved return pointer of <code>go()</code>, after the <code>printf</code> got executed, it will continue the normal flow, and when the <code>main()</code> method is returned, it will return to the shell.</p>
 <p>Full script</p>
