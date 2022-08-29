@@ -649,8 +649,8 @@
 <li>Each time we choose an index called <code>idx</code> to be incremented, the value stored in <code>idx-1</code> and <code>idx+1</code> will be incremented also.</li>
 <li>Seems like, the maximum value per index is <code>0xffff</code>, and it will wrap around when the value gets bigger than that.</li>
 </ul>
-<p>Let&rsquo;s start disassembling the binary. The binary method was stripped, but I&rsquo;ve renamed it to make it clearer.
-<strong>main</strong></p>
+<p>Let&rsquo;s start disassembling the binary. The binary method was stripped, but I&rsquo;ve renamed it to make it clearer.</p>
+<p><strong>main</strong></p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -720,8 +720,8 @@
 <li>Each of the menu function handler&rsquo;s pointers is stored under the <code>.bss</code> section</li>
 <li>During each input in the main menu, the <code>main</code> will call the stored pointer inside the <code>.bss</code> variables based on the input.</li>
 </ul>
-<p>We just need to check the first menu, because it&rsquo;s the only important menu that needs to be audited.
-<strong>main_play</strong></p>
+<p>We just need to check the first menu, because it&rsquo;s the only important menu that needs to be audited.</p>
+<p><strong>main_play</strong></p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
