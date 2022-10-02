@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fastbin on Welcome to Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/fastbin/</link>
+    <description>Recent content in fastbin on Welcome to Chovid99&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 02 Oct 2022 02:53:04 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/fastbin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BlackHat MEA CTF 2022</title>
+      <link>https://chovid99.github.io/posts/blackhat-mea-ctf-2022/</link>
+      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/blackhat-mea-ctf-2022/</guid>
+      <description>Writeup for BlackHAt MEA CTF 2022 by Chovid99</description>
+    </item>
+    
+  </channel>
+</rss>
