@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://chovid99.github.io/tags/education/</loc>
+    <lastmod>2022-11-01T23:34:15+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/file/</loc>
+    <lastmod>2022-11-01T23:34:15+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/posts/file-structure-attack-part-1/</loc>
+    <lastmod>2022-11-01T23:34:15+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/posts/</loc>
+    <lastmod>2022-11-01T23:34:15+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/</loc>
+    <lastmod>2022-11-01T23:34:15+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/</loc>
+    <lastmod>2022-11-01T23:34:15+07:00</lastmod>
+  </url><url>
     <loc>https://chovid99.github.io/tags/blackhat/</loc>
     <lastmod>2022-10-02T02:53:04+07:00</lastmod>
   </url><url>
@@ -14,19 +32,10 @@
     <loc>https://chovid99.github.io/tags/heap/</loc>
     <lastmod>2022-10-02T02:53:04+07:00</lastmod>
   </url><url>
-    <loc>https://chovid99.github.io/posts/</loc>
-    <lastmod>2022-10-02T02:53:04+07:00</lastmod>
-  </url><url>
     <loc>https://chovid99.github.io/tags/pwn/</loc>
     <lastmod>2022-10-02T02:53:04+07:00</lastmod>
   </url><url>
-    <loc>https://chovid99.github.io/tags/</loc>
-    <lastmod>2022-10-02T02:53:04+07:00</lastmod>
-  </url><url>
     <loc>https://chovid99.github.io/tags/unsorted-bin/</loc>
-    <lastmod>2022-10-02T02:53:04+07:00</lastmod>
-  </url><url>
-    <loc>https://chovid99.github.io/</loc>
     <lastmod>2022-10-02T02:53:04+07:00</lastmod>
   </url><url>
     <loc>https://chovid99.github.io/tags/writeup/</loc>
