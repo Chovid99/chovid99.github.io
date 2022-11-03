@@ -87,7 +87,7 @@
           ·
         </span>
         <span>
-          2433 words
+          2480 words
         </span>
         <span class="split">
           ·
@@ -634,15 +634,16 @@
 <p>This is one of the examples of how the <code>vtable</code> in a <code>FILE</code> object will be used, and this kind of IO operation happens in other methods as well, not limited to <code>exit</code>.</p>
 <p>N.B. If you try to explore more by yourself, in the method <a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L891" target="_blank" rel="noopener"><code>_IO_unbuffer_all</code></a> which is also called during <code>_IO_cleanup</code>, you will notice that there is a <code>vtable</code> call as well, which is <code>_IO_SETBUF (fp, NULL, 0);</code></p>
 <h1 id="possible-attack-scenario">Possible Attack Scenario <a href="#possible-attack-scenario" class="anchor">#</a></h1>
-<p>Taking an example from the above scenario on how IO operation works inside the <code>exit</code> call of C library, there are some possible attack scenarios that we can do based on those flows:</p>
+<p>Taking an example from the above scenario on how IO operation works inside the <code>exit</code> call of C library, there are some possible attack scenarios that we can do to abuse the <code>FILE</code> structure:</p>
 <ul>
 <li>Hijack the <code>vtable</code> of the IO file (For example, <code>stdout</code>).
 <ul>
-<li>If we&rsquo;re able to hijack the <code>vtable</code> entry of <code>__overflow</code> with let&rsquo;s say a pointer to <code>system</code>, that means if the binary call <code>exit()</code>, instead of quitting the binary, it will execute a command instead. Some possible ways to hijack it:
+<li>Remember that when we call <code>exit</code> in the above example, it will iterate the <code>FILE</code> linked list, and if some constraints are fulfilled, it will call <code>fp.vtable[__overflow]</code> right?</li>
+<li>If we&rsquo;re able to hijack the file <code>vtable</code> entry of <code>__overflow</code> with let&rsquo;s say a pointer to <code>system</code>, that means if the binary call <code>exit()</code>, instead of quitting the binary, it will execute a command instead. Some possible ways to hijack it:
 <ul>
-<li>Create a fake <code>vtable</code> and overwrite the IO file stored pointer with the address of our fake <code>vtable</code>, so that when the IO operation tries to call let&rsquo;s say <code>__overflow</code>, it will jump to our desired function pointer.</li>
-<li>Overwrite the <code>vtable</code> pointer to another available <code>vtable</code>. For example, by default, <code>stdout, stdin, stderr</code> used <code>_IO_file_jumps</code> as the stored <code>vtable</code>. We can try to overwrite it with <code>_IO_str_jumps</code>, so that let&rsquo;s say when the IO operation wants to call <code>__overflow</code>, it will use the <code>__overflow</code> stored inside the str jumps vtable instead of the file jumps vtable (and we will still need to further extend the attack with other techniques to achieve RCE. This will be explained more in the next part).</li>
-<li>Misaligned the <code>vtable</code>, so that let&rsquo;s say when the IO operation tries to call let&rsquo;s say <code>__finish</code>, instead of calling <code>__finish</code>, due to the misalignment, it will call <code>__overflow</code> instead.</li>
+<li>Create a fake <code>vtable</code> and overwrite the IO file stored pointer with the address of our fake <code>vtable</code>, so that when the IO operation tries to call <code>__overflow</code>, it will jump to our desired function pointer.</li>
+<li>Overwrite the <code>vtable</code> pointer to another available <code>vtable</code>. For example, by default, <code>stdout, stdin, stderr</code> used <code>_IO_file_jumps</code> as the stored <code>vtable</code>. We can try to overwrite it with <code>_IO_str_jumps</code>, so that let&rsquo;s say when the IO operation wants to call <code>__overflow</code>, it will use the <code>__overflow</code> stored inside the str jumps vtable instead of the file jumps vtable (will be explained more in the next article, but the <code>__overflow</code> in the str jumps can be abused to call our desired function pointer if we&rsquo;re able to do some forgery on the file structure metadata).</li>
+<li>Misaligned the <code>vtable</code>, so that let&rsquo;s say when the IO operation tries to call let&rsquo;s say <code>__finish</code>, instead of calling <code>__finish</code>, due to the misalignment, it will call <code>__overflow</code> instead (and continue with the previous point scenario).</li>
 </ul>
 </li>
 </ul>
@@ -652,9 +653,9 @@
 <li>Remember that <code>_IO_flush_all_lockp</code> will iterate each available <code>FILE</code> in the linked list, so if we&rsquo;re able to create a fake <code>FILE</code> structure and trigger the flush, that means it will use our fake <code>vtable</code> which will allow us to execute a command as well.</li>
 </ul>
 </li>
-<li>Use the <code>FILE</code> buffer metadata so that we can do <code>write</code> operation in our desired target address (Arbitrary Address Write)</li>
+<li>Use the <code>FILE</code> buffer metadata so that we can do <code>write</code> operation in our desired target address (Arbitrary Address Write).</li>
 </ul>
-<p>The detail of each attack will be explained in the next part, but spoilers ahead, some of these possible attacks are only working in old glibc version.</p>
+<p>The detail of each attack will be explained in the next part, but spoilers ahead, some of these possible attacks are only working in the old glibc version.</p>
 <h1 id="resources">Resources <a href="#resources" class="anchor">#</a></h1>
 <ul>
 <li><a href="https://stackoverflow.com/questions/1658476/c-fopen-vs-open" target="_blank" rel="noopener">https://stackoverflow.com/questions/1658476/c-fopen-vs-open</a></li>
