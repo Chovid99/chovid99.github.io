@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Welcome to Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Nov 2022 23:34:15 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Nov 2022 21:06:10 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HITCON CTF 2022</title>
+      <link>https://chovid99.github.io/posts/hitcon-ctf-2022/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/posts/hitcon-ctf-2022/</guid>
+      <description>Writeup for HITCON CTF 2022 by Chovid99</description>
+    </item>
+    
     <item>
       <title>FILE Structure Attack: Part 1</title>
       <link>https://chovid99.github.io/posts/file-structure-attack-part-1/</link>

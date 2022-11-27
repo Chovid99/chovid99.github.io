@@ -6,7 +6,88 @@
     <description>Recent content in Tags on Welcome to Chovid99&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Nov 2022 23:34:15 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Nov 2022 21:06:10 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022</title>
+      <link>https://chovid99.github.io/tags/2022/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/2022/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>browser</title>
+      <link>https://chovid99.github.io/tags/browser/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/browser/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>chrome</title>
+      <link>https://chovid99.github.io/tags/chrome/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/chrome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HITCON</title>
+      <link>https://chovid99.github.io/tags/hitcon/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/hitcon/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JIT</title>
+      <link>https://chovid99.github.io/tags/jit/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/jit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>oob</title>
+      <link>https://chovid99.github.io/tags/oob/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/oob/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>https://chovid99.github.io/tags/pwn/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>v8</title>
+      <link>https://chovid99.github.io/tags/v8/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/v8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Writeup</title>
+      <link>https://chovid99.github.io/tags/writeup/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      
+      <guid>https://chovid99.github.io/tags/writeup/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Education</title>
       <link>https://chovid99.github.io/tags/education/</link>
@@ -53,29 +134,11 @@
     </item>
     
     <item>
-      <title>pwn</title>
-      <link>https://chovid99.github.io/tags/pwn/</link>
-      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>unsorted bin</title>
       <link>https://chovid99.github.io/tags/unsorted-bin/</link>
       <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/unsorted-bin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Writeup</title>
-      <link>https://chovid99.github.io/tags/writeup/</link>
-      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/writeup/</guid>
       <description></description>
     </item>
     
@@ -103,15 +166,6 @@
       <pubDate>Mon, 29 Aug 2022 11:23:48 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/shellcode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>2022</title>
-      <link>https://chovid99.github.io/tags/2022/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/2022/</guid>
       <description></description>
     </item>
     
@@ -152,15 +206,6 @@
     </item>
     
     <item>
-      <title>oob</title>
-      <link>https://chovid99.github.io/tags/oob/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/oob/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>PRNG</title>
       <link>https://chovid99.github.io/tags/prng/</link>
       <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
@@ -188,29 +233,11 @@
     </item>
     
     <item>
-      <title>browser</title>
-      <link>https://chovid99.github.io/tags/browser/</link>
-      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/browser/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>firefox</title>
       <link>https://chovid99.github.io/tags/firefox/</link>
       <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
       
       <guid>https://chovid99.github.io/tags/firefox/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JIT</title>
-      <link>https://chovid99.github.io/tags/jit/</link>
-      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/jit/</guid>
       <description></description>
     </item>
     
