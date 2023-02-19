@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://chovid99.github.io/tags/2023/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/hacktm/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/posts/hacktm-ctf-2023/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/oob/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/posts/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/pwn/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/vm/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
+    <loc>https://chovid99.github.io/tags/writeup/</loc>
+    <lastmod>2023-02-19T20:14:37+07:00</lastmod>
+  </url><url>
     <loc>https://chovid99.github.io/tags/education/</loc>
     <lastmod>2022-12-05T16:11:43+07:00</lastmod>
   </url><url>
@@ -11,25 +41,10 @@
     <loc>https://chovid99.github.io/tags/heap/</loc>
     <lastmod>2022-12-05T16:11:43+07:00</lastmod>
   </url><url>
-    <loc>https://chovid99.github.io/posts/</loc>
-    <lastmod>2022-12-05T16:11:43+07:00</lastmod>
-  </url><url>
-    <loc>https://chovid99.github.io/tags/pwn/</loc>
-    <lastmod>2022-12-05T16:11:43+07:00</lastmod>
-  </url><url>
     <loc>https://chovid99.github.io/tags/stack-the-flags/</loc>
     <lastmod>2022-12-05T16:11:43+07:00</lastmod>
   </url><url>
     <loc>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</loc>
-    <lastmod>2022-12-05T16:11:43+07:00</lastmod>
-  </url><url>
-    <loc>https://chovid99.github.io/tags/</loc>
-    <lastmod>2022-12-05T16:11:43+07:00</lastmod>
-  </url><url>
-    <loc>https://chovid99.github.io/</loc>
-    <lastmod>2022-12-05T16:11:43+07:00</lastmod>
-  </url><url>
-    <loc>https://chovid99.github.io/tags/writeup/</loc>
     <lastmod>2022-12-05T16:11:43+07:00</lastmod>
   </url><url>
     <loc>https://chovid99.github.io/tags/2022/</loc>
@@ -48,9 +63,6 @@
     <lastmod>2022-11-27T21:06:10+07:00</lastmod>
   </url><url>
     <loc>https://chovid99.github.io/tags/jit/</loc>
-    <lastmod>2022-11-27T21:06:10+07:00</lastmod>
-  </url><url>
-    <loc>https://chovid99.github.io/tags/oob/</loc>
     <lastmod>2022-11-27T21:06:10+07:00</lastmod>
   </url><url>
     <loc>https://chovid99.github.io/tags/v8/</loc>
