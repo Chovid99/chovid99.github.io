@@ -87,7 +87,7 @@
           ·
         </span>
         <span>
-          3653 words
+          3654 words
         </span>
         <span class="split">
           ·
@@ -192,7 +192,7 @@ This weekend, I spent my time competing at HackTM CTF 2022 held by WreckTheLine 
 </div>
 </div><p>Ah okay, so it just read hex-encoded bytecode, stored it in a temporary file, and then pass it to the binary <code>main</code>.</p>
 <p>The problem description also gives us a link to a <a href="https://github.com/fmash16/riscv_emulator/blob/main/main" target="_blank" rel="noopener">github repo</a>. Turn out, the given binary is the compiled version of that repo, which is a riscv emulator. Instead of decompiling the binary, we can just clone the repo and try to analyze the source code.</p>
-<p>I noticed that this challenge is pretty similar to RealWorld CTF 2023 challenge called <code>tinyvm</code>, where the given repo is a vm of assembly implemented in C, while for this challenge, the repo tries to implement RISC-V emulator. So, based on that experience, I decided to try to look whether there might be Out-of-Bound Read and Write on the given repo, because it is the common mistake of developer during building a simulator. Let&rsquo;s first inspect the <code>main.c</code> file:</p>
+<p>I noticed that this challenge is pretty similar to RealWorld CTF 2023 challenge called <code>tinyvm</code>, where the given repo is a vm of x86 assembly implemented in C, while for this challenge, the repo tries to implement RISC-V emulator. So, based on that experience, I decided to try to look whether there might be Out-of-Bound Read and Write on the given repo, because it is the common mistake of developer during building a simulator. Let&rsquo;s first inspect the <code>main.c</code> file:</p>
 <div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
