@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>2021 on Welcome to Chovid99&#39;s Blog</title>
-    <link>https://chovid99.github.io/tags/2021/</link>
-    <description>Recent content in 2021 on Welcome to Chovid99&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 11 Oct 2021 20:31:19 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/2021/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>PBCTF 2021</title>
-      <link>https://chovid99.github.io/posts/pbctf-2021/</link>
-      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
-      <description>Writeup for PBCTF 2021 by Chovid99</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>2021 - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/2021/</link>
+        <description>2021 - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/2021/" rel="self" type="application/rss+xml" /><item>
+    <title>PBCTF 2021</title>
+    <link>https://chovid99.github.io/posts/pbctf-2021/</link>
+    <pubDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
+    <description><![CDATA[Writeup for PBCTF 2021 by Chovid99]]></description>
+</item>
+</channel>
 </rss>

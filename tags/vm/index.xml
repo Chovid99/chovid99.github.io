@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>vm on Welcome to Chovid99&#39;s Blog</title>
-    <link>https://chovid99.github.io/tags/vm/</link>
-    <description>Recent content in vm on Welcome to Chovid99&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 19 Feb 2023 20:14:37 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/vm/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>HackTM CTF 2023</title>
-      <link>https://chovid99.github.io/posts/hacktm-ctf-2023/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/posts/hacktm-ctf-2023/</guid>
-      <description>Writeup for HackTM CTF 2023 by Chovid99</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>vm - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/vm/</link>
+        <description>vm - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 19 Feb 2023 20:14:37 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/vm/" rel="self" type="application/rss+xml" /><item>
+    <title>HackTM CTF 2023</title>
+    <link>https://chovid99.github.io/posts/hacktm-ctf-2023/</link>
+    <pubDate>Sun, 19 Feb 2023 20:14:37 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/hacktm-ctf-2023/</guid>
+    <description><![CDATA[Writeup for HackTM CTF 2023 by Chovid99]]></description>
+</item>
+</channel>
 </rss>

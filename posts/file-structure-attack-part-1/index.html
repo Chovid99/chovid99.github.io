@@ -1,628 +1,631 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>FILE Structure Attack: Part 1 | Welcome to Chovid99&#39;s Blog</title>
-
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta property="og:title" content="FILE Structure Attack: Part 1" />
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>FILE Structure Attack: Part 1 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="FILE Structure Attack: Part 1" />
 <meta property="og:description" content="A beginner guide to FILE structure attack (Part 1)" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/file-structure-attack-part-1/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/file-structure-attack-part-1/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-11-01T23:34:15+07:00" />
-<meta property="article:modified_time" content="2022-11-01T23:34:15+07:00" />
+<meta property="article:modified_time" content="2022-11-01T23:34:15+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="FILE Structure Attack: Part 1"/>
 <meta name="twitter:description" content="A beginner guide to FILE structure attack (Part 1)"/>
-<meta name="twitter:site" content="@Chovid99"/>
-<meta name="twitter:creator" content="@Chovid99"/>
-<meta property="og:site_name" content="Chovid99's Blog">
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/file-structure-attack-part-1/" /><link rel="prev" href="https://chovid99.github.io/posts/blackhat-mea-ctf-2022/" /><link rel="next" href="https://chovid99.github.io/posts/hitcon-ctf-2022/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "FILE Structure Attack: Part 1",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/file-structure-attack-part-1\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Education, FILE","wordcount":  2473 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/file-structure-attack-part-1\/","datePublished": "2022-11-01T23:34:15+07:00","dateModified": "2022-11-01T23:34:15+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-<meta name="generator" content="Hugo 0.105.0">
-
-
-  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-
-
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/tocbot.css">
-
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-19HP521HQ9');
-  </script>
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
-
-
-
-
-
-
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>Home</a>
-	
-	<a href="/posts">Posts</a>
-	<a href="/tags">Tags</a>
-	<a href="/about">About</a>
-
-	
-
-	
-</nav>
-
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">FILE Structure Attack: Part 1</h1>
-
-    <div class="tip">
-        <time datetime="2022-11-01 23:34:15 &#43;0700 &#43;07">Nov 1, 2022</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          2480 words
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          12 minute read
-        </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
     </div>
-
-    <div class="content">
-      <div class="post-content js-toc-content">
-        <p>When reading some of the pwn challenges in the recent Hacklu CTF 2022, the <code>byor</code> challenge was catching my eye, because it is about a FILE structure attack in the recent glibc. I have played CTF for a while, but I don&rsquo;t have any idea about it at all.</p>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">FILE Structure Attack: Part 1</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Nov 01, 2022">Nov 01, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2473 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#file-explanation">FILE Explanation</a>
+      <ul>
+        <li><a href="#intro">Intro</a></li>
+        <li><a href="#implementation-in-c">Implementation in C</a></li>
+        <li><a href="#the-usage-of-vtable-in-a-file-structure">The usage of <code>vtable</code> in a <code>FILE</code> structure</a></li>
+      </ul>
+    </li>
+    <li><a href="#possible-attack-scenario">Possible Attack Scenario</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>When reading some of the pwn challenges in the recent Hacklu CTF 2022, the <code>byor</code> challenge was catching my eye, because it is about a FILE structure attack in the recent glibc. I have played CTF for a while, but I don&rsquo;t have any idea about it at all.</p>
 <p>So, I decided to learn the fundamentals first on what it is and I was writing this note during the process. Some of the attacks or concepts that I will explain in this series won&rsquo;t work in the recent glibc. But I believe we need to understand the old version attack first so that we have fundamentals of the FILE structure attack which will help us a lot in understanding the newest attack of it. This note is the summary of various resources that I read during learning about it and I hope that this article will help future me and other people who try to learn about it.</p>
-<blockquote>
-<p>Disclaimer: Feel free to reach me in case you found any mistake in this article, as this is a new knowledge for me and my understanding might be wrong.</p>
-</blockquote>
-<h1 id="file-explanation">FILE Explanation <a href="#file-explanation" class="anchor">#</a></h1>
-<h2 id="intro">Intro <a href="#intro" class="anchor">#</a></h2>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Disclaimer<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Feel free to reach me in case you found any mistake in this article, as this is a new knowledge for me and my understanding might be wrong.</div>
+        </div>
+    </div>
+<h1 id="file-explanation">FILE Explanation</h1>
+<h2 id="intro">Intro</h2>
 <p><code>FILE</code> is a data type defined in the glibc which is usually used when we want to open a file in C. Note that this is different from the OS file descriptor that we usually use. The purpose of this data type is basically to make the file operation faster by using a buffer to reduce the number of IO syscall (read, write).</p>
 <p>The concept (simplified version) is that rather than you use <code>write</code> syscall each time you want to write new data to a file (which will directly write the data to the harddisk), by using the defined methods in the stdio lib for <code>FILE</code> data type operations (in this case is <code>fwrite</code>), stdio will try to handle all the operations by managing the data in the buffer first (resides in memory), and then will move it to the hard disk (via the OS syscall) when a certain condition is met (For example, when the buffer is full or got flushed).</p>
-<h2 id="implementation-in-c">Implementation in C <a href="#implementation-in-c" class="anchor">#</a></h2>
+<h2 id="implementation-in-c">Implementation in C</h2>
 <p>Reading through the source code of the glibc, below I try to summarize some notable implementations related to the <code>FILE</code> structure data type that we need to take a look at so that we can understand more about how it works (We use glibc-2.35 in this specific section, but keep in mind that there might be a little different on how the struct is defined on each glibc version).</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/bits/types/FILE.h#L7" target="_blank" rel="noopener">FILE</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/bits/types/FILE.h#L7" target="_blank" rel="noopener noreffer ">FILE</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">typedef</span> <span style="color:#069;font-weight:bold">struct</span> _IO_FILE FILE;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_IO_FILE</span> <span class="n">FILE</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Turn out, <code>FILE</code> datatype is a struct called <code>_IO_FILE</code>.</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/bits/types/struct_FILE.h#L49" target="_blank" rel="noopener">_IO_FILE</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/bits/types/struct_FILE.h#L49" target="_blank" rel="noopener noreffer ">_IO_FILE</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#09f;font-style:italic">/* The tag name of this struct is _IO_FILE to preserve historic
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   C++ mangled names for functions taking FILE* arguments.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   That name should not be used in new code.  */</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">struct</span> _IO_FILE
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> _flags;		<span style="color:#09f;font-style:italic">/* High-order word is _IO_MAGIC; rest is flags. */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* The following pointers correspond to the C++ streambuf protocol. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_read_ptr;	<span style="color:#09f;font-style:italic">/* Current read pointer */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_read_end;	<span style="color:#09f;font-style:italic">/* End of get area. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_read_base;	<span style="color:#09f;font-style:italic">/* Start of putback+get area. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_write_base;	<span style="color:#09f;font-style:italic">/* Start of put area. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_write_ptr;	<span style="color:#09f;font-style:italic">/* Current put pointer. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_write_end;	<span style="color:#09f;font-style:italic">/* End of put area. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_buf_base;	<span style="color:#09f;font-style:italic">/* Start of reserve area. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_buf_end;	<span style="color:#09f;font-style:italic">/* End of reserve area. */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* The following fields are used to support backing up and undo. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_save_base; <span style="color:#09f;font-style:italic">/* Pointer to start of non-current get area. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_backup_base;  <span style="color:#09f;font-style:italic">/* Pointer to first valid character of backup area */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>_IO_save_end; <span style="color:#09f;font-style:italic">/* Pointer to end of non-current get area. */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">struct</span> _IO_marker <span style="color:#555">*</span>_markers;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">struct</span> _IO_FILE <span style="color:#555">*</span>_chain;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> _fileno;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> _flags2;
-</span></span><span style="display:flex;"><span>  __off_t _old_offset; <span style="color:#09f;font-style:italic">/* This used to be _offset but it&#39;s too small.  */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* 1+column number of pbase(); 0 is unknown. */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">unsigned</span> <span style="color:#078;font-weight:bold">short</span> _cur_column;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">signed</span> <span style="color:#078;font-weight:bold">char</span> _vtable_offset;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> _shortbuf[<span style="color:#f60">1</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  _IO_lock_t <span style="color:#555">*</span>_lock;
-</span></span><span style="display:flex;"><span><span style="color:#099">#ifdef _IO_USE_OLD_IO_FILE
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">struct</span> _IO_FILE_complete
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">struct</span> _IO_FILE _file;
-</span></span><span style="display:flex;"><span><span style="color:#099">#endif
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>  __off64_t _offset;
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* Wide character stream stuff.  */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">struct</span> _IO_codecvt <span style="color:#555">*</span>_codecvt;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">struct</span> _IO_wide_data <span style="color:#555">*</span>_wide_data;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">struct</span> _IO_FILE <span style="color:#555">*</span>_freeres_list;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">void</span> <span style="color:#555">*</span>_freeres_buf;
-</span></span><span style="display:flex;"><span>  size_t __pad5;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> _mode;
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* Make sure we don&#39;t get into trouble again.  */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> _unused2[<span style="color:#f60">15</span> <span style="color:#555">*</span> <span style="color:#069;font-weight:bold">sizeof</span> (<span style="color:#078;font-weight:bold">int</span>) <span style="color:#555">-</span> <span style="color:#f60">4</span> <span style="color:#555">*</span> <span style="color:#069;font-weight:bold">sizeof</span> (<span style="color:#078;font-weight:bold">void</span> <span style="color:#555">*</span>) <span style="color:#555">-</span> <span style="color:#069;font-weight:bold">sizeof</span> (size_t)];
-</span></span><span style="display:flex;"><span>};
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* The tag name of this struct is _IO_FILE to preserve historic
+</span></span></span><span class="line"><span class="cl"><span class="cm">   C++ mangled names for functions taking FILE* arguments.
+</span></span></span><span class="line"><span class="cl"><span class="cm">   That name should not be used in new code.  */</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">_IO_FILE</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_flags</span><span class="p">;</span>		<span class="cm">/* High-order word is _IO_MAGIC; rest is flags. */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/* The following pointers correspond to the C++ streambuf protocol. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_read_ptr</span><span class="p">;</span>	<span class="cm">/* Current read pointer */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_read_end</span><span class="p">;</span>	<span class="cm">/* End of get area. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_read_base</span><span class="p">;</span>	<span class="cm">/* Start of putback+get area. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_write_base</span><span class="p">;</span>	<span class="cm">/* Start of put area. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_write_ptr</span><span class="p">;</span>	<span class="cm">/* Current put pointer. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_write_end</span><span class="p">;</span>	<span class="cm">/* End of put area. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_buf_base</span><span class="p">;</span>	<span class="cm">/* Start of reserve area. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_buf_end</span><span class="p">;</span>	<span class="cm">/* End of reserve area. */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/* The following fields are used to support backing up and undo. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_save_base</span><span class="p">;</span> <span class="cm">/* Pointer to start of non-current get area. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_backup_base</span><span class="p">;</span>  <span class="cm">/* Pointer to first valid character of backup area */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_IO_save_end</span><span class="p">;</span> <span class="cm">/* Pointer to end of non-current get area. */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_marker</span> <span class="o">*</span><span class="n">_markers</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_FILE</span> <span class="o">*</span><span class="n">_chain</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_fileno</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_flags2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__off_t</span> <span class="n">_old_offset</span><span class="p">;</span> <span class="cm">/* This used to be _offset but it&#39;s too small.  */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/* 1+column number of pbase(); 0 is unknown. */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">short</span> <span class="n">_cur_column</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">signed</span> <span class="kt">char</span> <span class="n">_vtable_offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">_shortbuf</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">_IO_lock_t</span> <span class="o">*</span><span class="n">_lock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#ifdef _IO_USE_OLD_IO_FILE
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">_IO_FILE_complete</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_FILE</span> <span class="n">_file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>  <span class="n">__off64_t</span> <span class="n">_offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* Wide character stream stuff.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_codecvt</span> <span class="o">*</span><span class="n">_codecvt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_wide_data</span> <span class="o">*</span><span class="n">_wide_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_FILE</span> <span class="o">*</span><span class="n">_freeres_list</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="o">*</span><span class="n">_freeres_buf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">__pad5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_mode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* Make sure we don&#39;t get into trouble again.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">_unused2</span><span class="p">[</span><span class="mi">15</span> <span class="o">*</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="o">-</span> <span class="k">sizeof</span> <span class="p">(</span><span class="n">size_t</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>This is the rough struct of how <code>FILE</code> is implemented. For now, we can skip first how will the fields be used. We will explain more about it later when we talk about the history of the attacking scenario in glibc via <code>FILE</code> structure.</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L324" target="_blank" rel="noopener">_IO_FILE_plus</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L324" target="_blank" rel="noopener noreffer ">_IO_FILE_plus</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#09f;font-style:italic">/* We always allocate an extra word following an _IO_FILE.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   This contains a pointer to the function jump table used.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   This is for compatibility with C++ streambuf; the word can
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   be used to smash to a pointer to a virtual function table. */</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">struct</span> _IO_FILE_plus
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  FILE file;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">const</span> <span style="color:#069;font-weight:bold">struct</span> _IO_jump_t <span style="color:#555">*</span>vtable;
-</span></span><span style="display:flex;"><span>};
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* We always allocate an extra word following an _IO_FILE.
+</span></span></span><span class="line"><span class="cl"><span class="cm">   This contains a pointer to the function jump table used.
+</span></span></span><span class="line"><span class="cl"><span class="cm">   This is for compatibility with C++ streambuf; the word can
+</span></span></span><span class="line"><span class="cl"><span class="cm">   be used to smash to a pointer to a virtual function table. */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">_IO_FILE_plus</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FILE</span> <span class="n">file</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="k">struct</span> <span class="n">_IO_jump_t</span> <span class="o">*</span><span class="n">vtable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Glibc also has the extended version of <code>_IO_FILE</code> struct called <code>_IO_FILE_plus</code>, which is <code>_IO_FILE</code> + <code>vtable</code> (vtable = virtual table = array of pointers to the helper functions during executing the IO operation). The default filestream (<code>stdin</code>, <code>stdout</code>, <code>stderr</code>) is using this extended version instead of the raw <code>_IO_FILE</code>. Also if you open a file with <code>fopen</code>, it will use this extended version as well.</p>
 <p>Why do we use the extended version (<code>_IO_FILE_plus</code>)? The purpose is to make the IO operation faster by having the <code>vtable</code>. The data type for the <code>vtable</code> is <code>_IO_jump_t</code> (see below LOCs), which stores the pointer to the needed IO helper methods.</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L293" target="_blank" rel="noopener">_IO_jump_t</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L293" target="_blank" rel="noopener noreffer ">_IO_jump_t</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">struct</span> _IO_jump_t
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(size_t, __dummy);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(size_t, __dummy2);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_finish_t, __finish);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_overflow_t, __overflow);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_underflow_t, __underflow);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_underflow_t, __uflow);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_pbackfail_t, __pbackfail);
-</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic">/* showmany */</span>
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_xsputn_t, __xsputn);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_xsgetn_t, __xsgetn);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_seekoff_t, __seekoff);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_seekpos_t, __seekpos);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_setbuf_t, __setbuf);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_sync_t, __sync);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_doallocate_t, __doallocate);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_read_t, __read);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_write_t, __write);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_seek_t, __seek);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_close_t, __close);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_stat_t, __stat);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_showmanyc_t, __showmanyc);
-</span></span><span style="display:flex;"><span>    JUMP_FIELD(_IO_imbue_t, __imbue);
-</span></span><span style="display:flex;"><span>};
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">_IO_jump_t</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">size_t</span><span class="p">,</span> <span class="n">__dummy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">size_t</span><span class="p">,</span> <span class="n">__dummy2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_finish_t</span><span class="p">,</span> <span class="n">__finish</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_overflow_t</span><span class="p">,</span> <span class="n">__overflow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_underflow_t</span><span class="p">,</span> <span class="n">__underflow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_underflow_t</span><span class="p">,</span> <span class="n">__uflow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_pbackfail_t</span><span class="p">,</span> <span class="n">__pbackfail</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* showmany */</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_xsputn_t</span><span class="p">,</span> <span class="n">__xsputn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_xsgetn_t</span><span class="p">,</span> <span class="n">__xsgetn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seekoff_t</span><span class="p">,</span> <span class="n">__seekoff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seekpos_t</span><span class="p">,</span> <span class="n">__seekpos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_setbuf_t</span><span class="p">,</span> <span class="n">__setbuf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_sync_t</span><span class="p">,</span> <span class="n">__sync</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_doallocate_t</span><span class="p">,</span> <span class="n">__doallocate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_read_t</span><span class="p">,</span> <span class="n">__read</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_write_t</span><span class="p">,</span> <span class="n">__write</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seek_t</span><span class="p">,</span> <span class="n">__seek</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_close_t</span><span class="p">,</span> <span class="n">__close</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_stat_t</span><span class="p">,</span> <span class="n">__stat</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_showmanyc_t</span><span class="p">,</span> <span class="n">__showmanyc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_imbue_t</span><span class="p">,</span> <span class="n">__imbue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>How will the <code>vtable</code> be filled during creating a new extended <code>FILE</code> struct? It depends on the method that you use.</p>
-<p>For example, if you try to open a new file via <code>fopen</code>, based on the below <a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/iofopen.c#L60" target="_blank" rel="noopener">LOCs</a>, you will see that the <code>vtable</code> will be initialized with the existing <code>vtable</code> called <code>_IO_file_jumps</code>. There&rsquo;s a lot of existing <code>vtable</code> other than <code>_IO_file_jumps</code> (for example there is also <code>_IO_str_jumps</code>).</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+<p>For example, if you try to open a new file via <code>fopen</code>, based on the below <a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/iofopen.c#L60" target="_blank" rel="noopener noreffer ">LOCs</a>, you will see that the <code>vtable</code> will be initialized with the existing <code>vtable</code> called <code>_IO_file_jumps</code>. There&rsquo;s a lot of existing <code>vtable</code> other than <code>_IO_file_jumps</code> (for example there is also <code>_IO_str_jumps</code>).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_IO_FILE <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span><span style="color:#c0f">__fopen_internal</span> (<span style="color:#069;font-weight:bold">const</span> <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>filename, <span style="color:#069;font-weight:bold">const</span> <span style="color:#078;font-weight:bold">char</span> <span style="color:#555">*</span>mode, <span style="color:#078;font-weight:bold">int</span> is32)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>  _IO_JUMPS (<span style="color:#555">&amp;</span>new_f<span style="color:#555">-&gt;</span>fp) <span style="color:#555">=</span> <span style="color:#555">&amp;</span>_IO_file_jumps;
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">_IO_FILE</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="nf">__fopen_internal</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">mode</span><span class="p">,</span> <span class="kt">int</span> <span class="n">is32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_IO_JUMPS</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">new_f</span><span class="o">-&gt;</span><span class="n">fp</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">_IO_file_jumps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>How to call it? Turn out it has implemented some definitions to make the jump call easier. Example:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#099"># define _IO_JUMPS_FUNC(THIS) (IO_validate_vtable (_IO_JUMPS_FILE_plus (THIS)))
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>...
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span><span style="color:#099">#define JUMP1(FUNC, THIS, X1) (_IO_JUMPS_FUNC(THIS)-&gt;FUNC) (THIS, X1)
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>...
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">/* The &#39;finish&#39; function does any final cleaning up of an _IO_FILE object.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   It does not delete (free) it, but does everything else to finalize it.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   It matches the streambuf::~streambuf virtual destructor.  */</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">typedef</span> <span style="color:#078;font-weight:bold">void</span> (<span style="color:#555">*</span>_IO_finish_t) (_IO_FILE <span style="color:#555">*</span>, <span style="color:#078;font-weight:bold">int</span>); <span style="color:#09f;font-style:italic">/* finalize */</span>
-</span></span><span style="display:flex;"><span><span style="color:#099">#define _IO_FINISH(FP) JUMP1 (__finish, FP, 0)
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp"># define _IO_JUMPS_FUNC(THIS) (IO_validate_vtable (_IO_JUMPS_FILE_plus (THIS)))
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define JUMP1(FUNC, THIS, X1) (_IO_JUMPS_FUNC(THIS)-&gt;FUNC) (THIS, X1)
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* The &#39;finish&#39; function does any final cleaning up of an _IO_FILE object.
+</span></span></span><span class="line"><span class="cl"><span class="cm">   It does not delete (free) it, but does everything else to finalize it.
+</span></span></span><span class="line"><span class="cl"><span class="cm">   It matches the streambuf::~streambuf virtual destructor.  */</span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">_IO_finish_t</span><span class="p">)</span> <span class="p">(</span><span class="n">_IO_FILE</span> <span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="cm">/* finalize */</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define _IO_FINISH(FP) JUMP1 (__finish, FP, 0)
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>Above <a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L139" target="_blank" rel="noopener">LOC</a> is the example that the glibc implements some definitions for IO Operations which will be translated to jump to the stored pointer based on its key (index).</p>
+</div><p>Above <a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L139" target="_blank" rel="noopener noreffer ">LOC</a> is the example that the glibc implements some definitions for IO Operations which will be translated to jump to the stored pointer based on its key (index).</p>
 <p>For example, if it calls <code>_IO_FINISH(FP)</code>, that means it will call the stored function pointer of the passed <code>FILE</code> variable, specifically <code>FP.vtable[idx]</code> entry (<code>idx</code> is the index of <code>__finish</code> and <code>vtable</code> is the <code>_IO_file_jumps</code> in this case).</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/stdfiles.c#L56" target="_blank" rel="noopener">_IO_list_all</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/stdfiles.c#L56" target="_blank" rel="noopener noreffer ">_IO_list_all</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">struct</span> _IO_FILE_plus <span style="color:#555">*</span>_IO_list_all <span style="color:#555">=</span> <span style="color:#555">&amp;</span>_IO_2_1_stderr_;
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">_IO_FILE_plus</span> <span class="o">*</span><span class="n">_IO_list_all</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">_IO_2_1_stderr_</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Another key point in <code>FILE</code> structure is that glibc maintains a linked list of the available <code>FILE</code> in a binary. Each of them will be connected via the <code>_chain</code> attribute (Refer to the <code>_IO_FILE</code>) struct. The linked list header will be the <code>stderr</code> by default (take a look in the below GDB), and the value will be updated with the most recent <code>FILE</code> that you open.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  print _IO_list_all
-</span></span><span style="display:flex;"><span>$23 = (struct _IO_FILE_plus *) 0x7ffff7dd2520 &lt;_IO_2_1_stderr_&gt;
-</span></span><span style="display:flex;"><span>gef➤  print _IO_2_1_stderr_.file._chain
-</span></span><span style="display:flex;"><span>$24 = (struct _IO_FILE *) 0x7ffff7dd2600 &lt;_IO_2_1_stdout_&gt;
-</span></span><span style="display:flex;"><span>gef➤  print _IO_2_1_stdout_.file._chain
-</span></span><span style="display:flex;"><span>$25 = (struct _IO_FILE *) 0x7ffff7dd18c0 &lt;_IO_2_1_stdin_&gt;
-</span></span><span style="display:flex;"><span>gef➤  print _IO_2_1_stdin_.file._chain
-</span></span><span style="display:flex;"><span>$26 = (struct _IO_FILE *) 0x0
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gef➤  print _IO_list_all
+</span></span><span class="line"><span class="cl">$23 = (struct _IO_FILE_plus *) 0x7ffff7dd2520 &lt;_IO_2_1_stderr_&gt;
+</span></span><span class="line"><span class="cl">gef➤  print _IO_2_1_stderr_.file._chain
+</span></span><span class="line"><span class="cl">$24 = (struct _IO_FILE *) 0x7ffff7dd2600 &lt;_IO_2_1_stdout_&gt;
+</span></span><span class="line"><span class="cl">gef➤  print _IO_2_1_stdout_.file._chain
+</span></span><span class="line"><span class="cl">$25 = (struct _IO_FILE *) 0x7ffff7dd18c0 &lt;_IO_2_1_stdin_&gt;
+</span></span><span class="line"><span class="cl">gef➤  print _IO_2_1_stdin_.file._chain
+</span></span><span class="line"><span class="cl">$26 = (struct _IO_FILE *) 0x0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="the-usage-of-vtable-in-a-file-structure">The usage of <code>vtable</code> in a <code>FILE</code> structure <a href="#the-usage-of-vtable-in-a-file-structure" class="anchor">#</a></h2>
+</div><h2 id="the-usage-of-vtable-in-a-file-structure">The usage of <code>vtable</code> in a <code>FILE</code> structure</h2>
 <p>To give an example of how the IO Operations work and how the <code>vtable</code> will be used, let&rsquo;s take a look at what will happen when we call <code>exit()</code> in the below <code>C</code> program.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#099">#include</span> <span style="color:#099">&lt;stdio.h&gt;</span><span style="color:#099">
-</span></span></span><span style="display:flex;"><span><span style="color:#099">#include</span> <span style="color:#099">&lt;stdlib.h&gt;</span><span style="color:#099">
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>
-</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span> <span style="color:#c0f">main</span>() {
-</span></span><span style="display:flex;"><span>    exit(<span style="color:#f60">1337</span>);
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>What will happen when the binary executes the <code>exit</code>? Will IO operations take part in it?</p>
 <p>Let&rsquo;s take a look at the glibc implementation (version 2.35) and try to follow the calls (I will skip some LOCs because I only want to showcase how the vtable will be used).</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/stdlib/exit.c#L103" target="_blank" rel="noopener">exit</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/stdlib/exit.c#L103" target="_blank" rel="noopener noreffer ">exit</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span>
-</span></span><span style="display:flex;"><span><span style="color:#c0f">exit</span> (<span style="color:#078;font-weight:bold">int</span> status)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  __run_exit_handlers (status, <span style="color:#555">&amp;</span>__exit_funcs, <span style="color:#366">true</span>, <span style="color:#366">true</span>);
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="nf">exit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">status</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__run_exit_handlers</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">__exit_funcs</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Okay, it turns out that exit will call <code>__run_exit_handlers</code>. Let&rsquo;s move into that method.</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/stdlib/exit.c#L33" target="_blank" rel="noopener">__run_exit_handlers</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/stdlib/exit.c#L33" target="_blank" rel="noopener noreffer ">__run_exit_handlers</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#09f;font-style:italic">/* Call all functions registered with `atexit&#39; and `on_exit&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   in the reverse of the order in which they were registered
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">   perform stdio cleanup, and terminate program execution with STATUS.  */</span>
-</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span>
-</span></span><span style="display:flex;"><span>attribute_hidden
-</span></span><span style="display:flex;"><span><span style="color:#c0f">__run_exit_handlers</span> (<span style="color:#078;font-weight:bold">int</span> status, <span style="color:#069;font-weight:bold">struct</span> exit_function_list <span style="color:#555">**</span>listp,
-</span></span><span style="display:flex;"><span>		     <span style="color:#078;font-weight:bold">bool</span> run_list_atexit, <span style="color:#078;font-weight:bold">bool</span> run_dtors)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (run_list_atexit)
-</span></span><span style="display:flex;"><span>    RUN_HOOK (__libc_atexit, ());
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cm">/* Call all functions registered with `atexit&#39; and `on_exit&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="cm">   in the reverse of the order in which they were registered
+</span></span></span><span class="line"><span class="cl"><span class="cm">   perform stdio cleanup, and terminate program execution with STATUS.  */</span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="n">attribute_hidden</span>
+</span></span><span class="line"><span class="cl"><span class="nf">__run_exit_handlers</span> <span class="p">(</span><span class="kt">int</span> <span class="n">status</span><span class="p">,</span> <span class="k">struct</span> <span class="n">exit_function_list</span> <span class="o">**</span><span class="n">listp</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		     <span class="kt">bool</span> <span class="n">run_list_atexit</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">run_dtors</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">run_list_atexit</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RUN_HOOK</span> <span class="p">(</span><span class="n">__libc_atexit</span><span class="p">,</span> <span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Focusing on that LOC, What does it do?</p>
 <p>Inspecting the compiled binary via gdb, turn out it will call <code>_IO_cleanup</code></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>gef➤  disas __run_exit_handlers
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>0x00007ffff7a4a1fd &lt;+125&gt;:   lea    rbp,[rip+0x383694]        # 0x7ffff7dcd898 &lt;__elf_set___libc_atexit_element__IO_cleanup__&gt;
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>gef➤  disas __elf_set___libc_atexit_element__IO_cleanup__
-</span></span><span style="display:flex;"><span>Dump of assembler code for function _IO_cleanup:
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gef➤  disas __run_exit_handlers
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">0x00007ffff7a4a1fd &lt;+125&gt;:   lea    rbp,[rip+0x383694]        # 0x7ffff7dcd898 &lt;__elf_set___libc_atexit_element__IO_cleanup__&gt;
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">gef➤  disas __elf_set___libc_atexit_element__IO_cleanup__
+</span></span><span class="line"><span class="cl">Dump of assembler code for function _IO_cleanup:
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L953" target="_blank" rel="noopener">_IO_cleanup</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</div><p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L953" target="_blank" rel="noopener noreffer ">_IO_cleanup</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#c0f">_IO_cleanup</span> (<span style="color:#078;font-weight:bold">void</span>)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* We do *not* want locking.  Some threads might use streams but
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">     that is their problem, we flush them underneath them.  */</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> result <span style="color:#555">=</span> _IO_flush_all_lockp (<span style="color:#f60">0</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#09f;font-style:italic">/* We currently don&#39;t have a reliable mechanism for making sure that
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">     C++ static destructors are executed in the correct order.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">     So it is possible that other static destructors might want to
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">     write to cout - and they&#39;re supposed to be able to do so.
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">     The following will make the standard streambufs be unbuffered,
-</span></span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic">     which forces any output from late destructors to be written out. */</span>
-</span></span><span style="display:flex;"><span>  _IO_unbuffer_all ();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> result;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_cleanup</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/* We do *not* want locking.  Some threads might use streams but
+</span></span></span><span class="line"><span class="cl"><span class="cm">     that is their problem, we flush them underneath them.  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">_IO_flush_all_lockp</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/* We currently don&#39;t have a reliable mechanism for making sure that
+</span></span></span><span class="line"><span class="cl"><span class="cm">     C++ static destructors are executed in the correct order.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     So it is possible that other static destructors might want to
+</span></span></span><span class="line"><span class="cl"><span class="cm">     write to cout - and they&#39;re supposed to be able to do so.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">     The following will make the standard streambufs be unbuffered,
+</span></span></span><span class="line"><span class="cl"><span class="cm">     which forces any output from late destructors to be written out. */</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_IO_unbuffer_all</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>What will <code>_IO_flush_all_lockp</code> do?</p>
-<p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L765" target="_blank" rel="noopener">_IO_flush_all_lockp</a></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+<p><a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L765" target="_blank" rel="noopener noreffer ">_IO_flush_all_lockp</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span>
-</span></span><span style="display:flex;"><span><span style="color:#c0f">_IO_flush_all_lockp</span> (<span style="color:#078;font-weight:bold">int</span> do_lock)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>  last_stamp <span style="color:#555">=</span> _IO_list_all_stamp;
-</span></span><span style="display:flex;"><span>  fp <span style="color:#555">=</span> (_IO_FILE <span style="color:#555">*</span>) _IO_list_all;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">while</span> (fp <span style="color:#555">!=</span> <span style="color:#366">NULL</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      run_fp <span style="color:#555">=</span> fp;
-</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (do_lock)
-</span></span><span style="display:flex;"><span>	_IO_flockfile (fp);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (((fp<span style="color:#555">-&gt;</span>_mode <span style="color:#555">&lt;=</span> <span style="color:#f60">0</span> <span style="color:#555">&amp;&amp;</span> fp<span style="color:#555">-&gt;</span>_IO_write_ptr <span style="color:#555">&gt;</span> fp<span style="color:#555">-&gt;</span>_IO_write_base)
-</span></span><span style="display:flex;"><span><span style="color:#099">#if defined _LIBC || defined _GLIBCPP_USE_WCHAR_T
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>	   <span style="color:#555">||</span> (_IO_vtable_offset (fp) <span style="color:#555">==</span> <span style="color:#f60">0</span>
-</span></span><span style="display:flex;"><span>	       <span style="color:#555">&amp;&amp;</span> fp<span style="color:#555">-&gt;</span>_mode <span style="color:#555">&gt;</span> <span style="color:#f60">0</span> <span style="color:#555">&amp;&amp;</span> (fp<span style="color:#555">-&gt;</span>_wide_data<span style="color:#555">-&gt;</span>_IO_write_ptr
-</span></span><span style="display:flex;"><span>				    <span style="color:#555">&gt;</span> fp<span style="color:#555">-&gt;</span>_wide_data<span style="color:#555">-&gt;</span>_IO_write_base))
-</span></span><span style="display:flex;"><span><span style="color:#099">#endif
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>	   )
-</span></span><span style="display:flex;"><span>	  <span style="color:#555">&amp;&amp;</span> _IO_OVERFLOW (fp, EOF) <span style="color:#555">==</span> EOF)
-</span></span><span style="display:flex;"><span>	result <span style="color:#555">=</span> EOF;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (do_lock)
-</span></span><span style="display:flex;"><span>	_IO_funlockfile (fp);
-</span></span><span style="display:flex;"><span>      run_fp <span style="color:#555">=</span> <span style="color:#366">NULL</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">if</span> (last_stamp <span style="color:#555">!=</span> _IO_list_all_stamp)
-</span></span><span style="display:flex;"><span>	{
-</span></span><span style="display:flex;"><span>	  <span style="color:#09f;font-style:italic">/* Something was added to the list.  Start all over again.  */</span>
-</span></span><span style="display:flex;"><span>	  fp <span style="color:#555">=</span> (_IO_FILE <span style="color:#555">*</span>) _IO_list_all;
-</span></span><span style="display:flex;"><span>	  last_stamp <span style="color:#555">=</span> _IO_list_all_stamp;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>      <span style="color:#069;font-weight:bold">else</span>
-</span></span><span style="display:flex;"><span>	fp <span style="color:#555">=</span> fp<span style="color:#555">-&gt;</span>_chain;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>...
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_flush_all_lockp</span> <span class="p">(</span><span class="kt">int</span> <span class="n">do_lock</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="n">last_stamp</span> <span class="o">=</span> <span class="n">_IO_list_all_stamp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">_IO_FILE</span> <span class="o">*</span><span class="p">)</span> <span class="n">_IO_list_all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">fp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">run_fp</span> <span class="o">=</span> <span class="n">fp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">do_lock</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_IO_flockfile</span> <span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(((</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_mode</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_ptr</span> <span class="o">&gt;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#if defined _LIBC || defined _GLIBCPP_USE_WCHAR_T
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	   <span class="o">||</span> <span class="p">(</span><span class="n">_IO_vtable_offset</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	       <span class="o">&amp;&amp;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_mode</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_wide_data</span><span class="o">-&gt;</span><span class="n">_IO_write_ptr</span>
+</span></span><span class="line"><span class="cl">				    <span class="o">&gt;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_wide_data</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	   <span class="p">)</span>
+</span></span><span class="line"><span class="cl">	  <span class="o">&amp;&amp;</span> <span class="n">_IO_OVERFLOW</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">EOF</span><span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">result</span> <span class="o">=</span> <span class="n">EOF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">do_lock</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_IO_funlockfile</span> <span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">run_fp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">last_stamp</span> <span class="o">!=</span> <span class="n">_IO_list_all_stamp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="cm">/* Something was added to the list.  Start all over again.  */</span>
+</span></span><span class="line"><span class="cl">	  <span class="n">fp</span> <span class="o">=</span> <span class="p">(</span><span class="n">_IO_FILE</span> <span class="o">*</span><span class="p">)</span> <span class="n">_IO_list_all</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	  <span class="n">last_stamp</span> <span class="o">=</span> <span class="n">_IO_list_all_stamp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span>
+</span></span><span class="line"><span class="cl">	<span class="n">fp</span> <span class="o">=</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_chain</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Some notes that you could take from reading those LOCs:</p>
@@ -632,8 +635,8 @@
 </ul>
 <p>Remember that <code>_IO_OVERFLOW (fp, EOF)</code> means that it will try to do the call by jumping to the stored pointer in the <code>fp.vtable[__overflow]</code>.</p>
 <p>This is one of the examples of how the <code>vtable</code> in a <code>FILE</code> object will be used, and this kind of IO operation happens in other methods as well, not limited to <code>exit</code>.</p>
-<p>N.B. If you try to explore more by yourself, in the method <a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L891" target="_blank" rel="noopener"><code>_IO_unbuffer_all</code></a> which is also called during <code>_IO_cleanup</code>, you will notice that there is a <code>vtable</code> call as well, which is <code>_IO_SETBUF (fp, NULL, 0);</code></p>
-<h1 id="possible-attack-scenario">Possible Attack Scenario <a href="#possible-attack-scenario" class="anchor">#</a></h1>
+<p>N.B. If you try to explore more by yourself, in the method <a href="https://elixir.bootlin.com/glibc/glibc-2.24/source/libio/genops.c#L891" target="_blank" rel="noopener noreffer "><code>_IO_unbuffer_all</code></a> which is also called during <code>_IO_cleanup</code>, you will notice that there is a <code>vtable</code> call as well, which is <code>_IO_SETBUF (fp, NULL, 0);</code></p>
+<h1 id="possible-attack-scenario">Possible Attack Scenario</h1>
 <p>Taking an example from the above scenario on how IO operation works inside the <code>exit</code> call of C library, there are some possible attack scenarios that we can do to abuse the <code>FILE</code> structure:</p>
 <ul>
 <li>Hijack the <code>vtable</code> of the IO file (For example, <code>stdout</code>).
@@ -656,166 +659,56 @@
 <li>Use the <code>FILE</code> buffer metadata so that we can do <code>write</code> operation in our desired target address (Arbitrary Address Write).</li>
 </ul>
 <p>The detail of each attack will be explained in the next part, but spoilers ahead, some of these possible attacks are only working in the old glibc version.</p>
-<h1 id="resources">Resources <a href="#resources" class="anchor">#</a></h1>
+<h1 id="resources">Resources</h1>
 <ul>
-<li><a href="https://stackoverflow.com/questions/1658476/c-fopen-vs-open" target="_blank" rel="noopener">https://stackoverflow.com/questions/1658476/c-fopen-vs-open</a></li>
-<li><a href="https://www.slideshare.net/AngelBoy1/play-with-file-structure-yet-another-binary-exploit-technique" target="_blank" rel="noopener">https://www.slideshare.net/AngelBoy1/play-with-file-structure-yet-another-binary-exploit-technique</a></li>
-<li><a href="https://dhavalkapil.com/blogs/FILE-Structure-Exploitation/" target="_blank" rel="noopener">https://dhavalkapil.com/blogs/FILE-Structure-Exploitation/</a></li>
-<li><a href="https://ctf-wiki.mahaloz.re/pwn/linux/io_file/introduction/" target="_blank" rel="noopener">https://ctf-wiki.mahaloz.re/pwn/linux/io_file/introduction/</a></li>
-<li><a href="https://faraz.faith/2020-10-13-FSOP-lazynote/" target="_blank" rel="noopener">https://faraz.faith/2020-10-13-FSOP-lazynote/</a></li>
-<li><a href="https://blog.kylebot.net/2022/10/22/angry-FSROP/" target="_blank" rel="noopener">https://blog.kylebot.net/2022/10/22/angry-FSROP/</a></li>
+<li><a href="https://stackoverflow.com/questions/1658476/c-fopen-vs-open" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/1658476/c-fopen-vs-open</a></li>
+<li><a href="https://www.slideshare.net/AngelBoy1/play-with-file-structure-yet-another-binary-exploit-technique" target="_blank" rel="noopener noreffer ">https://www.slideshare.net/AngelBoy1/play-with-file-structure-yet-another-binary-exploit-technique</a></li>
+<li><a href="https://dhavalkapil.com/blogs/FILE-Structure-Exploitation/" target="_blank" rel="noopener noreffer ">https://dhavalkapil.com/blogs/FILE-Structure-Exploitation/</a></li>
+<li><a href="https://ctf-wiki.mahaloz.re/pwn/linux/io_file/introduction/" target="_blank" rel="noopener noreffer ">https://ctf-wiki.mahaloz.re/pwn/linux/io_file/introduction/</a></li>
+<li><a href="https://faraz.faith/2020-10-13-FSOP-lazynote/" target="_blank" rel="noopener noreffer ">https://faraz.faith/2020-10-13-FSOP-lazynote/</a></li>
+<li><a href="https://blog.kylebot.net/2022/10/22/angry-FSROP/" target="_blank" rel="noopener noreffer ">https://blog.kylebot.net/2022/10/22/angry-FSROP/</a></li>
 </ul>
-<h1 id="social-media">Social Media <a href="#social-media" class="anchor">#</a></h1>
-<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener">twitter</a></p>
-
-      </div>
-      
-        
-  <aside class="toc-container">
-    <a href="#" style="font-weight: 700; color: black;">FILE Structure Attack: Part 1</a>
-    <div class="js-toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#intro">Intro</a></li>
-    <li><a href="#implementation-in-c">Implementation in C</a></li>
-    <li><a href="#the-usage-of-vtable-in-a-file-structure">The usage of <code>vtable</code> in a <code>FILE</code> structure</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </div>
-  </aside>
-
-
-      
-    </div>
-
-    
-        <div class="tags">
-            
-                <a href="https://chovid99.github.io/tags/education">Education</a>
-            
-                <a href="https://chovid99.github.io/tags/file">FILE</a>
-            
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/file-structure-attack-part-1/" data-title="FILE Structure Attack: Part 1" data-via="Chovid99" data-hashtags="Education,FILE"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/file-structure-attack-part-1/" data-hashtag="Education"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
-    
-    
-    
-  <div id="comment">
-    
-    
-  </div>
-
-
-</section>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/js/tocbot.min.js"></script>
-
-<script type="text/javascript">
-  tocbot.init({
-      
-      tocSelector: '.js-toc',
-      
-      contentSelector: '.js-toc-content',
-      headingSelector: 'h1, h2, h3',
-      orderedList: false,
-      headingLabelCallback: s => s.substr(0, s.length-2),
-      collapseDepth: 2
-  });
-  function initTOC() {
-    var windowWidth = 1316;
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-  }
-  window.onload = initTOC;
-
-  var lastWindowWidth = $(window).width();
-  $(window).resize(function() {
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-    lastWindowWidth = $(window).width();
-  });
-</script>
-
-    </main>
-    
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-       © Copyright 
-       2023 
-       <span class="split">
-        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
-  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
-</svg>
-       </span>
-       Chovid99
-    
     </div>
 
-    
-</footer>
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/education/">Education</a>,&nbsp;<a href="/tags/file/">FILE</a></section>
+        <section>
+            
+        </section>
+    </div>
 
+    <div class="post-nav"><a href="/posts/blackhat-mea-ctf-2022/" class="prev" rel="prev" title="BlackHat MEA CTF 2022"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>BlackHat MEA CTF 2022</a>
+            <a href="/posts/hitcon-ctf-2022/" class="next" rel="next" title="HITCON CTF 2022">HITCON CTF 2022<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
 
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
 </html>

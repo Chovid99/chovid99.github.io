@@ -1,20 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>z3 on Welcome to Chovid99&#39;s Blog</title>
-    <link>https://chovid99.github.io/tags/z3/</link>
-    <description>Recent content in z3 on Welcome to Chovid99&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 07 Mar 2022 08:01:00 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/z3/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Pragyan CTF 2022</title>
-      <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
-      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
-      <description>Writeup for Pragyan CTF 2022 by Chovid99</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>z3 - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/z3/</link>
+        <description>z3 - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 07 Mar 2022 08:01:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/z3/" rel="self" type="application/rss+xml" /><item>
+    <title>Pragyan CTF 2022</title>
+    <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
+    <pubDate>Mon, 07 Mar 2022 08:01:00 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
+    <description><![CDATA[Writeup for Pragyan CTF 2022 by Chovid99]]></description>
+</item>
+</channel>
 </rss>

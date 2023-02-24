@@ -1,466 +1,460 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>CSAW CTF 2019 | Welcome to Chovid99&#39;s Blog</title>
-
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta property="og:title" content="CSAW CTF 2019" />
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CSAW CTF 2019 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="CSAW CTF 2019" />
 <meta property="og:description" content="Writeup for CSAW CTF 2019 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/csaw-ctf-2019/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/csaw-ctf-2019/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2019-09-16T20:02:14+07:00" />
-<meta property="article:modified_time" content="2019-09-16T20:02:14+07:00" />
+<meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="CSAW CTF 2019"/>
 <meta name="twitter:description" content="Writeup for CSAW CTF 2019 by Chovid99"/>
-<meta name="twitter:site" content="@Chovid99"/>
-<meta name="twitter:creator" content="@Chovid99"/>
-<meta property="og:site_name" content="Chovid99's Blog">
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/csaw-ctf-2019/" /><link rel="next" href="https://chovid99.github.io/posts/pbctf-2021/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CSAW CTF 2019",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/csaw-ctf-2019\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, CSAW CTF, crypto, rsa, 2019","wordcount":  1622 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/csaw-ctf-2019\/","datePublished": "2019-09-16T20:02:14+07:00","dateModified": "2023-02-23T18:03:33+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-<meta name="generator" content="Hugo 0.105.0">
-
-
-  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-
-
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/tocbot.css">
-
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-19HP521HQ9');
-  </script>
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
-
-
-
-
-
-
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>Home</a>
-	
-	<a href="/posts">Posts</a>
-	<a href="/tags">Tags</a>
-	<a href="/about">About</a>
-
-	
-
-	
-</nav>
-
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">CSAW CTF 2019</h1>
-
-    <div class="tip">
-        <time datetime="2019-09-16 20:02:14 &#43;0700 &#43;07">Sep 16, 2019</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          1618 words
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          8 minute read
-        </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
     </div>
-
-    <div class="content">
-      <div class="post-content js-toc-content">
-        <p>I&rsquo;m going to explain my writeup for some challenges that I have done in this year CSAW CTF.</p>
-<h1 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h1>
-<h2 id="fault-box">Fault Box <a href="#fault-box" class="anchor">#</a></h2>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CSAW CTF 2019</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Sep 16, 2019">Sep 16, 2019</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1622 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#crypto">Crypto</a>
+      <ul>
+        <li><a href="#fault-box">Fault Box</a></li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>I&rsquo;m going to explain my writeup for some challenges that I have done in this year CSAW CTF.</p>
+<h1 id="crypto">Crypto</h1>
+<h2 id="fault-box">Fault Box</h2>
 <p>Below is the given chall</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">114
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">115
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">116
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">117
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">118
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">119
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">120
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">121
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">122
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">123
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">124
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">125
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">126
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">127
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">128
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">129
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">130
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">131
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">132
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">133
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">134
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">135
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">136
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">137
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">138
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">139
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">140
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">socketserver</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">random</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">signal</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">time</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> inverse, bytes_to_long, long_to_bytes
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>FLAG <span style="color:#555">=</span> <span style="color:#366">open</span>(<span style="color:#c30">&#39;flag&#39;</span>, <span style="color:#c30">&#39;r&#39;</span>)<span style="color:#555">.</span>read()<span style="color:#555">.</span>strip()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">s2n</span>(s):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> bytes_to_long(<span style="color:#366">bytearray</span>(s, <span style="color:#c30">&#39;latin-1&#39;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">n2s</span>(n):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> long_to_bytes(n)<span style="color:#555">.</span>decode(<span style="color:#c30">&#39;latin-1&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">gen_prime</span>():
-</span></span><span style="display:flex;"><span>    base <span style="color:#555">=</span> random<span style="color:#555">.</span>getrandbits(<span style="color:#f60">1024</span>)
-</span></span><span style="display:flex;"><span>    off <span style="color:#555">=</span> <span style="color:#f60">0</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> <span style="color:#069;font-weight:bold">True</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> gmpy2<span style="color:#555">.</span>is_prime(base <span style="color:#555">+</span> off):
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">break</span>
-</span></span><span style="display:flex;"><span>        off <span style="color:#555">+=</span> <span style="color:#f60">1</span>
-</span></span><span style="display:flex;"><span>    p <span style="color:#555">=</span> base <span style="color:#555">+</span> off
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> p, off
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">class</span> <span style="color:#0a8;font-weight:bold">RSA</span>(<span style="color:#366">object</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> __init__(self):
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">pass</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">generate</span>(self, p, q, e<span style="color:#555">=</span><span style="color:#f60">0x10001</span>):
-</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>p <span style="color:#555">=</span> p
-</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>q <span style="color:#555">=</span> q
-</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>N <span style="color:#555">=</span> p <span style="color:#555">*</span> q
-</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>e <span style="color:#555">=</span> e
-</span></span><span style="display:flex;"><span>        phi <span style="color:#555">=</span> (p<span style="color:#555">-</span><span style="color:#f60">1</span>) <span style="color:#555">*</span> (q<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        self<span style="color:#555">.</span>d <span style="color:#555">=</span> inverse(e, phi)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">encrypt</span>(self, p):
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> <span style="color:#366">pow</span>(p, self<span style="color:#555">.</span>e, self<span style="color:#555">.</span>N)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">decrypt</span>(self, c):
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> <span style="color:#366">pow</span>(c, self<span style="color:#555">.</span>d, self<span style="color:#555">.</span>N)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># ===== FUNCTIONS FOR PERSONAL TESTS, DON&#39;T USE THEM =====</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">TEST_CRT_encrypt</span>(self, p, fun<span style="color:#555">=</span><span style="color:#f60">0</span>):
-</span></span><span style="display:flex;"><span>        ep <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>d, self<span style="color:#555">.</span>p<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        eq <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>d, self<span style="color:#555">.</span>q<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        qinv <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>q, self<span style="color:#555">.</span>p)
-</span></span><span style="display:flex;"><span>        c1 <span style="color:#555">=</span> <span style="color:#366">pow</span>(p, ep, self<span style="color:#555">.</span>p)
-</span></span><span style="display:flex;"><span>        c2 <span style="color:#555">=</span> <span style="color:#366">pow</span>(p, eq, self<span style="color:#555">.</span>q) <span style="color:#555">^</span> fun
-</span></span><span style="display:flex;"><span>        h <span style="color:#555">=</span> (qinv <span style="color:#555">*</span> (c1 <span style="color:#555">-</span> c2)) <span style="color:#555">%</span> self<span style="color:#555">.</span>p
-</span></span><span style="display:flex;"><span>        c <span style="color:#555">=</span> c2 <span style="color:#555">+</span> h<span style="color:#555">*</span>self<span style="color:#555">.</span>q
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> c
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">TEST_CRT_decrypt</span>(self, c, fun<span style="color:#555">=</span><span style="color:#f60">0</span>):
-</span></span><span style="display:flex;"><span>        dp <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>e, self<span style="color:#555">.</span>p<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        dq <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>e, self<span style="color:#555">.</span>q<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        qinv <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>q, self<span style="color:#555">.</span>p)
-</span></span><span style="display:flex;"><span>        m1 <span style="color:#555">=</span> <span style="color:#366">pow</span>(c, dp, self<span style="color:#555">.</span>p)
-</span></span><span style="display:flex;"><span>        m2 <span style="color:#555">=</span> <span style="color:#366">pow</span>(c, dq, self<span style="color:#555">.</span>q) <span style="color:#555">^</span> fun
-</span></span><span style="display:flex;"><span>        h <span style="color:#555">=</span> (qinv <span style="color:#555">*</span> (m1 <span style="color:#555">-</span> m2)) <span style="color:#555">%</span> self<span style="color:#555">.</span>p
-</span></span><span style="display:flex;"><span>        m <span style="color:#555">=</span> m2 <span style="color:#555">+</span> h<span style="color:#555">*</span>self<span style="color:#555">.</span>q
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> m
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">go</span>(req):
-</span></span><span style="display:flex;"><span>    r <span style="color:#555">=</span> RSA()
-</span></span><span style="display:flex;"><span>    p, x <span style="color:#555">=</span> gen_prime()
-</span></span><span style="display:flex;"><span>    q, y <span style="color:#555">=</span> gen_prime()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    r<span style="color:#555">.</span>generate(p, q)
-</span></span><span style="display:flex;"><span>    fake_flag <span style="color:#555">=</span> <span style="color:#c30">&#39;fake_flag{</span><span style="color:#a00">%s</span><span style="color:#c30">}&#39;</span> <span style="color:#555">%</span> ((<span style="color:#c30">&#39;</span><span style="color:#a00">%X</span><span style="color:#c30">&#39;</span> <span style="color:#555">%</span> y)<span style="color:#555">.</span>rjust(<span style="color:#f60">32</span>, <span style="color:#c30">&#39;0&#39;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">enc_flag</span>():
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#a00">%X</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span> <span style="color:#555">%</span> r<span style="color:#555">.</span>encrypt(s2n(FLAG)))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">enc_fake_flag</span>():
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#a00">%X</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span> <span style="color:#555">%</span> r<span style="color:#555">.</span>encrypt(s2n(fake_flag)))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">enc_fake_flag_TEST</span>():
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#a00">%X</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span> <span style="color:#555">%</span> r<span style="color:#555">.</span>TEST_CRT_encrypt(s2n(fake_flag), x))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">enc_msg</span>():
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#c30">b</span><span style="color:#c30">&#39;input the data:&#39;</span>)
-</span></span><span style="display:flex;"><span>        p <span style="color:#555">=</span> <span style="color:#366">str</span>(req<span style="color:#555">.</span>recv(<span style="color:#f60">4096</span>)<span style="color:#555">.</span>strip(), <span style="color:#c30">&#39;utf-8&#39;</span>)
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#a00">%X</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span> <span style="color:#555">%</span> r<span style="color:#555">.</span>encrypt(s2n(p)))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    menu <span style="color:#555">=</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;1&#39;</span>: enc_flag,
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;2&#39;</span>: enc_fake_flag,
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;3&#39;</span>: enc_fake_flag_TEST,
-</span></span><span style="display:flex;"><span>        <span style="color:#c30">&#39;4&#39;</span>: enc_msg,
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    cnt <span style="color:#555">=</span> <span style="color:#f60">2</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> cnt <span style="color:#555">&gt;</span> <span style="color:#f60">0</span>:
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#366">bytes</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;            fault box</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;1. print encrypted flag</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;2. print encrypted fake flag</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;3. print encrypted fake flag (TEST)</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;4. encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, <span style="color:#c30">&#39;utf-8&#39;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        choice <span style="color:#555">=</span> <span style="color:#366">str</span>(req<span style="color:#555">.</span>recv(<span style="color:#f60">2</span>)<span style="color:#555">.</span>strip(), <span style="color:#c30">&#39;utf-8&#39;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> choice <span style="color:#000;font-weight:bold">not</span> <span style="color:#000;font-weight:bold">in</span> menu:
-</span></span><span style="display:flex;"><span>            exit(<span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        menu[choice]()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> choice <span style="color:#555">==</span> <span style="color:#c30">&#39;4&#39;</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">continue</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        cnt <span style="color:#555">-=</span> <span style="color:#f60">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">class</span> <span style="color:#0a8;font-weight:bold">incoming</span>(socketserver<span style="color:#555">.</span>BaseRequestHandler):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">handle</span>(self):
-</span></span><span style="display:flex;"><span>        signal<span style="color:#555">.</span>alarm(<span style="color:#f60">300</span>)
-</span></span><span style="display:flex;"><span>        random<span style="color:#555">.</span>seed(time<span style="color:#555">.</span>time())
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        req <span style="color:#555">=</span> self<span style="color:#555">.</span>request
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">while</span> <span style="color:#069;font-weight:bold">True</span>:
-</span></span><span style="display:flex;"><span>            go(req)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">class</span> <span style="color:#0a8;font-weight:bold">ReusableTCPServer</span>(socketserver<span style="color:#555">.</span>ForkingMixIn, socketserver<span style="color:#555">.</span>TCPServer):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">pass</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>socketserver<span style="color:#555">.</span>TCPServer<span style="color:#555">.</span>allow_reuse_address <span style="color:#555">=</span> <span style="color:#069;font-weight:bold">True</span>
-</span></span><span style="display:flex;"><span>server <span style="color:#555">=</span> ReusableTCPServer((<span style="color:#c30">&#34;0.0.0.0&#34;</span>, <span style="color:#f60">23333</span>), incoming)
-</span></span><span style="display:flex;"><span>server<span style="color:#555">.</span>serve_forever()
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">socketserver</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">signal</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">gmpy2</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="n">inverse</span><span class="p">,</span> <span class="n">bytes_to_long</span><span class="p">,</span> <span class="n">long_to_bytes</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">FLAG</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s2n</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;latin-1&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">n2s</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;latin-1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gen_prime</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">base</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">getrandbits</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">off</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">is_prime</span><span class="p">(</span><span class="n">base</span> <span class="o">+</span> <span class="n">off</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">        <span class="n">off</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">base</span> <span class="o">+</span> <span class="n">off</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">p</span><span class="p">,</span> <span class="n">off</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">RSA</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mh">0x10001</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">q</span> <span class="o">=</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">e</span> <span class="o">=</span> <span class="n">e</span>
+</span></span><span class="line"><span class="cl">        <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># ===== FUNCTIONS FOR PERSONAL TESTS, DON&#39;T USE THEM =====</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">TEST_CRT_encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ep</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">eq</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qinv</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">eq</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span> <span class="o">^</span> <span class="n">fun</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">qinv</span> <span class="o">*</span> <span class="p">(</span><span class="n">c1</span> <span class="o">-</span> <span class="n">c2</span><span class="p">))</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c</span> <span class="o">=</span> <span class="n">c2</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">c</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">TEST_CRT_decrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dq</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qinv</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">dq</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span> <span class="o">^</span> <span class="n">fun</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">qinv</span> <span class="o">*</span> <span class="p">(</span><span class="n">m1</span> <span class="o">-</span> <span class="n">m2</span><span class="p">))</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="n">m</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">m</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">go</span><span class="p">(</span><span class="n">req</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">RSA</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">gen_prime</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">q</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">gen_prime</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fake_flag</span> <span class="o">=</span> <span class="s1">&#39;fake_flag{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">((</span><span class="s1">&#39;</span><span class="si">%X</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">enc_flag</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="si">%X</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">s2n</span><span class="p">(</span><span class="n">FLAG</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">enc_fake_flag</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="si">%X</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">s2n</span><span class="p">(</span><span class="n">fake_flag</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">enc_fake_flag_TEST</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="si">%X</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">TEST_CRT_encrypt</span><span class="p">(</span><span class="n">s2n</span><span class="p">(</span><span class="n">fake_flag</span><span class="p">),</span> <span class="n">x</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">enc_msg</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;input the data:&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="si">%X</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">r</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">s2n</span><span class="p">(</span><span class="n">p</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">menu</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="n">enc_flag</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="n">enc_fake_flag</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="n">enc_fake_flag_TEST</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="n">enc_msg</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">cnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;====================================</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;            fault box</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;====================================</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;1. print encrypted flag</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;2. print encrypted fake flag</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;3. print encrypted fake flag (TEST)</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;4. encrypt</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;====================================</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">choice</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">choice</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">menu</span><span class="p">[</span><span class="n">choice</span><span class="p">]()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">cnt</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">incoming</span><span class="p">(</span><span class="n">socketserver</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">signal</span><span class="o">.</span><span class="n">alarm</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">req</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">go</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ReusableTCPServer</span><span class="p">(</span><span class="n">socketserver</span><span class="o">.</span><span class="n">ForkingMixIn</span><span class="p">,</span> <span class="n">socketserver</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">socketserver</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">allow_reuse_address</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl"><span class="n">server</span> <span class="o">=</span> <span class="n">ReusableTCPServer</span><span class="p">((</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="mi">23333</span><span class="p">),</span> <span class="n">incoming</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>When I try to connect to the service, I was greeted by this message.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>====================================
-</span></span><span style="display:flex;"><span>            fault box
-</span></span><span style="display:flex;"><span>====================================
-</span></span><span style="display:flex;"><span>1. print encrypted flag
-</span></span><span style="display:flex;"><span>2. print encrypted fake flag
-</span></span><span style="display:flex;"><span>3. print encrypted fake flag (TEST)
-</span></span><span style="display:flex;"><span>4. encrypt
-</span></span><span style="display:flex;"><span>====================================
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">====================================
+</span></span><span class="line"><span class="cl">            fault box
+</span></span><span class="line"><span class="cl">====================================
+</span></span><span class="line"><span class="cl">1. print encrypted flag
+</span></span><span class="line"><span class="cl">2. print encrypted fake flag
+</span></span><span class="line"><span class="cl">3. print encrypted fake flag (TEST)
+</span></span><span class="line"><span class="cl">4. encrypt
+</span></span><span class="line"><span class="cl">====================================
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>So basically, we need to enter our chosen menu, and the service will return the encrypted message. For menu 1, the service will return the encrypted flag (the one that we need to decrypt), menu 2 will return the encrypted fake_flag, menu 3 will return the encrypted fake_flag also, but with different method (CRT), menu 4 will ask us for an input, and they will return the encrypted message. Let’s check the problem challenge code.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    cnt <span style="color:#555">=</span> <span style="color:#f60">2</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> cnt <span style="color:#555">&gt;</span> <span style="color:#f60">0</span>:
-</span></span><span style="display:flex;"><span>        req<span style="color:#555">.</span>sendall(<span style="color:#366">bytes</span>(
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;            fault box</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;1. print encrypted flag</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;2. print encrypted fake flag</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;3. print encrypted fake flag (TEST)</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;4. encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#c30">&#39;====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#39;</span>, <span style="color:#c30">&#39;utf-8&#39;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        choice <span style="color:#555">=</span> <span style="color:#366">str</span>(req<span style="color:#555">.</span>recv(<span style="color:#f60">2</span>)<span style="color:#555">.</span>strip(), <span style="color:#c30">&#39;utf-8&#39;</span>)
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> choice <span style="color:#000;font-weight:bold">not</span> <span style="color:#000;font-weight:bold">in</span> menu:
-</span></span><span style="display:flex;"><span>            exit(<span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        menu[choice]()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">if</span> choice <span style="color:#555">==</span> <span style="color:#c30">&#39;4&#39;</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#069;font-weight:bold">continue</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        cnt <span style="color:#555">-=</span> <span style="color:#f60">1</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">cnt</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">req</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;====================================</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;            fault box</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;====================================</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;1. print encrypted flag</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;2. print encrypted fake flag</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;3. print encrypted fake flag (TEST)</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;4. encrypt</span><span class="se">\n</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;====================================</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">choice</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">choice</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">menu</span><span class="p">[</span><span class="n">choice</span><span class="p">]()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">cnt</span> <span class="o">-=</span> <span class="mi">1</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>After examining for a while, this challenge only give us the $e$ value, which is $0x10001$. Not only that, the challenge give us chance to encrypt as many message as we can using the fourth menu without changing the $N$ value, but only give us chance to select two of the first three menu.</p>
@@ -493,30 +487,30 @@ n = GCD(c_{1} - m_{1}^{e}, c_{2} - m_{2}^{e})
 $$</p>
 <p>If the result is wrong, maybe what we got from the $GCD$ is $n*GCD(k_{1}, k_{2})$, and we just need to repeat the above equation and $GCD$ it again.</p>
 <p>After we got the $n$, we still can&rsquo;t factor the $n$ because it&rsquo;s big. Examine the third option code</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#09f;font-style:italic"># ===== FUNCTIONS FOR PERSONAL TESTS, DON&#39;T USE THEM =====</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">TEST_CRT_encrypt</span>(self, p, fun<span style="color:#555">=</span><span style="color:#f60">0</span>):
-</span></span><span style="display:flex;"><span>        ep <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>d, self<span style="color:#555">.</span>p<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        eq <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>d, self<span style="color:#555">.</span>q<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        qinv <span style="color:#555">=</span> inverse(self<span style="color:#555">.</span>q, self<span style="color:#555">.</span>p)
-</span></span><span style="display:flex;"><span>        c1 <span style="color:#555">=</span> <span style="color:#366">pow</span>(p, ep, self<span style="color:#555">.</span>p)
-</span></span><span style="display:flex;"><span>        c2 <span style="color:#555">=</span> <span style="color:#366">pow</span>(p, eq, self<span style="color:#555">.</span>q) <span style="color:#555">^</span> fun
-</span></span><span style="display:flex;"><span>        h <span style="color:#555">=</span> (qinv <span style="color:#555">*</span> (c1 <span style="color:#555">-</span> c2)) <span style="color:#555">%</span> self<span style="color:#555">.</span>p
-</span></span><span style="display:flex;"><span>        c <span style="color:#555">=</span> c2 <span style="color:#555">+</span> h<span style="color:#555">*</span>self<span style="color:#555">.</span>q
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">return</span> c
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">    <span class="c1"># ===== FUNCTIONS FOR PERSONAL TESTS, DON&#39;T USE THEM =====</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">TEST_CRT_encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ep</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">eq</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">qinv</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c2</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">eq</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span> <span class="o">^</span> <span class="n">fun</span>
+</span></span><span class="line"><span class="cl">        <span class="n">h</span> <span class="o">=</span> <span class="p">(</span><span class="n">qinv</span> <span class="o">*</span> <span class="p">(</span><span class="n">c1</span> <span class="o">-</span> <span class="n">c2</span><span class="p">))</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c</span> <span class="o">=</span> <span class="n">c2</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">c</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>So basically, the function want to encrypt the message using CRT, where $ep$ and $eq$ is equals to $e$ actually. There is a bug on the encrypt where it xor the $pow(m, eq, q)$ with fun variable. We could do derivation from this faulty equation, which eventually will lead to the factor of $N$. See below equation:
@@ -571,324 +565,212 @@ Based on above equations, the result of faulty encryption isn&rsquo;t divisible 
 <p>We definitely need to use it on option 1 to retrieve the $c_{real}$, and option 2 to retrieve the $c_{faulty}$. However, to use the above equations, we need to know the fake_flag (to generate $m_{FakeFlag}^{e}$).
 Luckily, notice that the space of the fake_flag is very small, so it is bruteforce-able. We can simply bruteforce it and validate it by doing $GCD(c_{faulty}-c_{BruteforceFakeFlag}, N)$. If the result is big and prime, we found the correct fake_flag value, because that result of the $GCD$ is $p$.
 After that, we can simply decrypt the real flag. Below is my solver:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">socketserver</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">random</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">signal</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">time</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">import</span> <span style="color:#0cf;font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">itertools</span> <span style="color:#069;font-weight:bold">import</span> product
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;error&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">s2n</span>(s):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> bytes_to_long(<span style="color:#366">bytearray</span>(s, <span style="color:#c30">&#39;latin-1&#39;</span>))
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">n2s</span>(n):
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> long_to_bytes(n)<span style="color:#555">.</span>decode(<span style="color:#c30">&#39;latin-1&#39;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">def</span> <span style="color:#c0f">gen_fake</span>(r, e, n):
-</span></span><span style="display:flex;"><span>    arr <span style="color:#555">=</span> []
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">1500</span>):
-</span></span><span style="display:flex;"><span>        fake_flag <span style="color:#555">=</span> <span style="color:#c30">&#39;fake_flag{</span><span style="color:#a00">%s</span><span style="color:#c30">}&#39;</span> <span style="color:#555">%</span> ((<span style="color:#c30">&#39;</span><span style="color:#a00">%X</span><span style="color:#c30">&#39;</span> <span style="color:#555">%</span> i)<span style="color:#555">.</span>rjust(<span style="color:#f60">32</span>, <span style="color:#c30">&#39;0&#39;</span>))
-</span></span><span style="display:flex;"><span>        enc_fake_flag <span style="color:#555">=</span> <span style="color:#366">pow</span>(s2n(fake_flag), e, n)
-</span></span><span style="display:flex;"><span>        arr<span style="color:#555">.</span>append(enc_fake_flag)
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">return</span> arr
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>e <span style="color:#555">=</span> <span style="color:#f60">0x10001</span>
-</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> remote(<span style="color:#c30">&#34;crypto.chal.csaw.io&#34;</span>, <span style="color:#f60">1001</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Retrieving N value</span>
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(<span style="color:#c30">&#39;4&#39;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;data:&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(n2s(<span style="color:#f60">2</span>))
-</span></span><span style="display:flex;"><span>enc1 <span style="color:#555">=</span> <span style="color:#366">int</span>(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>), <span style="color:#f60">16</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(<span style="color:#c30">&#39;4&#39;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;data:&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(n2s(<span style="color:#f60">3</span>))
-</span></span><span style="display:flex;"><span>enc2 <span style="color:#555">=</span> <span style="color:#366">int</span>(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>), <span style="color:#f60">16</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(<span style="color:#c30">&#39;4&#39;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;data:&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(n2s(<span style="color:#f60">5</span>))
-</span></span><span style="display:flex;"><span>enc3 <span style="color:#555">=</span> <span style="color:#366">int</span>(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>), <span style="color:#f60">16</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(<span style="color:#c30">&#39;4&#39;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;data:&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(n2s(<span style="color:#f60">7</span>))
-</span></span><span style="display:flex;"><span>enc4 <span style="color:#555">=</span> <span style="color:#366">int</span>(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>), <span style="color:#f60">16</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># To prevent if the gcd result is not n but n*gcd(k1, k2)</span>
-</span></span><span style="display:flex;"><span>n <span style="color:#555">=</span> gmpy2<span style="color:#555">.</span>gcd(gmpy2<span style="color:#555">.</span>gcd(<span style="color:#f60">2</span><span style="color:#555">**</span>e <span style="color:#555">-</span> enc1, <span style="color:#f60">3</span><span style="color:#555">**</span>e <span style="color:#555">-</span> enc2), gmpy2<span style="color:#555">.</span>gcd(<span style="color:#f60">5</span><span style="color:#555">**</span>e <span style="color:#555">-</span> enc3, <span style="color:#f60">7</span><span style="color:#555">**</span>e <span style="color:#555">-</span> enc4))
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span> <span style="color:#c30">&#34;[+] n:&#34;</span>, n
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># get the encrypted real flag</span>
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(<span style="color:#c30">&#39;1&#39;</span>)
-</span></span><span style="display:flex;"><span>c <span style="color:#555">=</span> <span style="color:#366">int</span>(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>), <span style="color:#f60">16</span>)
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span> <span style="color:#c30">&#34;[+] c:&#34;</span>, c
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Retrieving the factor of n</span>
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;encrypt</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">====================================</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendline(<span style="color:#c30">&#39;3&#39;</span>)
-</span></span><span style="display:flex;"><span>enc_fake_flag_test <span style="color:#555">=</span> <span style="color:#366">int</span>(r<span style="color:#555">.</span>recvuntil(<span style="color:#c30">&#34;</span><span style="color:#c30;font-weight:bold">\n</span><span style="color:#c30">&#34;</span>), <span style="color:#f60">16</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>fake_flags <span style="color:#555">=</span> gen_fake(r, e, n)
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i, enc_fake_flag <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">enumerate</span>(fake_flags):
-</span></span><span style="display:flex;"><span>    p <span style="color:#555">=</span> gmpy2<span style="color:#555">.</span>gcd(enc_fake_flag_test <span style="color:#555">-</span> enc_fake_flag, n)
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> (p <span style="color:#555">&gt;</span> <span style="color:#f60">1</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#366">print</span> <span style="color:#c30">&#34;[+] p:&#34;</span>, p
-</span></span><span style="display:flex;"><span>        q <span style="color:#555">=</span> n<span style="color:#555">/</span>p
-</span></span><span style="display:flex;"><span>        phi <span style="color:#555">=</span> (p<span style="color:#555">-</span><span style="color:#f60">1</span>) <span style="color:#555">*</span> (q<span style="color:#555">-</span><span style="color:#f60">1</span>)
-</span></span><span style="display:flex;"><span>        d <span style="color:#555">=</span> inverse(e, phi)
-</span></span><span style="display:flex;"><span>        <span style="color:#366">print</span> <span style="color:#c30">&#34;[+] Flag:&#34;</span>, n2s(<span style="color:#366">pow</span>(c, d, n))
-</span></span><span style="display:flex;"><span>        <span style="color:#069;font-weight:bold">break</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">socketserver</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">signal</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">gmpy2</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;error&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">s2n</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">bytes_to_long</span><span class="p">(</span><span class="nb">bytearray</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s1">&#39;latin-1&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">n2s</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;latin-1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">gen_fake</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">arr</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1500</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fake_flag</span> <span class="o">=</span> <span class="s1">&#39;fake_flag{</span><span class="si">%s</span><span class="s1">}&#39;</span> <span class="o">%</span> <span class="p">((</span><span class="s1">&#39;</span><span class="si">%X</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">enc_fake_flag</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">s2n</span><span class="p">(</span><span class="n">fake_flag</span><span class="p">),</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">enc_fake_flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">arr</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mh">0x10001</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s2">&#34;crypto.chal.csaw.io&#34;</span><span class="p">,</span> <span class="mi">1001</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Retrieving N value</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;encrypt</span><span class="se">\n</span><span class="s2">====================================</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;data:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">n2s</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">enc1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;encrypt</span><span class="se">\n</span><span class="s2">====================================</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;data:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">n2s</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">enc2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;encrypt</span><span class="se">\n</span><span class="s2">====================================</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;data:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">n2s</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">enc3</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;encrypt</span><span class="se">\n</span><span class="s2">====================================</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;data:&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">n2s</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">enc4</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># To prevent if the gcd result is not n but n*gcd(k1, k2)</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">gmpy2</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">e</span> <span class="o">-</span> <span class="n">enc1</span><span class="p">,</span> <span class="mi">3</span><span class="o">**</span><span class="n">e</span> <span class="o">-</span> <span class="n">enc2</span><span class="p">),</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="mi">5</span><span class="o">**</span><span class="n">e</span> <span class="o">-</span> <span class="n">enc3</span><span class="p">,</span> <span class="mi">7</span><span class="o">**</span><span class="n">e</span> <span class="o">-</span> <span class="n">enc4</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="s2">&#34;[+] n:&#34;</span><span class="p">,</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># get the encrypted real flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;encrypt</span><span class="se">\n</span><span class="s2">====================================</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span> <span class="s2">&#34;[+] c:&#34;</span><span class="p">,</span> <span class="n">c</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Retrieving the factor of n</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;encrypt</span><span class="se">\n</span><span class="s2">====================================</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">enc_fake_flag_test</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fake_flags</span> <span class="o">=</span> <span class="n">gen_fake</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">enc_fake_flag</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">fake_flags</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">p</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">enc_fake_flag_test</span> <span class="o">-</span> <span class="n">enc_fake_flag</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span> <span class="s2">&#34;[+] p:&#34;</span><span class="p">,</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="n">q</span> <span class="o">=</span> <span class="n">n</span><span class="o">/</span><span class="n">p</span>
+</span></span><span class="line"><span class="cl">        <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span> <span class="o">=</span> <span class="n">inverse</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span> <span class="s2">&#34;[+] Flag:&#34;</span><span class="p">,</span> <span class="n">n2s</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Flag: flag{ooo000_f4ul7y_4nd_pr3d1c74bl3_000ooo}</p>
 </blockquote>
-
-      </div>
-      
-        
-  <aside class="toc-container">
-    <a href="#" style="font-weight: 700; color: black;">CSAW CTF 2019</a>
-    <div class="js-toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#fault-box">Fault Box</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </div>
-  </aside>
-
-
-      
-    </div>
-
-    
-        <div class="tags">
-            
-                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
-            
-                <a href="https://chovid99.github.io/tags/csaw-ctf">CSAW CTF</a>
-            
-                <a href="https://chovid99.github.io/tags/crypto">crypto</a>
-            
-                <a href="https://chovid99.github.io/tags/rsa">rsa</a>
-            
-                <a href="https://chovid99.github.io/tags/2019">2019</a>
-            
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/csaw-ctf-2019/" data-title="CSAW CTF 2019" data-via="Chovid99" data-hashtags="Writeup,CSAW CTF,crypto,rsa,2019"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/csaw-ctf-2019/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
-    
-    
-    
-  <div id="comment">
-    
-    
-  </div>
-
-
-</section>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/js/tocbot.min.js"></script>
-
-<script type="text/javascript">
-  tocbot.init({
-      
-      tocSelector: '.js-toc',
-      
-      contentSelector: '.js-toc-content',
-      headingSelector: 'h1, h2, h3',
-      orderedList: false,
-      headingLabelCallback: s => s.substr(0, s.length-2),
-      collapseDepth: 2
-  });
-  function initTOC() {
-    var windowWidth = 1316;
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-  }
-  window.onload = initTOC;
-
-  var lastWindowWidth = $(window).width();
-  $(window).resize(function() {
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-    lastWindowWidth = $(window).width();
-  });
-</script>
-
-    </main>
-    
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-       © Copyright 
-       2023 
-       <span class="split">
-        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
-  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
-</svg>
-       </span>
-       Chovid99
-    
     </div>
 
-    
-</footer>
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/csaw-ctf/">CSAW CTF</a>,&nbsp;<a href="/tags/crypto/">crypto</a>,&nbsp;<a href="/tags/rsa/">rsa</a>,&nbsp;<a href="/tags/2019/">2019</a></section>
+        <section>
+            
+        </section>
+    </div>
 
+    <div class="post-nav">
+            <a href="/posts/pbctf-2021/" class="next" rel="next" title="PBCTF 2021">PBCTF 2021<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
 
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
 </html>

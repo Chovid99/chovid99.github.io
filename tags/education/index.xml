@@ -1,29 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Education on Welcome to Chovid99&#39;s Blog</title>
-    <link>https://chovid99.github.io/tags/education/</link>
-    <description>Recent content in Education on Welcome to Chovid99&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 05 Dec 2022 16:11:43 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/education/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>STACK the Flags CTF 2022</title>
-      <link>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</link>
-      <pubDate>Mon, 05 Dec 2022 16:11:43 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</guid>
-      <description>Writeup for STACK the Flags CTF 2022 by Chovid99</description>
-    </item>
-    
-    <item>
-      <title>FILE Structure Attack: Part 1</title>
-      <link>https://chovid99.github.io/posts/file-structure-attack-part-1/</link>
-      <pubDate>Tue, 01 Nov 2022 23:34:15 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/posts/file-structure-attack-part-1/</guid>
-      <description>A beginner guide to FILE structure attack (Part 1)</description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Education - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/education/</link>
+        <description>Education - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 05 Dec 2022 16:11:43 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/education/" rel="self" type="application/rss+xml" /><item>
+    <title>STACK the Flags CTF 2022</title>
+    <link>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</link>
+    <pubDate>Mon, 05 Dec 2022 16:11:43 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</guid>
+    <description><![CDATA[Writeup for STACK the Flags CTF 2022 by Chovid99]]></description>
+</item>
+<item>
+    <title>FILE Structure Attack: Part 1</title>
+    <link>https://chovid99.github.io/posts/file-structure-attack-part-1/</link>
+    <pubDate>Tue, 01 Nov 2022 23:34:15 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/file-structure-attack-part-1/</guid>
+    <description><![CDATA[A beginner guide to FILE structure attack (Part 1)]]></description>
+</item>
+</channel>
 </rss>

