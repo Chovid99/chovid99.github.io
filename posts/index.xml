@@ -4,7 +4,15 @@
         <link>https://chovid99.github.io/posts/</link>
         <description>All Posts | Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 19 Feb 2023 20:14:37 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 26 Feb 2023 14:18:58 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>ACSC 2023</title>
+    <link>https://chovid99.github.io/posts/acsc-2023/</link>
+    <pubDate>Sun, 26 Feb 2023 14:18:58 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/acsc-2023/</guid>
+    <description><![CDATA[Writeup for ACSC 2023 by Chovid99]]></description>
+</item>
+<item>
     <title>HackTM CTF 2023</title>
     <link>https://chovid99.github.io/posts/hacktm-ctf-2023/</link>
     <pubDate>Sun, 19 Feb 2023 20:14:37 &#43;0700</pubDate>
@@ -75,14 +83,6 @@
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/posts/justctf-2022/</guid>
     <description><![CDATA[Writeup for justCTF 2022 by Chovid99]]></description>
-</item>
-<item>
-    <title>SEETF 2022</title>
-    <link>https://chovid99.github.io/posts/seetf-2022/</link>
-    <pubDate>Mon, 06 Jun 2022 21:50:32 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/seetf-2022/</guid>
-    <description><![CDATA[Writeup for SEETF 2022 by Chovid99 and gmberlian]]></description>
 </item>
 </channel>
 </rss>
