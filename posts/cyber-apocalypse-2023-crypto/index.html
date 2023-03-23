@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, crypto, md5, sha256, schnorr, ecc, coppersmith, lattice, LLL","wordcount":  7581 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, crypto, md5, sha256, schnorr, ecc, coppersmith, lattice, LLL","wordcount":  8723 ,
         "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-23T01:34:23+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -76,8 +76,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Crypto</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;7581 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;36 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8723 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;41 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -87,34 +87,44 @@
   <ul>
     <li><a href="#crypto">Crypto</a>
       <ul>
-        <li><a href="#elliptic-labyrinth">Elliptic Labyrinth</a>
+        <li><a href="#inside-the-matrix">Inside the Matrix</a>
           <ul>
             <li><a href="#initial-analysis">Initial Analysis</a></li>
-            <li><a href="#solution">Solution</a></li>
+            <li><a href="#solution">Solution</a>
+              <ul>
+                <li><a href="#full-script">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
-        <li><a href="#elliptic-labyrinth-revenge">Elliptic Labyrinth Revenge</a>
+        <li><a href="#elliptic-labyrinth">Elliptic Labyrinth</a>
           <ul>
             <li><a href="#initial-analysis-1">Initial Analysis</a></li>
             <li><a href="#solution-1">Solution</a></li>
           </ul>
         </li>
-        <li><a href="#colliding-heritage">Colliding Heritage</a>
+        <li><a href="#elliptic-labyrinth-revenge">Elliptic Labyrinth Revenge</a>
           <ul>
             <li><a href="#initial-analysis-2">Initial Analysis</a></li>
             <li><a href="#solution-2">Solution</a></li>
           </ul>
         </li>
-        <li><a href="#biased-heritage">Biased Heritage</a>
+        <li><a href="#colliding-heritage">Colliding Heritage</a>
           <ul>
             <li><a href="#initial-analysis-3">Initial Analysis</a></li>
             <li><a href="#solution-3">Solution</a></li>
           </ul>
         </li>
-        <li><a href="#converging-visions">Converging Visions</a>
+        <li><a href="#biased-heritage">Biased Heritage</a>
           <ul>
             <li><a href="#initial-analysis-4">Initial Analysis</a></li>
             <li><a href="#solution-4">Solution</a></li>
+          </ul>
+        </li>
+        <li><a href="#converging-visions">Converging Visions</a>
+          <ul>
+            <li><a href="#initial-analysis-5">Initial Analysis</a></li>
+            <li><a href="#solution-5">Solution</a></li>
           </ul>
         </li>
       </ul>
@@ -134,6 +144,345 @@
     </figure>
 <p>For the last 5 days, I spent my time competing in the Cyber Apocalypse CTF 2023 by myself (I played solo). I managed to solve all of the pwn challenges and solve 9 out of 10 of the crypto challenges. This is my writeup for some of the crypto challenges that I solved during the CTF. If you want to look for the pwn challenges writeup, go to this link.</p>
 <h1 id="crypto">Crypto</h1>
+<h2 id="inside-the-matrix">Inside the Matrix</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">As you deciphered the Matrix, you discovered that the astronomy scientist had observed that certain stars were not real. He had created two 5x5 matrices with values based on the time the stars were bright, but after some time, the stars stopped emitting light. Nonetheless, he had managed to capture every matrix until then and created an algorithm that simulated their generation. However, he could not understand what was hidden behind them as he was missing something. He believed that if he could understand the stars, he would be able to locate the secret tombs where the relic was hidden.</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>For this challenge, we were given a file called <code>server.py</code>. Let&rsquo;s check that</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sage.all_cmdline</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># from utils import ascii_print</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">FLAG</span> <span class="o">=</span> <span class="sa">b</span><span class="s2">&#34;HTB{????????????????????}&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">FLAG</span><span class="p">)</span> <span class="o">==</span> <span class="mi">25</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">prime</span> <span class="o">=</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pt</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pt</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">pt</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">matrix</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prime</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">pt</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">prime</span> <span class="o">=</span> <span class="n">random_prime</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">6</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">rotate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">message</span> <span class="o">*</span> <span class="n">key</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ciphertext</span><span class="p">,</span> <span class="n">key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">menu</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Options:</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[L]ook at page&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[T]urn page&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[C]heat</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">option</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;&gt; &#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">option</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">book</span> <span class="o">=</span> <span class="n">Book</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ciphertext</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">FLAG</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">page_number</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">option</span> <span class="o">=</span> <span class="n">menu</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">&#34;L&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># ascii_print(ciphertext, key, page_number)</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">page_number</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">&#34;T&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ciphertext</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">FLAG</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">page_number</span> <span class="o">+=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">elif</span> <span class="n">option</span> <span class="o">==</span> <span class="s2">&#34;C&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="se">\n</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">Invalid option!</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reading through the code, there are three menu that we can interact.</p>
+<ul>
+<li><code>L</code>, print the <code>ciphertext</code>, <code>key</code>, and <code>page_number</code></li>
+<li><code>T</code>, encrypt the <code>FLAG</code> and store the encryption result to <code>ciphertext</code> and <code>key</code></li>
+<li><code>C</code>, same as <code>L</code>, but print it as a <code>list</code> format.</li>
+</ul>
+<p>The encryption scheme is like below:</p>
+<ul>
+<li>Parse the <code>FLAG</code> to a matrix 5x5 under <code>GF(prime)</code>.
+<ul>
+<li><code>prime</code> is randomized from range ($2^4$ - $2^6$)</li>
+</ul>
+</li>
+<li>Generate random key and parse it to matrix 5x5 under <code>GF(P)</code></li>
+<li>Do matrix multiplication between parsed <code>FLAG</code> and parsed key</li>
+<li>Return the encryption result and the key itself.</li>
+</ul>
+<p>Notes that the server doesn&rsquo;t return the value of <code>prime</code>. So, the task for this challenge is given an encrypted flag and a key, we need to recover the flag.</p>
+<h3 id="solution">Solution</h3>
+<p>Because we know the key value, we actually can just simply multiple the encrypted flag with the inverse of key. Take a look on the below equations,</p>
+<p>$$
+\begin{align*}
+c = mk \\
+mkk^{-1} = ck^{-1} \\
+m  = ck^{-1}\\
+\end{align*}
+$$</p>
+<p>where $m$ is message, $c$ is encryted message, and $k$ is the key. To do the above equation, we need to know the <code>prime</code> value first. Notice that the range is actually small, so we can actually just bruteforce it. The possible primes that is used in this encryption scheme is actually only <code>[17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61]</code>. So, by bruteforcing the prime, we can recover the matrix of the parsed <code>FLAG</code>.</p>
+<p>However, there is a problem with this one. Notice that the parsed matrix elements was reduced with modulo of the chosen <code>prime</code>. The <code>prime</code> is small, which means that the parsed matrix of <code>FLAG</code> each element&rsquo;s value is actually not the original value of the <code>FLAG</code> char. So, we need to think on how to recover this.</p>
+<p>The answer is we can use Chinese Remainder Theorem to recover the original <code>FLAG</code>. Notice that if we recover three pairs of <code>ciphertext</code> and <code>key</code> with different <code>prime</code>, after we recover the $m$, we actually can rearrange the value like below,</p>
+<p>$$
+x_{i,j} = m_{1,i,j} \mod p_1 \\
+x_{i,j} = m_{2,i,j} \mod p_2 \\
+x_{i,j} = m_{3,i,j} \mod p_3 \\
+$$</p>
+<p>where $x_{i,j}$ is the original element of <code>FLAG</code> char on the matrix $m[i][j]$, $m_{1,i,j}, m_{2,i,j}, m_{3,i,j}$ is the messages recovered from the three pairs, and $p_1, p_2, p_3$ is the recovered <code>primes</code>. The above setup can be solved with Chinese Remainder Theorem, where the recovered $x$ will be the original char of the <code>FLAG</code>.</p>
+<p>To summarize, what we need to do to solve this challenge:</p>
+<ul>
+<li>Recover three reduced messages (in form of matrix) from the three pairs of (ct, key) from the server</li>
+<li>For each element in the recovered messages, perform CRT.</li>
+</ul>
+<h4 id="full-script">Full Script</h4>
+<p>Below is my full script (sage script):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Based on `self.prime = random_prime(2**6, False, 2**4)`</span>
+</span></span><span class="line"><span class="cl"><span class="n">possible_primes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">41</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">53</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">61</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Try to bruteforce...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># r = remote(b&#39;159.65.86.238&#39;, int(32021))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="s1">&#39;python3&#39;</span><span class="p">,</span> <span class="s1">&#39;server.py&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Collect 3 pair of cts and keys with hope that all of them are unique.</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># If not unique, just reconnect.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cts</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">keys</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;C&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ct</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">key</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="n">cts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">keys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;T&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># We will bruteforce the possible primes</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">p0</span> <span class="ow">in</span> <span class="n">possible_primes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">p1</span> <span class="ow">in</span> <span class="n">possible_primes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">p2</span> <span class="ow">in</span> <span class="n">possible_primes</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">p0</span> <span class="o">==</span> <span class="n">p1</span> <span class="ow">or</span> <span class="n">p0</span> <span class="o">==</span> <span class="n">p2</span> <span class="ow">or</span> <span class="n">p1</span> <span class="o">==</span> <span class="n">p2</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">                <span class="n">primes</span> <span class="o">=</span> <span class="p">[</span><span class="n">p0</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">msgs</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1"># Try to calculate msg by doing ct*key^-1</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">mat_ct</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">primes</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">cts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">mat_key</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">primes</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span> <span class="n">keys</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mat_ct</span> <span class="o">*</span> <span class="n">mat_key</span><span class="o">.</span><span class="n">inverse</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1"># If failed, that means the inverse is failed,</span>
+</span></span><span class="line"><span class="cl">                        <span class="c1"># which mean we used the wrong prime</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">msgs</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># Continue to bruteforce the correct primes</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">                Now, we have this equations
+</span></span></span><span class="line"><span class="cl"><span class="s1">                x = msgs[0][i][j] mod primes[0]
+</span></span></span><span class="line"><span class="cl"><span class="s1">                x = msgs[1][i][j] mod primes[1]
+</span></span></span><span class="line"><span class="cl"><span class="s1">                x = msgs[2][i][j] mod primes[2]
+</span></span></span><span class="line"><span class="cl"><span class="s1">                Do CRT to retrieve x, which is the character of the flag
+</span></span></span><span class="line"><span class="cl"><span class="s1">                &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="n">test_m_arr</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">chr_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">test_m</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="n">msg_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">msgs</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">i</span> <span class="o">=</span> <span class="n">chr_idx</span> <span class="o">//</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">j</span> <span class="o">=</span> <span class="n">chr_idx</span> <span class="o">%</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">test_m</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">msgs</span><span class="p">[</span><span class="n">msg_idx</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">test_m_arr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">test_m</span> <span class="ow">in</span> <span class="n">test_m_arr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">flag_char</span> <span class="o">=</span> <span class="n">crt</span><span class="p">(</span><span class="n">test_m</span><span class="p">,</span> <span class="n">primes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">flag_char</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="s1">&#39;HTB&#39;</span> <span class="ow">in</span> <span class="n">flag</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1"># We found the flag</span>
+</span></span><span class="line"><span class="cl">                    <span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">exit</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Flag: HTB{l00k_@t_7h3_st4rs!!!}</strong></p>
+</blockquote>
 <h2 id="elliptic-labyrinth">Elliptic Labyrinth</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -143,7 +492,7 @@
             <div class="admonition-content">As you navigate through the labyrinth inside the tomb, you encounter GPS inaccuracies that make it difficult to determine the correct path to the exit. Can you overcome the technical issues and use your instincts to find your way out of the maze?</div>
         </div>
     </div>
-<h3 id="initial-analysis">Initial Analysis</h3>
+<h3 id="initial-analysis-1">Initial Analysis</h3>
 <p>For this challenge, we were given a file called <code>server.py</code>. Below is the given code.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -296,7 +645,7 @@
 <li>The third menu is used to dump the encrypted flag (with AES), where the AES key is encrypted with key <code>sha256(long_to_bytes(pow(ec.a, ec.b, ec.p))).digest()[:16]</code></li>
 </ul>
 <p>So, based on that initial analysis, the target for this chall is to recover the ECC parameter (<code>a, b, p</code>).</p>
-<h3 id="solution">Solution</h3>
+<h3 id="solution-1">Solution</h3>
 <p>Well, we can recover <code>p</code> from the first menu (They provide the <code>p</code> value). So now, we need to recover <code>a</code> and <code>b</code>. Remember that the ECC curve equation is like below:
 $$
 y^2 = x^3 + ax + b \mod p
@@ -423,7 +772,7 @@ $$</p>
             <div class="admonition-content">As you navigate through the labyrinth inside the tomb, you encounter GPS inaccuracies that make it difficult to determine the correct path to the exit. Can you overcome the technical issues and use your instincts to find your way out of the maze?</div>
         </div>
     </div>
-<h3 id="initial-analysis-1">Initial Analysis</h3>
+<h3 id="initial-analysis-2">Initial Analysis</h3>
 <p>This is the revenge of the previous challenge. The only different is that in the previous challenge we can retrieve multiple points, but for this challenge, we can only retrieve one point.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -564,7 +913,7 @@ $$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>However, remember that we actually have a leak for the <code>a</code> and <code>b</code> param, which is the MSBs of them. So, we need to use that leak to retrieve it.</p>
-<h3 id="solution-1">Solution</h3>
+<h3 id="solution-2">Solution</h3>
 <p>Let&rsquo;s take a look on the how the leak generated.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -809,7 +1158,7 @@ $$</p>
             <div class="admonition-content">As you arrive at the location of the relic, you discover an ancient tomb that appears to have no visible entrance. However, a scan of the area reveals the presence of unusual RF signals coming from a specific location. With the help of your team, you manage to create an interface to communicate with the signal-emitting device. Unfortunately, the device only grants access to descendants of the pharaoh&rsquo;s left hand. Can you find a way to enter the tomb?</div>
         </div>
     </div>
-<h3 id="initial-analysis-2">Initial Analysis</h3>
+<h3 id="initial-analysis-3">Initial Analysis</h3>
 <p>For this challenge, we were given a file called <code>server.py</code>. Below is the code of it:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1008,7 +1357,7 @@ $$</p>
 </li>
 </ul>
 <p>So, the target of this chall is with two signatures that we retrieve from the server, we need to be able to retrieve the private key so that we can sign the message <code>I am the left hand</code>, send it to the server, and retrieve the flag from the server.</p>
-<h3 id="solution-2">Solution</h3>
+<h3 id="solution-3">Solution</h3>
 <p>Notice that in this kind of signature scheme, the vulnerability usually lies in the way it generates the <code>k</code> (nonce) value. The <code>k</code> generation isn&rsquo;t allowed to be weak, because it can be used to retrieve the private key (<code>x</code>).</p>
 <p>As mentioned in the Wikipedia that I shared before, if a nonce reused is disallowed on this kind of signature scheme. The reason is that we can recover the private key (<code>x</code>) if we use the same <code>k</code> during signing two different messages. Let&rsquo;s try to see the below signing equations to understand why we can recover <code>k</code> if it is being reused to sign different messages:</p>
 <p>$$
@@ -1209,7 +1558,7 @@ $$</p>
             <div class="admonition-content">You emerge from the labyrinth to find a massive door blocking your path to the relic. It has the same authentication mechanism as the entrance, but it appears to be more sophisticated and challenging to crack. Can you devise a plan to breach the door and gain access to the relic?</div>
         </div>
     </div>
-<h3 id="initial-analysis-3">Initial Analysis</h3>
+<h3 id="initial-analysis-4">Initial Analysis</h3>
 <p>This is the upgraded challenge from the previous challenge (Colliding Heritage). Let&rsquo;s try to see the given server.py</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1392,7 +1741,7 @@ $$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>As you can see, the generation of <code>k</code> is changed. Now, it uses <code>sha256</code> instead of <code>md5</code>. Up until now, there isn&rsquo;t any collision found for <code>sha256</code>, which mean we can&rsquo;t use our previous approach to solve this challenge.</p>
-<h3 id="solution-3">Solution</h3>
+<h3 id="solution-4">Solution</h3>
 <p>Reading through the wikipedia again, it mentions that:</p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
@@ -1665,7 +2014,7 @@ $$</p>
             <div class="admonition-content">As you hold the relic in your hands, it prompts you to input a coordinate. The ancient scriptures you uncovered near the pharaoh&rsquo;s tomb reveal that the artifact is capable of transmitting the locations of vessels. The initial coordinate must be within proximity of the vessels, and an algorithm will then calculate their precise locations for transmission. However, you soon discover that the coordinates transmitted are not correct, and are encrypted using advanced alien techniques to prevent unauthorized access. It becomes clear that the true coordinates are hidden, serving only to authenticate those with knowledge of the artifact&rsquo;s secrets. Can you decipher this alien encryption and uncover the genuine coordinates to locate the vessels and destroy them?</div>
         </div>
     </div>
-<h3 id="initial-analysis-4">Initial Analysis</h3>
+<h3 id="initial-analysis-5">Initial Analysis</h3>
 <p>On this challenge, we were given a file called <code>server.py</code>. Below is the contents of the code:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2023,7 +2372,7 @@ $$</p>
 <li><code>3</code> to print the flag, with restriction that we need to be able to predict the generated point by <code>nextPoints</code> method.</li>
 </ul>
 <p>Based on that info, we can deduce that the target is we need to be able recover the <code>seed</code> value, and then use it to generate our prediction of the <code>nextPoints</code>.</p>
-<h3 id="solution-4">Solution</h3>
+<h3 id="solution-5">Solution</h3>
 <p>First of all, we don&rsquo;t know the parameter of the curve yet (<code>p</code>, <code>a</code>, <code>b</code>). So, we need to recover that first. Notice that in the first menu, we can actually do binary search to find the <code>p</code> value, because if we give <code>x</code> bigger than the <code>p</code>, the program will let us know that the <code>x</code> is bigger than the <code>p</code> value.</p>
 <p>After recovering the <code>p</code> value, it is easy to recover the <code>a</code> and <code>b</code> value. We just need to generate two points, and then subtract it just like what we did in the Elliptic Labyrinth Challenge. Below is the script that I used to recover the params (I use sagemath).</p>
 <div class="highlight"><div class="chroma">
