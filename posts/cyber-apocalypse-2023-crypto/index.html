@@ -30,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, crypto, md5, sha256, schnorr, ecc, coppersmith, lattice, LLL","wordcount":  8723 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, crypto, md5, sha256, schnorr, ecc, coppersmith, lattice, LLL","wordcount":  9314 ,
         "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-23T01:34:23+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -76,8 +76,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Crypto</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8723 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;41 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9314 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;44 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -87,7 +87,7 @@
   <ul>
     <li><a href="#crypto">Crypto</a>
       <ul>
-        <li><a href="#inside-the-matrix">Inside the Matrix</a>
+        <li><a href="#multipage-recyclings">Multipage Recyclings</a>
           <ul>
             <li><a href="#initial-analysis">Initial Analysis</a></li>
             <li><a href="#solution">Solution</a>
@@ -97,34 +97,44 @@
             </li>
           </ul>
         </li>
-        <li><a href="#elliptic-labyrinth">Elliptic Labyrinth</a>
+        <li><a href="#inside-the-matrix">Inside the Matrix</a>
           <ul>
             <li><a href="#initial-analysis-1">Initial Analysis</a></li>
-            <li><a href="#solution-1">Solution</a></li>
+            <li><a href="#solution-1">Solution</a>
+              <ul>
+                <li><a href="#full-script-1">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
-        <li><a href="#elliptic-labyrinth-revenge">Elliptic Labyrinth Revenge</a>
+        <li><a href="#elliptic-labyrinth">Elliptic Labyrinth</a>
           <ul>
             <li><a href="#initial-analysis-2">Initial Analysis</a></li>
             <li><a href="#solution-2">Solution</a></li>
           </ul>
         </li>
-        <li><a href="#colliding-heritage">Colliding Heritage</a>
+        <li><a href="#elliptic-labyrinth-revenge">Elliptic Labyrinth Revenge</a>
           <ul>
             <li><a href="#initial-analysis-3">Initial Analysis</a></li>
             <li><a href="#solution-3">Solution</a></li>
           </ul>
         </li>
-        <li><a href="#biased-heritage">Biased Heritage</a>
+        <li><a href="#colliding-heritage">Colliding Heritage</a>
           <ul>
             <li><a href="#initial-analysis-4">Initial Analysis</a></li>
             <li><a href="#solution-4">Solution</a></li>
           </ul>
         </li>
-        <li><a href="#converging-visions">Converging Visions</a>
+        <li><a href="#biased-heritage">Biased Heritage</a>
           <ul>
             <li><a href="#initial-analysis-5">Initial Analysis</a></li>
             <li><a href="#solution-5">Solution</a></li>
+          </ul>
+        </li>
+        <li><a href="#converging-visions">Converging Visions</a>
+          <ul>
+            <li><a href="#initial-analysis-6">Initial Analysis</a></li>
+            <li><a href="#solution-6">Solution</a></li>
           </ul>
         </li>
       </ul>
@@ -144,6 +154,190 @@
     </figure>
 <p>For the last 5 days, I spent my time competing in the Cyber Apocalypse CTF 2023 by myself (I played solo). I managed to solve all of the pwn challenges and solve 9 out of 10 of the crypto challenges. This is my writeup for some of the crypto challenges that I solved during the CTF. If you want to look for the pwn challenges writeup, go to this link.</p>
 <h1 id="crypto">Crypto</h1>
+<h2 id="multipage-recyclings">Multipage Recyclings</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">As your investigation progressed, a clue led you to a local bar where you met an undercover agent with valuable information. He spoke of a famous astronomy scientist who lived in the area and extensively studied the relic. The scientist wrote a book containing valuable insights on the relic&rsquo;s location, but encrypted it before he disappeared to keep it safe from malicious intent. The old man disclosed that the book was hidden in the scientist&rsquo;s house and revealed two phrases that the scientist rambled about before vanishing.</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>For this challenge, we were given two file called <code>source.py</code> and <code>output.txt</code>. Let&rsquo;s take a look on the <code>source.py</code> first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">pad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">FLAG</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;HTB{??????????????????????}&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CAES</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">cipher</span> <span class="o">=</span> <span class="n">AES</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">AES</span><span class="o">.</span><span class="n">MODE_ECB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">blockify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span><span class="n">message</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">size</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">xor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">bytes</span><span class="p">([</span><span class="n">_a</span> <span class="o">^</span> <span class="n">_b</span><span class="p">])</span> <span class="k">for</span> <span class="n">_a</span><span class="p">,</span> <span class="n">_b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">iv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">urandom</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">ciphertext</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plaintext</span> <span class="o">=</span> <span class="n">iv</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">blocks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blockify</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="n">blocks</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ct</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">encrypted_block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">xor</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ciphertext</span> <span class="o">+=</span> <span class="n">encrypted_block</span>
+</span></span><span class="line"><span class="cl">            <span class="n">plaintext</span> <span class="o">=</span> <span class="n">encrypted_block</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ciphertext</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">leak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blocks</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">blocks</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">leak</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">r</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">r</span><span class="p">,</span> <span class="n">leak</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">aes</span> <span class="o">=</span> <span class="n">CAES</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">message</span> <span class="o">=</span> <span class="n">pad</span><span class="p">(</span><span class="n">FLAG</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ciphertext_blocks</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="n">blockify</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="p">,</span> <span class="n">leak</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="n">leak</span><span class="p">(</span><span class="n">ciphertext_blocks</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;output.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ct = </span><span class="si">{</span><span class="n">ciphertext</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s1">r = </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="se">\n</span><span class="s1">phrases = </span><span class="si">{</span><span class="n">leak</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Based on the given source code, the main logic for the code is like below:</p>
+<ul>
+<li>Concatenate the flag withh itself 4 times.</li>
+<li>Pad the flag so that it can be splitted into multiple of 16 bytes block</li>
+<li>Encrypt it with AES</li>
+<li>Give some leaks</li>
+</ul>
+<p>Let&rsquo;s try to understand the <code>encrypt</code> method first. If you read it, it is actually an implementation of <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation" target="_blank" rel="noopener noreffer ">AES-CFB</a>.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/ZAmfwsn.png"
+        data-srcset="https://i.imgur.com/ZAmfwsn.png, https://i.imgur.com/ZAmfwsn.png 1.5x, https://i.imgur.com/ZAmfwsn.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/ZAmfwsn.png"
+        title="https://i.imgur.com/ZAmfwsn.png" /></p>
+<p>So, now we know the AES type, let&rsquo;s take a look on what is the leak that the source generates. Turn out, the given leak was two decrypted blocks those exist in the ciphertext. So, given the leaks, our target is to somehow recover our flag.</p>
+<h3 id="solution">Solution</h3>
+<p>Notice that if you see the above image, to decrypt the plaintext, what AES-CFB does is actually like below,</p>
+<p>$$
+p_i = C(c_{i-1}) \oplus c_{i}
+$$</p>
+<p>where $C$ is the block cipher encryption, $c$ is the ciphertext, and $p$ is the plaintext. Notice that the leak is actually the $C(c_{i-1})$ result, where $i$ is random. Notice that thhe given leak is always two consecutive blocks and if we have the $C(c_{i-1})$ and $C(c_{i})$, we actually can get the plaintext block for at least two blocks. After testing to xor the block one by one, I found that the leak is $C(c_3)$ and $C(c_4)$. Trying to xor it with $c_4$ and $c_5$, we got the flag.</p>
+<h4 id="full-script">Full Script</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">blockify</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">message</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">size</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">size</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ct</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s1">&#39;bc9bc77a809b7f618522d36ef7765e1cad359eef39f0eaa5dc5d85f3ab249e788c9bc36e11d72eee281d1a645027bd96a363c0e24efc6b5caa552b2df4979a5ad41e405576d415a5272ba730e27c593eb2c725031a52b7aa92df4c4e26f116c631630b5d23f11775804a688e5e4d5624&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ct_blocks</span> <span class="o">=</span> <span class="n">blockify</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">leak_3</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s1">&#39;8b6973611d8b62941043f85cd1483244&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leak_4</span> <span class="o">=</span> <span class="nb">bytes</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="s1">&#39;cf8f71416111f1e8cdee791151c222ad&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">xor</span><span class="p">(</span><span class="n">ct_blocks</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">leak_3</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">xor</span><span class="p">(</span><span class="n">ct_blocks</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">leak_4</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Flag: HTB{CFB_15_w34k_w34k_w17h_l34kz}</strong></p>
+</blockquote>
 <h2 id="inside-the-matrix">Inside the Matrix</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -153,7 +347,7 @@
             <div class="admonition-content">As you deciphered the Matrix, you discovered that the astronomy scientist had observed that certain stars were not real. He had created two 5x5 matrices with values based on the time the stars were bright, but after some time, the stars stopped emitting light. Nonetheless, he had managed to capture every matrix until then and created an algorithm that simulated their generation. However, he could not understand what was hidden behind them as he was missing something. He believed that if he could understand the stars, he would be able to locate the secret tombs where the relic was hidden.</div>
         </div>
     </div>
-<h3 id="initial-analysis">Initial Analysis</h3>
+<h3 id="initial-analysis-1">Initial Analysis</h3>
 <p>For this challenge, we were given a file called <code>server.py</code>. Let&rsquo;s check that</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -313,7 +507,7 @@
 <li>Return the encryption result and the key itself.</li>
 </ul>
 <p>Notes that the server doesn&rsquo;t return the value of <code>prime</code>. So, the task for this challenge is given an encrypted flag and a key, we need to recover the flag.</p>
-<h3 id="solution">Solution</h3>
+<h3 id="solution-1">Solution</h3>
 <p>Because we know the key value, we actually can just simply multiple the encrypted flag with the inverse of key. Take a look on the below equations,</p>
 <p>$$
 \begin{align*}
@@ -336,7 +530,7 @@ $$</p>
 <li>Recover three reduced messages (in form of matrix) from the three pairs of (ct, key) from the server</li>
 <li>For each element in the recovered messages, perform CRT.</li>
 </ul>
-<h4 id="full-script">Full Script</h4>
+<h4 id="full-script-1">Full Script</h4>
 <p>Below is my full script (sage script):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -492,7 +686,7 @@ $$</p>
             <div class="admonition-content">As you navigate through the labyrinth inside the tomb, you encounter GPS inaccuracies that make it difficult to determine the correct path to the exit. Can you overcome the technical issues and use your instincts to find your way out of the maze?</div>
         </div>
     </div>
-<h3 id="initial-analysis-1">Initial Analysis</h3>
+<h3 id="initial-analysis-2">Initial Analysis</h3>
 <p>For this challenge, we were given a file called <code>server.py</code>. Below is the given code.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -645,7 +839,7 @@ $$</p>
 <li>The third menu is used to dump the encrypted flag (with AES), where the AES key is encrypted with key <code>sha256(long_to_bytes(pow(ec.a, ec.b, ec.p))).digest()[:16]</code></li>
 </ul>
 <p>So, based on that initial analysis, the target for this chall is to recover the ECC parameter (<code>a, b, p</code>).</p>
-<h3 id="solution-1">Solution</h3>
+<h3 id="solution-2">Solution</h3>
 <p>Well, we can recover <code>p</code> from the first menu (They provide the <code>p</code> value). So now, we need to recover <code>a</code> and <code>b</code>. Remember that the ECC curve equation is like below:
 $$
 y^2 = x^3 + ax + b \mod p
@@ -772,7 +966,7 @@ $$</p>
             <div class="admonition-content">As you navigate through the labyrinth inside the tomb, you encounter GPS inaccuracies that make it difficult to determine the correct path to the exit. Can you overcome the technical issues and use your instincts to find your way out of the maze?</div>
         </div>
     </div>
-<h3 id="initial-analysis-2">Initial Analysis</h3>
+<h3 id="initial-analysis-3">Initial Analysis</h3>
 <p>This is the revenge of the previous challenge. The only different is that in the previous challenge we can retrieve multiple points, but for this challenge, we can only retrieve one point.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -913,7 +1107,7 @@ $$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>However, remember that we actually have a leak for the <code>a</code> and <code>b</code> param, which is the MSBs of them. So, we need to use that leak to retrieve it.</p>
-<h3 id="solution-2">Solution</h3>
+<h3 id="solution-3">Solution</h3>
 <p>Let&rsquo;s take a look on the how the leak generated.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1158,7 +1352,7 @@ $$</p>
             <div class="admonition-content">As you arrive at the location of the relic, you discover an ancient tomb that appears to have no visible entrance. However, a scan of the area reveals the presence of unusual RF signals coming from a specific location. With the help of your team, you manage to create an interface to communicate with the signal-emitting device. Unfortunately, the device only grants access to descendants of the pharaoh&rsquo;s left hand. Can you find a way to enter the tomb?</div>
         </div>
     </div>
-<h3 id="initial-analysis-3">Initial Analysis</h3>
+<h3 id="initial-analysis-4">Initial Analysis</h3>
 <p>For this challenge, we were given a file called <code>server.py</code>. Below is the code of it:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1357,7 +1551,7 @@ $$</p>
 </li>
 </ul>
 <p>So, the target of this chall is with two signatures that we retrieve from the server, we need to be able to retrieve the private key so that we can sign the message <code>I am the left hand</code>, send it to the server, and retrieve the flag from the server.</p>
-<h3 id="solution-3">Solution</h3>
+<h3 id="solution-4">Solution</h3>
 <p>Notice that in this kind of signature scheme, the vulnerability usually lies in the way it generates the <code>k</code> (nonce) value. The <code>k</code> generation isn&rsquo;t allowed to be weak, because it can be used to retrieve the private key (<code>x</code>).</p>
 <p>As mentioned in the Wikipedia that I shared before, if a nonce reused is disallowed on this kind of signature scheme. The reason is that we can recover the private key (<code>x</code>) if we use the same <code>k</code> during signing two different messages. Let&rsquo;s try to see the below signing equations to understand why we can recover <code>k</code> if it is being reused to sign different messages:</p>
 <p>$$
@@ -1558,7 +1752,7 @@ $$</p>
             <div class="admonition-content">You emerge from the labyrinth to find a massive door blocking your path to the relic. It has the same authentication mechanism as the entrance, but it appears to be more sophisticated and challenging to crack. Can you devise a plan to breach the door and gain access to the relic?</div>
         </div>
     </div>
-<h3 id="initial-analysis-4">Initial Analysis</h3>
+<h3 id="initial-analysis-5">Initial Analysis</h3>
 <p>This is the upgraded challenge from the previous challenge (Colliding Heritage). Let&rsquo;s try to see the given server.py</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1741,7 +1935,7 @@ $$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>As you can see, the generation of <code>k</code> is changed. Now, it uses <code>sha256</code> instead of <code>md5</code>. Up until now, there isn&rsquo;t any collision found for <code>sha256</code>, which mean we can&rsquo;t use our previous approach to solve this challenge.</p>
-<h3 id="solution-4">Solution</h3>
+<h3 id="solution-5">Solution</h3>
 <p>Reading through the wikipedia again, it mentions that:</p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
@@ -2014,7 +2208,7 @@ $$</p>
             <div class="admonition-content">As you hold the relic in your hands, it prompts you to input a coordinate. The ancient scriptures you uncovered near the pharaoh&rsquo;s tomb reveal that the artifact is capable of transmitting the locations of vessels. The initial coordinate must be within proximity of the vessels, and an algorithm will then calculate their precise locations for transmission. However, you soon discover that the coordinates transmitted are not correct, and are encrypted using advanced alien techniques to prevent unauthorized access. It becomes clear that the true coordinates are hidden, serving only to authenticate those with knowledge of the artifact&rsquo;s secrets. Can you decipher this alien encryption and uncover the genuine coordinates to locate the vessels and destroy them?</div>
         </div>
     </div>
-<h3 id="initial-analysis-5">Initial Analysis</h3>
+<h3 id="initial-analysis-6">Initial Analysis</h3>
 <p>On this challenge, we were given a file called <code>server.py</code>. Below is the contents of the code:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -2372,7 +2566,7 @@ $$</p>
 <li><code>3</code> to print the flag, with restriction that we need to be able to predict the generated point by <code>nextPoints</code> method.</li>
 </ul>
 <p>Based on that info, we can deduce that the target is we need to be able recover the <code>seed</code> value, and then use it to generate our prediction of the <code>nextPoints</code>.</p>
-<h3 id="solution-5">Solution</h3>
+<h3 id="solution-6">Solution</h3>
 <p>First of all, we don&rsquo;t know the parameter of the curve yet (<code>p</code>, <code>a</code>, <code>b</code>). So, we need to recover that first. Notice that in the first menu, we can actually do binary search to find the <code>p</code> value, because if we give <code>x</code> bigger than the <code>p</code>, the program will let us know that the <code>x</code> is bigger than the <code>p</code> value.</p>
 <p>After recovering the <code>p</code> value, it is easy to recover the <code>a</code> and <code>b</code> value. We just need to generate two points, and then subtract it just like what we did in the Elliptic Labyrinth Challenge. Below is the script that I used to recover the params (I use sagemath).</p>
 <div class="highlight"><div class="chroma">
