@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/line-ctf-2023\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, LINE CTF, pwn, buffer overflow, canary, ROP, 2023","wordcount":  3259 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, LINE CTF, pwn, buffer overflow, canary, ROP, 2023","wordcount":  3274 ,
         "url": "https:\/\/chovid99.github.io\/posts\/line-ctf-2023\/","datePublished": "2023-03-26T07:00:01+07:00","dateModified": "2023-03-26T02:58:13+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -76,7 +76,7 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">LINE CTF 2023</h1><div class="post-meta">
             <div class="post-meta-line">
                 </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 26, 2023">Mar 26, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3259 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 26, 2023">Mar 26, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3274 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;16 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -810,7 +810,7 @@
 <li>Then, after successfully parsed, the script will ask for user manual input on where to put the parsed tiles.</li>
 <li>Later on, if the sequence of manual movements that we input are able to clear one line, when we clear the game, there will be a <code>Reward</code> text in the parsed screen and the <code>while</code> loop will be stopped.</li>
 </ul>
-<p>Below is the example of the full leaked data if you&rsquo;re lucky enough (Spent quite a lot of time due to the RNG is not on our side&hellip;).</p>
+<p>Below is the example of the full leaked data if you&rsquo;re lucky enough (Spent quite a lot of time due to the RNG is not on our side&hellip;). <code>leaked_map[0]</code> is the leaked libc address of system, the <code>leaked_map[1]</code> is the leaked canary value.</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"
