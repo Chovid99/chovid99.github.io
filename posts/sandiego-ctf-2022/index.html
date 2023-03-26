@@ -10,7 +10,6 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/sandiego-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-09T08:54:22+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -75,7 +74,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SanDiego CTF 2022</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line">
+                </div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="May 09, 2022">May 09, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3123 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -150,13 +150,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">local_38</span> <span class="p">[</span><span class="mi">48</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Welcome to SDCTF</span><span class="se">\&#39;</span><span class="s">s very own text based horoscope&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Welcome to SDCTF</span><span class="se">\&#39;</span><span class="s">s very own text based horoscope&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">      <span class="s">&#34;please put in your birthday and time in the format (month/day/year/time) and we will have you r very own horoscope&#34;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">local_38</span><span class="p">,</span><span class="mh">0x140</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">processInput</span><span class="p">(</span><span class="n">local_38</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">local_38</span><span class="p">,</span><span class="mh">0x140</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">processInput</span><span class="p">(</span><span class="n">local_38</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -238,21 +238,21 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">local_18</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">local_c</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">__nptr</span> <span class="o">=</span> <span class="n">strtok</span><span class="p">(</span><span class="n">param_1</span><span class="p">,</span><span class="s">&#34;/&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__nptr</span> <span class="o">=</span> <span class="nf">strtok</span><span class="p">(</span><span class="n">param_1</span><span class="p">,</span><span class="s">&#34;/&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">local_1c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">local_1c</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="n">local_1c</span> <span class="o">=</span> <span class="n">local_1c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">local_1c</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">local_c</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">__nptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">local_c</span> <span class="o">=</span> <span class="nf">atoi</span><span class="p">(</span><span class="n">__nptr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">local_1c</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">atoi</span><span class="p">(</span><span class="n">__nptr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">atoi</span><span class="p">(</span><span class="n">__nptr</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">switch</span><span class="p">(</span><span class="n">local_c</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">default</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;thats not a valid date &gt;:-(&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;thats not a valid date &gt;:-(&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">local_18</span> <span class="o">=</span> <span class="s">&#34;January&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">break</span><span class="p">;</span>
@@ -289,9 +289,9 @@
 </span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="mh">0xc</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="n">local_18</span> <span class="o">=</span> <span class="s">&#34;December&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;wow, you were born in the month of %s. I think that means you will have a great week! :)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;wow, you were born in the month of %s. I think that means you will have a great week! :)&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">         <span class="n">local_18</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -330,7 +330,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">temp</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">system</span><span class="p">(</span><span class="s">&#34;/bin/sh&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">system</span><span class="p">(</span><span class="s">&#34;/bin/sh&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -458,23 +458,23 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;We fixed some bugs in our last horoscope, this one should be secure!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;To get started, tell us how you feel&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="mh">0x28</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;feeling like %s? That</span><span class="se">\&#39;</span><span class="s">s interesting.&#34;</span><span class="p">,</span><span class="n">buf</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;We fixed some bugs in our last horoscope, this one should be secure!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;To get started, tell us how you feel&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="mh">0x28</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;feeling like %s? That</span><span class="se">\&#39;</span><span class="s">s interesting.&#34;</span><span class="p">,</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(;</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="s">&#34;please put in your birthday and time in the format (month/day/year/time) and we will have y our very own horoscope</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">getInfo</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;want to try again?</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">getInfo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;want to try again?</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;too bad, we don</span><span class="se">\&#39;</span><span class="s">t have the resources for that right now &gt;:(&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;too bad, we don</span><span class="se">\&#39;</span><span class="s">t have the resources for that right now &gt;:(&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -502,11 +502,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">info</span> <span class="p">[</span><span class="mi">100</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="mh">0x8c</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;hm, I</span><span class="se">\&#39;</span><span class="s">ll have to think about what this means. I</span><span class="se">\&#39;</span><span class="s">ll get back to you in 5 business days.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">memset</span><span class="p">(</span><span class="n">info</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">info</span><span class="p">,</span><span class="mh">0x8c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;hm, I</span><span class="se">\&#39;</span><span class="s">ll have to think about what this means. I</span><span class="se">\&#39;</span><span class="s">ll get back to you in 5 business days.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -876,17 +876,17 @@ After overwrite the ret to <code>getInfo</code> again, notice that the RSP just 
 </span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">local_10</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">local_10</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%p, %p, %p, %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">puts</span><span class="p">,</span><span class="n">printf</span><span class="p">,</span><span class="n">local_148</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">in_R9</span><span class="p">,</span><span class="n">param_2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Oh no! We spilled oil everywhere and its making everything dirty&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;do you have any ideas of what we can use to clean it?&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">local_148</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="n">local_148</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%p, %p, %p, %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">puts</span><span class="p">,</span><span class="n">printf</span><span class="p">,</span><span class="n">local_148</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">in_R9</span><span class="p">,</span><span class="n">param_2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Oh no! We spilled oil everywhere and its making everything dirty&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;do you have any ideas of what we can use to clean it?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">local_148</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="n">local_148</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">x</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">local_10</span> <span class="o">!=</span> <span class="o">*</span><span class="p">(</span><span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">                    <span class="cm">/* WARNING: Subroutine does not return */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">__stack_chk_fail</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__stack_chk_fail</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -899,8 +899,8 @@ After overwrite the ret to <code>getInfo</code> again, notice that the RSP just 
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">local_148</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="n">local_148</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">local_148</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="n">local_148</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Also another thing to look is the <code>puts(x)</code> line. Checking on Ghidra,<code>x</code> is a string located in <code>.data</code>

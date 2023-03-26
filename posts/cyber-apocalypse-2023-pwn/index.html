@@ -9,8 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-23T20:00:01+07:00" />
-<meta property="article:modified_time" content="2023-03-22T23:20:59+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-
+<meta property="article:modified_time" content="2023-03-26T02:56:55+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -30,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  9111 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-22T23:20:59+07:00","publisher": {
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  9099 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-26T02:56:55+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -75,8 +74,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Pwn</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9111 words&nbsp;
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9099 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;43 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -292,35 +292,35 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> <span class="c1">// [rsp+20h] [rbp-10h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">banner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">banner</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">v4</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v7</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fwrite</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Select door: </span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mh">0x10uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fwrite</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Select door: </span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mh">0x10uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1LL</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mh">0x64</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">9</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mh">0x63</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="n">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;Door: %d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;Door: %d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">else</span>
-</span></span><span class="line"><span class="cl">        <span class="n">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;Door: 0%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;Door: 0%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;Door: 00%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;Door: 00%d &#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="p">(</span><span class="n">i</span> <span class="o">%</span> <span class="mh">0xA</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="n">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fwrite</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt;&gt; &#34;</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mi">4uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mh">0x10uLL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;69&#34;</span><span class="p">,</span> <span class="mi">2uLL</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;069&#34;</span><span class="p">,</span> <span class="mi">3uLL</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fwrite</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt;&gt; &#34;</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mi">4uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="mh">0x10uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nf">strncmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;69&#34;</span><span class="p">,</span> <span class="mi">2uLL</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nf">strncmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;069&#34;</span><span class="p">,</span> <span class="mi">3uLL</span><span class="p">)</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fwrite</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">      <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">      <span class="s">&#34;You are heading to open the door but you suddenly see something on the wall:</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">      <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
@@ -332,9 +332,9 @@
 </span></span><span class="line"><span class="cl">      <span class="mi">1uLL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="mh">0xA0uLL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">      <span class="n">_bss_start</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fgets</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span> <span class="mi">68</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">%s[-] YOU FAILED TO ESCAPE!</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[1;31m&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">%s[-] YOU FAILED TO ESCAPE!</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[1;31m&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -371,22 +371,22 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buf</span><span class="p">;</span> <span class="c1">// [rsp+Bh] [rbp-5h] BYREF
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">fd</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">unk_402018</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mh">0x1F0uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fprintf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">unk_402018</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mh">0x1F0uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fprintf</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="n">_bss_start</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;</span><span class="se">\n</span><span class="s">%sCongratulations on escaping! Here is a sacred spell to help you continue your journey: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[1;32m&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[0m&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">&#34;./flag.txt&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;./flag.txt&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">fd</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">perror</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Error opening flag.txt, please contact an Administrator.</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">perror</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Error opening flag.txt, please contact an Administrator.</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fputc</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="nf">read</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fputc</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">close</span><span class="p">(</span><span class="n">fd</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -540,10 +540,10 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">cls</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">banner</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">box</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">cls</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">banner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">box</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -604,7 +604,7 @@
 </span><span class="lnt">51
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">size_t</span> <span class="nf">box</span><span class="p">()</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">size_t</span> <span class="nf">box</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kr">__int64</span> <span class="n">v0</span><span class="p">;</span> <span class="c1">// rdx
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// rcx
@@ -618,7 +618,7 @@
 </span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fwrite</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fwrite</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;This is one of Pandora&#39;s mythical boxes!</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="s">&#34;Will you open it or Return it to the Library for analysis?</span><span class="se">\n</span><span class="s">&#34;</span>
@@ -630,7 +630,7 @@
 </span></span><span class="line"><span class="cl">    <span class="mi">1uLL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="mh">0x7EuLL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="n">_bss_start</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="nf">read_num</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">          <span class="s">&#34;This is one of Pandora&#39;s mythical boxes!</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">          <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">          <span class="s">&#34;Will you open it or Return it to the Library for analysis?</span><span class="se">\n</span><span class="s">&#34;</span>
@@ -644,12 +644,12 @@
 </span></span><span class="line"><span class="cl">          <span class="n">v1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">num</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n</span><span class="s">WHAT HAVE YOU DONE?! WE ARE DOOMED!</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[1;31m&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1312</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fprintf</span><span class="p">(</span><span class="n">_bss_start</span><span class="p">,</span> <span class="s">&#34;%s</span><span class="se">\n</span><span class="s">WHAT HAVE YOU DONE?! WE ARE DOOMED!</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[1;31m&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1312</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fwrite</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Insert location of the library: &#34;</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mh">0x21uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">fwrite</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fwrite</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Insert location of the library: &#34;</span><span class="p">,</span> <span class="mi">1uLL</span><span class="p">,</span> <span class="mh">0x21uLL</span><span class="p">,</span> <span class="n">_bss_start</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">fwrite</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">           <span class="s">&#34;</span><span class="se">\n</span><span class="s">We will deliver the mythical box to the Library for analysis, thank you!</span><span class="se">\n\n</span><span class="s">&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">           <span class="mi">1uLL</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">           <span class="mh">0x4BuLL</span><span class="p">,</span>
@@ -1846,19 +1846,19 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span> <span class="c1">// [rsp+14h] [rbp-Ch] BYREF
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">user_register</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Are you sure about your username choice? (y/n)&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">s</span><span class="p">[</span><span class="n">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;User registered successfully.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">user_register</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Are you sure about your username choice? (y/n)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">s</span><span class="p">[</span><span class="nf">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nf">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;User registered successfully.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span>
-</span></span><span class="line"><span class="cl">    <span class="n">user_edit</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">menu</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">user_edit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">menu</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -1890,11 +1890,11 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">result</span><span class="p">;</span> <span class="c1">// rax
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">read_banner</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">engines</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x80uLL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">curr_user</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mh">0x110uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read_banner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">engines</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x80uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">curr_user</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="mh">0x110uLL</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">result</span> <span class="o">=</span> <span class="n">curr_user</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mh">0x40</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
@@ -2019,8 +2019,8 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v32</span><span class="p">;</span> <span class="c1">// [rsp+F8h] [rbp-18h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v33</span><span class="p">;</span> <span class="c1">// [rsp+108h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v33</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Register ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v33</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Register ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">src</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
@@ -2053,11 +2053,11 @@
 </span></span><span class="line"><span class="cl">  <span class="n">v30</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v31</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v32</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Enter a username: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">read_input</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">256LL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">strncpy</span><span class="p">(</span><span class="n">curr_user</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="mh">0x100uLL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">33</span><span class="p">)</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">curr_user</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v33</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Enter a username: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read_input</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="mi">256LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">strncpy</span><span class="p">(</span><span class="n">curr_user</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="mh">0x100uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">33</span><span class="p">)</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">curr_user</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v33</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2101,29 +2101,29 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="c1">// [rsp+4h] [rbp-Ch]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="o">*</span><span class="n">s</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Edit Username ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;New username size: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">n</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Edit Username ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;New username size: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">n</span> <span class="o">=</span> <span class="nf">read_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">getchar</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">33</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kr">__int64</span><span class="p">)</span><span class="n">n</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">s</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Please replace the memory catridge.&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Please replace the memory catridge.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Enter your new username: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="n">strcspn</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">strncpy</span><span class="p">(</span><span class="n">curr_user</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;User updated successfully!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">memset</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Enter your new username: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fgets</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">+</span> <span class="nf">strcspn</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">strncpy</span><span class="p">(</span><span class="n">curr_user</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;User updated successfully!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">free</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Can&#39;t be larger than the current username.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Can&#39;t be larger than the current username.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2172,30 +2172,30 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">print_banner</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">print_current_role</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">option</span> <span class="o">=</span> <span class="n">read_option</span><span class="p">(</span><span class="mi">5LL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;selection: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">option</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">print_banner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">print_current_role</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">option</span> <span class="o">=</span> <span class="nf">read_option</span><span class="p">(</span><span class="mi">5LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;selection: %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">option</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span> <span class="n">option</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">1u</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">configure_engine</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">configure_engine</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">2u</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">check_engines</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">check_engines</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">3u</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">change_route</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">change_route</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">4u</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">view_route</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">view_route</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">5u</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">change_role</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">change_role</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Invalid option</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Invalid option</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -2231,18 +2231,18 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">  <span class="n">v0</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v0</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Crew</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Crew</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v0</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">goto</span> <span class="n">LABEL_9</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">v0</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Captain</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Captain</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v0</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="nl">LABEL_9</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;How did you get here?!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;How did you get here?!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Technician</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Current Role: Technician</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2313,44 +2313,44 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// [rsp+27h] [rbp-9h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v8</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_WORD</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v7</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Engine number [0-%d]: &#34;</span><span class="p">,</span> <span class="mi">3LL</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Engine number [0-%d]: &#34;</span><span class="p">,</span> <span class="mi">3LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="nf">read_num</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Engine [%d]: </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">num</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Thrust: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v4</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Mixture ratio: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Engine [%d]: </span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">num</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Thrust: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Mixture ratio: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v5</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">getchar</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Do you want to save the configuration? (y/n) &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="n">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Do you want to save the configuration? (y/n) &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="nf">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nf">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">v0</span> <span class="o">=</span> <span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">engines</span> <span class="o">+</span> <span class="mi">16</span> <span class="o">*</span> <span class="n">num</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="n">v1</span> <span class="o">=</span> <span class="n">v5</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="n">v0</span> <span class="o">=</span> <span class="n">v4</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="n">v0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;Engine configuration updated successfully!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;Engine configuration updated successfully!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Engine configuration cancelled.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Engine configuration cancelled.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only technicians are allowed to configure the engines&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only technicians are allowed to configure the engines&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v8</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2417,29 +2417,29 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [rsp+57h] [rbp-9h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+58h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_WORD</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only the captain is allowed to change the ship&#39;s route</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only the captain is allowed to change the ship&#39;s route</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;&lt;===[ Coordinates [%d] ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Latitude  : &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Longitude : &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;&lt;===[ Coordinates [%d] ]===&gt;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Latitude  : &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\t</span><span class="s">Longitude : &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ld&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">getchar</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Do you want to save the route? (y/n) &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="n">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Do you want to save the route? (y/n) &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="p">[</span><span class="nf">strcspn</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nf">strcmp</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s">&#34;y&#34;</span><span class="p">)</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">route</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">      <span class="n">qword_405168</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
@@ -2449,14 +2449,14 @@
 </span></span><span class="line"><span class="cl">      <span class="n">qword_405188</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">      <span class="n">qword_405190</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">6</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">      <span class="n">qword_405198</span> <span class="o">=</span> <span class="n">v2</span><span class="p">[</span><span class="mi">7</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;The route has been successfully updated!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;The route has been successfully updated!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Operation cancelled&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">log_message</span><span class="p">(</span><span class="mi">1LL</span><span class="p">,</span> <span class="s">&#34;Operation cancelled&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v5</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -2485,10 +2485,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only the captain is allowed to view the ship&#39;s route.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">result</span> <span class="o">=</span> <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Route ]===&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only the captain is allowed to view the ship&#39;s route.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">result</span> <span class="o">=</span> <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Route ]===&gt;&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">print_coordinates</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="nf">print_coordinates</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -2518,15 +2518,15 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">num</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only Captain is allowed to change roles.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Available roles ]===&gt;&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Technician: 1 | Crew: 2&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;New role: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="n">read_num</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Only Captain is allowed to change roles.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&lt;===[ Available roles ]===&gt;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Technician: 1 | Crew: 2&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;New role: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">num</span> <span class="o">=</span> <span class="nf">read_num</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Invalid role.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">3LL</span><span class="p">,</span> <span class="s">&#34;Invalid role.&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">curr_user</span> <span class="o">+</span> <span class="mi">64</span><span class="p">)</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;New role has been set successfully!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">log_message</span><span class="p">(</span><span class="mi">0LL</span><span class="p">,</span> <span class="s">&#34;New role has been set successfully!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
