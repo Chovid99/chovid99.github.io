@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-23T20:00:01+07:00" />
-<meta property="article:modified_time" content="2023-03-26T02:56:55+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta property="article:modified_time" content="2023-03-27T16:06:04+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  20044 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-26T02:56:55+07:00","publisher": {
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, pwn, heap, tcache, UDA, Buffer Overflow, ROP","wordcount":  20248 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-pwn\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-27T16:06:04+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -76,8 +76,8 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Pwn</h1><div class="post-meta">
             <div class="post-meta-line">
                 </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;20044 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;95 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;20248 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;96 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -184,7 +184,7 @@
             alt="https://i.imgur.com/zjySC02.jpg" />
     </a><figcaption class="image-caption">Cyber Apocalypse 2023</figcaption>
     </figure>
-<p>For the last 5 days, I spent my time competing in the Cyber Apocalypse CTF 2023 by myself (I played solo). I managed to solve all of the pwn challenges and solve 9 out of 10 of the crypto challenges. This is my writeup for some of the pwn challenges that I solved during the CTF. If you want to look for the crypto challenges writeup, go to my other post.</p>
+<p>For the past five days, I have been competing solo in the Cyber Apocalypse CTF 2023. During this time, I was able to solve <strong>all of the pwn challenges</strong> and <strong>9 out of the 10 crypto challenges</strong>. In this writeup, I will be sharing my solutions for some of the pwn challenges that I solved. If you&rsquo;re interested in reading about the crypto challenges, check out <a href="https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/" target="_blank" rel="noopener noreffer ">my other post</a>.</p>
 <figure><a class="lightgallery" href="https://i.imgur.com/Ssmmqk2.png" title="https://i.imgur.com/Ssmmqk2.png" data-thumbnail="https://i.imgur.com/Ssmmqk2.png" data-sub-html="<h2>I managed to clear all of the pwn challenges</h2>">
         <img
             class="lazyload"
@@ -195,14 +195,6 @@
             alt="https://i.imgur.com/Ssmmqk2.png" />
     </a><figcaption class="image-caption">I managed to clear all of the pwn challenges</figcaption>
     </figure>
-<div class="details admonition note open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw" aria-hidden="true"></i>Note<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">I haven&rsquo;t finished all the writeup. I&rsquo;ve put the solver script and will explain about it in a few hours.</div>
-        </div>
-    </div>
 <h1 id="pwn">Pwn</h1>
 <h2 id="labyrinth">Labyrinth</h2>
 <div class="details admonition quote open">
@@ -214,7 +206,7 @@
         </div>
     </div>
 <h3 id="initial-analysis">Initial Analysis</h3>
-<p>On this challenge, we were given a binary called <code>labyrinth</code>. Let&rsquo;s try to <code>checksec</code> the binary first.</p>
+<p>In this challenge, we were given a binary called <code>labyrinth</code>. Let&rsquo;s start by analyzing the binary&rsquo;s security measures using the <code>checksec</code> tool.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -231,14 +223,12 @@
 </span></span><span class="line"><span class="cl">    PIE:      No PIE (0x400000)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The binary is:</p>
-<ul>
-<li>Full RELRO (can&rsquo;t overwrite the GOT)</li>
-<li>No canary (no stack protection)</li>
-<li>NX Enabled (we can&rsquo;t jump to the stack because it isn&rsquo;t executable)</li>
-<li>No PIE (the binary address is constant)</li>
-</ul>
-<p>Now, let&rsquo;s try to disassemble it.</p>
+</div><p>The binary has full RELRO, which means that the Global Offset Table (GOT) is read-only and cannot be modified. This prevents attackers from overwriting function pointers in the GOT to redirect program execution flow.</p>
+<p>There is no canary present, which means that there is no stack protection mechanism in place to detect stack-based buffer overflows.</p>
+<p>NX (No-eXecute) is enabled, which means that the stack and heap are marked as non-executable, preventing attackers from executing shellcode in these areas.</p>
+<p>The binary is not compiled with Position Independent Executable (PIE) enabled, which means that the binary address is constant and not randomized during runtime.</p>
+<p>Now, let&rsquo;s disassemble the binary and take a closer look.</p>
+<p><strong>main</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -353,7 +343,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Above is the <code>main</code> function, where if you notice, there is a buffer overflow bug in the <code>v4</code> variable during calling <code>fgets(v4, 68, stdin);</code>. During disassembling the binary, I also found a good method called <code>escape_plan</code>.</p>
+</div><p>Above is the <code>main</code> function. If you take a closer look, you&rsquo;ll notice a buffer overflow vulnerability in the <code>v4</code> variable when <code>fgets(v4, 68, stdin);</code> is called. Additionally, while disassembling the binary, I came across a useful function called <code>escape_plan</code>.</p>
+<p><strong>escape_plan</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -404,16 +395,16 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As you can see, that method will print the flag. Now, it is clear that our target is to control the program execution flow, so that it will call the method <code>escape_plan</code>.</p>
+</div><p>The given code snippet shows that the <code>escape_plan</code> method will print the flag. Therefore, our objective is to manipulate the program&rsquo;s execution flow in such a way that it calls the <code>escape_plan</code> method.</p>
 <h3 id="solution">Solution</h3>
-<p>This is a classic buffer overflow challenge. As we can see in the decompiled method of <code>main</code>, <code>v4</code> position is in <code>rbp-30h</code>, so we just need to send a payload that contains:</p>
+<p>This is a classic buffer overflow challenge. As we can see in the decompiled <code>main</code> function, the buffer <code>v4</code> position is in <code>rbp-30h</code>. Therefore, we need to send a payload that contains:</p>
 <ul>
 <li><code>b'a'*0x30</code> (to fill the stack)</li>
-<li><code>p64(exe.bss()+0x200)</code> (to overwrite the saved rbp)</li>
-<li><code>p64(escape_plan_addr)</code> (to overwrite the stored RIP with the <code>escape_plan</code> address)</li>
+<li><code>p64(exe.bss()+0x200)</code> (to overwrite the saved RBP with a valid address in the .bss section)</li>
+<li><code>p64(escape_plan_addr)</code> (to overwrite the stored RIP with the <code>escape_plan</code> function address)</li>
 </ul>
 <h4 id="full-script">Full Script</h4>
-<p>Below is my full script to solve the challenge:</p>
+<p>Here is the script I used to solve the challenge:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -515,7 +506,7 @@
         </div>
     </div>
 <h3 id="initial-analysis-1">Initial Analysis</h3>
-<p>We were given a binary called <code>pb</code>. Let&rsquo;s <code>checksec</code> it first.</p>
+<p>We were given a binary called <code>pb</code>. Let&rsquo;s start by analyzing the binary&rsquo;s security measures using the <code>checksec</code> tool.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -532,14 +523,15 @@
 </span></span><span class="line"><span class="cl">    PIE:      No PIE (0x400000)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The binary is:</p>
+</div><p>The binary has the following security features:</p>
 <ul>
-<li>Full RELRO (can&rsquo;t overwrite the GOT)</li>
-<li>No canary (no stack protection)</li>
-<li>NX Enabled (we can&rsquo;t jump to the stack because it isn&rsquo;t executable)</li>
-<li>No PIE (the binary address is constant)</li>
+<li>Full RELRO, preventing overwriting the GOT.</li>
+<li>No canary, indicating a lack of stack protection.</li>
+<li>NX enabled, preventing jumping to the stack due to its non-executable property.</li>
+<li>No PIE, which means the binary address is constant.</li>
 </ul>
-<p>Let&rsquo;s try to disassemble the binary.</p>
+<p>The binary disassembly can be seen below.</p>
+<p><strong>main</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -562,7 +554,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The <code>setup</code>, <code>cls</code>, and <code>banner</code> aren&rsquo;t too important. Let&rsquo;s try to disassemble the <code>box</code>.</p>
+</div><p>The functions <code>setup</code>, <code>cls</code>, and <code>banner</code> aren&rsquo;t too important. Let&rsquo;s focus on disassembling the <code>box</code> function.</p>
+<p><strong>box</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -671,16 +664,16 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As we can see, there is a buffer overflow again in this line <code>fgets(s, 256, stdin);</code>. But now, there isn&rsquo;t any hidden function that can print the flag like the previous challenge.</p>
+</div><p>The same buffer overflow vulnerability can be observed in this challenge as well, specifically in the line <code>fgets(s, 256, stdin)</code>. However, unlike the previous challenge, there doesn&rsquo;t seem to be any concealed function that can print the flag.</p>
 <h3 id="solution-1">Solution</h3>
-<p>We need to do ROP (Return Oriented Programming) to solve this challenge. Usually, to get a code execution for this kind of challenge, there are two steps that we need to do:</p>
+<p>The solution for this challenge involves ROP (Return Oriented Programming). Typically, there are two steps required to achieve code execution for this type of challenge:</p>
 <ul>
-<li>Leak a libc address.</li>
-<li>Forge the code execution flow to get a shell.</li>
+<li>Leaking a libc address</li>
+<li>Forging the code execution flow to obtain a shell.</li>
 </ul>
-<p>Because the binary is No PIE, we don&rsquo;t need to leak a PIE address, and we can directly use the available PLT that is provided in the binary. We can also use some available gadgets to perform the classic ROP.</p>
+<p>Since the binary is not PIE, we do not need to leak a PIE address and can directly use the available PLT provided in the binary. Additionally, we can use some available gadgets to perform the classic ROP.</p>
 <h4 id="full-script-1">Full Script</h4>
-<p>Below is my full script that performs the above steps to get a shell.</p>
+<p>Here&rsquo;s my full script that uses ROP (Return Oriented Programming) to solve this challenge:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -827,7 +820,15 @@
 </span></span><span class="line"><span class="cl">    PIE:      No PIE (0x400000)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Let&rsquo;s try to disassemble it</p>
+</div><p>The binary has the following security features:</p>
+<ul>
+<li>Partial RELRO, indicating that we can overwrite the GOT.</li>
+<li>No canary, indicating a lack of stack protection.</li>
+<li>NX enabled, preventing jumping to the stack due to its non-executable property.</li>
+<li>No PIE, which means the binary address is constant.</li>
+</ul>
+<p>Let&rsquo;s try to disassemble it.</p>
+<p><strong>main</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -837,14 +838,15 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">int __cdecl main(int argc, const char **argv, const char **envp)
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  vuln(argc, argv, envp);
-</span></span><span class="line"><span class="cl">  return 0;
-</span></span><span class="line"><span class="cl">}
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">vuln</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>The <code>main</code> called the <code>vuln</code>. Let&rsquo;s check the <code>vuln</code> method.</p>
+<p><strong>vuln</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -855,15 +857,15 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ssize_t vuln()
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  char buf[64]; // [rsp+0h] [rbp-40h] BYREF
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  return read(0, buf, 0xC8uLL);
-</span></span><span class="line"><span class="cl">}
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">ssize_t</span> <span class="nf">vuln</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">64</span><span class="p">];</span> <span class="c1">// [rsp+0h] [rbp-40h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mh">0xC8uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As you can see, there is indeed a buffer overflow again. But the binary is very small. Let&rsquo;s try to check the available GOT via gdb.</p>
+</div><p>As you have noticed, there is another buffer overflow vulnerability in the <code>vuln</code> function. However, the binary seems to be very small. Let&rsquo;s take a look at the available Global Offset Table (GOT) using gdb.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -876,9 +878,9 @@
 </span></span><span class="line"><span class="cl">[0x404018] read@GLIBC_2.2.5 -&gt; 0x7ffff7ee1780 (read) ◂— mov eax, dword ptr fs:[0x18]
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Okay, so the GOT only contains <code>read</code> function. So, there isn&rsquo;t any method like <code>puts</code> that we can use to leak a libc address to gain a shell. So now, it is clear that given that small binary with limitations, we need to somehow get a shell.</p>
+</div><p>Okay, so the GOT only contains <code>read</code> function. Therefore, there isn&rsquo;t any method like <code>puts</code> that we can use to leak a libc address to gain a shell. Given the limitations of this small binary, it is clear that we need to find another way to get a shell.</p>
 <h3 id="solution-2">Solution</h3>
-<p>Let&rsquo;s try to check the available gadgets with the help of <code>ropr</code>.</p>
+<p>With the aid of <code>ropr</code>, let&rsquo;s identify the available gadgets in the binary.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -897,9 +899,9 @@
 </span></span><span class="line"><span class="cl">...
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that the first one is a good gadget called <code>add-what-where</code>. If we&rsquo;re able to set the contents of <code>rbp-0x3d</code> and <code>ebx</code>, we can write anywhere by incrementing the value with <code>ebx</code>. And with the second gadget, we can set the <code>rbp</code> and <code>rbx</code> value.</p>
-<p>Because the binary is No PIE, we can rewrite the <code>read</code> GOT entry with any libc function that we want without needing a leak. We just need to calculate the difference between our target libc function address with the <code>read</code> address. What should we overwrite the <code>read</code> GOT with?</p>
-<p>The answer is we can rewrite it with the address of <code>one_gadget</code>. Let&rsquo;s check the <code>one_gadget</code> result on the given <code>libc</code></p>
+</div><p>Notice that the first gadget is called <code>add-what-where</code>, which is a useful gadget. If we&rsquo;re able to set the contents of <code>rbp-0x3d</code> and <code>ebx</code>, we can write to any memory location by incrementing the value with <code>ebx</code>. With the second gadget, we can set the <code>rbp</code> and <code>rbx</code> values.</p>
+<p>BSince the binary is No PIE, we can rewrite the <code>read</code> GOT entry with any libc function address that we want without needing a leak. We just need to calculate the difference between our target libc function address and the <code>read</code> address. What should we overwrite the <code>read</code> GOT with?</p>
+<p>The answer is we can rewrite it with the address of <code>one_gadget</code>. Let&rsquo;s check the <code>one_gadget</code> result on the given <code>libc</code>.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -936,13 +938,13 @@
 </span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that the first <code>one_gadget</code> can be used because our gadget to set <code>rbx</code> and <code>rbp</code> can set the <code>r12</code> and <code>r13</code> values as well. So to summarize:</p>
+</div><p>Notice that the first <code>one_gadget</code> can be used because we have the gadget to set the <code>r12</code> and <code>r13</code> values as well. To summarize the steps needed to exploit this binary:</p>
 <ul>
-<li>With the buffer overflow bug, redirect the execution flow to overwrite the <code>read</code> GOT to <code>one_gadget</code></li>
-<li>And then call the <code>read</code> again. We will get a shell.</li>
+<li>Exploit the buffer overflow vulnerability to redirect the execution flow and overwrite the <code>read</code> GOT entry with the address of <code>one_gadget</code></li>
+<li>Call <code>read</code> again, which will trigger the <code>one_gadget</code> and spawn a shell.</li>
 </ul>
 <h4 id="full-script-2">Full Script</h4>
-<p>Below is my full script to solve this challenge:</p>
+<p>Here&rsquo;s my full script to solve this challenge:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1062,7 +1064,7 @@
         </div>
     </div>
 <h3 id="initial-analysis-3">Initial Analysis</h3>
-<p>In this challenge, were given a binary file. Let&rsquo;s <code>checksec</code> it first.</p>
+<p>In this challenge, we are given a binary file. Let&rsquo;s use the <code>checksec</code> tool to check its security features.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1079,6 +1081,7 @@
 </div>
 </div><p>All protections are on except there isn&rsquo;t canary set in the stack.</p>
 <p>Let&rsquo;s try to disassemble the binary one by one.</p>
+<p><strong>main</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1117,43 +1120,43 @@
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">void __fastcall __noreturn main(int a1, char **a2, char **a3)
-</span></span><span class="line"><span class="cl">{
-</span></span><span class="line"><span class="cl">  int v3; // ebx
-</span></span><span class="line"><span class="cl">  char v4[80]; // [rsp+10h] [rbp-B0h] BYREF
-</span></span><span class="line"><span class="cl">  char v5[96]; // [rsp+60h] [rbp-60h] BYREF
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  sub_270A(v4, a2, a3);
-</span></span><span class="line"><span class="cl">  sub_75DD();
-</span></span><span class="line"><span class="cl">  while ( 1 )
-</span></span><span class="line"><span class="cl">  {
-</span></span><span class="line"><span class="cl">    sub_6E56(v5, v4);
-</span></span><span class="line"><span class="cl">    v3 = sub_7642(v5);
-</span></span><span class="line"><span class="cl">    sub_6DFC(v5);
-</span></span><span class="line"><span class="cl">    switch ( v3 )
-</span></span><span class="line"><span class="cl">    {
-</span></span><span class="line"><span class="cl">      case 1:
-</span></span><span class="line"><span class="cl">        sub_39FC(v4);
-</span></span><span class="line"><span class="cl">        break;
-</span></span><span class="line"><span class="cl">      case 2:
-</span></span><span class="line"><span class="cl">        sub_3DF8(v4);
-</span></span><span class="line"><span class="cl">        break;
-</span></span><span class="line"><span class="cl">      case 3:
-</span></span><span class="line"><span class="cl">        sub_41EE(v4);
-</span></span><span class="line"><span class="cl">        break;
-</span></span><span class="line"><span class="cl">      case 4:
-</span></span><span class="line"><span class="cl">        sub_46FA(v4);
-</span></span><span class="line"><span class="cl">        break;
-</span></span><span class="line"><span class="cl">      case 5:
-</span></span><span class="line"><span class="cl">        exit(0);
-</span></span><span class="line"><span class="cl">      default:
-</span></span><span class="line"><span class="cl">        continue;
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">  }
-</span></span><span class="line"><span class="cl">}
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="kr">__fastcall</span> <span class="n">__noreturn</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">a2</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span><span class="n">a3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// ebx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v4</span><span class="p">[</span><span class="mi">80</span><span class="p">];</span> <span class="c1">// [rsp+10h] [rbp-B0h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v5</span><span class="p">[</span><span class="mi">96</span><span class="p">];</span> <span class="c1">// [rsp+60h] [rbp-60h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="nf">sub_270A</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">sub_75DD</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sub_6E56</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v3</span> <span class="o">=</span> <span class="nf">sub_7642</span><span class="p">(</span><span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">sub_6DFC</span><span class="p">(</span><span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span> <span class="n">v3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sub_39FC</span><span class="p">(</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sub_3DF8</span><span class="p">(</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sub_41EE</span><span class="p">(</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">sub_46FA</span><span class="p">(</span><span class="n">v4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">default</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Well, this is a stripped binary. To give us a better understanding, it is better for us to try run the binary first.</p>
+</div><p>Since this binary has been stripped, it&rsquo;s difficult to see what&rsquo;s going on just by disassembling it. Let&rsquo;s run it to get a better idea.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1194,8 +1197,9 @@
 </span></span><span class="line"><span class="cl">&gt;&gt; 
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Turn out, this binary has 5 menu, where the fourth menu can be used to generate a new <code>kana</code>, and the value will be printed each time the binary print the menu. I spent quite a lot time on this challenge to find where is the bug, but turn out the first, second, and third menu is actually just a rabbit hole.</p>
-<p>The bug was in the print menu function itself, especially during reading what option we will choose. Below is the disassemby of thhe print menu function.</p>
+</div><p>It turns out that this binary has five menus, and the fourth menu can be used to generate a new <code>kana</code> that is printed each time the binary displays a menu. I spent a lot of time on this challenge trying to find the bug, but it turns out that the first, second, and third menus are actually just a distraction.</p>
+<p>The bug is in the sub_7642 (print menu) function itself, particularly when reading the user&rsquo;s chosen option. Below is the disassembly of the sub_7642 function.</p>
+<p><strong>sub_7642</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1292,7 +1296,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><code>s</code> is the array that will be used to store our chosen option. However, notice that the size of <code>s</code> is only <code>6</code>, yet the reading logic is like below:</p>
+</div><p><code>s</code> is the array that will be used to store our chosen option. However, notice that the size of <code>s</code> is only <code>6</code>, yet the reading logic is as follows:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1327,11 +1331,11 @@
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">atoi</span><span class="p">((</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">s</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>The read was reading our input one-by-one, and will stop only if the read char&rsquo;s input is <code>\n</code>. Also each time it read one byte, it will increment the <code>v12</code> counter, which is stored inside the stack also. Remember that the size of <code>s</code> is only <code>6</code>, which mean this is a buffer overflow bug. So, with this bug, we need to somehow get a shell.</p>
+</div><p>The <code>read</code> function is reading our input one character at a time, and it will stop only if the input character is <code>\n</code>. Each time it reads a byte, it will increment the <code>v12</code> counter, which is stored in the stack. However, the size of <code>s</code> is only <code>6</code>, which means this is a buffer overflow bug. With this vulnerability, we need to try to get a shell.</p>
 <h3 id="solution-3">Solution</h3>
-<p>The current problem is that the binary is PIE, so without a leak of either the PIE base or libc, it won&rsquo;t be possible for us to leverage this buffer overflow bug to gain a shell, because usually, we need to overwrite the saved RIP, and up until now, we don&rsquo;t know what should we write to the saved RIP because we don&rsquo;t know the base address.</p>
-<p>However, the setup of this challenge is pretty unique. Notice that the <code>v12</code> variable, which is the counter that is used as the offset of the current read, is placed below thhe <code>s</code> position in the stack. That means, the buffer overflow is actually can also rewrite the <code>v12</code> with a big value, so that after overwriting the <code>v12</code>, we can skip some bytes and directly jump to the desired place that we want. By using this bug, we can actually can still do the buffer overflow without overwriting the saved RIP in the stack. But now, the question is whether there&rsquo;s exist a good target in the stack that resides below the saved RIP.</p>
-<p>The answer is yes. There&rsquo;s exist a good target in the stack below the saved RIP that we can use to leak a value. When I was debugging with gdb, I notice that if we use the <code>fourth</code> menu to generate a new kana (which is a string that will be always printed during printing the menu), what it does is actually:</p>
+<p>The issue with the binary is that it&rsquo;s PIE-enabled, which means that without a leak of either the PIE base or libc, it&rsquo;s not possible to use the buffer overflow bug to gain a shell. Normally, we&rsquo;d need to overwrite the saved RIP, but we don&rsquo;t know what address to write to because we don&rsquo;t know the base address.</p>
+<p>However, the setup of this challenge is unique. The <code>v12</code> variable, which is the counter used as the offset of the current read, is located below the <code>s</code> position in the stack. This means that the buffer overflow can also overwrite <code>v12</code> with a large value, allowing us to skip some bytes and jump directly to the desired location. Using this bug, we can perform the buffer overflow without overwriting the saved RIP in the stack. The question now is whether there&rsquo;s a good target in the stack that resides below the saved RIP.</p>
+<p>Fortunately, there is a suitable target in the stack below the saved RIP that we can use to leak a value. While debugging with gdb, I noticed that using the <code>fourth</code> menu to generate a new kana (a string that is always printed when the menu is printed) performs the following steps:</p>
 <ul>
 <li>Allocating the string to a heap chunk</li>
 <li>Put the heap chunk address at the stack</li>
@@ -1388,9 +1392,9 @@
 </span></span><span class="line"><span class="cl">1b:00d8│       0x7fffffffdba8 ◂— 0x20 /* &#39; &#39; */
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>At this point, I realized that with this, we can actually get a leak by overwriting that stack which contains our <code>kana</code> address with our target address. With the buffer overflow bug. we can actually try to get a leak of the <code>heap</code> address first.</p>
+</div><p>At this point, I realized that we could leverage this behavior to obtain a leak by overwriting the stack location containing our <code>kana</code> address with the address of our target. Using the buffer overflow bug, we could first attempt to leak the <code>heap</code> address.</p>
 <h4 id="leaking-heap-address">Leaking heap address</h4>
-<p>With the BOF bug, we can overwrite the last byte of the <code>kana</code> address to null. As you can see in the below examination via GDB, if we overwrite the last byte of <code>kana</code> to null, we will be able to get a leak of the heap address.</p>
+<p>With the buffer overflow bug, we can overwrite the last byte of the <code>kana</code> address to null. As we can see from the examination via GDB below, if we overwrite the last byte of <code>kana</code> with null, we will be able to get a leak of the heap address.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1409,7 +1413,7 @@
 </span></span><span class="line"><span class="cl">0x555555576d40:	0x0000000000000000	0x0000000000000051
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Below is the partial script to get a leak of heap address</p>
+</div><p>Below is a script snippet that demonstrates how to obtain a leak of the heap address using the buffer overflow vulnerability:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1499,7 +1503,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1"># to skip the option read by 0xaf bytes, so that we can leap over</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># the saved RIP during triggering the buffer overflow bug.</span>
 </span></span><span class="line"><span class="cl"><span class="c1">#</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># Basically, withh the BOG, we overwrite the v12 value to 0xaf, so that the next</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Basically, withh the BOF, we overwrite the v12 value to 0xaf, so that the next</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># write after overwriting the v12 will skip some addressed and jump directly to aaddress</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># below the saved RIP address.</span>
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt;&gt; &#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x5c</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\xaf</span><span class="s1">&#39;</span><span class="o">*</span><span class="mi">1</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;c&#39;</span><span class="o">*</span><span class="mh">0x10</span><span class="p">)</span>
@@ -1513,7 +1517,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="leaking-stack-address">Leaking stack address</h4>
-<p>Observing via GDB, I notice that in the address of <code>leaked_heap - 0x23e8</code>, there exist a stack address.</p>
+<p>After observing via GDB, I noticed that the address <code>leaked_heap - 0x23e8</code> contains a stack address.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1532,7 +1536,7 @@
 </span></span><span class="line"><span class="cl">0x5555555753a8:	0x0000000000000051	0x0000000000000001
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>By overwriting the stack address that contains <code>kana</code> to this heap chunk address, we will get a leak of stack. Below is the partial script:</p>
+</div><p>By overwriting the stack address that contains <code>kana</code> to this heap chunk address, we can obtain a leak of the stack. Here&rsquo;s a partial script that demonstrates this technique:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1556,7 +1560,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="leaking-libc-address-and-pie-address">Leaking libc address and pie address</h4>
-<p>After leaking the stack address, it&rsquo;s now very easy for us to get libc and pie address, because there are so many address that contains all of it. Observing via gdb, I notice that the address of <code>leaked_stack+0xb0</code> contains libc address, and <code>leaked_stack-0x20</code> contains a pie address. Just redo the previous step, whhere we overwrite the stack address with hboth of the good addresses, and we will get a libc and pie leak.</p>
+<p>Once we obtained the leaked stack address, it became straightforward to get the PIE and libc addresses. There were many stack addresses that contained the information we needed. During debugging with gdb, I noticed that the address <code>leaked_stack+0xb0</code> held a libc address, and the address <code>leaked_stack-0x20</code> contained a PIE address. To retrieve the leaks, we repeated the previous step of overwriting the stack address with the corresponding good addresses.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1598,7 +1602,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="gain-remote-code-execution">Gain Remote Code Execution</h4>
-<p>Now that we&rsquo;ve got a leak of libc, pie, and stack address, the exploitation is become a classic ROP. I decided to do ROP to <code>one_gadget</code>. Below is the partial script:</p>
+<p>With the leak of libc, pie, and stack addresses, we can now proceed with classic ROP exploitation. I opted to use the <code>one_gadget</code> to obtain a shell. In the partial script below, I first constructed the ROP chain by finding gadgets in the binary that fulfill the <code>one_gadget</code> constraint. Once the chain is built, we simply need to return to the <code>one_gadget</code> to trigger it and obtain a shell.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1633,9 +1637,8 @@
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As you can see in the above script, I tried to do a ROP by first fulfilling the <code>one_gadget</code> constraint with gadgets that I found in the given binary. After that, we just need to return to the <code>one_gadget</code>, and we will get a shell.</p>
-<h4 id="full-script-3">Full script</h4>
-<p>Below is my full script:</p>
+</div><h4 id="full-script-3">Full script</h4>
+<p>The full script can be found below:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1829,7 +1832,7 @@
         </div>
     </div>
 <h3 id="initial-analysis-4">Initial Analysis</h3>
-<p>Let&rsquo;s start by <code>checksec</code> the binary.</p>
+<p>We were given a binary file. Let&rsquo;s try to <code>checksec</code> it first</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1846,7 +1849,15 @@
 </span></span><span class="line"><span class="cl">    PIE:      No PIE (0x400000)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Let&rsquo;s try to disassemble the binary</p>
+</div><p>The binary has the following security features:</p>
+<ul>
+<li>Partial RELRO, indicating that we can overwrite the GOT.</li>
+<li>Canary found, indicating a canary is exist to protect the stack.</li>
+<li>NX enabled, preventing jumping to the stack due to its non-executable property.</li>
+<li>No PIE, which means the binary address is constant.</li>
+</ul>
+<p>Let&rsquo;s disassemble the binary and see what we can find.</p>
+<p><strong>main</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1893,12 +1904,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Checking the main method, we can see that before going to the <code>menu</code> function, it will ask us to:</p>
+</div><p>Upon examining the main method, we can observe that before calling the menu function, the program prompts the user to perform the following actions:</p>
 <ul>
 <li>Register our username</li>
-<li>Ask again whether we want to edit the username or not before going to the <code>menu</code> function.</li>
+<li>Choose whether to edit the username or not before proceeding to the <code>menu</code> function.</li>
 </ul>
-<p>Let&rsquo;s try to check the <code>setup</code> first.</p>
+<p>Next, let&rsquo;s take a closer look at the <code>setup</code> function.</p>
+<p><strong>setup</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1931,8 +1943,9 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>So, there is a global variable called <code>curr_user</code>, which is a pointer to a chunk with size 0x110. And then it set the <code>curr_user+0x100</code> value to <code>2</code>.</p>
-<p>Let&rsquo;s try to check the <code>user_register</code> function first.</p>
+</div><p>We can see that there is a global variable named <code>curr_user</code> which is a pointer to a chunk with size 0x110. In addition, the function sets the value at <code>curr_user+0x100</code> to <code>2</code>.</p>
+<p>Now, let&rsquo;s move on to the <code>user_register</code> function.</p>
+<p><strong>user_register</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2158,7 +2171,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>As you can see, there is off-by-one bug in this code. Suppose that our username length is <code>256</code>, that means the max value of <code>n</code> is also <code>256</code>. Notice that there is a line of code that call <code>memset(s, 0, n+1)</code>. That means, if the <code>n</code> is set to <code>256</code> (<code>0x100</code>), it will set <code>257</code> bytes to null. The username size is <code>0x100</code>, which means that this memset is overwriting one byte next to the curr_user username with null byte, which is the <code>curr_user+0x100</code> that is set during the <code>setup</code>. We don&rsquo;t know yet what is that value, so let&rsquo;s move to disassemble the next function.</p>
+</div><p>There is an off-by-one bug in this code. If the length of our username is <code>256</code>, which means the max value of <code>n</code> is also <code>256</code>, a call to <code>memset(s, 0, n+1)</code> will set <code>257</code> bytes to null. The size of the username is <code>0x100</code>, which means that this <code>memset</code> is overwriting one byte next to the <code>curr_user</code> username with a null byte. The <code>curr_user+0x100</code> value is set during the <code>setup</code> and we do not know its value yet, so let&rsquo;s move on to disassembling the next function.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2276,8 +2289,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Turn out, the <code>curr_user+0x100</code> is a <code>role</code>. Based on that code, there are three role, <code>crew</code> (<code>2</code>), <code>captain</code> (<code>0</code>), and <code>technician</code> (<code>1</code>). Using the bug before in the <code>user_edit</code> where the <code>role</code> got nullified by the <code>memset</code>, that means we can set our role directly to <code>captain</code>.</p>
-<p>Now, let&rsquo;s try to disas each menu that is available.</p>
+</div><p>We have discovered that the <code>curr_user+0x100</code> value represents the user&rsquo;s role, with three possible options: <code>crew</code> (<code>2</code>), <code>captain</code> (<code>0</code>), and <code>technician</code> (<code>1</code>), as specified in the <code>print_current_role</code> function. The off-by-one bug in the <code>user_edit</code> function allows us to overwrite this value with null bytes if the username is exactly <code>256</code> bytes long. Therefore, we can set our role to <code>captain</code> by crafting a username of length <code>256</code>.</p>
+<p>Now, let&rsquo;s try to disassemble each menu that is available.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2490,7 +2503,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This menu can only be used if your role is <code>captain</code>. Notice that there is two bug in this method. The first one is how it scan the value. If we put invalid number during the call of <code>__isoc99_scanf(&quot;%ld&quot;, &amp;v2[2 * i]);</code> and <code>__isoc99_scanf(&quot;%ld&quot;, &amp;v2[2 * i + 1]);</code> (For example, putting an alphabet cahracter), the scanf will skip and continue to the next LOCs. The second bug is that there isn&rsquo;t any handling mechanism to handle if the <code>scanf</code> is failed, which means it will still copy the value stored in the stack to the <code>route</code> variable.</p>
+</div><p>This menu option is restricted to users with the <code>captain</code> role. However, there are two bugs in this function. The first one is how it scan the value. If we put invalid number during the call of <code>__isoc99_scanf(&quot;%ld&quot;, &amp;v2[2 * i]);</code> and <code>__isoc99_scanf(&quot;%ld&quot;, &amp;v2[2 * i + 1]);</code> (For example, putting an alphabet cahracter), the scanf will skip and continue to the next LOCs. The second bug is that there isn&rsquo;t any handling mechanism to handle if the <code>scanf</code> is failed, which means it will still copy the value stored in the stack to the <code>route</code> variable.</p>
 <p>This kind of bug is called UDA (Uninitialied Data Access). If you read the code again, there isn&rsquo;t any mechanism to clear out the stack data before using it. Combined with the fact that there isn&rsquo;t failure handling if the <code>scanf</code> failed, that means it is possible for us to set the <code>route</code> value with the value from the stack. If we&rsquo;re lucky enough, that might contains some sensitive data that shouldn&rsquo;t be leaked (for example, a libc address).</p>
 <p>Let&rsquo;s check the <code>view_route</code> menu.</p>
 <div class="highlight"><div class="chroma">
@@ -3051,15 +3064,15 @@
 </ul>
 <p>Now that we have discovered the bugs in the binary, it&rsquo;s time to think about how to exploit the bugs. The goal is to get a shell.</p>
 <h3 id="solution-5">Solution</h3>
-<p>Usually, in order to get a shell, we need to be able to get a leak of the libc address first. The most common technique to do that is to free a heap chunk to the <code>unsorted bin</code> and then try to read the freed chunk&rsquo;s value if it is possible (Because when a chunk got freed to the <code>unsorted bin</code>, the freed chunk will contains a libc address to the main_arena).</p>
-<p>However, notice that there are some limitations in this binary:</p>
+<p>In order to get a shell, we typically need to obtain a libc address leak first. The most common method is to free a heap chunk to the <code>unsorted bin</code> and then attempt to read the value of the freed chunk to get the libc address since the freed chunk will contain a libc address to the <code>main_arena</code>.</p>
+<p>However, there are certain limitations in this binary that we must overcome:</p>
 <ul>
-<li>We can only call <code>malloc(0x18)</code> (with the <code>create</code> function). Why it&rsquo;s a limitation:
+<li>We can only call <code>malloc(0x18)</code> using the <code>create</code> function. This is a limitation because:
 <ul>
 <li>In order to free a heap chunk to the <code>unsorted bin</code>, we need to either:
 <ul>
 <li>Free a chunk with size larger than the limit of <code>tcache</code> (<code>0x408</code>), or</li>
-<li>Fulfill the <code>tcache</code> bin with size larger than <code>0x80</code> (Max entries per bin is <code>7</code>), so that the next <code>free</code> after the bin is full will go to <code>unsorted bin</code>.
+<li>Fill the <code>tcache</code> bin with size larger than <code>0x80</code> (Max entries per bin is <code>7</code>), so that the next <code>free</code> after the bin is full will go to <code>unsorted bin</code>.
 <ul>
 <li>If the size is <code>&lt;= 0x80</code>, it will go to fastbin instead.</li>
 </ul>
@@ -3075,7 +3088,7 @@
 </li>
 </ul>
 <p>So, we need to bypass this limitation one by one. Let&rsquo;s try to think on how to bypass it and get a shell with top-down approach.</p>
-<p>First, the end goal is we need to spawn a shell. Because the libc used is <code>libc-2.31</code>, the <code>__free_hook</code> can still be used. So, our target is simple, overwrite the <code>__free_hook</code> with <code>system</code>, so that when we call <code>free(&quot;/bin/sh&quot;)</code>, it will do <code>system(&quot;/bin/sh&quot;)</code> instead.</p>
+<p>Thus, we must bypass these limitations one by one. Our ultimate goal is to spawn a shell. Because the used libc is <code>libc-2.31</code>, the <code>__free_hook</code> can still be used. So, our target is simple, overwrite the <code>__free_hook</code> with <code>system</code>, so that when we call <code>free(&quot;/bin/sh&quot;)</code>, it will do <code>system(&quot;/bin/sh&quot;)</code> instead.</p>
 <p>To overwrite the <code>__free_hook</code>, the idea is we need to somehow allocate a chunk to that address, so that when we modify the value, the <code>__free_hook</code> value will be overwritten. To do that, we can leverage the UAF bug to do <code>tcache</code> poisoning, so that the freelist pointer will be forged to point to the <code>__free_hook</code> address. If we&rsquo;re able to poison it, when we allocate a chunk, the chunk will reside in the same address with <code>__free_hook</code>.</p>
 <p>Now, in order to do that, we need a way to print a libc address, so that we can have a leak and use that value to poison the <code>tcache</code>. However, as I stated before, let say that we&rsquo;re able to <code>free</code> a chunk to <code>unsorted bin</code>, even though we have UAF, we couldn&rsquo;t see the libc adress value on that freed chunk. What we can do is only modifying the value with UAF, not printing the value.</p>
 <p>In this case, usually one of the tricks is to get a <code>libc</code> leak via <code>stdout</code>. You can read more about this on <a href="https://chovid99.github.io/posts/stack-the-flags-ctf-2022/" target="_blank" rel="noopener noreffer ">my other writeup</a>, but the tl;dr is we can get a libc leak if we&rsquo;re able to:</p>
