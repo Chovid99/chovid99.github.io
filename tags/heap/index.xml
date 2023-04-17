@@ -4,7 +4,15 @@
         <link>https://chovid99.github.io/tags/heap/</link>
         <description>heap - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Thu, 23 Mar 2023 20:00:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/heap/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/heap/" rel="self" type="application/rss+xml" /><item>
+    <title>Plaid CTF 2023</title>
+    <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
+    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
+    <description><![CDATA[Writeup for Pwn challenges in PlaidCTF 2023]]></description>
+</item>
+<item>
     <title>Cyber Apocalypse 2023: Pwn</title>
     <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</link>
     <pubDate>Thu, 23 Mar 2023 20:00:01 &#43;0700</pubDate>
@@ -75,14 +83,6 @@
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
     <description><![CDATA[Writeup for Pragyan CTF 2022 by Chovid99]]></description>
-</item>
-<item>
-    <title>DefCamp CTF 2022</title>
-    <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>
-    <pubDate>Mon, 14 Feb 2022 20:02:14 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/defcamp-ctf-2022/</guid>
-    <description><![CDATA[Writeup for DefCamp CTF 2022 by Chovid99]]></description>
 </item>
 </channel>
 </rss>
