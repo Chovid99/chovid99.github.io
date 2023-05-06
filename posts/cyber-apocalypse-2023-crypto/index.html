@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-23T20:00:01+07:00" />
-<meta property="article:modified_time" content="2023-03-23T01:34:23+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta property="article:modified_time" content="2023-03-27T21:53:11+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
@@ -19,7 +19,7 @@
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/" /><link rel="prev" href="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/" /><link rel="prev" href="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" /><link rel="next" href="https://chovid99.github.io/posts/line-ctf-2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -30,8 +30,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, crypto, md5, sha256, schnorr, ecc, coppersmith, lattice, LLL","wordcount":  9314 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-23T01:34:23+07:00","publisher": {
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Apocalypse, htb, crypto, md5, sha256, schnorr, ecc, coppersmith, lattice, LLL","wordcount":  9307 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/cyber-apocalypse-2023-crypto\/","datePublished": "2023-03-23T20:00:01+07:00","dateModified": "2023-03-27T21:53:11+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -76,7 +76,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Apocalypse 2023: Crypto</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9314 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 23, 2023">Mar 23, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9307 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;44 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -152,7 +152,17 @@
             alt="https://i.imgur.com/zjySC02.jpg" />
     </a><figcaption class="image-caption">Cyber Apocalypse 2023</figcaption>
     </figure>
-<p>For the last 5 days, I spent my time competing in the Cyber Apocalypse CTF 2023 by myself (I played solo). I managed to solve all of the pwn challenges and solve 9 out of 10 of the crypto challenges. This is my writeup for some of the crypto challenges that I solved during the CTF. If you want to look for the pwn challenges writeup, go to this link.</p>
+<p>For the past five days, I have been competing solo in the Cyber Apocalypse CTF 2023. During this time, I was able to solve <strong>all of the pwn challenges</strong> and <strong>10 out of the 11 crypto challenges</strong>. In this writeup, I will be sharing my solutions for some of the crypto challenges that I solved. If you&rsquo;re interested in reading about the pwn challenges, check out <a href="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" target="_blank" rel="noopener noreffer ">my other post</a>.</p>
+<figure><a class="lightgallery" href="https://i.imgur.com/0Fe0Nyw.png" title="https://i.imgur.com/0Fe0Nyw.png" data-thumbnail="https://i.imgur.com/0Fe0Nyw.png" data-sub-html="<h2>I was able to solve 10 out of 11 crypto challenges</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/0Fe0Nyw.png"
+            data-srcset="https://i.imgur.com/0Fe0Nyw.png, https://i.imgur.com/0Fe0Nyw.png 1.5x, https://i.imgur.com/0Fe0Nyw.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/0Fe0Nyw.png" />
+    </a><figcaption class="image-caption">I was able to solve 10 out of 11 crypto challenges</figcaption>
+    </figure>
 <h1 id="crypto">Crypto</h1>
 <h2 id="multipage-recyclings">Multipage Recyclings</h2>
 <div class="details admonition quote open">
@@ -164,7 +174,7 @@
         </div>
     </div>
 <h3 id="initial-analysis">Initial Analysis</h3>
-<p>For this challenge, we were given two file called <code>source.py</code> and <code>output.txt</code>. Let&rsquo;s take a look on the <code>source.py</code> first.</p>
+<p>For this challenge, we were given two file called <code>source.py</code> and <code>output.txt</code>. Let&rsquo;s take a look at the <code>source.py</code> first.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -281,12 +291,12 @@
 </span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Based on the given source code, the main logic for the code is like below:</p>
+</div><p>Based on the given source code, the main logic for the code is as follows:</p>
 <ul>
-<li>Concatenate the flag withh itself 4 times.</li>
-<li>Pad the flag so that it can be splitted into multiple of 16 bytes block</li>
+<li>Concatenate the flag with itself 4 times.</li>
+<li>Pad the flag so that it can be split into multiple 16-bytes block</li>
 <li>Encrypt it with AES</li>
-<li>Give some leaks</li>
+<li>Provide some leaks</li>
 </ul>
 <p>Let&rsquo;s try to understand the <code>encrypt</code> method first. If you read it, it is actually an implementation of <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation" target="_blank" rel="noopener noreffer ">AES-CFB</a>.</p>
 <p><img
@@ -297,13 +307,13 @@
         data-sizes="auto"
         alt="https://i.imgur.com/ZAmfwsn.png"
         title="https://i.imgur.com/ZAmfwsn.png" /></p>
-<p>So, now we know the AES type, let&rsquo;s take a look on what is the leak that the source generates. Turn out, the given leak was two decrypted blocks those exist in the ciphertext. So, given the leaks, our target is to somehow recover our flag.</p>
+<p>So, now we know the AES type, let&rsquo;s take a look at what the leak that the source generates is. It turns out that the given leak was two decrypted blocks that exist in the ciphertext. Therefore, given the leaks, our target is to somehow recover our flag.</p>
 <h3 id="solution">Solution</h3>
-<p>Notice that if you see the above image, to decrypt the plaintext, what AES-CFB does is actually like below,</p>
+<p>Please refer to the image above. As you can see, to decrypt the plaintext, what AES-CFB does is actually like this,</p>
 <p>$$
 p_i = C(c_{i-1}) \oplus c_{i}
 $$</p>
-<p>where $C$ is the block cipher encryption, $c$ is the ciphertext, and $p$ is the plaintext. Notice that the leak is actually the $C(c_{i-1})$ result, where $i$ is random. Notice that thhe given leak is always two consecutive blocks and if we have the $C(c_{i-1})$ and $C(c_{i})$, we actually can get the plaintext block for at least two blocks. After testing to xor the block one by one, I found that the leak is $C(c_3)$ and $C(c_4)$. Trying to xor it with $c_4$ and $c_5$, we got the flag.</p>
+<p>where $C$ is the block cipher encryption, $c$ is the ciphertext, and $p$ is the plaintext. Notice that the leak is actually the $C(c_{i-1})$ result, where $i$ is random. Additionally, the given leak is always two consecutive blocks, and if we have the $C(c_{i-1})$ and $C(c_{i})$, we can actually get the plaintext block for at least two blocks. After testing to XOR the blocks one by one, I found that the leak is $C(c_3)$ and $C(c_4)$. By XORing them with $c_4$ and $c_5$, respectively, we were able to obtain the flag.</p>
 <h4 id="full-script">Full Script</h4>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -348,7 +358,7 @@ $$</p>
         </div>
     </div>
 <h3 id="initial-analysis-1">Initial Analysis</h3>
-<p>For this challenge, we were given a file called <code>server.py</code>. Let&rsquo;s check that</p>
+<p>For this challenge, we were given a file called <code>server.py</code>. Let&rsquo;s check that.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -489,24 +499,24 @@ $$</p>
 </span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;An error occurred: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Reading through the code, there are three menu that we can interact.</p>
+</div><p>Reading through the code, there are three menus that we can interact with:</p>
 <ul>
-<li><code>L</code>, print the <code>ciphertext</code>, <code>key</code>, and <code>page_number</code></li>
-<li><code>T</code>, encrypt the <code>FLAG</code> and store the encryption result to <code>ciphertext</code> and <code>key</code></li>
-<li><code>C</code>, same as <code>L</code>, but print it as a <code>list</code> format.</li>
+<li><code>L</code>, which prints the <code>ciphertext</code>, <code>key</code>, and <code>page_number</code></li>
+<li><code>T</code>, which encrypts the <code>FLAG</code> and stores the encryption result to <code>ciphertext</code> and <code>key</code></li>
+<li><code>C</code>, which is the same as <code>L</code>, but prints it as a <code>list</code> format.</li>
 </ul>
-<p>The encryption scheme is like below:</p>
+<p>The encryption scheme is as follows:</p>
 <ul>
 <li>Parse the <code>FLAG</code> to a matrix 5x5 under <code>GF(prime)</code>.
 <ul>
 <li><code>prime</code> is randomized from range ($2^4$ - $2^6$)</li>
 </ul>
 </li>
-<li>Generate random key and parse it to matrix 5x5 under <code>GF(P)</code></li>
-<li>Do matrix multiplication between parsed <code>FLAG</code> and parsed key</li>
+<li>Generate random key and parse it to matrix 5x5 under <code>GF(P)</code>.</li>
+<li>Do matrix multiplication between parsed <code>FLAG</code> and the parsed key.</li>
 <li>Return the encryption result and the key itself.</li>
 </ul>
-<p>Notes that the server doesn&rsquo;t return the value of <code>prime</code>. So, the task for this challenge is given an encrypted flag and a key, we need to recover the flag.</p>
+<p>Note that the server doesn&rsquo;t return the value of <code>prime</code>. Therefore, the task for this challenge is to recover the flag given an encrypted flag and a key.</p>
 <h3 id="solution-1">Solution</h3>
 <p>Because we know the key value, we actually can just simply multiple the encrypted flag with the inverse of key. Take a look on the below equations,</p>
 <p>$$
@@ -518,7 +528,7 @@ m  = ck^{-1}\\
 $$</p>
 <p>where $m$ is message, $c$ is encryted message, and $k$ is the key. To do the above equation, we need to know the <code>prime</code> value first. Notice that the range is actually small, so we can actually just bruteforce it. The possible primes that is used in this encryption scheme is actually only <code>[17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61]</code>. So, by bruteforcing the prime, we can recover the matrix of the parsed <code>FLAG</code>.</p>
 <p>However, there is a problem with this one. Notice that the parsed matrix elements was reduced with modulo of the chosen <code>prime</code>. The <code>prime</code> is small, which means that the parsed matrix of <code>FLAG</code> each element&rsquo;s value is actually not the original value of the <code>FLAG</code> char. So, we need to think on how to recover this.</p>
-<p>The answer is we can use Chinese Remainder Theorem to recover the original <code>FLAG</code>. Notice that if we recover three pairs of <code>ciphertext</code> and <code>key</code> with different <code>prime</code>, after we recover the $m$, we actually can rearrange the value like below,</p>
+<p>The answer is we can use Chinese Remainder Theorem to recover the original <code>FLAG</code>. Notice that if we recover three pairs of <code>ciphertext</code> and <code>key</code> with different <code>prime</code>, after we recover the $m$, we actually can rearrange the value as follows,</p>
 <p>$$
 x_{i,j} = m_{1,i,j} \mod p_1 \\
 x_{i,j} = m_{2,i,j} \mod p_2 \\
@@ -687,7 +697,7 @@ $$</p>
         </div>
     </div>
 <h3 id="initial-analysis-2">Initial Analysis</h3>
-<p>For this challenge, we were given a file called <code>server.py</code>. Below is the given code.</p>
+<p>For this challenge, we were given a file called <code>server.py</code>. The provided code is shown below.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -826,25 +836,25 @@ $$</p>
 </span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Reading through the code, we can see that this is an ECC (Elliptic Curve) challenge. If we connect to the server, there will be three menu that we can use:</p>
+</div><p>Upon analyzing the given code, we can deduce that this is an ECC (Elliptic Curve) challenge. When we connect to the server, we are presented with three menus:</p>
 <ul>
-<li>The first one is used to dump some informations related to the parameter of the ECC, which is:
+<li>The first one is used to dump some information related to the ECC parameters, which includes:
 <ul>
 <li>$p$</li>
-<li>$a_{msb}$ (<code>a &gt;&gt; r</code>) where <code>r</code> is random with range from <code>p.bit_length()/3</code> until <code>2*p.bit_length()/3</code></li>
+<li>$a_{msb}$ (<code>a &gt;&gt; r</code>) where <code>r</code> is a random number within the range of <code>p.bit_length()/3</code> until <code>2*p.bit_length()/3</code></li>
 <li>$b_{msb}$ (<code>b &gt;&gt; r</code>)</li>
 </ul>
 </li>
-<li>The second menu can be used to generate a random point in the curve</li>
-<li>The third menu is used to dump the encrypted flag (with AES), where the AES key is encrypted with key <code>sha256(long_to_bytes(pow(ec.a, ec.b, ec.p))).digest()[:16]</code></li>
+<li>The second menu allows us to generate a random point on the curve.</li>
+<li>The third menu allows us to dump the encrypted flag (with AES), where the AES key is encrypted with the key <code>sha256(long_to_bytes(pow(ec.a, ec.b, ec.p))).digest()[:16]</code>.</li>
 </ul>
-<p>So, based on that initial analysis, the target for this chall is to recover the ECC parameter (<code>a, b, p</code>).</p>
+<p>Therefore, based on our initial analysis, our objective in this challenge is to recover the ECC parameters (<code>a, b, p</code>).</p>
 <h3 id="solution-2">Solution</h3>
-<p>Well, we can recover <code>p</code> from the first menu (They provide the <code>p</code> value). So now, we need to recover <code>a</code> and <code>b</code>. Remember that the ECC curve equation is like below:
+<p>Well, we can recover <code>p</code> from the first menu as it is provided. Now, we need to recover <code>a</code> and <code>b</code>. It&rsquo;s important to remember that the equation for the ECC curve is as follows:
 $$
 y^2 = x^3 + ax + b \mod p
 $$</p>
-<p>Now, remember that from the second menu, we can generate many points that reside in the curve. As you can see, if we have two points, it become two equations with two unknown variable, which is solvable (and for this challenge, we actually don&rsquo;t need the leak of <code>a</code> and <code>b</code> at all!).</p>
+<p>Now, remember that from the second menu, we can generate many points that reside on the curve. As you can see, if we have two points, it becomes two equations with two unknown variables, which are solvable (and for this challenge, we actually don&rsquo;t need the leak of <code>a</code> and <code>b</code> at all!).</p>
 <p>So, to recover the <code>a</code> and <code>b</code>, we just need to recover two points, and then subtract it to remove <code>a</code>. See below equations:
 $$
 \begin{align}
@@ -852,19 +862,18 @@ y_1^2 = x_1^3 + ax_1 + b \mod p \\
 y_2^2 = x_2^3 + ax_2 + b \mod p \\
 \end{align}
 $$</p>
-<p>If we subtract the above equations, we will get a new equation like below
+<p>If we subtract the above equations, we will get a new equation as follows
 $$
 \begin{align}
 (y_1^2 - y_2^2) = (x_1^3 -x_2^3) + a(x_1-x_2) \mod p \\
 ((y_1^2 - y_2^2) - (x_1^3 -x_2^3))(x_1-x_2)^{-1} = a \mod p \\
 \end{align}
 $$</p>
-<p>Now that we can recover <code>a</code> from the above equation, recovering <code>b</code> is trivial.
+<p>Now that we can recover <code>a</code> from the above equation, recovering <code>b</code> becomes trivial.
 $$
 b = y^2 - x^3 - a*x
 $$</p>
-<p>After recovering <code>a</code> and <code>b</code>, we can retrieve the AES key, and use it to decrypt.</p>
-<p>Below is the solver that I use (sage script):</p>
+<p>Once we have recovered <code>a</code> and <code>b</code>, we can retrieve the AES key and use it to decrypt the encrypted flag. The following is the solver that can be used to do that (sage script):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -967,7 +976,7 @@ $$</p>
         </div>
     </div>
 <h3 id="initial-analysis-3">Initial Analysis</h3>
-<p>This is the revenge of the previous challenge. The only different is that in the previous challenge we can retrieve multiple points, but for this challenge, we can only retrieve one point.</p>
+<p>This is the revenge of the previous challenge. The only difference is that in the previous challenge, we could retrieve multiple points, but for this challenge, we can only retrieve one point.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1106,9 +1115,9 @@ $$</p>
 </span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>However, remember that we actually have a leak for the <code>a</code> and <code>b</code> param, which is the MSBs of them. So, we need to use that leak to retrieve it.</p>
+</div><p>However, it&rsquo;s important to remember that we actually have a leak for the <code>a</code> and <code>b</code> parameters, which are their most significant bits (MSBs). Thus, we can use that leak to retrieve them.</p>
 <h3 id="solution-3">Solution</h3>
-<p>Let&rsquo;s take a look on the how the leak generated.</p>
+<p>Let&rsquo;s take a look at how the leak is generated.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1133,18 +1142,18 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that the <code>p.bit_length()</code> is <code>512</code>. So, the range of <code>r</code> is from <code>170 - 340</code>. So, it can be bruteforced. Remember that the ECC equation is like below:</p>
+</div><p>Notice that the <code>p.bit_length()</code> is <code>512</code>. Therefore, the range of <code>r</code> is from <code>170</code> to <code>340</code>, which can be bruteforced. It is important to remember that the ECC equation is as follows:</p>
 <p>$$
 y^2 = x^3 + ax + b \mod p
 $$</p>
-<p>And with our leak, the equation can be rearranged like below:</p>
+<p>And with our leak, the equation can be rearranged as follows:</p>
 <p>$$
 y^2 = x^3 + (2^ra_{leaked} + c) + {2^rb_{leaked} + d} \mod p
 $$</p>
-<p>Notice that the <code>r</code> is bruteforce-able, and the value of $c$ and $d$ is small compared to the other value ($y^2$, $x^3$, and $2^r$). On this kind of challenge, we actually can try to retrieve the $c$ and $d$ value with Coppersmith.</p>
-<p>We can reuse the <code>defund</code> implementation of <a href="https://github.com/defund/coppersmith" target="_blank" rel="noopener noreffer ">coppersmith</a> in here to do the coppersmith in the equation.</p>
-<p>After retrieving the value $c$ and $d$, we will be able to get the value $a$ and $b$.</p>
-<p>Below is my script (sage script)</p>
+<p>Notice that the value of <code>r</code> is bruteforce-able, and the values of $c$ and $d$ are small compared to the other values ($y^2$, $x^3$, and $2^r$). In this type of challenge, we can try to retrieve the values of $c$ and $d$ value with Coppersmith.</p>
+<p>We can reuse the <code>defund</code> implementation of <a href="https://github.com/defund/coppersmith" target="_blank" rel="noopener noreffer ">coppersmith</a> to perform the coppersmith attack on the equation.</p>
+<p>After retrieving the value $c$ and $d$, we will be able to recover the values of $a$ and $b$.</p>
+<p>Below is my solver script (sage script):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1353,7 +1362,7 @@ $$</p>
         </div>
     </div>
 <h3 id="initial-analysis-4">Initial Analysis</h3>
-<p>For this challenge, we were given a file called <code>server.py</code>. Below is the code of it:</p>
+<p>For this challenge, we were given a file called <code>server.py</code>. Below is its code:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1536,31 +1545,31 @@ $$</p>
 </span></span><span class="line"><span class="cl">    <span class="n">main</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>So, we were given a server that implements a signature scheme with the <code>Schnorr signature algorithm</code>. The detail of the algorithm can be read in the <a href="https://en.wikipedia.org/wiki/Schnorr_signature" target="_blank" rel="noopener noreffer ">wikipedia</a>. The challenge will share the public key of the signature scheme (<code>g</code>, <code>y</code>, and <code>p</code>), and give us <strong>three chances</strong> only to use the available menus, which are:</p>
+</div><p>So, we were given a server that implements a signature scheme with the <code>Schnorr signature algorithm</code>. The details of the algorithm can be read on <a href="https://en.wikipedia.org/wiki/Schnorr_signature" target="_blank" rel="noopener noreffer ">Wikipedia</a>. The challenge shares the public key of the signature scheme (<code>g</code>, <code>y</code>, and <code>p</code>), and gives us <strong>three chances</strong> to use the available menus:</p>
 <ul>
 <li><code>S</code>, which is a menu to sign any message that we provide.
 <ul>
-<li>There is a restriction where it isn&rsquo;t allowed to contain the string <code>I am the left hand</code>.</li>
-<li>We will get the <code>s</code> and <code>e</code> values as well, which is the signature.</li>
+<li>There is a restriction that disallows messages containing the string <code>I am the left hand</code>.</li>
+<li>We get the <code>s</code> and <code>e</code> values as well, which are the signature.</li>
 </ul>
 </li>
 <li><code>V</code>, which is a menu to validate our signature of the message.
 <ul>
-<li>If the signature is valid, and the message is <code>I am the left hand</code>, it will print the flag.</li>
+<li>If the signature is valid and the message is <code>I am the left hand</code>, it will print the flag.</li>
 </ul>
 </li>
 </ul>
-<p>So, the target of this chall is with two signatures that we retrieve from the server, we need to be able to retrieve the private key so that we can sign the message <code>I am the left hand</code>, send it to the server, and retrieve the flag from the server.</p>
+<p>Therefore, the objective of this challenge is to retrieve the private key with two signatures that we obtain from the server so that we can sign the message <code>I am the left hand</code>, send it to the server, and retrieve the flag.</p>
 <h3 id="solution-4">Solution</h3>
-<p>Notice that in this kind of signature scheme, the vulnerability usually lies in the way it generates the <code>k</code> (nonce) value. The <code>k</code> generation isn&rsquo;t allowed to be weak, because it can be used to retrieve the private key (<code>x</code>).</p>
-<p>As mentioned in the Wikipedia that I shared before, if a nonce reused is disallowed on this kind of signature scheme. The reason is that we can recover the private key (<code>x</code>) if we use the same <code>k</code> during signing two different messages. Let&rsquo;s try to see the below signing equations to understand why we can recover <code>k</code> if it is being reused to sign different messages:</p>
+<p>Notice that in this kind of signature scheme, the vulnerability usually lies in the way it generates the <code>k</code> (nonce) value. The <code>k</code> generation cannot be weak because it can be used to retrieve the private key (<code>x</code>).</p>
+<p>As mentioned in the Wikipedia page that I shared before, reusing a nonce is disallowed in this kind of signature scheme. The reason is that we can recover the private key (<code>x</code>) if we use the same <code>k</code> during signing two different messages.  Let&rsquo;s take a look at the signing equations below to understand why we can recover <code>k</code> if it is being reused to sign different messages:</p>
 <p>$$
 \begin{align}
 s_1 = (k - xe_1) \mod q \\
 s_2 = (k - xe_2) \mod q \\
 \end{align}
 $$</p>
-<p>If we subtract the above equation, then retrieving the $x$ becomes very easy because we know the value of $s_1$, $s_2$, $e_1$, $e_2$ and $q$. We can rearrange those two equations to retrieve the $x$.</p>
+<p>If we subtract the above equation, retrieving the value of $x$ becomes very easy because we know the value of $s_1$, $s_2$, $e_1$, $e_2$ and $q$. We can rearrange those two equations to retrieve $x$.</p>
 <p>$$
 \begin{align}
 (s_1 - s_2) = k - k - x(e_1e_2) \mod q \\
@@ -1568,7 +1577,7 @@ x = -(s_1 - s_2)(e_1e_2)^{-1} \mod q \\
 \end{align}
 $$</p>
 <p>So, if we sign two different messages with the same <code>k</code>, we will be able to recover <code>x</code> and sign the required message.</p>
-<p>Now that we know that we need to somehow signing two different messages with the same <code>k</code> value, let&rsquo;s take a look at how the <code>k</code> is generated.</p>
+<p>Now that we know that we need to somehow sign two different messages with the same <code>k</code> value, let&rsquo;s take a look at how the <code>k</code> is generated.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1595,9 +1604,9 @@ $$</p>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that the generation of <code>k</code> (nonce) is basically just doing <code>md5(msg || x)</code>. As mentioned in a lot of articles, it is very easy to generate a hash collision with <code>md5</code>. Reading through this <a href="https://www.skullsecurity.org/2012/everything-you-need-to-know-about-hash-length-extension-attacks" target="_blank" rel="noopener noreffer ">article</a> helps me a lot to understand why the way this challenge generates <code>k</code> is weak. It is easy to generate <code>md5</code> hash collision, which means we can sign two different messages with the same <code>k</code> value due to the collision.</p>
-<p>Reading through that article, I realized that it is pretty simple to leverage the weakness of md5. We just need to grab two strings that have <code>md5</code> collisions and use that as our messages to be signed. Be careful that because the <code>msg</code> that we send will be appended by the <code>x</code> as well, we can&rsquo;t send the raw <code>msg</code> to the server. As mentioned in the previous article, during <code>md5</code> hashing the <code>msg</code>, it pads the <code>msg</code> first with some bytes. So, we need to send the padded message to the server instead of raw <code>msg</code> to ensure that before the <code>md5</code> process the bytes of appended <code>x</code>, both of the messages that we sent will have the same <code>md5</code> state, so that when the <code>md5</code> algorithm try to process the block of the appended <code>x</code>, the state will be the same, which mean it will produce the same hash.</p>
-<p>After we&rsquo;re able to produce the <code>md5</code> collision, then based on the previous equations that I explained, we will be able to retrieve the private key <code>x</code> because the <code>k</code> value is reused.</p>
+</div><p>Notice that the generation of <code>k</code> (nonce) is basically just <code>md5(msg || x)</code>. As mentioned in many articles, it is easy to generate a hash collision with <code>md5</code>. Reading through this <a href="https://www.skullsecurity.org/2012/everything-you-need-to-know-about-hash-length-extension-attacks" target="_blank" rel="noopener noreffer ">article</a> helped me understand why the way this challenge generates <code>k</code> is weak. It is easy to generate a <code>md5</code> hash collision, which means we can sign two different messages with the same <code>k</code> value due to the collision.</p>
+<p>After reading that article, I realized that it is pretty simple to exploit the weakness of md5. We just need to grab two strings that have <code>md5</code> collisions and use that as our messages to be signed. However, we need to be careful because the <code>msg</code> that we send will be appended by the <code>x</code> as well. Therefore, we can&rsquo;t send the raw <code>msg</code> to the server. As mentioned in the previous article, <code>md5</code> pads the <code>msg</code> first with some bytes during hashing. Thus, we need to send the padded message to the server instead of raw <code>msg</code>. This ensures that before the <code>md5</code> process the bytes of appended <code>x</code>, both of the messages that we sent will have the same <code>md5</code> state. So, when the <code>md5</code> algorithm tries to process the block of the appended <code>x</code>, the state will be the same, which means it will produce the same hash.</p>
+<p>Once we are able to produce the <code>md5</code> collision, we can retrieve the private key <code>x</code> based on the previous equations that I explained because the <code>k</code> value is reused.</p>
 <p>Below is my full script to recover the flag (sage script):</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1936,7 +1945,7 @@ $$</p>
 </div>
 </div><p>As you can see, the generation of <code>k</code> is changed. Now, it uses <code>sha256</code> instead of <code>md5</code>. Up until now, there isn&rsquo;t any collision found for <code>sha256</code>, which mean we can&rsquo;t use our previous approach to solve this challenge.</p>
 <h3 id="solution-5">Solution</h3>
-<p>Reading through the wikipedia again, it mentions that:</p>
+<p>Reading through the Wikipedia again, it is mentioned that:</p>
 <div class="details admonition warning open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-exclamation-triangle fa-fw" aria-hidden="true"></i>Warning<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
@@ -1945,7 +1954,7 @@ $$</p>
             <div class="admonition-content">In fact, even slight biases in the value <code>k</code> or partial leakage of <code>k</code> can reveal the private key, after collecting sufficiently many signatures and solving the hidden number problem.</div>
         </div>
     </div>
-<p>So, there is another method to recover private key <code>x</code> with restriction that the generation of <code>k</code> is weak so that it has biases. Now, let&rsquo;s try to check again the new generation method of <code>k</code>.</p>
+<p>So, there is another method to recover the private key <code>x</code> which involves exploiting a weak bias in the generation of <code>k</code>. Let&rsquo;s take another look at the new method used to generate <code>k</code> and see if it has any biases.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1970,13 +1979,13 @@ $$</p>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Notice that generation of <code>k</code> (nonce) is now <code>2 * sha256(msg || x)</code>. This is actually a weak generation. Notice that even though the size of the <code>k</code> is around <code>512</code> bits, the <code>k</code> contains repeated sequence of bits. The entropy is only <code>256</code> bits due to the repetition. This means, the <code>k</code> can be constructed like below:</p>
+</div><p>Notice that generation of <code>k</code> (nonce) is now <code>2 * sha256(msg || x)</code>. This is actually a weak generation. Even though the size of <code>k</code> is around <code>512</code> bits, the repeated sequence of bits in <code>k</code> reduces its entropy to only <code>256</code> bits. Therefore, <code>k</code> can be constructed as follows:</p>
 <p>$$
 k = 2^{256}b + b \\
 k = b(2^{256} + 1) \\
 $$</p>
-<p>where $b$ is the <code>256</code> bits produced by the <code>sha256</code> hashing algorithm. That means there is indeed biases in the generated <code>k</code>, and we might be able to recover it.</p>
-<p>This <a href="https://eprint.iacr.org/2019/023.pdf" target="_blank" rel="noopener noreffer ">paper</a> and <a href="http://jgeralnik.github.io/writeups/2021/08/12/Lattices/" target="_blank" rel="noopener noreffer ">writeup</a> helps me a lot on understanding how to approach this problem. Basically, notice that the way of Schnorr signature mechanism is actually similar to a hidden number problem. Putting the above knowledge on how the <code>k</code> is generated to the signature mechanism will produce a new equation.</p>
+<p>where $b$ is the <code>256</code> bits produced by the <code>sha256</code> hashing algorithm, so there are indeed biases in the generated <code>k</code>, and we might be able to recover it.</p>
+<p>This <a href="https://eprint.iacr.org/2019/023.pdf" target="_blank" rel="noopener noreffer ">paper</a> and <a href="http://jgeralnik.github.io/writeups/2021/08/12/Lattices/" target="_blank" rel="noopener noreffer ">writeup</a> helped me a lot in understanding how to approach this problem. Basically, notice that the way of Schnorr signature mechanism works is actually similar to a hidden number problem. By incorporating the knowledge of how <code>k</code> is generated into the signature mechanism, we can obtain a new equation:</p>
 <p>$$
 \begin{align}
 s = k - xe \mod q \\
@@ -1984,8 +1993,8 @@ s = b(2^{256}+1) - xe \mod q \\
 s - b(2^{256}+1) + xe = 0 \mod q \\
 \end{align}
 $$</p>
-<p>where $b$ value is actually smalled compared to the other value.</p>
-<p>Usually, on this kind of setup, we can construct a lattice and use LLL to recover a unknown value that we have on the above equation. I recommend you to read the writeup that I mentioned above to understand the detail of how lattice works, but basically I came up with this lattice after reading through the previous paper and writeup.</p>
+<p>Notice that the $b$ value is actually smaller compared to the other value.</p>
+<p>Usually, in this kind of setup, we can construct a lattice and use LLL to recover an unknown value that we have in the above equation. I recommend reading the write-up I mentioned above to understand the details of how lattices work, but basically, I came up with this lattice after reading through the previous paper and write-up.</p>
 <p>$$
 M =
 \begin{bmatrix}
@@ -1998,21 +2007,21 @@ M =
 \end{bmatrix}
 $$</p>
 <p>where $B = 2^{256}$ ($B$ is bound of the <code>b</code> value that we&rsquo;re trying to recover). It is the same like previous challenge, where we can only retrieve two signatures from the server, which is why the lattice only contains signature 1 and 2.</p>
-<p>Using that lattice, we hope that that there exist a vector in the lattice that is small, which is like below:</p>
+<p>Using that lattice, we hope that that there exist a vector in the lattice that is small, which can be expressed as follows:</p>
 <p>$$
 \begin{pmatrix}
 1 &amp; \frac{2x}{q} &amp; \frac{-b_2}{B} &amp; \frac{-b_1}{B} &amp; 0 &amp; 0
 \end{pmatrix}
 $$</p>
-<p>And because $x$, $q$, $b_2$, $B$, $b_1$ bits length is pretty much the same or close, we hope that the above vector is small enough to the lattice. To find that target vector, we can assume that if we&rsquo;re trying to look for a vector in the lattice that is close to the below vector,</p>
+<p>And because the bit lengths of $x$, $q$, $b_2$, $B$, and $b_1$ is pretty much the same or close, we hope that the above vector is small enough for the lattice. To find that target vector, we can assume that if we&rsquo;re trying to look for a vector in the lattice that is close to the following vector,</p>
 <p>$$
 \begin{pmatrix}
 1 &amp; 1 &amp; -1 &amp; -1 &amp; 0 &amp; 0
 \end{pmatrix}
 $$</p>
-<p>we will find our target vector. To find the approximation of it, we can use Babai CVP algorithm.</p>
-<p>If we find the targeted vector, that means we have successfully recovered the private key <code>x</code>, and the rest of the steps are the same as the previous challenge.</p>
-<p>Below is my full script (sage script). Notes that due to the lack of signature that we can collect (only 2), the script success rate is not 100%, so you might need to re-run the script for multiple times.</p>
+<p>we will find our target vector. To find the approximation of it, we can use the Babai CVP algorithm.</p>
+<p>If we find the target vector, that means we have successfully recovered the private key <code>x</code>, and the rest of the steps are the same as the previous challenge.</p>
+<p>Below is my full script (Sage script). Note that due to the lack of signatures that we can collect (only 2), the script&rsquo;s success rate is not 100%, so you might need to re-run the script multiple times.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2519,21 +2528,21 @@ $$</p>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="s1">&#39;New Points&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">EP</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">EP</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Okay, so the summary is:</p>
+</div><p>Okay, so to summarize:</p>
 <ul>
-<li>The <code>Relic</code> is using the <code>PRNG</code> class as one of its attribute</li>
-<li>It also has two variable to store points, which are <code>P</code> and <code>EP</code></li>
+<li>The <code>Relic</code> class uses the <code>PRNG</code> class as one of its attribute</li>
+<li>It also has two variables to store points: <code>P</code> and <code>EP</code></li>
 <li>There are two main method:
 <ul>
 <li><code>setupPoints</code>
 <ul>
-<li>This will reset the <code>Relic</code> point to our chosen <code>x</code>, where the <code>x</code> is required to be a valid point.</li>
-<li>This will reset both the <code>P</code> and <code>EP</code> value to store our chosen point.</li>
+<li>This resets the <code>Relic</code> point to our chosen <code>x</code>, which is required to be a valid point.</li>
+<li>It also resets both <code>P</code> and <code>EP</code> to store our chosen point.</li>
 </ul>
 </li>
 <li><code>nextPoints</code>
 <ul>
-<li>This will generate a new random number from the <code>prng</code>, and then multiply the:
+<li>This generates a new random number from the <code>PRNG</code>, and then multiplies:
 <ul>
 <li><code>P</code> with <code>seed</code></li>
 <li><code>EP</code> with <code>enc_seed</code></li>
@@ -2544,31 +2553,37 @@ $$</p>
 </ul>
 </li>
 </ul>
-<p>There are three menus that we can interact with, which are:</p>
+<p>There are three menus that we can interact with:</p>
 <ul>
-<li><code>1</code> to re-setup the points that will be used by the Elliptic Curve.
+<li><code>1</code>
 <ul>
-<li>If the given <code>x</code> is larger than the used <code>p</code>, it will return a message <code>Coordinate greater than curve modulus</code>.</li>
-<li>Else, it will try to generate a point <code>(x, y)</code> on the curve and return it to us if it is valid.</li>
+<li>Reset the points that will be used by the Elliptic Curve.</li>
+<li>If the given <code>x</code> is larger than the used <code>p</code>, it will return the message <code>Coordinate greater than curve modulus</code>.</li>
+<li>Otherwise, it will try to generate a point <code>(x, y)</code> on the curve and return it to us if it is valid.</li>
 </ul>
 </li>
-<li><code>2</code> to generate a new points, which is:
+<li><code>2</code>:
 <ul>
+<li>Generate new points, which are:</li>
 <li><code>P *= seed</code></li>
 <li><code>EP *= enc_seed</code>
 <ul>
 <li>where <code>EP</code> is basically the current point set in the Elliptic Curve multiplied with the encrypted seed.</li>
 </ul>
 </li>
-<li>And then it will return only the <code>EP</code> to us.</li>
+<li>It will then return only the <code>EP</code> to us.</li>
 </ul>
 </li>
-<li><code>3</code> to print the flag, with restriction that we need to be able to predict the generated point by <code>nextPoints</code> method.</li>
+<li><code>3</code>:
+<ul>
+<li>Print the flag, but we need to be able to predict the generated point by <code>nextPoints</code> method.</li>
 </ul>
-<p>Based on that info, we can deduce that the target is we need to be able recover the <code>seed</code> value, and then use it to generate our prediction of the <code>nextPoints</code>.</p>
+</li>
+</ul>
+<p>Based on this information, our goal is to recover the <code>seed</code> value and use it to predict the next generated point.</p>
 <h3 id="solution-6">Solution</h3>
-<p>First of all, we don&rsquo;t know the parameter of the curve yet (<code>p</code>, <code>a</code>, <code>b</code>). So, we need to recover that first. Notice that in the first menu, we can actually do binary search to find the <code>p</code> value, because if we give <code>x</code> bigger than the <code>p</code>, the program will let us know that the <code>x</code> is bigger than the <code>p</code> value.</p>
-<p>After recovering the <code>p</code> value, it is easy to recover the <code>a</code> and <code>b</code> value. We just need to generate two points, and then subtract it just like what we did in the Elliptic Labyrinth Challenge. Below is the script that I used to recover the params (I use sagemath).</p>
+<p>Firstly, we don&rsquo;t know the parameters of the curve yet (<code>p</code>, <code>a</code>, <code>b</code>). So, we need to recover them first. Notice that in the first menu, we can perform a binary search to find the <code>p</code> value, because if we provide an <code>x</code> value greater than <code>p</code>, the program will indicate that the <code>x</code> value is greater than the <code>p</code> value.</p>
+<p>Once we have recovered the <code>p</code> value, it is easy to obtain the <code>a</code> and <code>b</code> values. We just need to generate two points and then subtract them, just like what we did in the Elliptic Labyrinth Challenge. Below is the script that I used to recover the parameters (I used sagemath).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2655,10 +2670,10 @@ $$</p>
 </span></span><span class="line"><span class="cl"><span class="n">E</span> <span class="o">=</span> <span class="n">EllipticCurve</span><span class="p">(</span><span class="n">GF</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>After we finally recovered the curve, it&rsquo;s time to move to the next step, which is figuring out how to recover the PRNG seed.</p>
-<p>In ECC, discrete logarithm is hard. So, if we have equation like $A = kB$ where $A$ and $B$ is point, $k$ is the multiplier, and we only know $A$ and $B$, we won&rsquo;t be able to recover the $k$ value easily. However for this challenge, in order to recover the <code>seed</code> value, we need to retrieve the <code>enc_seed</code> first.</p>
-<p>Even though we can setup the point (let&rsquo;s called it <code>A</code>) via the first menu, and we can also get the <code>EP</code> value, which is <code>EP = enc_seed*A</code>, if the ECC is not weak, it won&rsquo;t be possible for us to recover the <code>enc_seed</code>.</p>
-<p>However, after playing around with the curve, I notice that the curve order is actually the same with the <code>p</code> used in the curve.</p>
+</div><p>After we finally recovered the curve, the next step is to figure out how to recover the PRNG seed.</p>
+<p>In ECC, discrete logarithm is hard. So, if we have equation like $A = kB$ where $A$ and $B$ are points, $k$ is the multiplier, and we only know $A$ and $B$, we won&rsquo;t be able to recover the $k$ value easily. However, for this challenge, in order to recover the <code>seed</code> value, we need to retrieve the <code>enc_seed</code> first.</p>
+<p>Even though we can setup the point (let&rsquo;s call it <code>A</code>) via the first menu, and we can also get the <code>EP</code> value, which is <code>EP = enc_seed*A</code>, if the ECC is not weak, it won&rsquo;t be possible for us to recover the <code>enc_seed</code>.</p>
+<p>However, after playing around with the curve, I noticed that the curve order is actually the same with the <code>p</code> used in the curve.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2673,7 +2688,7 @@ $$</p>
 </span></span><span class="line"><span class="cl">True
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>This is a weak curve which is vulnerable to Smart Attack. Below is the script that I used to do the Smart Attack, taken from this <a href="https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/smart_attack.py" target="_blank" rel="noopener noreffer ">github</a>:</p>
+</div><p>This is a weak curve that is vulnerable to Smart Attack. Below is the script that I used to perform the Smart Attack, taken from this <a href="https://github.com/jvdsn/crypto-attacks/blob/master/attacks/ecc/smart_attack.py" target="_blank" rel="noopener noreffer ">github</a>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2767,8 +2782,8 @@ $$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>By using the Smart attack, we will be able to recover the <code>enc_seed</code>, and now it&rsquo;s time to move to the next part, which is recovering the seed from the known <code>enc_seed</code>.</p>
-<p>To retrieve the <code>seed</code>, it is actually easy. Sagemath has a built-in feature that can calculate the <code>nth_root</code> of an integer over a ring. So, we just need to use that, and there will be two roots that is recovered. One of the two roots are the seed. With 50:50 chance, I decided to always took the second root as the seed, and then use it to predict the next point in the server. After that, we  will be able to get our flag.</p>
-<p>Below is the full script that I used to solve the challenge (I use sagemath).</p>
+<p>To retrieve the <code>seed</code>, it is actually easy. SageMath has a built-in feature that can calculate the <code>nth_root</code> of an integer over a ring. So, we just need to use that, and there will be two roots that are recovered. One of the two roots is the seed. With 50:50 chance, I decided to always take the second root as the seed, and then use it to predict the next point in the server. After that, we  will be able to get our flag.</p>
+<p>Below is the full script that I used to solve the challenge (I use SageMath).</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">  1
@@ -3033,7 +3048,8 @@ $$</p>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/cyber-apocalypse-2023-pwn/" class="prev" rel="prev" title="Cyber Apocalypse 2023: Pwn"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Cyber Apocalypse 2023: Pwn</a></div>
+    <div class="post-nav"><a href="/posts/cyber-apocalypse-2023-pwn/" class="prev" rel="prev" title="Cyber Apocalypse 2023: Pwn"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Cyber Apocalypse 2023: Pwn</a>
+            <a href="/posts/line-ctf-2023/" class="next" rel="next" title="LINE CTF 2023">LINE CTF 2023<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
