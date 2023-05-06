@@ -10,7 +10,6 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/acsc-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-26T14:18:58+07:00" />
 <meta property="article:modified_time" content="2023-02-27T13:38:26+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -30,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/acsc-2023\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, ACSC, pwn, hardware, ssti, sd-card, heap, libc-2.35, fsop, 2023","wordcount":  8256 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, ACSC, pwn, hardware, ssti, sd-card, heap, libc-2.35, fsop, 2023","wordcount":  8257 ,
         "url": "https:\/\/chovid99.github.io\/posts\/acsc-2023\/","datePublished": "2023-02-26T14:18:58+07:00","dateModified": "2023-02-27T13:38:26+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -75,8 +74,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ACSC 2023</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 26, 2023">Feb 26, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8256 words&nbsp;
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 26, 2023">Feb 26, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;8257 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;39 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -202,8 +202,8 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">MENU</span><span class="se">\n</span><span class="s">1. Edit</span><span class="se">\n</span><span class="s">2. List</span><span class="se">\n</span><span class="s">0. Exit</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="n">v3</span> <span class="o">=</span> <span class="n">getint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">MENU</span><span class="se">\n</span><span class="s">1. Edit</span><span class="se">\n</span><span class="s">2. List</span><span class="se">\n</span><span class="s">0. Exit</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v3</span> <span class="o">=</span> <span class="nf">getint</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">          <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
@@ -211,7 +211,7 @@
 </span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span> <span class="n">memo_size</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">memo_arr</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">          <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">argv</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="p">)</span><span class="n">i</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34;[%d] %.*s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">memo_size</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">],</span> <span class="n">memo_arr</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[%d] %.*s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">memo_size</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">],</span> <span class="n">memo_arr</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">i</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">          <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
@@ -220,9 +220,9 @@
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">v3</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="n">edit</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">MENU</span><span class="se">\n</span><span class="s">1. Edit</span><span class="se">\n</span><span class="s">2. List</span><span class="se">\n</span><span class="s">0. Exit</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">,</span> <span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="n">argv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">edit</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">MENU</span><span class="se">\n</span><span class="s">1. Edit</span><span class="se">\n</span><span class="s">2. List</span><span class="se">\n</span><span class="s">0. Exit</span><span class="se">\n</span><span class="s">&gt; &#34;</span><span class="p">,</span> <span class="p">(</span><span class="kr">__int64</span><span class="p">)</span><span class="n">argv</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Bye.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Bye.&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -260,21 +260,21 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">size</span><span class="p">;</span> <span class="c1">// [rsp+4h] [rbp-Ch]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="o">*</span><span class="n">alloc_ptr</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Index: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="n">getint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Index: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="nf">getint</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">&gt;</span> <span class="mi">9</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Out of list&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Size: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size</span> <span class="o">=</span> <span class="n">getint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Out of list&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Size: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">size</span> <span class="o">=</span> <span class="nf">getint</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mh">0x78</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Too big memo&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">alloc_ptr</span> <span class="o">=</span> <span class="n">realloc</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_arr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">),</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Too big memo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">alloc_ptr</span> <span class="o">=</span> <span class="nf">realloc</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="kt">void</span> <span class="o">**</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_arr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">),</span> <span class="n">size</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kr">__int64</span><span class="p">)</span><span class="n">size</span> <span class="o">&gt;</span> <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">)</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_arr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">)</span> <span class="o">=</span> <span class="n">alloc_ptr</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_size</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">)</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Memo: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">getnline</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_arr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">),</span> <span class="n">size</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Done&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Memo: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">getnline</span><span class="p">(</span><span class="o">*</span><span class="p">((</span><span class="n">_QWORD</span> <span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">memo_arr</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">v3</span><span class="p">),</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Done&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>

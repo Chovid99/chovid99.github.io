@@ -10,7 +10,6 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/justctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-13T13:11:24+07:00" />
 <meta property="article:modified_time" content="2022-06-13T13:31:36+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -75,7 +74,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JustCTF 2022</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line">
+                </div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Jun 13, 2022">Jun 13, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3871 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;19 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -202,14 +202,14 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="n">auth</span><span class="p">(</span><span class="n">iVar1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">auth</span><span class="p">(</span><span class="n">iVar1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Sorry.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Sorry.&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">cli</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">cli</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -253,22 +253,22 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">undefined</span> <span class="o">*</span><span class="n">puVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">sVar3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">sVar3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">acStack32</span> <span class="p">[</span><span class="mi">16</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">acStack16</span> <span class="p">[</span><span class="mi">16</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Turrbomower 65000FU</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;login: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">read_bytes</span><span class="p">(</span><span class="n">acStack16</span><span class="p">,</span><span class="mh">0xf</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;password: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">read_bytes</span><span class="p">(</span><span class="n">acStack32</span><span class="p">,</span><span class="mh">0xf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Turrbomower 65000FU</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;login: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read_bytes</span><span class="p">(</span><span class="n">acStack16</span><span class="p">,</span><span class="mh">0xf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;password: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">read_bytes</span><span class="p">(</span><span class="n">acStack32</span><span class="p">,</span><span class="mh">0xf</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">puVar1</span> <span class="o">=</span> <span class="n">user</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">sVar3</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">iVar2</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">acStack16</span><span class="p">,</span><span class="n">puVar1</span><span class="p">,</span><span class="n">sVar3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">sVar3</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar2</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">acStack16</span><span class="p">,</span><span class="n">puVar1</span><span class="p">,</span><span class="n">sVar3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">puVar1</span> <span class="o">=</span> <span class="n">pass</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">iVar2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sVar3</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">pass</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">iVar2</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">acStack32</span><span class="p">,</span><span class="n">puVar1</span><span class="p">,</span><span class="n">sVar3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sVar3</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">pass</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar2</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">acStack32</span><span class="p">,</span><span class="n">puVar1</span><span class="p">,</span><span class="n">sVar3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">iVar2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
@@ -340,7 +340,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">__n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">__n</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">cmd</span> <span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">acStack355</span> <span class="p">[</span><span class="mi">251</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">echo_input</span> <span class="p">[</span><span class="mi">100</span><span class="p">];</span>
@@ -348,44 +348,44 @@
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">local_4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">read_bytes</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="mh">0x100</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;exit&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">read_bytes</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="mh">0x100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;exit&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;echo&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;echo&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">local_4</span> <span class="o">==</span> <span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__n</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">strncpy</span><span class="p">(</span><span class="n">echo_input</span><span class="p">,</span><span class="n">acStack355</span><span class="p">,</span><span class="n">__n</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="n">echo_input</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">__n</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">cmd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">strncpy</span><span class="p">(</span><span class="n">echo_input</span><span class="p">,</span><span class="n">acStack355</span><span class="p">,</span><span class="n">__n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="n">echo_input</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;status&#34;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;status&#34;</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">system</span><span class="p">(</span><span class="s">&#34;uptime&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">system</span><span class="p">(</span><span class="s">&#34;uptime&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">iVar1</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;mode&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="s">&#34;mode&#34;</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="n">iVar1</span> <span class="o">=</span> <span class="n">strncmp</span><span class="p">(</span><span class="n">acStack355</span><span class="p">,</span><span class="s">&#34;advanced&#34;</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">strncmp</span><span class="p">(</span><span class="n">acStack355</span><span class="p">,</span><span class="s">&#34;advanced&#34;</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="n">local_4</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="n">puts</span><span class="p">(</span><span class="s">&#34;advanced mode enabled</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;advanced mode enabled</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="p">}</span>
 </span></span><span class="line"><span class="cl">          <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">puts</span><span class="p">(</span><span class="s">&#34;unknown mode&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;unknown mode&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">local_4</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;status - prints device status</span><span class="se">\n</span><span class="s">exit - end cli session&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;status - prints device status</span><span class="se">\n</span><span class="s">exit - end cli session&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">              <span class="s">&#34;status - prints device status</span><span class="se">\n</span><span class="s">echo &lt;string&gt; - prints &lt;string&gt;</span><span class="se">\n</span><span class="s">exit - end cli sessio n&#34;</span>
 </span></span><span class="line"><span class="cl">              <span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mh">0x100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">memset</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mh">0x100</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -419,7 +419,7 @@
 </span></span><span class="line"><span class="cl">  
 </span></span><span class="line"><span class="cl">  <span class="n">local_4</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="n">local_18</span> <span class="o">=</span> <span class="n">param_1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="n">local_4</span> <span class="o">!=</span> <span class="n">param_2</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">local_18</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="n">local_4</span> <span class="o">!=</span> <span class="n">param_2</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">local_18</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\n&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\0&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">(((</span><span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\x1b&#39;</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\xa8&#39;</span><span class="p">))</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="n">local_18</span> <span class="o">!=</span> <span class="sc">&#39;\x13&#39;</span><span class="p">))));</span>
 </span></span><span class="line"><span class="cl">      <span class="n">local_18</span> <span class="o">=</span> <span class="n">local_18</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">local_4</span> <span class="o">=</span> <span class="n">local_4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
@@ -867,13 +867,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">undefined</span> <span class="n">rand_struct</span> <span class="p">[</span><span class="mi">48</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">setup_mprotect</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">print_custom</span><span class="p">(</span><span class="s">&#34;Welcome to skilltest v12!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="n">rand_struct</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mh">0x30</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">rand_func</span><span class="p">((</span><span class="n">astruct</span> <span class="o">*</span><span class="p">)</span><span class="n">rand_struct</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">main_loop</span><span class="p">((</span><span class="n">astruct_1</span> <span class="o">*</span><span class="p">)(</span><span class="n">rand_struct</span> <span class="o">+</span> <span class="mh">0x18</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">  <span class="n">check_win</span><span class="p">((</span><span class="n">astruct_2</span> <span class="o">*</span><span class="p">)</span><span class="n">rand_struct</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">unsetup_mprotect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setup_mprotect</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">print_custom</span><span class="p">(</span><span class="s">&#34;Welcome to skilltest v12!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">memset</span><span class="p">(</span><span class="n">rand_struct</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mh">0x30</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">rand_func</span><span class="p">((</span><span class="n">astruct</span> <span class="o">*</span><span class="p">)</span><span class="n">rand_struct</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">main_loop</span><span class="p">((</span><span class="n">astruct_1</span> <span class="o">*</span><span class="p">)(</span><span class="n">rand_struct</span> <span class="o">+</span> <span class="mh">0x18</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">check_win</span><span class="p">((</span><span class="n">astruct_2</span> <span class="o">*</span><span class="p">)</span><span class="n">rand_struct</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">unsetup_mprotect</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -896,10 +896,10 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">print_custom</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">param_1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">__n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">__n</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">__n</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">param_1</span><span class="p">,</span><span class="n">__n</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__n</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">param_1</span><span class="p">,</span><span class="n">__n</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -950,21 +950,21 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar2</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">time_t</span> <span class="n">tVar3</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">sVar4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">time_t</span> <span class="n">tVar3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">sVar4</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">ulong</span> <span class="n">idx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">ulong</span> <span class="n">jdx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">tVar3</span> <span class="o">=</span> <span class="n">time</span><span class="p">((</span><span class="n">time_t</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">srand</span><span class="p">((</span><span class="n">uint</span><span class="p">)</span><span class="n">tVar3</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="n">iVar2</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tVar3</span> <span class="o">=</span> <span class="nf">time</span><span class="p">((</span><span class="kt">time_t</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">srand</span><span class="p">((</span><span class="n">uint</span><span class="p">)</span><span class="n">tVar3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar2</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field0_0x0</span> <span class="o">=</span> <span class="s">&#34;Amelie&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span><span class="p">)(</span><span class="n">iVar1</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x20</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field1_0x8</span> <span class="o">=</span> <span class="s">&#34;Black&#34;</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span><span class="p">)(</span><span class="n">iVar2</span> <span class="o">%</span> <span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="mh">0x60</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">jdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sVar4</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field0_0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sVar4</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field0_0x0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">sVar4</span> <span class="o">&lt;=</span> <span class="n">jdx</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">=</span> <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">+</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field0_0x0</span><span class="p">[</span><span class="n">jdx</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">=</span> <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">%</span> <span class="mh">0x1e</span><span class="p">;</span>
@@ -972,7 +972,7 @@
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sVar4</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field1_0x8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sVar4</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field1_0x8</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">sVar4</span> <span class="o">&lt;=</span> <span class="n">idx</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">=</span> <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">+</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field1_0x8</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">=</span> <span class="n">a_struct</span><span class="o">-&gt;</span><span class="n">field2_0x10</span> <span class="o">%</span> <span class="mh">0x1e</span><span class="p">;</span>
@@ -1038,48 +1038,48 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">main_loop</span><span class="p">(</span><span class="n">astruct_1</span> <span class="o">*</span><span class="n">input_struct</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">ssize_t</span> <span class="n">sVar1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">ssize_t</span> <span class="n">sVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">_res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">sVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">sVar2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">nickname</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="o">*</span><span class="n">clan_tag</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">ulong</span> <span class="n">jdx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">ulong</span> <span class="n">idx</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">clan_tag</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size_0x60</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nickname</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">size_0x20</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">memset</span><span class="p">(</span><span class="n">clan_tag</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">size_0x60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clan_tag</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">(</span><span class="n">size_0x60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nickname</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">size_0x20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">memset</span><span class="p">(</span><span class="n">clan_tag</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">size_0x60</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">print_custom</span><span class="p">(</span><span class="s">&#34;Nick: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">sVar1</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">&amp;</span><span class="n">nickname</span><span class="p">,</span><span class="n">size_0x60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">print_custom</span><span class="p">(</span><span class="s">&#34;Nick: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">sVar1</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">&amp;</span><span class="n">nickname</span><span class="p">,</span><span class="n">size_0x60</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">sVar1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">print_custom</span><span class="p">(</span><span class="s">&#34;Invalid name, try again</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">print_custom</span><span class="p">(</span><span class="s">&#34;Invalid name, try again</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="n">print_custom</span><span class="p">(</span><span class="s">&#34;Clan tag: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sVar1</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">clan_tag</span><span class="p">,</span><span class="n">size_0x60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">print_custom</span><span class="p">(</span><span class="s">&#34;Clan tag: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sVar1</span> <span class="o">=</span> <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">clan_tag</span><span class="p">,</span><span class="n">size_0x60</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="n">sVar1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">print_custom</span><span class="p">(</span><span class="s">&#34;Invalid color, try again</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">print_custom</span><span class="p">(</span><span class="s">&#34;Invalid color, try again</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">_res</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">FUN_00401389</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nickname</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">_res</span> <span class="o">=</span> <span class="n">strdup</span><span class="p">(</span><span class="n">_res</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_res</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">FUN_00401389</span><span class="p">(</span><span class="o">&amp;</span><span class="n">nickname</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_res</span> <span class="o">=</span> <span class="nf">strdup</span><span class="p">(</span><span class="n">_res</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">nick_name</span> <span class="o">=</span> <span class="n">_res</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">_res</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">FUN_00401389</span><span class="p">(</span><span class="n">clan_tag</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_res</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">FUN_00401389</span><span class="p">(</span><span class="n">clan_tag</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">clan_tag</span> <span class="o">=</span> <span class="n">_res</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">sVar2</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">nick_name</span><span class="p">),</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">sVar2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">sVar2</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">nick_name</span><span class="p">),</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="n">sVar2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">=</span> <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">+</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">nick_name</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">=</span> <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">%</span> <span class="mh">0x1e</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="n">jdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">sVar2</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">clan_tag</span><span class="p">),</span> <span class="n">jdx</span> <span class="o">&lt;</span> <span class="n">sVar2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">sVar2</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">clan_tag</span><span class="p">),</span> <span class="n">jdx</span> <span class="o">&lt;</span> <span class="n">sVar2</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">=</span> <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">+</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">clan_tag</span><span class="p">[</span><span class="n">jdx</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">=</span> <span class="n">input_struct</span><span class="o">-&gt;</span><span class="n">score</span> <span class="o">%</span> <span class="mh">0x1e</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">jdx</span> <span class="o">=</span> <span class="n">jdx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">print_custom</span><span class="p">(</span><span class="s">&#34;Thanks</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">print_custom</span><span class="p">(</span><span class="s">&#34;Thanks</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>

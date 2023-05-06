@@ -4,6 +4,7 @@
         <link>https://chovid99.github.io/tags/shellcoding/</link>
         <description>shellcoding - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+<<<<<<< HEAD
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sat, 06 May 2023 12:12:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/shellcoding/" rel="self" type="application/rss+xml" /><item>
     <title>WaniCTF 2023</title>
     <link>https://chovid99.github.io/posts/wanictf-2023/</link>
@@ -13,6 +14,9 @@
     <description><![CDATA[Short writeup for WaniCTF 2023 by Chovid99]]></description>
 </item>
 <item>
+=======
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 01 May 2023 00:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/shellcoding/" rel="self" type="application/rss+xml" /><item>
+>>>>>>> 8ea7f909eb9161ef0fd332988771f42fba9ec128
     <title>TAMUctf 2023</title>
     <link>https://chovid99.github.io/posts/tamuctf-2023/</link>
     <pubDate>Mon, 01 May 2023 00:00:00 &#43;0700</pubDate>

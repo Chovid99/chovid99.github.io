@@ -10,7 +10,6 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/stack-the-flags-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-12-05T16:11:43+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -30,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/stack-the-flags-ctf-2022\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, STACK the Flags, pwn, heap, Education, FILE","wordcount":  6112 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, STACK the Flags, pwn, heap, Education, FILE","wordcount":  6108 ,
         "url": "https:\/\/chovid99.github.io\/posts\/stack-the-flags-ctf-2022\/","datePublished": "2022-12-05T16:11:43+07:00","dateModified": "2023-02-23T18:03:33+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -75,8 +74,9 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">STACK the Flags CTF 2022</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Dec 05, 2022">Dec 05, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;6112 words&nbsp;
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Dec 05, 2022">Dec 05, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;6108 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;29 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -195,23 +195,23 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+4h] [rbp-Ch] BYREF
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">setup_IO</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">setup_IO</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">menu</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Enter choice =&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">menu</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Enter choice =&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v3</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">!=</span> <span class="mi">1</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">create_grimoire</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">create_grimoire</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span> <span class="o">!=</span> <span class="mi">2</span> <span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">edit_grimoire</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">edit_grimoire</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -238,13 +238,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v1</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v1</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[2J</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;1. Create Grimoire (Only once)&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;2. Edit Grimoire&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;3. Finish Grimoire&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v1</span> <span class="o">-</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v1</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[2J</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;1. Create Grimoire (Only once)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;2. Edit Grimoire&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;3. Finish Grimoire&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v1</span> <span class="o">-</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -276,23 +276,23 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="nf">create_grimoire</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">size</span><span class="p">;</span> <span class="c1">// [rsp+0h] [rbp-10h] BYREF
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">size</span><span class="p">;</span> <span class="c1">// [rsp+0h] [rbp-10h] BYREF
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[2J</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v2</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[2J</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">GRIMOIRE</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Size of grimoire =&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Size of grimoire =&gt; &#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">size</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%zu&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="n">getchar</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%zu&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="nf">getchar</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">GRIMOIRE</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Write your contents =&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fgets</span><span class="p">(</span><span class="n">GRIMOIRE</span><span class="p">,</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GRIMOIRE</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Write your contents =&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">fgets</span><span class="p">(</span><span class="n">GRIMOIRE</span><span class="p">,</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">stdin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v2</span> <span class="o">-</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v2</span> <span class="o">-</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -336,21 +336,21 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v2</span><span class="p">;</span> <span class="c1">// [rsp+4h] [rbp-Ch] BYREF
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-8h]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[2J</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1B</span><span class="s">[2J</span><span class="se">\x1B</span><span class="s">[H&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">GRIMOIRE</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Index to edit =&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="n">getchar</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Index to edit =&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%d&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="nf">getchar</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Replacement =&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">v1</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="n">getchar</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Replacement =&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v1</span> <span class="o">=</span> <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="nf">getchar</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">GRIMOIRE</span><span class="p">[</span><span class="n">v2</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v3</span> <span class="o">-</span> <span class="n">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v3</span> <span class="o">-</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -493,21 +493,21 @@
 </span></span><span class="line"><span class="cl"><span class="nf">_IO_puts</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">EOF</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="n">strlen</span> <span class="p">(</span><span class="n">str</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">_IO_acquire_lock</span> <span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">len</span> <span class="o">=</span> <span class="nf">strlen</span> <span class="p">(</span><span class="n">str</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">_IO_acquire_lock</span> <span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((</span><span class="n">_IO_vtable_offset</span> <span class="p">(</span><span class="n">stdout</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">       <span class="o">||</span> <span class="n">_IO_fwide</span> <span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">      <span class="o">&amp;&amp;</span> <span class="n">_IO_sputn</span> <span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">len</span><span class="p">)</span> <span class="o">==</span> <span class="n">len</span>
-</span></span><span class="line"><span class="cl">      <span class="o">&amp;&amp;</span> <span class="n">_IO_putc_unlocked</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">MIN</span> <span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((</span><span class="nf">_IO_vtable_offset</span> <span class="p">(</span><span class="n">stdout</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">       <span class="o">||</span> <span class="nf">_IO_fwide</span> <span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&amp;&amp;</span> <span class="nf">_IO_sputn</span> <span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">len</span><span class="p">)</span> <span class="o">==</span> <span class="n">len</span>
+</span></span><span class="line"><span class="cl">      <span class="o">&amp;&amp;</span> <span class="nf">_IO_putc_unlocked</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">,</span> <span class="n">stdout</span><span class="p">)</span> <span class="o">!=</span> <span class="n">EOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="nf">MIN</span> <span class="p">(</span><span class="n">INT_MAX</span><span class="p">,</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="n">_IO_release_lock</span> <span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">_IO_release_lock</span> <span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">weak_alias</span> <span class="p">(</span><span class="n">_IO_puts</span><span class="p">,</span> <span class="n">puts</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">libc_hidden_def</span> <span class="p">(</span><span class="n">_IO_puts</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">weak_alias</span> <span class="p">(</span><span class="n">_IO_puts</span><span class="p">,</span> <span class="n">puts</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">libc_hidden_def</span> <span class="p">(</span><span class="n">_IO_puts</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><code>puts</code> is an alias to <code>_IO_puts</code>. As you can see, the <code>_IO_puts</code> will call <code>_IO_sputn (stdout, str, len)</code>, which based on this <a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/libio/libioP.h#L379" target="_blank" rel="noopener noreffer ">LOC</a> in the glibc source code, is an alias to <code>_IO_XSPUTN (__fp, __s, __n)</code>, which means it will jump to the stored pointer for <code>__xsputn</code> key in the <code>stdout</code> FILE.</p>
@@ -610,21 +610,21 @@
 </span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">size_t</span>
-</span></span><span class="line"><span class="cl"><span class="nf">_IO_new_file_xsputn</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">n</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">size_t</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_new_file_xsputn</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span> <span class="n">data</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">to_do</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">to_do</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">must_flush</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">to_do</span> <span class="o">+</span> <span class="n">must_flush</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">size_t</span> <span class="n">block_size</span><span class="p">,</span> <span class="n">do_write</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">size_t</span> <span class="n">block_size</span><span class="p">,</span> <span class="n">do_write</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="cm">/* Next flush the (full) buffer. */</span>
-</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">_IO_OVERFLOW</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">EOF</span><span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="nf">_IO_OVERFLOW</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">EOF</span><span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="cm">/* If nothing else has to be written we must not signal the
 </span></span></span><span class="line"><span class="cl"><span class="cm">	   caller that everything has been written.  */</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">to_do</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="nl">EOF</span> <span class="p">:</span> <span class="n">n</span> <span class="o">-</span> <span class="n">to_do</span><span class="p">;</span>
@@ -635,7 +635,7 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">do_write</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">	  <span class="n">count</span> <span class="o">=</span> <span class="n">new_do_write</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">do_write</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	  <span class="n">count</span> <span class="o">=</span> <span class="nf">new_do_write</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">do_write</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	  <span class="n">to_do</span> <span class="o">-=</span> <span class="n">count</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">	  <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="n">do_write</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	    <span class="k">return</span> <span class="n">n</span> <span class="o">-</span> <span class="n">to_do</span><span class="p">;</span>
@@ -644,7 +644,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">libc_hidden_ver</span> <span class="p">(</span><span class="n">_IO_new_file_xsputn</span><span class="p">,</span> <span class="n">_IO_file_xsputn</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">libc_hidden_ver</span> <span class="p">(</span><span class="n">_IO_new_file_xsputn</span><span class="p">,</span> <span class="n">_IO_file_xsputn</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>If you read the code, it will call <code>_IO_OVERFLOW(f, EOF)</code> before calling <code>new_do_write</code> to write the actual string that we want to print. Based on the <code>vtable</code> above that we see in gdb (the <code>_IO_file_jumps</code>), calling <code>_IO_OVERFLOW</code> equivalents to jump to <code>_IO_new_file_overflow</code>. Let&rsquo;s check the disassembly result of that method.</p>
@@ -678,7 +678,7 @@
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">&amp;</span> <span class="n">_IO_NO_WRITES</span><span class="p">)</span> <span class="cm">/* SET ERROR */</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">|=</span> <span class="n">_IO_ERR_SEEN</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__set_errno</span> <span class="p">(</span><span class="n">EBADF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__set_errno</span> <span class="p">(</span><span class="n">EBADF</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">EOF</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/* If currently reading or no buffer allocated. */</span>
@@ -687,11 +687,11 @@
 </span></span><span class="line"><span class="cl">      <span class="p">...</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">ch</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">_IO_do_write</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">_IO_do_write</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">			 <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_ptr</span> <span class="o">-</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">libc_hidden_ver</span> <span class="p">(</span><span class="n">_IO_new_file_overflow</span><span class="p">,</span> <span class="n">_IO_file_overflow</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">libc_hidden_ver</span> <span class="p">(</span><span class="n">_IO_new_file_overflow</span><span class="p">,</span> <span class="n">_IO_file_overflow</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>During calling this method, keep in mind first that the passed argument for <code>ch</code> is <code>EOF</code>. And notice this interesting LOC:</p>
@@ -703,7 +703,7 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">ch</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">_IO_do_write</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nf">_IO_do_write</span> <span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">			 <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_ptr</span> <span class="o">-</span> <span class="n">f</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -773,17 +773,17 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="nf">_IO_new_do_write</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">to_do</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_new_do_write</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">to_do</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="p">(</span><span class="n">to_do</span> <span class="o">==</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">	  <span class="o">||</span> <span class="p">(</span><span class="n">size_t</span><span class="p">)</span> <span class="n">new_do_write</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">)</span> <span class="o">==</span> <span class="n">to_do</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">EOF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	  <span class="o">||</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)</span> <span class="nf">new_do_write</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">)</span> <span class="o">==</span> <span class="n">to_do</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="n">EOF</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">libc_hidden_ver</span> <span class="p">(</span><span class="n">_IO_new_do_write</span><span class="p">,</span> <span class="n">_IO_do_write</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">libc_hidden_ver</span> <span class="p">(</span><span class="n">_IO_new_do_write</span><span class="p">,</span> <span class="n">_IO_do_write</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">size_t</span>
-</span></span><span class="line"><span class="cl"><span class="n">new_do_write</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">size_t</span> <span class="n">to_do</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">size_t</span>
+</span></span><span class="line"><span class="cl"><span class="nf">new_do_write</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">to_do</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">count</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">&amp;</span> <span class="n">_IO_IS_APPENDING</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* On a system without a proper O_APPEND implementation,
 </span></span></span><span class="line"><span class="cl"><span class="cm">       you would need to sys_seek(0, SEEK_END) here, but is
@@ -793,13 +793,13 @@
 </span></span><span class="line"><span class="cl">    <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_offset</span> <span class="o">=</span> <span class="n">_IO_pos_BAD</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_read_end</span> <span class="o">!=</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">off64_t</span> <span class="n">new_pos</span>
-</span></span><span class="line"><span class="cl">	<span class="o">=</span> <span class="n">_IO_SYSSEEK</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span> <span class="o">-</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_read_end</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">off64_t</span> <span class="n">new_pos</span>
+</span></span><span class="line"><span class="cl">	<span class="o">=</span> <span class="nf">_IO_SYSSEEK</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span> <span class="o">-</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_read_end</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">new_pos</span> <span class="o">==</span> <span class="n">_IO_pos_BAD</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_offset</span> <span class="o">=</span> <span class="n">new_pos</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">count</span> <span class="o">=</span> <span class="n">_IO_SYSWRITE</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">count</span> <span class="o">=</span> <span class="nf">_IO_SYSWRITE</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
 </span></span><span class="line"><span class="cl">
@@ -809,16 +809,16 @@
 </span></span><span class="line"><span class="cl"><span class="cp">#define _IO_SYSWRITE(FP, DATA, LEN) JUMP2 (__write, FP, DATA, LEN)
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="p">...</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">ssize_t</span>
-</span></span><span class="line"><span class="cl"><span class="n">_IO_new_file_write</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="n">ssize_t</span> <span class="n">n</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kt">ssize_t</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_new_file_write</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">,</span> <span class="kt">ssize_t</span> <span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="n">ssize_t</span> <span class="n">to_do</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">ssize_t</span> <span class="n">to_do</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">to_do</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">ssize_t</span> <span class="n">count</span> <span class="o">=</span> <span class="p">(</span><span class="n">__builtin_expect</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags2</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">ssize_t</span> <span class="n">count</span> <span class="o">=</span> <span class="p">(</span><span class="nf">__builtin_expect</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags2</span>
 </span></span><span class="line"><span class="cl">                                         <span class="o">&amp;</span> <span class="n">_IO_FLAGS2_NOTCANCEL</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			   <span class="o">?</span> <span class="n">__write_nocancel</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_fileno</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			   <span class="o">:</span> <span class="n">__write</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_fileno</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">			   <span class="o">?</span> <span class="nf">__write_nocancel</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_fileno</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			   <span class="o">:</span> <span class="nf">__write</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_fileno</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">to_do</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
 </span></span><span class="line"><span class="cl">	  <span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">|=</span> <span class="n">_IO_ERR_SEEN</span><span class="p">;</span>
@@ -1102,13 +1102,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/* Fast path: The vtable pointer is within the __libc_IO_vtables
 </span></span></span><span class="line"><span class="cl"><span class="cm">     section.  */</span>
-</span></span><span class="line"><span class="cl">  <span class="n">uintptr_t</span> <span class="n">section_length</span> <span class="o">=</span> <span class="n">__stop___libc_IO_vtables</span> <span class="o">-</span> <span class="n">__start___libc_IO_vtables</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">uintptr_t</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="n">uintptr_t</span><span class="p">)</span> <span class="n">vtable</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">uintptr_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">ptr</span> <span class="o">-</span> <span class="p">(</span><span class="n">uintptr_t</span><span class="p">)</span> <span class="n">__start___libc_IO_vtables</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">__glibc_unlikely</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="n">section_length</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">uintptr_t</span> <span class="n">section_length</span> <span class="o">=</span> <span class="n">__stop___libc_IO_vtables</span> <span class="o">-</span> <span class="n">__start___libc_IO_vtables</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">uintptr_t</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span> <span class="n">vtable</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">uintptr_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">ptr</span> <span class="o">-</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span> <span class="n">__start___libc_IO_vtables</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_unlikely</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="n">section_length</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* The vtable pointer is not in the expected section.  Use the
 </span></span></span><span class="line"><span class="cl"><span class="cm">       slow path, which will terminate the process if necessary.  */</span>
-</span></span><span class="line"><span class="cl">    <span class="n">_IO_vtable_check</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">_IO_vtable_check</span> <span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">vtable</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -1225,13 +1225,13 @@
 </span><span class="lnt">39
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">wint_t</span>
-</span></span><span class="line"><span class="cl"><span class="nf">_IO_wfile_overflow</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="n">wint_t</span> <span class="n">wch</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">wint_t</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_wfile_overflow</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">f</span><span class="p">,</span> <span class="kt">wint_t</span> <span class="n">wch</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">&amp;</span> <span class="n">_IO_NO_WRITES</span><span class="p">)</span> <span class="cm">/* SET ERROR */</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">f</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">|=</span> <span class="n">_IO_ERR_SEEN</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">      <span class="n">__set_errno</span> <span class="p">(</span><span class="n">EBADF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">__set_errno</span> <span class="p">(</span><span class="n">EBADF</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">WEOF</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/* If currently reading or no buffer allocated. */</span>
@@ -1240,19 +1240,19 @@
 </span></span><span class="line"><span class="cl">      <span class="cm">/* Allocate a buffer if needed. */</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="o">-&gt;</span><span class="n">_wide_data</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">{</span>
-</span></span><span class="line"><span class="cl">	  <span class="n">_IO_wdoallocbuf</span> <span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	  <span class="nf">_IO_wdoallocbuf</span> <span class="p">(</span><span class="n">f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">	  <span class="p">...</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="p">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span>
-</span></span><span class="line"><span class="cl"><span class="n">_IO_wdoallocbuf</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_IO_wdoallocbuf</span> <span class="p">(</span><span class="n">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_wide_data</span><span class="o">-&gt;</span><span class="n">_IO_buf_base</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_flags</span> <span class="o">&amp;</span> <span class="n">_IO_UNBUFFERED</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">wint_t</span><span class="p">)</span><span class="n">_IO_WDOALLOCATE</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="n">WEOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="kt">wint_t</span><span class="p">)</span><span class="nf">_IO_WDOALLOCATE</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">!=</span> <span class="n">WEOF</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">      <span class="p">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">

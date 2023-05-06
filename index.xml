@@ -4,6 +4,7 @@
         <link>https://chovid99.github.io/</link>
         <description>Security&#39;s blog made by Chovid99</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+<<<<<<< HEAD
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sat, 06 May 2023 12:12:01 &#43;0700</lastBuildDate>
             <atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
@@ -15,6 +16,11 @@
     <description><![CDATA[Short writeup for WaniCTF 2023 by Chovid99]]></description>
 </item>
 <item>
+=======
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 01 May 2023 00:00:00 &#43;0700</lastBuildDate>
+            <atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+>>>>>>> 8ea7f909eb9161ef0fd332988771f42fba9ec128
     <title>TAMUctf 2023</title>
     <link>https://chovid99.github.io/posts/tamuctf-2023/</link>
     <pubDate>Mon, 01 May 2023 00:00:00 &#43;0700</pubDate>
@@ -86,5 +92,16 @@
     <guid>https://chovid99.github.io/posts/hitcon-ctf-2022/</guid>
     <description><![CDATA[Writeup for HITCON CTF 2022 by Chovid99]]></description>
 </item>
+<<<<<<< HEAD
+=======
+<item>
+    <title>FILE Structure Attack: Part 1</title>
+    <link>https://chovid99.github.io/posts/file-structure-attack-part-1/</link>
+    <pubDate>Tue, 01 Nov 2022 23:34:15 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/file-structure-attack-part-1/</guid>
+    <description><![CDATA[A beginner guide to FILE structure attack (Part 1)]]></description>
+</item>
+>>>>>>> 8ea7f909eb9161ef0fd332988771f42fba9ec128
 </channel>
 </rss>
