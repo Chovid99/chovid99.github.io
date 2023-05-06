@@ -4,7 +4,6 @@
         <link>https://chovid99.github.io/tags/heap/</link>
         <description>heap - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-<<<<<<< HEAD
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sat, 06 May 2023 12:12:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/heap/" rel="self" type="application/rss+xml" /><item>
     <title>WaniCTF 2023</title>
     <link>https://chovid99.github.io/posts/wanictf-2023/</link>
@@ -14,9 +13,6 @@
     <description><![CDATA[Short writeup for WaniCTF 2023 by Chovid99]]></description>
 </item>
 <item>
-=======
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/heap/" rel="self" type="application/rss+xml" /><item>
->>>>>>> 8ea7f909eb9161ef0fd332988771f42fba9ec128
     <title>Plaid CTF 2023</title>
     <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
     <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
@@ -88,16 +84,5 @@
     <guid>https://chovid99.github.io/posts/nahamcon-ctf-2022/</guid>
     <description><![CDATA[Writeup for NahamCon CTF 2022 by Chovid99]]></description>
 </item>
-<<<<<<< HEAD
-=======
-<item>
-    <title>Pragyan CTF 2022</title>
-    <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
-    <pubDate>Mon, 07 Mar 2022 08:01:00 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
-    <description><![CDATA[Writeup for Pragyan CTF 2022 by Chovid99]]></description>
-</item>
->>>>>>> 8ea7f909eb9161ef0fd332988771f42fba9ec128
 </channel>
 </rss>

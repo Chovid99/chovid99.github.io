@@ -10,6 +10,7 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/defcamp-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-14T20:02:14+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -74,8 +75,7 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DefCamp CTF 2022</h1><div class="post-meta">
-            <div class="post-meta-line">
-                </div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 14, 2022">Feb 14, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2946 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;14 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -231,57 +231,57 @@ Checking the given libc, we know that the glibc version is <code>2.27</code></p>
 </span></span><span class="line"><span class="cl">  <span class="n">local_10</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">undefined8</span> <span class="o">*</span><span class="p">)(</span><span class="n">in_FS_OFFSET</span> <span class="o">+</span> <span class="mh">0x28</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">student_pointer</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">admin_pointer</span> <span class="o">=</span> <span class="p">(</span><span class="n">code</span> <span class="o">**</span><span class="p">)</span><span class="mh">0x0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">init</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">init</span><span class="p">(</span><span class="n">param_1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">do</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;MENU&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;1: Make new admin&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;2: Make new user&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;3: Print admin info&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;4: Edit Student Name&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;5: Print Student Name&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;6: Delete admin&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;7: Delete user&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Choice: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">          <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%d%*c&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_24</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;MENU&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;1: Make new admin&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;2: Make new user&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;3: Print admin info&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;4: Edit Student Name&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;5: Print Student Name&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;6: Delete admin&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">puts</span><span class="p">(</span><span class="s">&#34;7: Delete user&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Choice: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%d%*c&#34;</span><span class="p">,</span><span class="o">&amp;</span><span class="n">local_24</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">          <span class="n">admin_pointer</span> <span class="o">=</span> <span class="p">(</span><span class="n">code</span> <span class="o">**</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">admin_pointer</span> <span class="o">=</span> <span class="p">(</span><span class="n">code</span> <span class="o">**</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mh">0x10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">          <span class="n">admin_pointer</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">admin_info</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">          <span class="o">*</span><span class="n">admin_pointer</span> <span class="o">=</span> <span class="n">getFlag</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="n">student_pointer</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">(</span><span class="mh">0x10</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;What is your name: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">student_pointer</span><span class="p">,</span><span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">student_pointer</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;What is your name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">student_pointer</span><span class="p">,</span><span class="mh">0x10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">(</span><span class="o">*</span><span class="n">admin_pointer</span><span class="p">[</span><span class="mi">1</span><span class="p">])();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;What is your name: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">student_pointer</span><span class="p">,</span><span class="mh">0x10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;What is your name: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">student_pointer</span><span class="p">,</span><span class="mh">0x10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">student_pointer</span> <span class="o">==</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;New student has not been created yet&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;New student has not been created yet&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">      <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Students name is %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">student_pointer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Students name is %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">student_pointer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">==</span> <span class="mi">6</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">free</span><span class="p">(</span><span class="n">admin_pointer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">free</span><span class="p">(</span><span class="n">admin_pointer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">local_24</span> <span class="o">==</span> <span class="mi">7</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">free</span><span class="p">(</span><span class="n">student_pointer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">free</span><span class="p">(</span><span class="n">student_pointer</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;bad input&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;bad input&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>

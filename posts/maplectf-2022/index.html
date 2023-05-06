@@ -10,6 +10,7 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/maplectf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-29T11:23:48+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -74,8 +75,7 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">MapleCTF 2022</h1><div class="post-meta">
-            <div class="post-meta-line">
-                </div>
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Aug 29, 2022">Aug 29, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4582 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;22 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -154,10 +154,10 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined8</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">alarm</span><span class="p">(</span><span class="mh">0x3c</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">ready</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">alarm</span><span class="p">(</span><span class="mh">0x3c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">ready</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -176,7 +176,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">ready</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">set</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">set</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -195,7 +195,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">set</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">go</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">go</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -221,9 +221,9 @@
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">undefined4</span> <span class="n">extraout_var</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mh">0x100</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">printf</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nf">CONCAT44</span><span class="p">(</span><span class="n">extraout_var</span><span class="p">,</span><span class="n">iVar1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">fgets</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mh">0x100</span><span class="p">,</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">iVar1</span> <span class="o">=</span> <span class="n">printf</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">CONCAT44</span><span class="p">(</span><span class="n">extraout_var</span><span class="p">,</span><span class="n">iVar1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -711,28 +711,28 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="nf">alarm</span><span class="p">(</span><span class="mh">0x3c</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">setbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">alarm</span><span class="p">(</span><span class="mh">0x3c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">setbuf</span><span class="p">(</span><span class="n">stdin</span><span class="p">,(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">_DAT_00104060</span> <span class="o">=</span> <span class="n">menu_play</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">_DAT_00104068</span> <span class="o">=</span> <span class="n">menu_rule</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">_DAT_00104070</span> <span class="o">=</span> <span class="n">menu_stats</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">_DAT_00104078</span> <span class="o">=</span> <span class="n">menu_quit</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Welcome to the Number Flipper(TM) game v7.27!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Welcome to the Number Flipper(TM) game v7.27!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">do</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">do</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Options:&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;1 - play the game&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;2 - display how to play this game&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;3 - display game stats&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;4 - quit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">read_input</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Options:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;1 - play the game&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;2 - display how to play this game&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;3 - display game stats&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">puts</span><span class="p">(</span><span class="s">&#34;4 - quit</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="n">read_input</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">while</span> <span class="p">((</span><span class="kt">long</span><span class="p">)</span><span class="n">iVar1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="o">**</span><span class="p">(</span><span class="n">code</span> <span class="o">**</span><span class="p">)(</span><span class="o">&amp;</span><span class="n">DAT_00104060</span> <span class="o">+</span> <span class="p">((</span><span class="kt">long</span><span class="p">)</span><span class="n">iVar1</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">8</span><span class="p">))();</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">putchar</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span> <span class="k">while</span><span class="p">(</span> <span class="nb">true</span> <span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -799,38 +799,38 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">iVar1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">time_t</span> <span class="n">tVar2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">time_t</span> <span class="n">tVar2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">long</span> <span class="n">lVar3</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">local_38</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">local_34</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl">  <span class="n">tVar2</span> <span class="o">=</span> <span class="nf">time</span><span class="p">((</span><span class="kt">time_t</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">srand</span><span class="p">((</span><span class="n">uint</span><span class="p">)</span><span class="n">tVar2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">tVar2</span> <span class="o">=</span> <span class="n">time</span><span class="p">((</span><span class="n">time_t</span> <span class="o">*</span><span class="p">)</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">srand</span><span class="p">((</span><span class="n">uint</span><span class="p">)</span><span class="n">tVar2</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">local_38</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span><span class="n">local_38</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="n">rand</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="o">&amp;</span><span class="n">DAT_00104050</span><span class="p">)[</span><span class="n">local_38</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">iVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="n">local_38</span> <span class="o">=</span> <span class="n">local_38</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">((((</span><span class="n">DAT_00104050</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="n">DAT_00104054</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="o">||</span> <span class="p">(</span><span class="n">DAT_00104058</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">))</span> <span class="o">||</span> <span class="p">(</span><span class="n">DAT_0010405c</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">         <span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Board: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Board: &#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">local_34</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">local_34</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%04x &#34;</span><span class="p">,(</span><span class="n">ulong</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">ushort</span> <span class="o">*</span><span class="p">)((</span><span class="kt">long</span><span class="p">)</span><span class="o">&amp;</span><span class="n">DAT_00104050</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span><span class="p">)(</span><span class="n">local_34</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%04x &#34;</span><span class="p">,(</span><span class="n">ulong</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">ushort</span> <span class="o">*</span><span class="p">)((</span><span class="kt">long</span><span class="p">)</span><span class="o">&amp;</span><span class="n">DAT_00104050</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span><span class="p">)(</span><span class="n">local_34</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">      <span class="n">local_34</span> <span class="o">=</span> <span class="n">local_34</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Your move (0 to quit) &gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">read_input</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">Your move (0 to quit) &gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">iVar1</span> <span class="o">=</span> <span class="n">read_input</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="n">lVar3</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">iVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">lVar3</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">lVar3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Increment how much? &gt; &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="nf">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="nf">read_input</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Increment how much? &gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">iVar1</span> <span class="o">=</span> <span class="n">read_input</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">iVar1</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">local_34</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">-</span><span class="n">lVar3</span> <span class="o">+</span> <span class="mi">7</span><span class="p">;</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">local_34</span> <span class="o">&lt;=</span> <span class="o">-</span><span class="n">lVar3</span> <span class="o">+</span> <span class="mi">9</span><span class="p">;</span> <span class="n">local_34</span> <span class="o">=</span> <span class="n">local_34</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">          <span class="o">*</span><span class="p">(</span><span class="kt">short</span> <span class="o">*</span><span class="p">)((</span><span class="kt">long</span><span class="p">)</span><span class="o">&amp;</span><span class="n">DAT_00104050</span> <span class="o">+</span> <span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">local_34</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">=</span>
@@ -839,7 +839,7 @@
 </span></span><span class="line"><span class="cl">      <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Congrats! You solved it!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Congrats! You solved it!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="n">DAT_00104040</span> <span class="o">=</span> <span class="n">DAT_00104040</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
 </span></span></code></pre></td></tr></table>

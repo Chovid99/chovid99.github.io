@@ -10,6 +10,7 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/file-structure-attack-part-1/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-11-01T23:34:15+07:00" />
 <meta property="article:modified_time" content="2023-02-24T14:07:40+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -29,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/file-structure-attack-part-1\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Education, FILE","wordcount":  2473 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Education, FILE","wordcount":  2472 ,
         "url": "https:\/\/chovid99.github.io\/posts\/file-structure-attack-part-1\/","datePublished": "2022-11-01T23:34:15+07:00","dateModified": "2023-02-24T14:07:40+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -74,9 +75,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">FILE Structure Attack: Part 1</h1><div class="post-meta">
-            <div class="post-meta-line">
-                </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Nov 01, 2022">Nov 01, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2473 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Nov 01, 2022">Nov 01, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2472 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -231,10 +231,10 @@
 </span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_wide_data</span> <span class="o">*</span><span class="n">_wide_data</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="k">struct</span> <span class="n">_IO_FILE</span> <span class="o">*</span><span class="n">_freeres_list</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="o">*</span><span class="n">_freeres_buf</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">size_t</span> <span class="n">__pad5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">size_t</span> <span class="n">__pad5</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">_mode</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/* Make sure we don&#39;t get into trouble again.  */</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">_unused2</span><span class="p">[</span><span class="mi">15</span> <span class="o">*</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="o">-</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">size_t</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">_unused2</span><span class="p">[</span><span class="mi">15</span> <span class="o">*</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="k">sizeof</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="o">-</span> <span class="k">sizeof</span> <span class="p">(</span><span class="n">size_t</span><span class="p">)];</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -300,28 +300,28 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">_IO_jump_t</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="kt">size_t</span><span class="p">,</span> <span class="n">__dummy</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="kt">size_t</span><span class="p">,</span> <span class="n">__dummy2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_finish_t</span><span class="p">,</span> <span class="n">__finish</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_overflow_t</span><span class="p">,</span> <span class="n">__overflow</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_underflow_t</span><span class="p">,</span> <span class="n">__underflow</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_underflow_t</span><span class="p">,</span> <span class="n">__uflow</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_pbackfail_t</span><span class="p">,</span> <span class="n">__pbackfail</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">size_t</span><span class="p">,</span> <span class="n">__dummy</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">size_t</span><span class="p">,</span> <span class="n">__dummy2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_finish_t</span><span class="p">,</span> <span class="n">__finish</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_overflow_t</span><span class="p">,</span> <span class="n">__overflow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_underflow_t</span><span class="p">,</span> <span class="n">__underflow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_underflow_t</span><span class="p">,</span> <span class="n">__uflow</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_pbackfail_t</span><span class="p">,</span> <span class="n">__pbackfail</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="cm">/* showmany */</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_xsputn_t</span><span class="p">,</span> <span class="n">__xsputn</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_xsgetn_t</span><span class="p">,</span> <span class="n">__xsgetn</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seekoff_t</span><span class="p">,</span> <span class="n">__seekoff</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seekpos_t</span><span class="p">,</span> <span class="n">__seekpos</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_setbuf_t</span><span class="p">,</span> <span class="n">__setbuf</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_sync_t</span><span class="p">,</span> <span class="n">__sync</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_doallocate_t</span><span class="p">,</span> <span class="n">__doallocate</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_read_t</span><span class="p">,</span> <span class="n">__read</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_write_t</span><span class="p">,</span> <span class="n">__write</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seek_t</span><span class="p">,</span> <span class="n">__seek</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_close_t</span><span class="p">,</span> <span class="n">__close</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_stat_t</span><span class="p">,</span> <span class="n">__stat</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_showmanyc_t</span><span class="p">,</span> <span class="n">__showmanyc</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_imbue_t</span><span class="p">,</span> <span class="n">__imbue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_xsputn_t</span><span class="p">,</span> <span class="n">__xsputn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_xsgetn_t</span><span class="p">,</span> <span class="n">__xsgetn</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seekoff_t</span><span class="p">,</span> <span class="n">__seekoff</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seekpos_t</span><span class="p">,</span> <span class="n">__seekpos</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_setbuf_t</span><span class="p">,</span> <span class="n">__setbuf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_sync_t</span><span class="p">,</span> <span class="n">__sync</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_doallocate_t</span><span class="p">,</span> <span class="n">__doallocate</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_read_t</span><span class="p">,</span> <span class="n">__read</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_write_t</span><span class="p">,</span> <span class="n">__write</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_seek_t</span><span class="p">,</span> <span class="n">__seek</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_close_t</span><span class="p">,</span> <span class="n">__close</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_stat_t</span><span class="p">,</span> <span class="n">__stat</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_showmanyc_t</span><span class="p">,</span> <span class="n">__showmanyc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">JUMP_FIELD</span><span class="p">(</span><span class="n">_IO_imbue_t</span><span class="p">,</span> <span class="n">__imbue</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -342,7 +342,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">__fopen_internal</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">filename</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">mode</span><span class="p">,</span> <span class="kt">int</span> <span class="n">is32</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">_IO_JUMPS</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">new_f</span><span class="o">-&gt;</span><span class="n">fp</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">_IO_file_jumps</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_IO_JUMPS</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">new_f</span><span class="o">-&gt;</span><span class="n">fp</span><span class="p">)</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">_IO_file_jumps</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -426,7 +426,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">exit</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">(</span><span class="mi">1337</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -445,7 +445,7 @@
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span>
 </span></span><span class="line"><span class="cl"><span class="nf">exit</span> <span class="p">(</span><span class="kt">int</span> <span class="n">status</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">__run_exit_handlers</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">__exit_funcs</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">__run_exit_handlers</span> <span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">__exit_funcs</span><span class="p">,</span> <span class="nb">true</span><span class="p">,</span> <span class="nb">true</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -478,7 +478,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">run_list_atexit</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">RUN_HOOK</span> <span class="p">(</span><span class="n">__libc_atexit</span><span class="p">,</span> <span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RUN_HOOK</span> <span class="p">(</span><span class="n">__libc_atexit</span><span class="p">,</span> <span class="p">());</span>
 </span></span><span class="line"><span class="cl"><span class="p">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -531,7 +531,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="cm">/* We do *not* want locking.  Some threads might use streams but
 </span></span></span><span class="line"><span class="cl"><span class="cm">     that is their problem, we flush them underneath them.  */</span>
-</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="nf">_IO_flush_all_lockp</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">_IO_flush_all_lockp</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="cm">/* We currently don&#39;t have a reliable mechanism for making sure that
 </span></span></span><span class="line"><span class="cl"><span class="cm">     C++ static destructors are executed in the correct order.
@@ -540,7 +540,7 @@
 </span></span></span><span class="line"><span class="cl"><span class="cm">
 </span></span></span><span class="line"><span class="cl"><span class="cm">     The following will make the standard streambufs be unbuffered,
 </span></span></span><span class="line"><span class="cl"><span class="cm">     which forces any output from late destructors to be written out. */</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">_IO_unbuffer_all</span> <span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">_IO_unbuffer_all</span> <span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -599,20 +599,20 @@
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">      <span class="n">run_fp</span> <span class="o">=</span> <span class="n">fp</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">do_lock</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">_IO_flockfile</span> <span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_IO_flockfile</span> <span class="p">(</span><span class="n">fp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(((</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_mode</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_ptr</span> <span class="o">&gt;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#if defined _LIBC || defined _GLIBCPP_USE_WCHAR_T
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	   <span class="o">||</span> <span class="p">(</span><span class="nf">_IO_vtable_offset</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>	   <span class="o">||</span> <span class="p">(</span><span class="n">_IO_vtable_offset</span> <span class="p">(</span><span class="n">fp</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">	       <span class="o">&amp;&amp;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_mode</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">fp</span><span class="o">-&gt;</span><span class="n">_wide_data</span><span class="o">-&gt;</span><span class="n">_IO_write_ptr</span>
 </span></span><span class="line"><span class="cl">				    <span class="o">&gt;</span> <span class="n">fp</span><span class="o">-&gt;</span><span class="n">_wide_data</span><span class="o">-&gt;</span><span class="n">_IO_write_base</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="cp">#endif
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>	   <span class="p">)</span>
-</span></span><span class="line"><span class="cl">	  <span class="o">&amp;&amp;</span> <span class="nf">_IO_OVERFLOW</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">EOF</span><span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	  <span class="o">&amp;&amp;</span> <span class="n">_IO_OVERFLOW</span> <span class="p">(</span><span class="n">fp</span><span class="p">,</span> <span class="n">EOF</span><span class="p">)</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="n">result</span> <span class="o">=</span> <span class="n">EOF</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">do_lock</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nf">_IO_funlockfile</span> <span class="p">(</span><span class="n">fp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	<span class="n">_IO_funlockfile</span> <span class="p">(</span><span class="n">fp</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">      <span class="n">run_fp</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">last_stamp</span> <span class="o">!=</span> <span class="n">_IO_list_all_stamp</span><span class="p">)</span>

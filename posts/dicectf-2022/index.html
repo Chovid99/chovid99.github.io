@@ -10,6 +10,7 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/dicectf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-07T08:01:00+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -29,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/dicectf-2022\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, DiceCTF, web, rsa, crypto, wasm, pwn, rop, format string, 2022","wordcount":  1660 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, DiceCTF, web, rsa, crypto, wasm, pwn, rop, format string, 2022","wordcount":  1662 ,
         "url": "https:\/\/chovid99.github.io\/posts\/dicectf-2022\/","datePublished": "2022-02-07T08:01:00+07:00","dateModified": "2023-02-23T18:03:33+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -74,9 +75,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DiceCTF 2022</h1><div class="post-meta">
-            <div class="post-meta-line">
-                </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 07, 2022">Feb 07, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1660 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 07, 2022">Feb 07, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1662 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -289,14 +289,14 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">  <span class="n">local_18</span> <span class="o">=</span> <span class="n">param_2</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">  <span class="n">local_c</span> <span class="o">=</span> <span class="n">param_1</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">env_setup</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="n">env_setup</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="s">&#34;Thank you for you interest in applying to DiceGang. We need great pwners like you to contin ue our traditions and competition against perfect blue.</span><span class="se">\n</span><span class="s">&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;So tell us. Why should you join DiceGang?</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">local_22</span><span class="p">,</span><span class="mh">0x46</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Hello: &#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">local_22</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;So tell us. Why should you join DiceGang?</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">local_22</span><span class="p">,</span><span class="mh">0x46</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Hello: &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">puts</span><span class="p">(</span><span class="n">local_22</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -422,12 +422,12 @@ After reading the decompiled, there are 5 functions on the wasm, validate_1, val
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="n">export</span><span class="o">::</span><span class="nf">validate_1</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">undefined4</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_1</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">undefined4</span> <span class="n">uVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="nf">streq</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span><span class="mh">0x400</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uVar1</span> <span class="o">=</span> <span class="n">streq</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span><span class="mh">0x400</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">uVar1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
@@ -456,7 +456,7 @@ After reading the decompiled, there are 5 functions on the wasm, validate_1, val
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="nf">validate_2</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param2</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param3</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param4</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_2</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param2</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param3</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param4</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                       <span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -487,7 +487,7 @@ After reading the decompiled, there are 5 functions on the wasm, validate_1, val
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="nf">validate_3</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param2</span><span class="p">,</span><span class="kt">int</span> <span class="n">param3</span><span class="p">,</span><span class="kt">int</span> <span class="n">param4</span><span class="p">,</span><span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_3</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param2</span><span class="p">,</span><span class="kt">int</span> <span class="n">param3</span><span class="p">,</span><span class="kt">int</span> <span class="n">param4</span><span class="p">,</span><span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">uVar1</span><span class="p">;</span>
@@ -607,7 +607,7 @@ From our deduction, we can conclude that basically, what it do is:</li>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="nf">validate_5</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param2</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param3</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param4</span><span class="p">,</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_5</span><span class="p">(</span><span class="n">undefined4</span> <span class="n">param1</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param2</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param3</span><span class="p">,</span><span class="n">undefined4</span> <span class="n">param4</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">                       <span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
@@ -637,7 +637,7 @@ From our deduction, we can conclude that basically, what it do is:</li>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="nf">validate_6</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param2</span><span class="p">,</span><span class="kt">int</span> <span class="n">param3</span><span class="p">,</span><span class="kt">int</span> <span class="n">param4</span><span class="p">,</span><span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">uint</span> <span class="n">export</span><span class="o">::</span><span class="n">validate_6</span><span class="p">(</span><span class="kt">int</span> <span class="n">param1</span><span class="p">,</span><span class="kt">int</span> <span class="n">param2</span><span class="p">,</span><span class="kt">int</span> <span class="n">param3</span><span class="p">,</span><span class="kt">int</span> <span class="n">param4</span><span class="p">,</span><span class="kt">int</span> <span class="n">param5</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">uVar1</span><span class="p">;</span>

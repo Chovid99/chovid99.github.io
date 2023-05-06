@@ -10,6 +10,7 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/defcon-ctf-2022-self-reflection/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-03T21:08:00+07:00" />
 <meta property="article:modified_time" content="2023-02-24T14:07:40+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -29,7 +30,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/defcon-ctf-2022-self-reflection\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "tech, DefconCTF, reflection, notes, pwn, 2022","wordcount":  3563 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "tech, DefconCTF, reflection, notes, pwn, 2022","wordcount":  3554 ,
         "url": "https:\/\/chovid99.github.io\/posts\/defcon-ctf-2022-self-reflection\/","datePublished": "2022-06-03T21:08:00+07:00","dateModified": "2023-02-24T14:07:40+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -74,9 +75,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Defcon CTF 2022: Self-Reflection</h1><div class="post-meta">
-            <div class="post-meta-line">
-                </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Jun 03, 2022">Jun 03, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3563 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="https://twitter.com/Chovid99" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Chovid99</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Jun 03, 2022">Jun 03, 2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3554 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;17 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -185,21 +185,21 @@ I didn&rsquo;t do well on this Defcon, so this isn&rsquo;t a writeup, but just t
 </span></span><span class="line"><span class="cl"><span class="kt">char</span><span class="o">*</span> <span class="n">args</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#34;x&#34;</span><span class="p">,</span> <span class="s">&#34;marks&#34;</span><span class="p">,</span> <span class="s">&#34;the&#34;</span><span class="p">,</span> <span class="s">&#34;spot&#34;</span> <span class="p">};</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">num_args</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">size_t</span> <span class="n">num_args</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="n">num_args</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Avast ye missing arguments: ./dig_up_the_loot&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num_args</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34; %s&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Avast ye missing arguments: ./dig_up_the_loot&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num_args</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">printf</span><span class="p">(</span><span class="s">&#34; %s&#34;</span><span class="p">,</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num_args</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nf">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Blimey! Are missing your map?&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">            <span class="nf">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">num_args</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Blimey! Are missing your map?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Shiver me timbers! Thar be your flag: FLAG PLACEHOLDER&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Shiver me timbers! Thar be your flag: FLAG PLACEHOLDER&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -363,56 +363,56 @@ I didn&rsquo;t do well on this Defcon, so this isn&rsquo;t a writeup, but just t
 </span></span><span class="line"><span class="cl"><span class="cp">#define MAX_SIZE 433
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
 </span></span><span class="line"><span class="cl"><span class="n">GCtrace</span><span class="o">*</span> <span class="nf">getTrace</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">jit_State</span><span class="o">*</span> <span class="n">js</span> <span class="o">=</span> <span class="nf">L2J</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jit_State</span><span class="o">*</span> <span class="n">js</span> <span class="o">=</span> <span class="n">L2J</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">js</span><span class="o">-&gt;</span><span class="n">sizetrace</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">GCtrace</span><span class="o">*</span><span class="p">)</span><span class="nf">gcref</span><span class="p">(</span><span class="n">js</span><span class="o">-&gt;</span><span class="n">trace</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">GCtrace</span><span class="o">*</span><span class="p">)</span><span class="n">gcref</span><span class="p">(</span><span class="n">js</span><span class="o">-&gt;</span><span class="n">trace</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">print</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting at least 1 arguments&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting at least 1 arguments&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="nf">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="n">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">debug_jit</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting exactly 1 arguments&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting exactly 1 arguments&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">luaL_checktype</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LUA_TFUNCTION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">luaL_checktype</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LUA_TFUNCTION</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">GCfunc</span><span class="o">*</span> <span class="n">v</span> <span class="o">=</span> <span class="nf">lua_topointer</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">isluafunc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting lua function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">GCfunc</span><span class="o">*</span> <span class="n">v</span> <span class="o">=</span> <span class="n">lua_topointer</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isluafunc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting lua function&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="nf">lua_tointeger</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="nf">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">lua_tointeger</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="n">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">op</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">GCtrace</span><span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="nf">getTrace</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GCtrace</span><span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="n">getTrace</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Avast! Offset too large!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Avast! Offset too large!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">+=</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span> <span class="o">-=</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;... yarr let ye apply a secret offset, cargo is now %p ...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;... yarr let ye apply a secret offset, cargo is now %p ...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -420,7 +420,7 @@ I didn&rsquo;t do well on this Defcon, so this isn&rsquo;t a writeup, but just t
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">set_jit_settings</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="s">&#34;jit.opt.start(&#39;3&#39;);&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="s">&#34;jit.opt.start(&#39;hotloop=1&#39;);&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
@@ -428,71 +428,71 @@ I didn&rsquo;t do well on this Defcon, so this isn&rsquo;t a writeup, but just t
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">init_lua</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Init JIT lib
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">luaopen_jit</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushstring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">LUA_JITLIBNAME</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_call</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">luaopen_jit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushstring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">LUA_JITLIBNAME</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_call</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">set_jit_settings</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set_jit_settings</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushnil</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;jit&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pop</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushnil</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;jit&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pop</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">debug_jit</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;cargo&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">print</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;print&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">debug_jit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;cargo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">print</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;print&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">run_code</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">max_size</span> <span class="o">=</span> <span class="n">MAX_SIZE</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">code</span> <span class="o">=</span> <span class="nf">calloc</span><span class="p">(</span><span class="n">max_size</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">size_t</span> <span class="n">max_size</span> <span class="o">=</span> <span class="n">MAX_SIZE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">code</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="n">max_size</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">FILE</span><span class="o">*</span> <span class="n">f</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FILE</span><span class="o">*</span> <span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="s">&#34;r&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Unable to open file&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Unable to open file&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="nf">ftell</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">max_size</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Too large&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Too large&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">fread</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fread</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fclose</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Lua error: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Lua error: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">_IONBF</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">_IONBF</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">lua_State</span> <span class="o">*</span><span class="n">L</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Missing lua cargo to inspect&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Missing lua cargo to inspect&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">L</span> <span class="o">=</span> <span class="nf">luaL_newstate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">L</span> <span class="o">=</span> <span class="n">luaL_newstate</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Failed to load lua&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Failed to load lua&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">init_lua</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">run_code</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">init_lua</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">run_code</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_close</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_close</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -529,24 +529,24 @@ I didn&rsquo;t do well on this Defcon, so this isn&rsquo;t a writeup, but just t
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span><span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">_IONBF</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">setvbuf</span><span class="p">(</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">_IONBF</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">lua_State</span> <span class="o">*</span><span class="n">L</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Missing lua cargo to inspect&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Missing lua cargo to inspect&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">L</span> <span class="o">=</span> <span class="nf">luaL_newstate</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">L</span> <span class="o">=</span> <span class="n">luaL_newstate</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Failed to load lua&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Failed to load lua&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">init_lua</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">run_code</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">init_lua</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">run_code</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_close</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_close</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -584,31 +584,31 @@ I didn&rsquo;t do well on this Defcon, so this isn&rsquo;t a writeup, but just t
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">run_code</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">path</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">size_t</span> <span class="n">max_size</span> <span class="o">=</span> <span class="n">MAX_SIZE</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">code</span> <span class="o">=</span> <span class="nf">calloc</span><span class="p">(</span><span class="n">max_size</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">size_t</span> <span class="n">max_size</span> <span class="o">=</span> <span class="n">MAX_SIZE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">code</span> <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span><span class="n">max_size</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">FILE</span><span class="o">*</span> <span class="n">f</span> <span class="o">=</span> <span class="nf">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="s">&#34;r&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FILE</span><span class="o">*</span> <span class="n">f</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="s">&#34;r&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">f</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Unable to open file&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Unable to open file&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="nf">ftell</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_END</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="n">ftell</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="n">max_size</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Too large&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">puts</span><span class="p">(</span><span class="s">&#34;Too large&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">fread</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fseek</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">SEEK_SET</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fread</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">fclose</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fclose</span><span class="p">(</span><span class="n">stdin</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="nf">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">code</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Lua error: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="nf">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Lua error: %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -644,7 +644,7 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">set_jit_settings</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">luaL_dostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="s">&#34;jit.opt.start(&#39;3&#39;);&#34;</span>
 </span></span><span class="line"><span class="cl">        <span class="s">&#34;jit.opt.start(&#39;hotloop=1&#39;);&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">);</span>
@@ -652,20 +652,20 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">init_lua</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="c1">// Init JIT lib
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">luaopen_jit</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushstring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">LUA_JITLIBNAME</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_call</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">luaopen_jit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushstring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">LUA_JITLIBNAME</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_call</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">set_jit_settings</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set_jit_settings</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushnil</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;jit&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pop</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushnil</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;jit&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pop</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">debug_jit</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;cargo&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">print</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;print&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">debug_jit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;cargo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">print</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;print&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -687,9 +687,9 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="nf">lua_pushnil</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;jit&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pop</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="n">lua_pushnil</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;jit&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pop</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
@@ -710,10 +710,10 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">debug_jit</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;cargo&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">print</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;print&#34;</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">debug_jit</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;cargo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_pushcfunction</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">print</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lua_setglobal</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;print&#34;</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
@@ -738,11 +738,11 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">print</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting at least 1 arguments&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting at least 1 arguments&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="nf">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span> <span class="o">=</span> <span class="n">lua_tostring</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
@@ -791,39 +791,39 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">debug_jit</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nf">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting exactly 1 arguments&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">lua_gettop</span><span class="p">(</span><span class="n">L</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting exactly 1 arguments&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">luaL_checktype</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LUA_TFUNCTION</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">luaL_checktype</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LUA_TFUNCTION</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">GCfunc</span><span class="o">*</span> <span class="n">v</span> <span class="o">=</span> <span class="nf">lua_topointer</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">isluafunc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting lua function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">GCfunc</span><span class="o">*</span> <span class="n">v</span> <span class="o">=</span> <span class="n">lua_topointer</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isluafunc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting lua function&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="nf">lua_tointeger</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="nf">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">lua_tointeger</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="n">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">op</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">GCtrace</span><span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="nf">getTrace</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GCtrace</span><span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="n">getTrace</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Avast! Offset too large!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Avast! Offset too large!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">+=</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span> <span class="o">-=</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;... yarr let ye apply a secret offset, cargo is now %p ...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;... yarr let ye apply a secret offset, cargo is now %p ...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -841,11 +841,11 @@ Moving back, let&rsquo;s take a look on what does the <code>init_lua</code> do.<
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="nf">luaL_checktype</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LUA_TFUNCTION</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="n">luaL_checktype</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">LUA_TFUNCTION</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">GCfunc</span><span class="o">*</span> <span class="n">v</span> <span class="o">=</span> <span class="nf">lua_topointer</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nf">isluafunc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting lua function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="n">GCfunc</span><span class="o">*</span> <span class="n">v</span> <span class="o">=</span> <span class="n">lua_topointer</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isluafunc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;expecting lua function&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -876,19 +876,19 @@ What it does is generate a c pointer to the given function.</p>
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="nf">lua_tointeger</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="nf">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">lua_tointeger</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="n">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">op</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">GCtrace</span><span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="nf">getTrace</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">GCtrace</span><span class="o">*</span> <span class="n">t</span> <span class="o">=</span> <span class="n">getTrace</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>And then, we can see that the second argument is stored as <code>offset</code> with type <code>uint8_t</code>. So offset will never be a negative value. We will back to what <code>offset</code> is actually doing later.</p>
@@ -928,7 +928,7 @@ Now, we can understand better on what this snippet code does.</p>
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="nf">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="kt">uint8_t</span><span class="o">*</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="n">mref</span><span class="p">(</span><span class="n">v</span><span class="o">-&gt;</span><span class="n">l</span><span class="p">.</span><span class="n">pc</span><span class="p">,</span> <span class="kt">void</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">op</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">index</span> <span class="o">=</span> <span class="n">bytecode</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
@@ -948,11 +948,11 @@ Now, we can understand better on what this snippet code does.</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="n">GCtrace</span><span class="o">*</span> <span class="nf">getTrace</span><span class="p">(</span><span class="n">lua_State</span><span class="o">*</span> <span class="n">L</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">jit_State</span><span class="o">*</span> <span class="n">js</span> <span class="o">=</span> <span class="nf">L2J</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jit_State</span><span class="o">*</span> <span class="n">js</span> <span class="o">=</span> <span class="n">L2J</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">js</span><span class="o">-&gt;</span><span class="n">sizetrace</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">GCtrace</span><span class="o">*</span><span class="p">)</span><span class="nf">gcref</span><span class="p">(</span><span class="n">js</span><span class="o">-&gt;</span><span class="n">trace</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">GCtrace</span><span class="o">*</span><span class="p">)</span><span class="n">gcref</span><span class="p">(</span><span class="n">js</span><span class="o">-&gt;</span><span class="n">trace</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
@@ -981,20 +981,20 @@ Now, we can understand better on what this snippet code does.</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">t</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">||</span> <span class="o">!</span><span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Blimey! There is no cargo in this ship!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;INSPECTION: This ship&#39;s JIT cargo was found to be %p</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">offset</span> <span class="o">&gt;=</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nf">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Avast! Offset too large!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">luaL_error</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="s">&#34;Avast! Offset too large!&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span> <span class="o">+=</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="n">t</span><span class="o">-&gt;</span><span class="n">szmcode</span> <span class="o">-=</span> <span class="n">offset</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;... yarr let ye apply a secret offset, cargo is now %p ...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;... yarr let ye apply a secret offset, cargo is now %p ...</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">-&gt;</span><span class="n">mcode</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
