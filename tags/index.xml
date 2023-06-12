@@ -1,677 +1,88 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Tags on Welcome to Chovid99&#39;s Blog</title>
-    <link>https://chovid99.github.io/tags/</link>
-    <description>Recent content in Tags on Welcome to Chovid99&#39;s Blog</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 19 Feb 2023 20:14:37 +0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>2023</title>
-      <link>https://chovid99.github.io/tags/2023/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/2023/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HackTM</title>
-      <link>https://chovid99.github.io/tags/hacktm/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/hacktm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>oob</title>
-      <link>https://chovid99.github.io/tags/oob/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/oob/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>pwn</title>
-      <link>https://chovid99.github.io/tags/pwn/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>vm</title>
-      <link>https://chovid99.github.io/tags/vm/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/vm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Writeup</title>
-      <link>https://chovid99.github.io/tags/writeup/</link>
-      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/writeup/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Education</title>
-      <link>https://chovid99.github.io/tags/education/</link>
-      <pubDate>Mon, 05 Dec 2022 16:11:43 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/education/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>FILE</title>
-      <link>https://chovid99.github.io/tags/file/</link>
-      <pubDate>Mon, 05 Dec 2022 16:11:43 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/file/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>heap</title>
-      <link>https://chovid99.github.io/tags/heap/</link>
-      <pubDate>Mon, 05 Dec 2022 16:11:43 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/heap/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>STACK the Flags</title>
-      <link>https://chovid99.github.io/tags/stack-the-flags/</link>
-      <pubDate>Mon, 05 Dec 2022 16:11:43 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/stack-the-flags/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>2022</title>
-      <link>https://chovid99.github.io/tags/2022/</link>
-      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/2022/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>browser</title>
-      <link>https://chovid99.github.io/tags/browser/</link>
-      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/browser/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>chrome</title>
-      <link>https://chovid99.github.io/tags/chrome/</link>
-      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/chrome/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HITCON</title>
-      <link>https://chovid99.github.io/tags/hitcon/</link>
-      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/hitcon/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JIT</title>
-      <link>https://chovid99.github.io/tags/jit/</link>
-      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/jit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>v8</title>
-      <link>https://chovid99.github.io/tags/v8/</link>
-      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/v8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>BlackHat</title>
-      <link>https://chovid99.github.io/tags/blackhat/</link>
-      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/blackhat/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fastbin</title>
-      <link>https://chovid99.github.io/tags/fastbin/</link>
-      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/fastbin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>unsorted bin</title>
-      <link>https://chovid99.github.io/tags/unsorted-bin/</link>
-      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/unsorted-bin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>format string</title>
-      <link>https://chovid99.github.io/tags/format-string/</link>
-      <pubDate>Mon, 29 Aug 2022 11:23:48 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/format-string/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>MapleCTF</title>
-      <link>https://chovid99.github.io/tags/maplectf/</link>
-      <pubDate>Mon, 29 Aug 2022 11:23:48 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/maplectf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>shellcode</title>
-      <link>https://chovid99.github.io/tags/shellcode/</link>
-      <pubDate>Mon, 29 Aug 2022 11:23:48 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/shellcode/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>aslr</title>
-      <link>https://chovid99.github.io/tags/aslr/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/aslr/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>buffer overflow</title>
-      <link>https://chovid99.github.io/tags/buffer-overflow/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/buffer-overflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>forensic</title>
-      <link>https://chovid99.github.io/tags/forensic/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/forensic/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Google CTF</title>
-      <link>https://chovid99.github.io/tags/google-ctf/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/google-ctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PRNG</title>
-      <link>https://chovid99.github.io/tags/prng/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/prng/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rop</title>
-      <link>https://chovid99.github.io/tags/rop/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/rop/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>zip</title>
-      <link>https://chovid99.github.io/tags/zip/</link>
-      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/zip/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>firefox</title>
-      <link>https://chovid99.github.io/tags/firefox/</link>
-      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/firefox/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SpiderMonkey</title>
-      <link>https://chovid99.github.io/tags/spidermonkey/</link>
-      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/spidermonkey/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>TyphoonCon</title>
-      <link>https://chovid99.github.io/tags/typhooncon/</link>
-      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/typhooncon/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>aarch64</title>
-      <link>https://chovid99.github.io/tags/aarch64/</link>
-      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/aarch64/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>arm64</title>
-      <link>https://chovid99.github.io/tags/arm64/</link>
-      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/arm64/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>justCTF</title>
-      <link>https://chovid99.github.io/tags/justctf/</link>
-      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/justctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>crypto</title>
-      <link>https://chovid99.github.io/tags/crypto/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/crypto/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fermat</title>
-      <link>https://chovid99.github.io/tags/fermat/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/fermat/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>math</title>
-      <link>https://chovid99.github.io/tags/math/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/math/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>python jail</title>
-      <link>https://chovid99.github.io/tags/python-jail/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/python-jail/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>rsa</title>
-      <link>https://chovid99.github.io/tags/rsa/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/rsa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SEETF</title>
-      <link>https://chovid99.github.io/tags/seetf/</link>
-      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/seetf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DefconCTF</title>
-      <link>https://chovid99.github.io/tags/defconctf/</link>
-      <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/defconctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>notes</title>
-      <link>https://chovid99.github.io/tags/notes/</link>
-      <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/notes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>reflection</title>
-      <link>https://chovid99.github.io/tags/reflection/</link>
-      <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/reflection/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tech</title>
-      <link>https://chovid99.github.io/tags/tech/</link>
-      <pubDate>Fri, 03 Jun 2022 21:08:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/tech/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CyberApocalypseCTF</title>
-      <link>https://chovid99.github.io/tags/cyberapocalypsectf/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/cyberapocalypsectf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ECDSA</title>
-      <link>https://chovid99.github.io/tags/ecdsa/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/ecdsa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>HNP</title>
-      <link>https://chovid99.github.io/tags/hnp/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/hnp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>htb</title>
-      <link>https://chovid99.github.io/tags/htb/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/htb/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>LLL</title>
-      <link>https://chovid99.github.io/tags/lll/</link>
-      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/lll/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>SanDiego CTF</title>
-      <link>https://chovid99.github.io/tags/sandiego-ctf/</link>
-      <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/sandiego-ctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>AngstromCTF</title>
-      <link>https://chovid99.github.io/tags/angstromctf/</link>
-      <pubDate>Thu, 05 May 2022 11:10:29 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/angstromctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>NahamConCTF</title>
-      <link>https://chovid99.github.io/tags/nahamconctf/</link>
-      <pubDate>Sun, 01 May 2022 08:12:50 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/nahamconctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>got overwrite</title>
-      <link>https://chovid99.github.io/tags/got-overwrite/</link>
-      <pubDate>Fri, 11 Mar 2022 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/got-overwrite/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>short-overflow</title>
-      <link>https://chovid99.github.io/tags/short-overflow/</link>
-      <pubDate>Fri, 11 Mar 2022 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/short-overflow/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>zer0pts</title>
-      <link>https://chovid99.github.io/tags/zer0pts/</link>
-      <pubDate>Fri, 11 Mar 2022 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/zer0pts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>php</title>
-      <link>https://chovid99.github.io/tags/php/</link>
-      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/php/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PragyanCTF</title>
-      <link>https://chovid99.github.io/tags/pragyanctf/</link>
-      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/pragyanctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web</title>
-      <link>https://chovid99.github.io/tags/web/</link>
-      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/web/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>z3</title>
-      <link>https://chovid99.github.io/tags/z3/</link>
-      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/z3/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DefCampCTF</title>
-      <link>https://chovid99.github.io/tags/defcampctf/</link>
-      <pubDate>Mon, 14 Feb 2022 20:02:14 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/defcampctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>flask</title>
-      <link>https://chovid99.github.io/tags/flask/</link>
-      <pubDate>Mon, 14 Feb 2022 20:02:14 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/flask/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>DiceCTF</title>
-      <link>https://chovid99.github.io/tags/dicectf/</link>
-      <pubDate>Mon, 07 Feb 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/dicectf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>wasm</title>
-      <link>https://chovid99.github.io/tags/wasm/</link>
-      <pubDate>Mon, 07 Feb 2022 08:01:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/wasm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>android</title>
-      <link>https://chovid99.github.io/tags/android/</link>
-      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GCC CTF</title>
-      <link>https://chovid99.github.io/tags/gcc-ctf/</link>
-      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/gcc-ctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jsp</title>
-      <link>https://chovid99.github.io/tags/jsp/</link>
-      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/jsp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>short-pwn</title>
-      <link>https://chovid99.github.io/tags/short-pwn/</link>
-      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/short-pwn/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>2021</title>
-      <link>https://chovid99.github.io/tags/2021/</link>
-      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/2021/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>AES</title>
-      <link>https://chovid99.github.io/tags/aes/</link>
-      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/aes/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>AES-GCM</title>
-      <link>https://chovid99.github.io/tags/aes-gcm/</link>
-      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/aes-gcm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>PBCTF</title>
-      <link>https://chovid99.github.io/tags/pbctf/</link>
-      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/pbctf/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>2019</title>
-      <link>https://chovid99.github.io/tags/2019/</link>
-      <pubDate>Mon, 16 Sep 2019 20:02:14 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/2019/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>CSAW CTF</title>
-      <link>https://chovid99.github.io/tags/csaw-ctf/</link>
-      <pubDate>Mon, 16 Sep 2019 20:02:14 +0700</pubDate>
-      
-      <guid>https://chovid99.github.io/tags/csaw-ctf/</guid>
-      <description></description>
-    </item>
-    
-  </channel>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/</link>
+        <description>Tags - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sat, 06 May 2023 12:12:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>heap</title>
+    <link>https://chovid99.github.io/tags/heap/</link>
+    <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/heap/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>ROP</title>
+    <link>https://chovid99.github.io/tags/rop/</link>
+    <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/rop/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>shellcoding</title>
+    <link>https://chovid99.github.io/tags/shellcoding/</link>
+    <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/shellcoding/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>type confusion</title>
+    <link>https://chovid99.github.io/tags/type-confusion/</link>
+    <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/type-confusion/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>WanitCTF</title>
+    <link>https://chovid99.github.io/tags/wanitctf/</link>
+    <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/wanitctf/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Writeup</title>
+    <link>https://chovid99.github.io/tags/writeup/</link>
+    <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/writeup/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>TAMUctf</title>
+    <link>https://chovid99.github.io/tags/tamuctf/</link>
+    <pubDate>Mon, 01 May 2023 00:00:00 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/tamuctf/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>collation</title>
+    <link>https://chovid99.github.io/tags/collation/</link>
+    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/collation/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>PlaidCTF</title>
+    <link>https://chovid99.github.io/tags/plaidctf/</link>
+    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/plaidctf/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>postgresql</title>
+    <link>https://chovid99.github.io/tags/postgresql/</link>
+    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/postgresql/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
 </rss>
