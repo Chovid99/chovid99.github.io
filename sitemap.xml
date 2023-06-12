@@ -2,16 +2,23 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://chovid99.github.io/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
+            <loc>https://chovid99.github.io/tags/2023/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/diamond/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/facet/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/posts/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/reentrancy/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/seetf/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/posts/seetf-2023/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/smart-contract/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
+            <loc>https://chovid99.github.io/tags/writeup/</loc><lastmod>2023-06-12T09:00:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>1</priority></url><url>
             <loc>https://chovid99.github.io/tags/heap/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
-            <loc>https://chovid99.github.io/posts/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/rop/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/shellcoding/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
-            <loc>https://chovid99.github.io/tags/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/type-confusion/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/posts/wanictf-2023/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/wanitctf/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
-            <loc>https://chovid99.github.io/tags/writeup/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/tamuctf/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/posts/tamuctf-2023/</loc><lastmod>2023-05-06T11:15:37&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/collation/</loc><lastmod>2023-04-19T12:10:09&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
@@ -20,7 +27,6 @@
             <loc>https://chovid99.github.io/tags/postgresql/</loc><lastmod>2023-04-19T12:10:09&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/pwn/</loc><lastmod>2023-04-19T12:10:09&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/web/</loc><lastmod>2023-04-19T12:10:09&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
-            <loc>https://chovid99.github.io/tags/2023/</loc><lastmod>2023-03-26T11:50:05&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/buffer-overflow/</loc><lastmod>2023-03-27T21:53:11&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/canary/</loc><lastmod>2023-03-26T11:50:05&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/line-ctf/</loc><lastmod>2023-03-26T11:50:05&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
@@ -88,7 +94,6 @@
             <loc>https://chovid99.github.io/tags/math/</loc><lastmod>2022-06-09T09:37:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/python-jail/</loc><lastmod>2022-06-09T09:37:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/rsa/</loc><lastmod>2023-02-23T18:03:33&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
-            <loc>https://chovid99.github.io/tags/seetf/</loc><lastmod>2022-06-09T09:37:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/posts/seetf-2022/</loc><lastmod>2022-06-09T09:37:01&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/posts/defcon-ctf-2022-self-reflection/</loc><lastmod>2023-02-24T14:07:40&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
             <loc>https://chovid99.github.io/tags/defconctf/</loc><lastmod>2023-02-24T14:07:40&#43;07:00</lastmod><changefreq>daily</changefreq><priority>0.5</priority></url><url>
