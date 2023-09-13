@@ -4,7 +4,15 @@
         <link>https://chovid99.github.io/posts/</link>
         <description>All Posts | Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>HITCON CTF 2023</title>
+    <link>https://chovid99.github.io/posts/hitcon-ctf-2023/</link>
+    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/hitcon-ctf-2023/</guid>
+    <description><![CDATA[Writeup for HITCON CTF 2023]]></description>
+</item>
+<item>
     <title>SekaiCTF 2023</title>
     <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
     <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
@@ -75,14 +83,6 @@
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</guid>
     <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>ACSC 2023</title>
-    <link>https://chovid99.github.io/posts/acsc-2023/</link>
-    <pubDate>Sun, 26 Feb 2023 14:18:58 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/acsc-2023/</guid>
-    <description><![CDATA[Writeup for ACSC 2023 by Chovid99]]></description>
 </item>
 </channel>
 </rss>
