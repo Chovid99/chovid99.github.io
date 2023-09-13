@@ -9,7 +9,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/hitcon-ctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-09-13T08:07:38+07:00" />
-<meta property="article:modified_time" content="2023-09-12T21:00:16+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta property="article:modified_time" content="2023-09-13T16:04:42+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
@@ -30,7 +30,7 @@
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/hitcon-ctf-2023\/"
         },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, HITCON, pwn, kernel, cross-cache, DirtyCred, 2023","wordcount":  6431 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/hitcon-ctf-2023\/","datePublished": "2023-09-13T08:07:38+07:00","dateModified": "2023-09-12T21:00:16+07:00","publisher": {
+        "url": "https:\/\/chovid99.github.io\/posts\/hitcon-ctf-2023\/","datePublished": "2023-09-13T08:07:38+07:00","dateModified": "2023-09-13T16:04:42+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -982,7 +982,7 @@
 <p>Following the execution of the script outlined above, theoretically, the targeted slab should have been discarded and will reside in the freelist zone. To debug this, I just set a breakpoint in both <code>rose_release</code> and <code>discard_slab</code> to get the <code>data</code> address and to confirm if the <code>discard_slab</code> is indeed trying to discard the slab of the <code>rose</code> data.</p>
 <p>However, during the competition, I failed to spray the <code>file</code> objects in our previously discarded slab&rsquo;s page (the page wasn&rsquo;t recycled somehow). I tried to check the <code>/proc/slabinfo</code>, where I discovered a new info, that the <code>kmalloc-1k</code> page was at order 1, while the <code>file</code> object (256-byte) was placed at page order 0.</p>
 <p>Initially, checking on another <a href="https://etenal.me/archives/1825" target="_blank" rel="noopener noreffer ">writeup</a> on Page-level heap fengshui, I presumed that an empty page order 0 freelist would resort to use the higher-order freelist, which in this case, was our discarded page. Although this was accurate, I overlooked a crucial step.</p>
-<p>My colleague, cru5h, highlighted that the page we released earlier was still resided in the <code>per_cpu_pages</code> (pcp) freelist. He said that I needed to release the page once more to transfer it to the buddy system&rsquo;s free area. In the buddy, when a lower order page&rsquo;s free area is empty, it will try to use the freelist of a higher-order page (which is exactly the outcome we were aiming for). He helped me in this part and provided me a working script which has made the free page back to the buddy system.</p>
+<p>My teammate, cru5h, highlighted that the page we released earlier was still resided in the <code>per_cpu_pages</code> (pcp) freelist. He said that I needed to release the page once more to transfer it to the buddy system&rsquo;s free area. In the buddy, when a lower order page&rsquo;s free area is empty, it will try to use the freelist of a higher-order page (which is exactly the outcome we were aiming for). He helped me in this part and provided me a working script which has made the free page back to the buddy system.</p>
 <p>On a side note, I try to deep dive into the Linux kernel&rsquo;s code while trying to discard a slab, which helps me a lot to understand on this issue.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
