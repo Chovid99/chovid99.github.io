@@ -4,12 +4,76 @@
         <link>https://chovid99.github.io/tags/</link>
         <description>Tags - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>2023</title>
     <link>https://chovid99.github.io/tags/2023/</link>
-    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/tags/2023/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>binary search</title>
+    <link>https://chovid99.github.io/tags/binary-search/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/binary-search/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>BlackHat</title>
+    <link>https://chovid99.github.io/tags/blackhat/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/blackhat/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>crypto</title>
+    <link>https://chovid99.github.io/tags/crypto/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/crypto/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>linker</title>
+    <link>https://chovid99.github.io/tags/linker/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/linker/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>pwn</title>
+    <link>https://chovid99.github.io/tags/pwn/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/pwn/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>sqli</title>
+    <link>https://chovid99.github.io/tags/sqli/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/sqli/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>ssti</title>
+    <link>https://chovid99.github.io/tags/ssti/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/ssti/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Writeup</title>
+    <link>https://chovid99.github.io/tags/writeup/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/writeup/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -18,70 +82,6 @@
     <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/tags/cross-cache/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>DirtyCred</title>
-    <link>https://chovid99.github.io/tags/dirtycred/</link>
-    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/dirtycred/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>HITCON</title>
-    <link>https://chovid99.github.io/tags/hitcon/</link>
-    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/hitcon/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>kernel</title>
-    <link>https://chovid99.github.io/tags/kernel/</link>
-    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/kernel/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>pwn</title>
-    <link>https://chovid99.github.io/tags/pwn/</link>
-    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/pwn/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Writeup</title>
-    <link>https://chovid99.github.io/tags/writeup/</link>
-    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/writeup/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>blockchain</title>
-    <link>https://chovid99.github.io/tags/blockchain/</link>
-    <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/blockchain/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>evm</title>
-    <link>https://chovid99.github.io/tags/evm/</link>
-    <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/evm/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>SekaiCTF</title>
-    <link>https://chovid99.github.io/tags/sekaictf/</link>
-    <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/sekaictf/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

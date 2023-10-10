@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>sqli - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/sqli/</link>
+        <description>sqli - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/sqli/" rel="self" type="application/rss+xml" /><item>
+    <title>BlackHat MEA CTF 2023</title>
+    <link>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</guid>
+    <description><![CDATA[Writeup for BlackHat MEA CTF 2023]]></description>
+</item>
+</channel>
+</rss>
