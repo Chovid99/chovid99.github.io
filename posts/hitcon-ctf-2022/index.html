@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/hitcon-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-11-27T21:06:10+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="HITCON CTF 2022"/>
 <meta name="twitter:description" content="Writeup for HITCON CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -175,18 +177,18 @@ During the weekends, I spent my time working on the HITCON CTF challenge called 
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Install depot_tools and put it in the PATH
-</span></span><span class="line"><span class="cl">git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-</span></span><span class="line"><span class="cl">echo &#34;export PATH=&lt;your_depot_tools_path&gt;:$PATH&#34; &gt;&gt; ~/.zshrc
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1"># Install depot_tools and put it in the PATH</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">chromium</span><span class="o">.</span><span class="n">googlesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">chromium</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">depot_tools</span><span class="o">.</span><span class="n">git</span>
+</span></span><span class="line"><span class="cl"><span class="n">echo</span> <span class="s2">&#34;export PATH=&lt;your_depot_tools_path&gt;:$PATH&#34;</span> <span class="o">&gt;&gt;</span> <span class="o">~/.</span><span class="n">zshrc</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># Prepare the needed files to build
-</span></span><span class="line"><span class="cl">fetch v8
-</span></span><span class="line"><span class="cl">cd v8
-</span></span><span class="line"><span class="cl">./build/install-build-deps.sh
-</span></span><span class="line"><span class="cl">git checkout &lt;commit_hash&gt;
-</span></span><span class="line"><span class="cl">gclient sync
-</span></span><span class="line"><span class="cl">git apply add_hole.patch
-</span></span><span class="line"><span class="cl">./tools/dev/v8gen.py x64.release
+</span></span><span class="line"><span class="cl"><span class="c1"># Prepare the needed files to build</span>
+</span></span><span class="line"><span class="cl"><span class="n">fetch</span> <span class="n">v8</span>
+</span></span><span class="line"><span class="cl"><span class="n">cd</span> <span class="n">v8</span>
+</span></span><span class="line"><span class="cl"><span class="o">./</span><span class="n">build</span><span class="o">/</span><span class="n">install</span><span class="o">-</span><span class="n">build</span><span class="o">-</span><span class="n">deps</span><span class="o">.</span><span class="n">sh</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">checkout</span> <span class="o">&lt;</span><span class="n">commit_hash</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">gclient</span> <span class="n">sync</span>
+</span></span><span class="line"><span class="cl"><span class="n">git</span> <span class="n">apply</span> <span class="n">add_hole</span><span class="o">.</span><span class="n">patch</span>
+</span></span><span class="line"><span class="cl"><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">v8gen</span><span class="o">.</span><span class="n">py</span> <span class="n">x64</span><span class="o">.</span><span class="n">release</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>After executing the above script, there will be a file called <code>args.gn</code> inside the <code>out.gn/x64.release</code> folder. Add these lines to the file before building it to make our debugging life easier</p>
@@ -749,32 +751,32 @@ During the weekends, I spent my time working on the HITCON CTF challenge called 
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">d8&gt; %DebugPrint(m)
-</span></span><span class="line"><span class="cl">DebugPrint: 0x1d9d0028756d: [JSMap]
-</span></span><span class="line"><span class="cl">- map: 0x1d9d001862f1 &lt;Map[16](HOLEY_ELEMENTS)&gt; [FastProperties]
-</span></span><span class="line"><span class="cl">- prototype: 0x1d9d00186431 &lt;Object map = 0x1d9d00186319&gt;
-</span></span><span class="line"><span class="cl">- elements: 0x1d9d00002259 &lt;FixedArray[0]&gt; [HOLEY_ELEMENTS]
-</span></span><span class="line"><span class="cl">- table: 0x1d9d0028764d &lt;OrderedHashMap[17]&gt;
-</span></span><span class="line"><span class="cl">- properties: 0x1d9d00002259 &lt;FixedArray[0]&gt;
-</span></span><span class="line"><span class="cl">- All own properties (excluding elements): {}
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">d8</span><span class="o">&gt;</span> <span class="o">%</span><span class="n">DebugPrint</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">DebugPrint</span><span class="p">:</span> <span class="mh">0x1d9d0028756d</span><span class="p">:</span> <span class="p">[</span><span class="n">JSMap</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">map</span><span class="p">:</span> <span class="mh">0x1d9d001862f1</span> <span class="o">&lt;</span><span class="n">Map</span><span class="p">[</span><span class="mi">16</span><span class="p">](</span><span class="n">HOLEY_ELEMENTS</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">FastProperties</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">prototype</span><span class="p">:</span> <span class="mh">0x1d9d00186431</span> <span class="o">&lt;</span><span class="ne">Object</span> <span class="n">map</span> <span class="o">=</span> <span class="mh">0x1d9d00186319</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">elements</span><span class="p">:</span> <span class="mh">0x1d9d00002259</span> <span class="o">&lt;</span><span class="n">FixedArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">HOLEY_ELEMENTS</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">table</span><span class="p">:</span> <span class="mh">0x1d9d0028764d</span> <span class="o">&lt;</span><span class="n">OrderedHashMap</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">properties</span><span class="p">:</span> <span class="mh">0x1d9d00002259</span> <span class="o">&lt;</span><span class="n">FixedArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">All</span> <span class="n">own</span> <span class="n">properties</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">elements</span><span class="p">):</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">d8&gt; %DebugPrint(oob_arr)
-</span></span><span class="line"><span class="cl">DebugPrint: 0x1d9d00287699: [JSArray]
-</span></span><span class="line"><span class="cl">- map: 0x1d9d0018e6bd &lt;Map[16](PACKED_DOUBLE_ELEMENTS)&gt; [FastProperties]
-</span></span><span class="line"><span class="cl">- prototype: 0x1d9d0018e11d &lt;JSArray[0]&gt;
-</span></span><span class="line"><span class="cl">- elements: 0x1d9d002876b1 &lt;FixedDoubleArray[2]&gt; [PACKED_DOUBLE_ELEMENTS]
-</span></span><span class="line"><span class="cl">- length: 2
-</span></span><span class="line"><span class="cl">- properties: 0x1d9d00002259 &lt;FixedArray[0]&gt;
-</span></span><span class="line"><span class="cl">- All own properties (excluding elements): {
-</span></span><span class="line"><span class="cl">   0x1d9d00006551: [String] in ReadOnlySpace: #length: 0x1d9d00144255 &lt;AccessorInfo name= 0x1d9d00006551 &lt;String[6]: #length&gt;, data= 0x1d9d000023e1 &lt;undefined&gt;&gt; (const accessor descriptor), location: descriptor
-</span></span><span class="line"><span class="cl">}
-</span></span><span class="line"><span class="cl">- elements: 0x1d9d002876b1 &lt;FixedDoubleArray[2]&gt; {
-</span></span><span class="line"><span class="cl">          0: 1.1
-</span></span><span class="line"><span class="cl">          1: 2.2
-</span></span><span class="line"><span class="cl">}
-</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl"><span class="n">d8</span><span class="o">&gt;</span> <span class="o">%</span><span class="n">DebugPrint</span><span class="p">(</span><span class="n">oob_arr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">DebugPrint</span><span class="p">:</span> <span class="mh">0x1d9d00287699</span><span class="p">:</span> <span class="p">[</span><span class="n">JSArray</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">map</span><span class="p">:</span> <span class="mh">0x1d9d0018e6bd</span> <span class="o">&lt;</span><span class="n">Map</span><span class="p">[</span><span class="mi">16</span><span class="p">](</span><span class="n">PACKED_DOUBLE_ELEMENTS</span><span class="p">)</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">FastProperties</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">prototype</span><span class="p">:</span> <span class="mh">0x1d9d0018e11d</span> <span class="o">&lt;</span><span class="n">JSArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">elements</span><span class="p">:</span> <span class="mh">0x1d9d002876b1</span> <span class="o">&lt;</span><span class="n">FixedDoubleArray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">PACKED_DOUBLE_ELEMENTS</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">length</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">properties</span><span class="p">:</span> <span class="mh">0x1d9d00002259</span> <span class="o">&lt;</span><span class="n">FixedArray</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">All</span> <span class="n">own</span> <span class="n">properties</span> <span class="p">(</span><span class="n">excluding</span> <span class="n">elements</span><span class="p">):</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="mh">0x1d9d00006551</span><span class="p">:</span> <span class="p">[</span><span class="ne">String</span><span class="p">]</span> <span class="ow">in</span> <span class="n">ReadOnlySpace</span><span class="p">:</span> <span class="c1">#length: 0x1d9d00144255 &lt;AccessorInfo name= 0x1d9d00006551 &lt;String[6]: #length&gt;, data= 0x1d9d000023e1 &lt;undefined&gt;&gt; (const accessor descriptor), location: descriptor</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="n">elements</span><span class="p">:</span> <span class="mh">0x1d9d002876b1</span> <span class="o">&lt;</span><span class="n">FixedDoubleArray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">0</span><span class="p">:</span> <span class="mf">1.1</span>
+</span></span><span class="line"><span class="cl">          <span class="mi">1</span><span class="p">:</span> <span class="mf">2.2</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Let&rsquo;s examine it in <code>gdb</code>:</p>
@@ -1521,7 +1523,7 @@ During the weekends, I spent my time working on the HITCON CTF challenge called 
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/hitcon/">HITCON</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/chrome/">chrome</a>,&nbsp;<a href="/tags/v8/">v8</a>,&nbsp;<a href="/tags/jit/">JIT</a>,&nbsp;<a href="/tags/browser/">browser</a>,&nbsp;<a href="/tags/oob/">oob</a>,&nbsp;<a href="/tags/2022/">2022</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/hitcon/">HITCON</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/chrome/">chrome</a>,&nbsp;<a href="/tags/v8/">v8</a>,&nbsp;<a href="/tags/jit/">JIT</a>,&nbsp;<a href="/tags/browser/">browser</a>,&nbsp;<a href="/tags/oob/">OOB</a>,&nbsp;<a href="/tags/2022/">2022</a></section>
         <section>
             
         </section>

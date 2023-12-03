@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/typhooncon-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-25T10:04:10+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="TyphoonCon CTF 2022"/>
 <meta name="twitter:description" content="Writeup for TyphoonCon CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -1316,14 +1318,14 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// Our real payload start 8 bytes after it
-</span></span><span class="line"><span class="cl">sc_start = doubleAddBigInt(sc_start, 0x8n)
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Our</span> <span class="n">real</span> <span class="n">payload</span> <span class="n">start</span> <span class="mi">8</span> <span class="n">bytes</span> <span class="n">after</span> <span class="n">it</span>
+</span></span><span class="line"><span class="cl"><span class="n">sc_start</span> <span class="o">=</span> <span class="n">doubleAddBigInt</span><span class="p">(</span><span class="n">sc_start</span><span class="p">,</span> <span class="mh">0x8</span><span class="n">n</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">// Overwrite the jit address pointer of our sc func to point to our hidden shellcode
-</span></span><span class="line"><span class="cl">write(jit_addr, sc_start)
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Overwrite</span> <span class="n">the</span> <span class="n">jit</span> <span class="n">address</span> <span class="n">pointer</span> <span class="n">of</span> <span class="n">our</span> <span class="n">sc</span> <span class="k">func</span> <span class="n">to</span> <span class="n">point</span> <span class="n">to</span> <span class="n">our</span> <span class="n">hidden</span> <span class="n">shellcode</span>
+</span></span><span class="line"><span class="cl"><span class="n">write</span><span class="p">(</span><span class="n">jit_addr</span><span class="p">,</span> <span class="n">sc_start</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">// Call our shell
-</span></span><span class="line"><span class="cl">sc()
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Call</span> <span class="n">our</span> <span class="n">shell</span>
+</span></span><span class="line"><span class="cl"><span class="n">sc</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>And below is the snapshot of our spawn shell in the server.</p>
@@ -1745,7 +1747,7 @@
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/typhooncon/">TyphoonCon</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/heap/">heap</a>,&nbsp;<a href="/tags/firefox/">firefox</a>,&nbsp;<a href="/tags/spidermonkey/">SpiderMonkey</a>,&nbsp;<a href="/tags/jit/">JIT</a>,&nbsp;<a href="/tags/browser/">browser</a>,&nbsp;<a href="/tags/oob/">oob</a>,&nbsp;<a href="/tags/2022/">2022</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/typhooncon/">TyphoonCon</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/heap/">heap</a>,&nbsp;<a href="/tags/firefox/">firefox</a>,&nbsp;<a href="/tags/spidermonkey/">SpiderMonkey</a>,&nbsp;<a href="/tags/jit/">JIT</a>,&nbsp;<a href="/tags/browser/">browser</a>,&nbsp;<a href="/tags/oob/">OOB</a>,&nbsp;<a href="/tags/2022/">2022</a></section>
         <section>
             
         </section>

@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/sandiego-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-09T08:54:22+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="SanDiego CTF 2022"/>
 <meta name="twitter:description" content="Writeup for SanDiego CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -528,7 +530,7 @@
 </span></span><span class="line"><span class="cl">    PIE:      No PIE (0x400000)
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>Okay, no canary! However, 20-bytes are pretty small. To leak a libc function address, AFAIK, we need to have at least 24-bytes (<code>pop_rdi + libc_got + puts_plt</code>) 😢</p>
+</div><p>Okay, no canary! However, 20-bytes are pretty small. To leak a libc function address, AFAIK, we need to have at least 24-bytes (<code>pop_rdi + libc_got + puts_plt</code>) &#x1f622;</p>
 <p>Looking at the <code>Dockerfile</code>, we can simply build it and get the used <code>libc</code> file for the challenge in the server.</p>
 <h3 id="exploitation-plan-1">Exploitation Plan</h3>
 <p>First, with the buffer overflow, we can simply overwrite the return address of <code>getInfo</code> to <code>getInfo</code> again, so that it won&rsquo;t return to the main. This means the limitation of <code>getInfo</code> in the main (only 2 times to input) is bypassed.</p>
@@ -674,7 +676,7 @@ After overwrite the ret to <code>getInfo</code> again, notice that the RSP just 
 </span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>And we got the shell 😃</p>
+</div><p>And we got the shell &#x1f603;</p>
 <p><img
         class="lazyload"
         src="/svg/loading.min.svg"

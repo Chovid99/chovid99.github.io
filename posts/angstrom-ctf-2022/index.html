@@ -10,11 +10,13 @@
 <meta property="og:url" content="https://chovid99.github.io/posts/angstrom-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-05T11:10:29+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
 <meta name="twitter:title" content="Angstrom CTF 2022"/>
 <meta name="twitter:description" content="Writeup for Angstrom CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -486,7 +488,7 @@
 </div>
 </div><p>Actually, we can ignore the 100000 loops because we don&rsquo;t need that at all. What we need is only the internal state just before the call <code>rand.Uint64()</code> during xoring the flag chunk, so we don&rsquo;t care the internal state of <code>vec</code> <strong>before 100000 calls</strong>.</p>
 <p>From observation, it is just linear equations, and it seems like even though what we got is only partial sequences, I think it shold be enough to recover needed internal states to generate the random number those are xored with the flag chunks.</p>
-<p>Because I&rsquo;m too lazy, well let&rsquo;s simply try to solve it with the help of z3 😃. Turn out, z3 is only able to find some internal states of the <code>vec</code>, but this is enough to generate the 4 random values those are xored with the flag chunks.</p>
+<p>Because I&rsquo;m too lazy, well let&rsquo;s simply try to solve it with the help of z3 &#x1f603;. Turn out, z3 is only able to find some internal states of the <code>vec</code>, but this is enough to generate the 4 random values those are xored with the flag chunks.</p>
 <p>Below is the full solver script</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

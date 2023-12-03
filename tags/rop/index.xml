@@ -4,7 +4,15 @@
         <link>https://chovid99.github.io/tags/rop/</link>
         <description>ROP - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sat, 06 May 2023 12:12:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/rop/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/rop/" rel="self" type="application/rss+xml" /><item>
+    <title>Cyber Jawara 2023 Writeup</title>
+    <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
+    <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
+    <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
+</item>
+<item>
     <title>WaniCTF 2023</title>
     <link>https://chovid99.github.io/posts/wanictf-2023/</link>
     <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
