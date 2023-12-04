@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/cyber-jawara-2023\/"
-        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Jawara, 2023, pwn, heap, tcache, fastbin dup, OOB, ROP, arm32, crypto, web","wordcount":  9432 ,
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, Cyber Jawara, 2023, pwn, heap, tcache, fastbin dup, OOB, ROP, arm32, crypto, web","wordcount":  10326 ,
         "url": "https:\/\/chovid99.github.io\/posts\/cyber-jawara-2023\/","datePublished": "2023-12-03T21:09:30+07:00","dateModified": "2023-12-03T21:09:30+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
@@ -78,8 +78,8 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cyber Jawara 2023 Writeup</h1><div class="post-meta">
             <div class="post-meta-line">
                 </div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Dec 03, 2023">Dec 03, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;9432 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;45 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Dec 03, 2023">Dec 03, 2023</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;10326 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;49 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -496,7 +496,8 @@ After this validation, it will return to use the contents of the chunk.</li>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><code>destroy</code> function will try to <code>free</code> the larger chunk (which contains our input payload), then nullify the <code>chunks[idx]</code> array to 0. This seems okay, but this function has the main vulnerability that can be abused later. The bug is very subtle, but observe that if you send a <code>negative</code> value, in the <code>destroy</code> function, the <code>idx</code> will be treated as <code>signed</code>, but in the <code>check_destroy</code>, it will be treated as <code>unsigned</code>. This bug means that if we try to destroy an item with negative index, our larger chunk will still get destroyed by the <code>check_destroy</code> function, but the <code>chunks[idx]</code> that is being nullified is the <code>signed</code> value version, which means that the <code>chnks[unsigned(idx)]</code> won&rsquo;t be nullified, leading to Use-After-Free and Double Free.</p>
+</div><p>Notice that <code>destroy</code> function will try to <code>free</code> the larger chunk (which contains our input payload), then nullify the <code>chunks[idx]</code> array to 0. This seems okay, but this function has the main vulnerability that can be abused later. The bug is very subtle, but observe that if you send a <code>negative</code> value, in the <code>destroy</code> function, the <code>idx</code> will be treated as <code>signed</code>, but in the <code>check_destroy</code>, it will be treated as <code>unsigned</code>.</p>
+<p>This bug means that if we try to destroy an item with negative index, our larger chunk will still get destroyed by the <code>check_destroy</code> function, but the <code>chunks[idx]</code> that is being nullified is the <code>signed</code> value version, which means that the <code>chnks[unsigned(idx)]</code> won&rsquo;t be nullified, leading to Use-After-Free and Double Free.</p>
 <p>Now that we know the vulnerability, we need to think what&rsquo;s the strategy here to exploit this binary.</p>
 <h3 id="solution">Solution</h3>
 <p>First, with the UAF bug, we can easily leak the heap address of the <code>chunks</code>, because after the chunks getting freed with negative index, we can still view the content of it, which now contains mangled pointer to the next freed chunk.</p>
@@ -810,8 +811,262 @@ After this validation, it will return to use the contents of the chunk.</li>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>As you can see, the <code>tcache[0x70]</code> now contains 3 items, where the last item is the address that we input before during allocating a new chunk. So what happened here is that if you look in this libc <code>_int_malloc</code> <a href="https://elixir.bootlin.com/glibc/glibc-2.37.9000/source/malloc/malloc.c#L3755" target="_blank" rel="noopener noreffer ">code</a>, there is a logic where during allocating a new chunk, it will try to iterate the fastbin and move it to the <code>tcache</code>.</p>
-<p>Now, you might wonder why the <code>tcache[0x70]</code> contains 3 items instead of 2, because if you remember before, the <code>fastbins</code> have 3 items, and we allocate 1 chunk, so it should be 2. The reason is because of the <code>fastbin dup</code> that we trigger caused it, and observed that the last <code>tcache[0x70]</code> item is actually the value that we put during allocating the chunk itself.</p>
-<p>What is <code>leaked_heap-0x6e80</code> (we will call it <code>target</code>) address? Why we use it for the last <code>tcache</code> item? The reason is because we want to allocate an overlapping chunk, and that address is located in the middle of a chunk.</p>
+<p>Now, you might wonder why the <code>tcache[0x70]</code> contains 3 items instead of 2, because if you remember before, the <code>fastbins</code> have 3 items, and we allocate 1 chunk, so it should be 2. The reason is because of the <code>fastbin dup</code> that we trigger caused it. Here I will explained what happened in details.</p>
+<p>Let&rsquo;s start by checking through the <code>_int_malloc</code> below code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="nf">_int_malloc</span> <span class="p">(</span><span class="n">mstate</span> <span class="n">av</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">bytes</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="p">(</span><span class="n">nb</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="p">(</span><span class="nf">get_max_fast</span> <span class="p">()))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">idx</span> <span class="o">=</span> <span class="nf">fastbin_index</span> <span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mfastbinptr</span> <span class="o">*</span><span class="n">fb</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nf">fastbin</span> <span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">idx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mchunkptr</span> <span class="n">pp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">victim</span> <span class="o">=</span> <span class="o">*</span><span class="n">fb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">victim</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_unlikely</span> <span class="p">(</span><span class="nf">misaligned_chunk</span> <span class="p">(</span><span class="n">victim</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">malloc_printerr</span> <span class="p">(</span><span class="s">&#34;malloc(): unaligned fastbin chunk detected 2&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">SINGLE_THREAD_P</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="o">*</span><span class="n">fb</span> <span class="o">=</span> <span class="nf">REVEAL_PTR</span> <span class="p">(</span><span class="n">victim</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">REMOVE_FB</span> <span class="p">(</span><span class="n">fb</span><span class="p">,</span> <span class="n">pp</span><span class="p">,</span> <span class="n">victim</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_likely</span> <span class="p">(</span><span class="n">victim</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">size_t</span> <span class="n">victim_idx</span> <span class="o">=</span> <span class="nf">fastbin_index</span> <span class="p">(</span><span class="nf">chunksize</span> <span class="p">(</span><span class="n">victim</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nf">__builtin_expect</span> <span class="p">(</span><span class="n">victim_idx</span> <span class="o">!=</span> <span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">malloc_printerr</span> <span class="p">(</span><span class="s">&#34;malloc(): memory corruption (fast)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">check_remalloced_chunk</span> <span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">victim</span><span class="p">,</span> <span class="n">nb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#if USE_TCACHE
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>            <span class="cm">/* While we&#39;re here, if we see other chunks of the same size,
+</span></span></span><span class="line"><span class="cl"><span class="cm">             stash them in the tcache.  */</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">size_t</span> <span class="n">tc_idx</span> <span class="o">=</span> <span class="nf">csize2tidx</span> <span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">tcache</span> <span class="o">&amp;&amp;</span> <span class="n">tc_idx</span> <span class="o">&lt;</span> <span class="n">mp_</span><span class="p">.</span><span class="n">tcache_bins</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="n">mchunkptr</span> <span class="n">tc_victim</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">              <span class="cm">/* While bin not empty and tcache not full, copy chunks.  */</span>
+</span></span><span class="line"><span class="cl">              <span class="k">while</span> <span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">mp_</span><span class="p">.</span><span class="n">tcache_count</span>
+</span></span><span class="line"><span class="cl">                   <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tc_victim</span> <span class="o">=</span> <span class="o">*</span><span class="n">fb</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_unlikely</span> <span class="p">(</span><span class="nf">misaligned_chunk</span> <span class="p">(</span><span class="n">tc_victim</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">                  <span class="nf">malloc_printerr</span> <span class="p">(</span><span class="s">&#34;malloc(): unaligned fastbin chunk detected 3&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">if</span> <span class="p">(</span><span class="n">SINGLE_THREAD_P</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">*</span><span class="n">fb</span> <span class="o">=</span> <span class="nf">REVEAL_PTR</span> <span class="p">(</span><span class="n">tc_victim</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nf">REMOVE_FB</span> <span class="p">(</span><span class="n">fb</span><span class="p">,</span> <span class="n">pp</span><span class="p">,</span> <span class="n">tc_victim</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_unlikely</span> <span class="p">(</span><span class="n">tc_victim</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                  <span class="nf">tcache_put</span> <span class="p">(</span><span class="n">tc_victim</span><span class="p">,</span> <span class="n">tc_idx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>            <span class="kt">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nf">chunk2mem</span> <span class="p">(</span><span class="n">victim</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">alloc_perturb</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>  
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>First, when we try to allocate a new <code>0x70</code> chunk, the <code>_int_malloc</code> will fetch the first pointer in the <code>fastbin</code> linked list, and later will use it as the allocated chunk.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl">      <span class="n">idx</span> <span class="o">=</span> <span class="nf">fastbin_index</span> <span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mfastbinptr</span> <span class="o">*</span><span class="n">fb</span> <span class="o">=</span> <span class="o">&amp;</span><span class="nf">fastbin</span> <span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">idx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mchunkptr</span> <span class="n">pp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">victim</span> <span class="o">=</span> <span class="o">*</span><span class="n">fb</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, this below code tells us that it will try to get the fastbin <code>fd</code> pointer and then try to iterate the linked list until either the <code>tcache</code> is full, or the <code>fd</code> pointer is <code>null</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">          <span class="o">*</span><span class="n">fb</span> <span class="o">=</span> <span class="nf">REVEAL_PTR</span> <span class="p">(</span><span class="n">victim</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">            <span class="cm">/* While we&#39;re here, if we see other chunks of the same size,
+</span></span></span><span class="line"><span class="cl"><span class="cm">             stash them in the tcache.  */</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">size_t</span> <span class="n">tc_idx</span> <span class="o">=</span> <span class="nf">csize2tidx</span> <span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">tcache</span> <span class="o">&amp;&amp;</span> <span class="n">tc_idx</span> <span class="o">&lt;</span> <span class="n">mp_</span><span class="p">.</span><span class="n">tcache_bins</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="n">mchunkptr</span> <span class="n">tc_victim</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">              <span class="cm">/* While bin not empty and tcache not full, copy chunks.  */</span>
+</span></span><span class="line"><span class="cl">              <span class="k">while</span> <span class="p">(</span><span class="n">tcache</span><span class="o">-&gt;</span><span class="n">counts</span><span class="p">[</span><span class="n">tc_idx</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">mp_</span><span class="p">.</span><span class="n">tcache_count</span>
+</span></span><span class="line"><span class="cl">                   <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">tc_victim</span> <span class="o">=</span> <span class="o">*</span><span class="n">fb</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_unlikely</span> <span class="p">(</span><span class="nf">misaligned_chunk</span> <span class="p">(</span><span class="n">tc_victim</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">                  <span class="nf">malloc_printerr</span> <span class="p">(</span><span class="s">&#34;malloc(): unaligned fastbin chunk detected 3&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">if</span> <span class="p">(</span><span class="n">SINGLE_THREAD_P</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">*</span><span class="n">fb</span> <span class="o">=</span> <span class="nf">REVEAL_PTR</span> <span class="p">(</span><span class="n">tc_victim</span><span class="o">-&gt;</span><span class="n">fd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">else</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nf">REMOVE_FB</span> <span class="p">(</span><span class="n">fb</span><span class="p">,</span> <span class="n">pp</span><span class="p">,</span> <span class="n">tc_victim</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">if</span> <span class="p">(</span><span class="nf">__glibc_unlikely</span> <span class="p">(</span><span class="n">tc_victim</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                  <span class="nf">tcache_put</span> <span class="p">(</span><span class="n">tc_victim</span><span class="p">,</span> <span class="n">tc_idx</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>            <span class="kt">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="nf">chunk2mem</span> <span class="p">(</span><span class="n">victim</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">alloc_perturb</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bytes</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, let&rsquo;s try to imagine the scenario that happened in our case due to the <code>fastbin dup</code> based on the above glibc code:</p>
+<ul>
+<li>First, let say that the current state of our <code>fastbin</code> is:
+<ul>
+<li><code>a-&gt;b-&gt;a</code>.</li>
+</ul>
+</li>
+<li>When the <code>malloc</code> is called, the glibc will take the first pointer in the <code>fastbin</code> (which is <code>a</code>), and stored it in <code>victim</code> variable.</li>
+<li>It also initialize a variable called <code>fb</code> which points to <code>a</code>.</li>
+<li>Then, it will check whether <code>victim-&gt;fd</code> is null or not. Because <code>victim</code> is <code>a</code>, this means that it is not null (<code>a-&gt;fd</code> is <code>b</code>). Due to this, the glibc code will start moving the <code>fastbin</code> chunks to <code>tcache</code>. Below is the step-by-step that the glibc code did:
+<ul>
+<li>Get <code>fb-&gt;fd</code> (<code>fb</code> is <code>b</code>, so <code>fb-&gt;fd</code> is <code>a</code>) and stored it at <code>fb</code> (<code>fb=a</code>).</li>
+<li>Move <code>b</code> to <code>tcache</code>
+<ul>
+<li>Now, <code>tcache[0x70] = b</code>, with <code>count = 1</code>.</li>
+<li>And due to the move, <code>b-&gt;fd</code> will be cleared (<code>NULL</code>).</li>
+</ul>
+</li>
+<li>Get <code>fb-&gt;fd</code> (<code>fb</code> is <code>a</code>, so <code>fb-&gt;fd</code> is <code>b</code> again due to the <code>fastbin dup</code> that we caused before).</li>
+<li>Move <code>a</code> to <code>tcache</code>
+<ul>
+<li>Now, <code>tcache[0x70] = a-&gt; b</code>, with <code>count = 2</code>.</li>
+<li>And due to the move, <code>a-&gt;fd</code> will be cleared (<code>NULL</code>).</li>
+</ul>
+</li>
+<li>Get <code>fb-&gt;fd</code> (<code>fb</code> is <code>b</code>, so the result is <code>NULL</code> due to it has been cleared before by the glibc) and stored it at <code>fb</code> (<code>fb=NULL</code>).</li>
+<li>Move <code>b</code> to <code>tcache</code> again.
+<ul>
+<li>Now, <code>tcache[0x70] = b -&gt; a -&gt; b</code>, with <code>count = 3</code>.</li>
+<li>And due to the move, <code>b-&gt;fd</code> will be cleared (<code>NULL</code>).</li>
+</ul>
+</li>
+<li>Now, because <code>fb</code> is <code>NULL</code>, the loop is stopped, and <code>malloc</code> will return <code>victim</code> (which is <code>a</code>).</li>
+</ul>
+</li>
+<li>Remember that <code>a</code> is actually still part of the <code>tcache[0x70]</code>, so now we have overlapping chunk between an active chunk and <code>tcache</code> chunk.</li>
+<li>This means, the value that we put during allocating this chunk will be used as the <code>tcache</code> pointer as well.</li>
+<li>Before we fill the allocated chunk, the current <code>tcache</code> state is like <code>b-&gt;a-&gt;b</code>.</li>
+<li>After we fill the allocated chunk, the <code>tcache</code> linked list will be changed to <code>b-&gt;a-&gt;&lt;our_controlled_value&gt;</code>.</li>
+</ul>
+<p>Based on the above scenario, we basically successfully poison the <code>tcache</code>, and the third allocation will be placed to any address that we set.</p>
+<p>Back to our payload, what is <code>leaked_heap-0x6e80</code> (we will call it <code>target</code>) address? Why we use it to poison the last <code>tcache</code> item? The reason is because we want to allocate an overlapping chunk, and that address is located in the middle of a chunk.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -846,8 +1101,22 @@ After this validation, it will return to use the contents of the chunk.</li>
 </span></span><span class="line"><span class="cl">0x5613ef239370:	0x6161616161616161	0x6161616161616161
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>If we allocate a new chunk to that position, we will be able to modify the size of the other chunks below it. This is how we will leak the libc address. We can change the overlapping <code>0x70</code> chunks size to <code>0x461</code> (or any size, as long as the <code>chunk_address+size</code> pointing to other valid chunk), so that when we <code>destroy</code> the forged chunk, it will go to <code>unsorted bin</code>, and with the UAF bug, we can get a libc leak.</p>
-<p>Another thing to notice is that the <code>target</code> reside on the <code>fake_chunk</code> that we create during emptying the <code>tcache</code> before, and I carefully craft the value to ensure that the <code>tcache</code> won&rsquo;t be corrupted. If you see the above <code>tcachebins</code>, we can see that the last item pointing to <code>0x0</code> address. This is because I specifically set the <code>target</code> value to mangled pointer of <code>0x0</code> address during crafting the <code>fake_chunk</code> value.</p>
+</div><p>If we allocate a new chunk to that position, we will be able to modify the size of the other chunks below it because with the ability of writing <code>0x64</code> data starting from that address, we can overwrite the adjacent <code>chunks</code> size.</p>
+<p>This is how we will leak the libc address. We can change the overlapping <code>0x70</code> chunks size to <code>0x461</code> (or any size, as long as the <code>chunk_address+size</code> is pointing to other valid chunk), so that when we <code>destroy</code> the forged chunk, it will go to <code>unsorted bin</code>, and with the UAF bug, we can get a libc leak.</p>
+<p>Another thing to notice is that the <code>target</code> reside on the <code>fake_chunk</code> that we create during emptying the <code>tcache</code> before, and I carefully craft the value to ensure that the <code>tcache</code> won&rsquo;t be corrupted. If you revisit the current <code>tcachebins</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pwndbg&gt; bins
+</span></span><span class="line"><span class="cl">tcachebins
+</span></span><span class="line"><span class="cl">0x70 [  3]: 0x5613ef240190 —▸ 0x5613ef240220 —▸ 0x5613ef239300 ◂— 0x0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can see that the last item is pointing to <code>0x0</code> address. This is because I specifically set the <code>target</code> value to mangled pointer of <code>0x0</code> address (which in this case <code>0x00000005613ef239</code>) during crafting the <code>fake_chunk</code> value.</p>
 <p>Now, let&rsquo;s try to allocate this chunk and changes the below <code>0x70</code> chunk size to get a libc leak.</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -956,7 +1225,7 @@ After this validation, it will return to use the contents of the chunk.</li>
 </div>
 </div><p>Now, we repeat the same trick that we use before. But before that, what target should we aim to get RIP control?</p>
 <p>During the competition, I decided to allocate a new <code>tcache</code> chunk at the <code>libc</code> GOT, so that I can overwrite the <code>strlen</code> libc GOT entry with <code>system</code>. I did this because we have <code>view</code> function, which will call <code>printf</code>, and based on observation in <code>gdb</code>, its internal call will call <code>strlen(chunk)</code>. So, if we able to overwrite <code>strlen</code> libc GOT entry with <code>system</code>, when we call <code>view</code> to a chunk which contained <code>/bin/sh</code> string, we will spawn a shell!</p>
-<p>Let&rsquo;s start redo our previous trick</p>
+<p>Let&rsquo;s start to redo our previous trick:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
