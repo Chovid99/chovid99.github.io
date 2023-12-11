@@ -4,9 +4,17 @@
         <link>https://chovid99.github.io/</link>
         <description>Security&#39;s blog made by Chovid99</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</lastBuildDate>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</lastBuildDate>
             <atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>0CTF/TCTF 2023</title>
+    <link>https://chovid99.github.io/posts/0ctf-tctf-2023/</link>
+    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/0ctf-tctf-2023/</guid>
+    <description><![CDATA[Writeup for 0CTF/TCTF 2023]]></description>
+</item>
+<item>
     <title>Cyber Jawara 2023 Writeup</title>
     <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
     <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
@@ -77,14 +85,6 @@
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/posts/tamuctf-2023/</guid>
     <description><![CDATA[Short writeup for TAMUctf 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>Plaid CTF 2023</title>
-    <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
-    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in PlaidCTF 2023]]></description>
 </item>
 </channel>
 </rss>

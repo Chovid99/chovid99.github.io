@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>TCTF - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/tctf/</link>
+        <description>TCTF - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/tctf/" rel="self" type="application/rss+xml" /><item>
+    <title>0CTF/TCTF 2023</title>
+    <link>https://chovid99.github.io/posts/0ctf-tctf-2023/</link>
+    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/0ctf-tctf-2023/</guid>
+    <description><![CDATA[Writeup for 0CTF/TCTF 2023]]></description>
+</item>
+</channel>
+</rss>
