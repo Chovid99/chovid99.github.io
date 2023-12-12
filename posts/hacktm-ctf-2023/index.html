@@ -7,14 +7,14 @@
         <title>HackTM CTF 2023 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="HackTM CTF 2023" />
 <meta property="og:description" content="Writeup for HackTM CTF 2023 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/hacktm-ctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/hacktm-ctf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-19T20:14:37+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="HackTM CTF 2023"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="HackTM CTF 2023"/>
 <meta name="twitter:description" content="Writeup for HackTM CTF 2023 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -839,40 +839,40 @@
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x80000020 -&gt; ld
-</span></span><span class="line"><span class="cl">   zero: 00                s0: 00                a6: 00                 s8: 00
-</span></span><span class="line"><span class="cl">     ra: 00                s1: 00                a7: 00                 s9: 00
-</span></span><span class="line"><span class="cl">     sp: 0x80100000        a0: 0x41414141        s2: 00                s10: 00
-</span></span><span class="line"><span class="cl">     gp: 00                a1: 0x7fffffffd580     s3: 00                s11: 00
-</span></span><span class="line"><span class="cl">     tp: 00                a2: 00                s4: 00                 t3: 00
-</span></span><span class="line"><span class="cl">     t0: 00                a3: 00                s5: 00                 t4: 00
-</span></span><span class="line"><span class="cl">     t1: 00                a4: 00                s6: 00                 t5: 00
-</span></span><span class="line"><span class="cl">     t2: 00                a5: 00                s7: 00                 t6: 00
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mh">0x80000020</span> <span class="o">-&gt;</span> <span class="n">ld</span>
+</span></span><span class="line"><span class="cl">   <span class="n">zero</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s0</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a6</span><span class="p">:</span> <span class="mi">00</span>                 <span class="n">s8</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">ra</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s1</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a7</span><span class="p">:</span> <span class="mi">00</span>                 <span class="n">s9</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">sp</span><span class="p">:</span> <span class="mh">0x80100000</span>        <span class="n">a0</span><span class="p">:</span> <span class="mh">0x41414141</span>        <span class="n">s2</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s10</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">gp</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a1</span><span class="p">:</span> <span class="mh">0x7fffffffd580</span>     <span class="n">s3</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s11</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">tp</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a2</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s4</span><span class="p">:</span> <span class="mi">00</span>                 <span class="n">t3</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">t0</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a3</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s5</span><span class="p">:</span> <span class="mi">00</span>                 <span class="n">t4</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">t1</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a4</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s6</span><span class="p">:</span> <span class="mi">00</span>                 <span class="n">t5</span><span class="p">:</span> <span class="mi">00</span>
+</span></span><span class="line"><span class="cl">     <span class="n">t2</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">a5</span><span class="p">:</span> <span class="mi">00</span>                <span class="n">s7</span><span class="p">:</span> <span class="mi">00</span>                 <span class="n">t6</span><span class="p">:</span> <span class="mi">00</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Program received signal SIGSEGV, Segmentation fault.
-</span></span><span class="line"><span class="cl">0x0000000041414141 in ?? ()
-</span></span><span class="line"><span class="cl">LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">*RAX  0x0
-</span></span><span class="line"><span class="cl"> RBX  0x5555555586d0 (__libc_csu_init) ◂— push r15
-</span></span><span class="line"><span class="cl"> RCX  0x0
-</span></span><span class="line"><span class="cl">*RDX  0x0
-</span></span><span class="line"><span class="cl">*RDI  0x7ffff7fc47e0 (_IO_stdfile_1_lock) ◂— 0x0
-</span></span><span class="line"><span class="cl">*RSI  0x55555555920d ◂— 0x45205d2d5b000000
-</span></span><span class="line"><span class="cl"> R8   0xffffffff
-</span></span><span class="line"><span class="cl"> R9   0x18
-</span></span><span class="line"><span class="cl"> R10  0x55555555920d ◂— 0x45205d2d5b000000
-</span></span><span class="line"><span class="cl"> R11  0x555555559048 ◂— 0x335b1b006d305b1b
-</span></span><span class="line"><span class="cl"> R12  0x555555555120 (_start) ◂— xor ebp, ebp
-</span></span><span class="line"><span class="cl"> R13  0x7fffffffd580 ◂— 0x2
-</span></span><span class="line"><span class="cl"> R14  0x0
-</span></span><span class="line"><span class="cl"> R15  0x0
-</span></span><span class="line"><span class="cl">*RBP  0x0
-</span></span><span class="line"><span class="cl">*RSP  0x7fffffffd4a0 ◂— 0x21 /* &#39;!&#39; */
-</span></span><span class="line"><span class="cl">*RIP  0x41414141
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">Invalid address 0x41414141
+</span></span><span class="line"><span class="cl"><span class="n">Program</span> <span class="n">received</span> <span class="k">signal</span> <span class="n">SIGSEGV</span><span class="p">,</span> <span class="n">Segmentation</span> <span class="n">fault</span><span class="o">.</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x0000000041414141</span> <span class="ow">in</span> <span class="err">??</span> <span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">LEGEND</span><span class="p">:</span> <span class="n">STACK</span> <span class="o">|</span> <span class="n">HEAP</span> <span class="o">|</span> <span class="n">CODE</span> <span class="o">|</span> <span class="n">DATA</span> <span class="o">|</span> <span class="n">RWX</span> <span class="o">|</span> <span class="n">RODATA</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RAX</span>  <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"> <span class="n">RBX</span>  <span class="mh">0x5555555586d0</span> <span class="p">(</span><span class="n">__libc_csu_init</span><span class="p">)</span> <span class="err">◂—</span> <span class="n">push</span> <span class="n">r15</span>
+</span></span><span class="line"><span class="cl"> <span class="n">RCX</span>  <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RDX</span>  <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RDI</span>  <span class="mh">0x7ffff7fc47e0</span> <span class="p">(</span><span class="n">_IO_stdfile_1_lock</span><span class="p">)</span> <span class="err">◂—</span> <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RSI</span>  <span class="mh">0x55555555920d</span> <span class="err">◂—</span> <span class="mh">0x45205d2d5b000000</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R8</span>   <span class="mh">0xffffffff</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R9</span>   <span class="mh">0x18</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R10</span>  <span class="mh">0x55555555920d</span> <span class="err">◂—</span> <span class="mh">0x45205d2d5b000000</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R11</span>  <span class="mh">0x555555559048</span> <span class="err">◂—</span> <span class="mh">0x335b1b006d305b1b</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R12</span>  <span class="mh">0x555555555120</span> <span class="p">(</span><span class="n">_start</span><span class="p">)</span> <span class="err">◂—</span> <span class="n">xor</span> <span class="n">ebp</span><span class="p">,</span> <span class="n">ebp</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R13</span>  <span class="mh">0x7fffffffd580</span> <span class="err">◂—</span> <span class="mh">0x2</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R14</span>  <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"> <span class="n">R15</span>  <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RBP</span>  <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RSP</span>  <span class="mh">0x7fffffffd4a0</span> <span class="err">◂—</span> <span class="mh">0x21</span> <span class="o">/*</span> <span class="s1">&#39;!&#39;</span> <span class="o">*/</span>
+</span></span><span class="line"><span class="cl"><span class="o">*</span><span class="n">RIP</span>  <span class="mh">0x41414141</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">Invalid</span> <span class="n">address</span> <span class="mh">0x41414141</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>That confirms our hypothesis. We&rsquo;re now able to control RIP. Now it&rsquo;s time for us to leak some value. We can use the help of <code>exec_LD</code> to do this. But first, let&rsquo;s try to inspect for values around the stack.</p>

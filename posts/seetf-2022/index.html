@@ -7,14 +7,14 @@
         <title>SEETF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="SEETF 2022" />
 <meta property="og:description" content="Writeup for SEETF 2022 by Chovid99 and gmberlian" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/seetf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/seetf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-06-06T21:50:32+07:00" />
 <meta property="article:modified_time" content="2022-06-09T09:37:01+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="SEETF 2022"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="SEETF 2022"/>
 <meta name="twitter:description" content="Writeup for SEETF 2022 by Chovid99 and gmberlian"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -1022,18 +1022,18 @@ Let&rsquo;s move to the logic inside the conditional block to understand why we 
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x4f2a5 execve(&#34;/bin/sh&#34;, rsp+0x40, environ)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  rsp &amp; 0xf == 0
-</span></span><span class="line"><span class="cl">  rcx == NULL
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mh">0x4f2a5</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">rsp</span><span class="o">+</span><span class="mh">0x40</span><span class="p">,</span> <span class="n">environ</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rsp</span> <span class="o">&amp;</span> <span class="mh">0xf</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rcx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0x4f302 execve(&#34;/bin/sh&#34;, rsp+0x40, environ)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [rsp+0x40] == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0x4f302</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">rsp</span><span class="o">+</span><span class="mh">0x40</span><span class="p">,</span> <span class="n">environ</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rsp</span><span class="o">+</span><span class="mh">0x40</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0x10a2fc execve(&#34;/bin/sh&#34;, rsp+0x70, environ)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [rsp+0x70] == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0x10a2fc</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">rsp</span><span class="o">+</span><span class="mh">0x70</span><span class="p">,</span> <span class="n">environ</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rsp</span><span class="o">+</span><span class="mh">0x70</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Okay, because we already got the leaked libc base address, we can simply try to overwrite the GOT table with one of the result, so that we can get shell.</p>

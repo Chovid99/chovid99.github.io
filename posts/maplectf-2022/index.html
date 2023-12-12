@@ -7,14 +7,14 @@
         <title>MapleCTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="MapleCTF 2022" />
 <meta property="og:description" content="Writeup for MapleCTF 2022 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/maplectf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/maplectf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-08-29T11:23:48+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="MapleCTF 2022"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="MapleCTF 2022"/>
 <meta name="twitter:description" content="Writeup for MapleCTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -266,21 +266,21 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">one_gadget &#39;/usr/lib/x86_64-linux-gnu/libc-2.31.so&#39;
-</span></span><span class="line"><span class="cl">0xe3afe execve(&#34;/bin/sh&#34;, r15, r12)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [r15] == NULL || r15 == NULL
-</span></span><span class="line"><span class="cl">  [r12] == NULL || r12 == NULL
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">one_gadget</span> <span class="s1">&#39;/usr/lib/x86_64-linux-gnu/libc-2.31.so&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0xe3afe</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r15</span><span class="p">,</span> <span class="n">r12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r15</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r15</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r12</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r12</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xe3b01 execve(&#34;/bin/sh&#34;, r15, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [r15] == NULL || r15 == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xe3b01</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r15</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r15</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r15</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xe3b04 execve(&#34;/bin/sh&#34;, rsi, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [rsi] == NULL || rsi == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xe3b04</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">rsi</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rsi</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rsi</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>I&rsquo;ll use the <code>0xe3b01</code> as the offset of our pop shell address, because based on observation in GDB, the r15 and rdx will be null, so it has fulfilled the constraints.</p>
@@ -949,44 +949,44 @@
 </span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    # Below is the total increment on each index that we want to find
-</span></span><span class="line"><span class="cl">    x1 = BitVec(&#39;x1&#39;, 16)
-</span></span><span class="line"><span class="cl">    x2 = BitVec(&#39;x2&#39;, 16)
-</span></span><span class="line"><span class="cl">    x3 = BitVec(&#39;x3&#39;, 16)
-</span></span><span class="line"><span class="cl">    x4 = BitVec(&#39;x4&#39;, 16)
-</span></span><span class="line"><span class="cl">    x5 = BitVec(&#39;x5&#39;, 16)
-</span></span><span class="line"><span class="cl">    x6 = BitVec(&#39;x6&#39;, 16)
-</span></span><span class="line"><span class="cl">    x7 = BitVec(&#39;x7&#39;, 16)
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">    <span class="c1"># Below is the total increment on each index that we want to find</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x1</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x1&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x2</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x2&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x3</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x3&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x4</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x4&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x5</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x5&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x6</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x6&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x7</span> <span class="o">=</span> <span class="n">BitVec</span><span class="p">(</span><span class="s1">&#39;x7&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    # Below is the initial state
-</span></span><span class="line"><span class="cl">    a = BitVecVal(int(numbers[1], 16), 16)
-</span></span><span class="line"><span class="cl">    b = BitVecVal(int(numbers[2], 16), 16)
-</span></span><span class="line"><span class="cl">    c = BitVecVal(int(numbers[3], 16), 16)
-</span></span><span class="line"><span class="cl">    d = BitVecVal(int(numbers[4], 16), 16)
-</span></span><span class="line"><span class="cl">    e = BitVecVal(int(numbers[5], 16), 16)
-</span></span><span class="line"><span class="cl">    f = BitVecVal(int(numbers[6], 16), 16)
-</span></span><span class="line"><span class="cl">    g = BitVecVal(int(numbers[7], 16), 16)
+</span></span><span class="line"><span class="cl">    <span class="c1"># Below is the initial state</span>
+</span></span><span class="line"><span class="cl">    <span class="n">a</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">b</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">d</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">e</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">g</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    # Below is the target state that we want
-</span></span><span class="line"><span class="cl">    target_7 = BitVecVal(int.from_bytes(payload[:2], &#34;little&#34;), 16)
-</span></span><span class="line"><span class="cl">    target_6 = BitVecVal(int.from_bytes(payload[2:4], &#34;little&#34;), 16)
-</span></span><span class="line"><span class="cl">    target_5 = BitVecVal(int.from_bytes(payload[4:6], &#34;little&#34;), 16)
-</span></span><span class="line"><span class="cl">    target_4 = BitVecVal(int.from_bytes(payload[6:8], &#34;little&#34;), 16)
-</span></span><span class="line"><span class="cl">    target_3 = BitVecVal(int.from_bytes(payload[8:10], &#34;little&#34;), 16)
-</span></span><span class="line"><span class="cl">    target_2 = BitVecVal(int.from_bytes(payload[10:12], &#34;little&#34;), 16)
-</span></span><span class="line"><span class="cl">    target_1 = BitVecVal(int.from_bytes(payload[12:14], &#34;little&#34;), 16)
+</span></span><span class="line"><span class="cl">    <span class="c1"># Below is the target state that we want</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_7</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_6</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_5</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_4</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">8</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_3</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">10</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_2</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="mi">12</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_1</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="ne">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">payload</span><span class="p">[</span><span class="mi">12</span><span class="p">:</span><span class="mi">14</span><span class="p">],</span> <span class="s2">&#34;little&#34;</span><span class="p">),</span> <span class="mi">16</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    # Below is the constraints that we pass to the z3
-</span></span><span class="line"><span class="cl">    # Notes that below is the z3 equations that we derive from the game&#39;s rule
-</span></span><span class="line"><span class="cl">    s.add(
-</span></span><span class="line"><span class="cl">        a + x1 + x2 == target_1, 
-</span></span><span class="line"><span class="cl">        b + x1 + x2 + x3 == target_2,
-</span></span><span class="line"><span class="cl">        c + x2 + x3 + x4 == target_3,
-</span></span><span class="line"><span class="cl">        d + x3 + x4 + x5 == target_4,
-</span></span><span class="line"><span class="cl">        e + x4 + x5 + x6 == target_5,
-</span></span><span class="line"><span class="cl">        f + x5 + x6 + x7 == target_6,
-</span></span><span class="line"><span class="cl">        g + x6 + x7 == target_7,
-</span></span><span class="line"><span class="cl">    )
+</span></span><span class="line"><span class="cl">    <span class="c1"># Below is the constraints that we pass to the z3</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Notes that below is the z3 equations that we derive from the game&#39;s rule</span>
+</span></span><span class="line"><span class="cl">    <span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">a</span> <span class="o">+</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">==</span> <span class="n">target_1</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">b</span> <span class="o">+</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">x3</span> <span class="o">==</span> <span class="n">target_2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c</span> <span class="o">+</span> <span class="n">x2</span> <span class="o">+</span> <span class="n">x3</span> <span class="o">+</span> <span class="n">x4</span> <span class="o">==</span> <span class="n">target_3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">d</span> <span class="o">+</span> <span class="n">x3</span> <span class="o">+</span> <span class="n">x4</span> <span class="o">+</span> <span class="n">x5</span> <span class="o">==</span> <span class="n">target_4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">e</span> <span class="o">+</span> <span class="n">x4</span> <span class="o">+</span> <span class="n">x5</span> <span class="o">+</span> <span class="n">x6</span> <span class="o">==</span> <span class="n">target_5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">f</span> <span class="o">+</span> <span class="n">x5</span> <span class="o">+</span> <span class="n">x6</span> <span class="o">+</span> <span class="n">x7</span> <span class="o">==</span> <span class="n">target_6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">g</span> <span class="o">+</span> <span class="n">x6</span> <span class="o">+</span> <span class="n">x7</span> <span class="o">==</span> <span class="n">target_7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Notice that even though the max index is 8, we can only have 7 in the z3, which means the max desired value size is 14 bytes. The z3 couldn&rsquo;t solve the equations if we try to set the target state to 16 bytes, so we concluded that the limit is 14 bytes (where it&rsquo;s always <code>sat</code>).</p>
@@ -1036,30 +1036,30 @@
 </span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">one_gadget /usr/lib/x86_64-linux-gnu/libc.so.6
-</span></span><span class="line"><span class="cl">0x50a37 posix_spawn(rsp+0x1c, &#34;/bin/sh&#34;, 0, rbp, rsp+0x60, environ)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  rsp &amp; 0xf == 0
-</span></span><span class="line"><span class="cl">  rcx == NULL
-</span></span><span class="line"><span class="cl">  rbp == NULL || (u16)[rbp] == NULL
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">one_gadget</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">/</span><span class="n">libc</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0x50a37</span> <span class="n">posix_spawn</span><span class="p">(</span><span class="n">rsp</span><span class="o">+</span><span class="mh">0x1c</span><span class="p">,</span> <span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rbp</span><span class="p">,</span> <span class="n">rsp</span><span class="o">+</span><span class="mh">0x60</span><span class="p">,</span> <span class="n">environ</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rsp</span> <span class="o">&amp;</span> <span class="mh">0xf</span> <span class="o">==</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rcx</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="n">rbp</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="p">(</span><span class="n">u16</span><span class="p">)[</span><span class="n">rbp</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xebcf1 execve(&#34;/bin/sh&#34;, r10, [rbp-0x70])
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  address rbp-0x78 is writable
-</span></span><span class="line"><span class="cl">  [r10] == NULL || r10 == NULL
-</span></span><span class="line"><span class="cl">  [[rbp-0x70]] == NULL || [rbp-0x70] == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xebcf1</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r10</span><span class="p">,</span> <span class="p">[</span><span class="n">rbp</span><span class="o">-</span><span class="mh">0x70</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address</span> <span class="n">rbp</span><span class="o">-</span><span class="mh">0x78</span> <span class="n">is</span> <span class="n">writable</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r10</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r10</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[[</span><span class="n">rbp</span><span class="o">-</span><span class="mh">0x70</span><span class="p">]]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="p">[</span><span class="n">rbp</span><span class="o">-</span><span class="mh">0x70</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xebcf5 execve(&#34;/bin/sh&#34;, r10, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  address rbp-0x78 is writable
-</span></span><span class="line"><span class="cl">  [r10] == NULL || r10 == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xebcf5</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r10</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address</span> <span class="n">rbp</span><span class="o">-</span><span class="mh">0x78</span> <span class="n">is</span> <span class="n">writable</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r10</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r10</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xebcf8 execve(&#34;/bin/sh&#34;, rsi, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  address rbp-0x78 is writable
-</span></span><span class="line"><span class="cl">  [rsi] == NULL || rsi == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xebcf8</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">rsi</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address</span> <span class="n">rbp</span><span class="o">-</span><span class="mh">0x78</span> <span class="n">is</span> <span class="n">writable</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rsi</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rsi</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>With this, we hoped that jumping to the given gadget can be fitted into the 14-bytes space.</p>

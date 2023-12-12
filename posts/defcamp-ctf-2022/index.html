@@ -7,14 +7,14 @@
         <title>DefCamp CTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="DefCamp CTF 2022" />
 <meta property="og:description" content="Writeup for DefCamp CTF 2022 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/defcamp-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/defcamp-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-14T20:02:14+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="DefCamp CTF 2022"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="DefCamp CTF 2022"/>
 <meta name="twitter:description" content="Writeup for DefCamp CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -391,7 +391,7 @@ How to do that? The main idea is we need to:</p>
 <li>Using UAF, we can print the chunk data (which contains the libc address of the <code>main_arena</code>)</li>
 <li>Reuse the pitfall solution, but instead of <code>getFlag</code> address, we store our shell gadget address</li>
 </ul>
-<p>Let&rsquo;s do that 😄</p>
+<p>Let&rsquo;s do that &#x1f604;</p>
 <h4 id="leak-heap-address">Leak heap address</h4>
 <p>In order to fulfill that, we need to find the heap_address first. We can use double free to retrieve the heap address:</p>
 <ul>

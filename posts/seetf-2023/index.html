@@ -7,14 +7,14 @@
         <title>SEETF 2023 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="SEETF 2023" />
 <meta property="og:description" content="Writeup for Smart Contract challenges in SEETF 2023 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/seetf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/seetf-2023/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-06-12T09:00:01+07:00" />
 <meta property="article:modified_time" content="2023-06-12T10:57:58+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="SEETF 2023"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="SEETF 2023"/>
 <meta name="twitter:description" content="Writeup for Smart Contract challenges in SEETF 2023 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -1273,18 +1273,18 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// SPDX-License-Identifier: UNLICENSED
-</span></span><span class="line"><span class="cl">pragma solidity &gt;=0.8.17;
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span> <span class="n">SPDX</span><span class="o">-</span><span class="n">License</span><span class="o">-</span><span class="n">Identifier</span><span class="p">:</span> <span class="n">UNLICENSED</span>
+</span></span><span class="line"><span class="cl"><span class="n">pragma</span> <span class="n">solidity</span> <span class="o">&gt;=</span><span class="mf">0.8</span><span class="o">.</span><span class="mi">17</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">contract TempStorage{
-</span></span><span class="line"><span class="cl">    constructor() payable {}
-</span></span><span class="line"><span class="cl">    receive() external payable {}
+</span></span><span class="line"><span class="cl"><span class="n">contract</span> <span class="n">TempStorage</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">constructor</span><span class="p">()</span> <span class="n">payable</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">receive</span><span class="p">()</span> <span class="n">external</span> <span class="n">payable</span> <span class="p">{}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    function getBack() external payable {
-</span></span><span class="line"><span class="cl">        (bool success,) = msg.sender.call{value: address(this).balance}(&#34;&#34;);
-</span></span><span class="line"><span class="cl">        require(success, &#34;Failed to transfer&#34;);
-</span></span><span class="line"><span class="cl">    }
-</span></span><span class="line"><span class="cl">}
+</span></span><span class="line"><span class="cl">    <span class="n">function</span> <span class="n">getBack</span><span class="p">()</span> <span class="n">external</span> <span class="n">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="ne">bool</span> <span class="n">success</span><span class="p">,)</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">sender</span><span class="o">.</span><span class="n">call</span><span class="p">{</span><span class="n">value</span><span class="p">:</span> <span class="n">address</span><span class="p">(</span><span class="n">this</span><span class="p">)</span><span class="o">.</span><span class="n">balance</span><span class="p">}(</span><span class="s2">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">require</span><span class="p">(</span><span class="n">success</span><span class="p">,</span> <span class="s2">&#34;Failed to transfer&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Solver</strong></p>

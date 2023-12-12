@@ -4,7 +4,55 @@
         <link>https://chovid99.github.io/posts/</link>
         <description>All Posts | Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 12 Jun 2023 09:00:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>0CTF/TCTF 2023</title>
+    <link>https://chovid99.github.io/posts/0ctf-tctf-2023/</link>
+    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/0ctf-tctf-2023/</guid>
+    <description><![CDATA[Writeup for 0CTF/TCTF 2023]]></description>
+</item>
+<item>
+    <title>Cyber Jawara 2023 Writeup</title>
+    <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
+    <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
+    <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
+</item>
+<item>
+    <title>TCP1P CTF 2023</title>
+    <link>https://chovid99.github.io/posts/tcp1p-ctf-2023/</link>
+    <pubDate>Sun, 15 Oct 2023 21:52:15 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/tcp1p-ctf-2023/</guid>
+    <description><![CDATA[Writeup for TCP1P CTF 2023 by Fidethus]]></description>
+</item>
+<item>
+    <title>BlackHat MEA CTF 2023</title>
+    <link>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</link>
+    <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</guid>
+    <description><![CDATA[Writeup for BlackHat MEA CTF 2023]]></description>
+</item>
+<item>
+    <title>HITCON CTF 2023</title>
+    <link>https://chovid99.github.io/posts/hitcon-ctf-2023/</link>
+    <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/hitcon-ctf-2023/</guid>
+    <description><![CDATA[Writeup for HITCON CTF 2023]]></description>
+</item>
+<item>
+    <title>SekaiCTF 2023</title>
+    <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
+    <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
+    <description><![CDATA[Writeup for SekaiCTF 2023]]></description>
+</item>
+<item>
     <title>corCTF 2023</title>
     <link>https://chovid99.github.io/posts/corctf-2023/</link>
     <pubDate>Mon, 12 Jun 2023 09:00:01 &#43;0700</pubDate>
@@ -35,54 +83,6 @@
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/posts/tamuctf-2023/</guid>
     <description><![CDATA[Short writeup for TAMUctf 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>Plaid CTF 2023</title>
-    <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
-    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in PlaidCTF 2023]]></description>
-</item>
-<item>
-    <title>LINE CTF 2023</title>
-    <link>https://chovid99.github.io/posts/line-ctf-2023/</link>
-    <pubDate>Sun, 26 Mar 2023 07:00:01 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/line-ctf-2023/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in LINE CTF 2023]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2023: Crypto</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/</link>
-    <pubDate>Thu, 23 Mar 2023 20:00:01 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/</guid>
-    <description><![CDATA[Writeup for Crypto challenges in Cyber Apocalypse 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2023: Pwn</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</link>
-    <pubDate>Thu, 23 Mar 2023 20:00:01 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>ACSC 2023</title>
-    <link>https://chovid99.github.io/posts/acsc-2023/</link>
-    <pubDate>Sun, 26 Feb 2023 14:18:58 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/acsc-2023/</guid>
-    <description><![CDATA[Writeup for ACSC 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>HackTM CTF 2023</title>
-    <link>https://chovid99.github.io/posts/hacktm-ctf-2023/</link>
-    <pubDate>Sun, 19 Feb 2023 20:14:37 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/hacktm-ctf-2023/</guid>
-    <description><![CDATA[Writeup for HackTM CTF 2023 by Chovid99]]></description>
 </item>
 </channel>
 </rss>

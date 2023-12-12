@@ -7,14 +7,14 @@
         <title>Cyber Apocalypse 2023: Pwn - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="Cyber Apocalypse 2023: Pwn" />
 <meta property="og:description" content="Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-03-23T20:00:01+07:00" />
 <meta property="article:modified_time" content="2023-03-27T21:53:11+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="Cyber Apocalypse 2023: Pwn"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="Cyber Apocalypse 2023: Pwn"/>
 <meta name="twitter:description" content="Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -921,21 +921,21 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">one_gadget libc.so.6
-</span></span><span class="line"><span class="cl">0xc961a execve(&#34;/bin/sh&#34;, r12, r13)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [r12] == NULL || r12 == NULL
-</span></span><span class="line"><span class="cl">  [r13] == NULL || r13 == NULL
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">one_gadget</span> <span class="n">libc</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">6</span>
+</span></span><span class="line"><span class="cl"><span class="mh">0xc961a</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r12</span><span class="p">,</span> <span class="n">r13</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r12</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r12</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r13</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r13</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xc961d execve(&#34;/bin/sh&#34;, r12, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [r12] == NULL || r12 == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xc961d</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r12</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r12</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r12</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">0xc9620 execve(&#34;/bin/sh&#34;, rsi, rdx)
-</span></span><span class="line"><span class="cl">constraints:
-</span></span><span class="line"><span class="cl">  [rsi] == NULL || rsi == NULL
-</span></span><span class="line"><span class="cl">  [rdx] == NULL || rdx == NULL
+</span></span><span class="line"><span class="cl"><span class="mh">0xc9620</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">rsi</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rsi</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rsi</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Notice that the first <code>one_gadget</code> can be used because we have the gadget to set the <code>r12</code> and <code>r13</code> values as well. To summarize the steps needed to exploit this binary:</p>

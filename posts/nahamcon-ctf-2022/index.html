@@ -7,14 +7,14 @@
         <title>NahamCon CTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="NahamCon CTF 2022" />
 <meta property="og:description" content="Writeup for NahamCon CTF 2022 by Chovid99" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/nahamcon-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://chovid99.github.io/posts/nahamcon-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-01T08:12:50+07:00" />
 <meta property="article:modified_time" content="2023-02-23T18:03:33+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png"/>
 
-<meta name="twitter:title" content="NahamCon CTF 2022"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="NahamCon CTF 2022"/>
 <meta name="twitter:description" content="Writeup for NahamCon CTF 2022 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -123,7 +123,7 @@
         data-sizes="auto"
         alt="https://i.imgur.com/KrqEvMN.png"
         title="https://i.imgur.com/KrqEvMN.png" /></p>
-<p>I tried to spend my saturday to do the NahamCon CTF 2022, but I had a lot of events during the day, so I plan to look at 3-5 problems. At the end, I could only solve one problem that I looked first, because it turns out to be pretty hard for me. I&rsquo;m still new to this, so I would like to apologize in advance if there is wrong or misleading information stated in here. Feel free to contact me if you find mistakes in my writeup. Cheers 🍻</p>
+<p>I tried to spend my saturday to do the NahamCon CTF 2022, but I had a lot of events during the day, so I plan to look at 3-5 problems. At the end, I could only solve one problem that I looked first, because it turns out to be pretty hard for me. I&rsquo;m still new to this, so I would like to apologize in advance if there is wrong or misleading information stated in here. Feel free to contact me if you find mistakes in my writeup. Cheers &#x1f37b;</p>
 <h1 id="pwn">Pwn</h1>
 <h2 id="free-real-estate">Free Real Estate</h2>
 <h3 id="intro">Intro</h3>
@@ -1618,7 +1618,7 @@ What we&rsquo;re going to do now is with <code>change_username</code>, forge the
 </span></span><span class="line"><span class="cl"><span class="n">edit_property</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="mh">0x49</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="n">system</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Instead of freeing the 0x60 chunk, it will free the 0x51 and malloc 0x60 chunk</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>After the above code, we&rsquo;re finally overwrite the <code>__free_hook</code> with <code>system</code>. Now, we just need to change the <code>street</code> value to <code>/bin/sh\x00</code> and <code>free</code> it 😄</p>
+</div><p>After the above code, we&rsquo;re finally overwrite the <code>__free_hook</code> with <code>system</code>. Now, we just need to change the <code>street</code> value to <code>/bin/sh\x00</code> and <code>free</code> it &#x1f604;</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
