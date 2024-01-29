@@ -4,7 +4,47 @@
         <link>https://chovid99.github.io/tags/</link>
         <description>Tags - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>2024</title>
+    <link>https://chovid99.github.io/tags/2024/</link>
+    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/2024/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>blockchain</title>
+    <link>https://chovid99.github.io/tags/blockchain/</link>
+    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/blockchain/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>bridge</title>
+    <link>https://chovid99.github.io/tags/bridge/</link>
+    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/bridge/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>EVM</title>
+    <link>https://chovid99.github.io/tags/evm/</link>
+    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/evm/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Writeup</title>
+    <link>https://chovid99.github.io/tags/writeup/</link>
+    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/tags/writeup/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>2023</title>
     <link>https://chovid99.github.io/tags/2023/</link>
     <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
@@ -42,46 +82,6 @@
     <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/tags/pwn/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>quickjs</title>
-    <link>https://chovid99.github.io/tags/quickjs/</link>
-    <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/quickjs/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>Writeup</title>
-    <link>https://chovid99.github.io/tags/writeup/</link>
-    <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/writeup/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>0CTF</title>
-    <link>https://chovid99.github.io/tags/0ctf/</link>
-    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/0ctf/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>kernel</title>
-    <link>https://chovid99.github.io/tags/kernel/</link>
-    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/kernel/</guid>
-    <description><![CDATA[]]></description>
-</item>
-<item>
-    <title>lpe</title>
-    <link>https://chovid99.github.io/tags/lpe/</link>
-    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/tags/lpe/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
