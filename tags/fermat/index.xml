@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>fermat - Tag - Chovid99&#39;s Blog</title>
+        <title>Fermat - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/fermat/</link>
-        <description>fermat - Tag - Chovid99&#39;s Blog</description>
+        <description>Fermat - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 06 Jun 2022 21:50:32 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/fermat/" rel="self" type="application/rss+xml" /><item>
     <title>SEETF 2022</title>

@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>arm64 - Tag - Chovid99&#39;s Blog</title>
+        <title>Arm64 - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/arm64/</link>
-        <description>arm64 - Tag - Chovid99&#39;s Blog</description>
+        <description>Arm64 - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 13 Jun 2022 13:11:24 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/arm64/" rel="self" type="application/rss+xml" /><item>
     <title>JustCTF 2022</title>

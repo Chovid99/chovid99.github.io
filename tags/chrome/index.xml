@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>chrome - Tag - Chovid99&#39;s Blog</title>
+        <title>Chrome - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/chrome/</link>
-        <description>chrome - Tag - Chovid99&#39;s Blog</description>
+        <description>Chrome - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 27 Nov 2022 21:06:10 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/chrome/" rel="self" type="application/rss+xml" /><item>
     <title>HITCON CTF 2022</title>
