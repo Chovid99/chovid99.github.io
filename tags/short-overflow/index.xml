@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>short-overflow - Tag - Chovid99&#39;s Blog</title>
+        <title>Short-Overflow - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/short-overflow/</link>
-        <description>short-overflow - Tag - Chovid99&#39;s Blog</description>
+        <description>Short-Overflow - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Fri, 11 Mar 2022 20:31:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/short-overflow/" rel="self" type="application/rss+xml" /><item>
     <title>zer0pts CTF 2022</title>

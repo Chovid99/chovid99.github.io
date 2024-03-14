@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>forensic - Tag - Chovid99&#39;s Blog</title>
+        <title>Forensic - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/forensic/</link>
-        <description>forensic - Tag - Chovid99&#39;s Blog</description>
+        <description>Forensic - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 04 Jul 2022 02:00:00 &#43;0800</lastBuildDate><atom:link href="https://chovid99.github.io/tags/forensic/" rel="self" type="application/rss+xml" /><item>
     <title>Google CTF 2022</title>

@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>kernel - Tag - Chovid99&#39;s Blog</title>
+        <title>Kernel - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/kernel/</link>
-        <description>kernel - Tag - Chovid99&#39;s Blog</description>
+        <description>Kernel - Tag - Chovid99&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
             <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/kernel/" rel="self" type="application/rss+xml" /><item>
     <title>0CTF/TCTF 2023</title>
