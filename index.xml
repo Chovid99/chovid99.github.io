@@ -4,9 +4,17 @@
         <link>https://chovid99.github.io/</link>
         <description>Security&#39;s blog made by Chovid99</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate>
+            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</lastBuildDate>
             <atom:link href="https://chovid99.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>KalmarCTF 2024</title>
+    <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
+    <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
+    <author>Chovid99</author>
+    <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
+    <description><![CDATA[Writeup for KalmarCTF 2024 by Chovid99]]></description>
+</item>
+<item>
     <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
     <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
     <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
@@ -77,14 +85,6 @@
     <author>Chovid99</author>
     <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
     <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>TCP1P CTF 2023</title>
-    <link>https://chovid99.github.io/posts/tcp1p-ctf-2023/</link>
-    <pubDate>Sun, 15 Oct 2023 21:52:15 &#43;0700</pubDate>
-    <author>Chovid99</author>
-    <guid>https://chovid99.github.io/posts/tcp1p-ctf-2023/</guid>
-    <description><![CDATA[Writeup for TCP1P CTF 2023 by Fidethus]]></description>
 </item>
 </channel>
 </rss>
