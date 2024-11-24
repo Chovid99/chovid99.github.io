@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Solana - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/solana/</link>
+        <link>http://localhost:1313/tags/solana/</link>
         <description>Solana - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/solana/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/solana/" rel="self" type="application/rss+xml" /><item>
     <title>SekaiCTF 2023</title>
-    <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
+    <link>http://localhost:1313/posts/sekaictf-2023/</link>
     <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
+    <guid>http://localhost:1313/posts/sekaictf-2023/</guid>
     <description><![CDATA[Writeup for SekaiCTF 2023]]></description>
 </item>
 </channel>

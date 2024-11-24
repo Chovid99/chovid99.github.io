@@ -1,22 +1,22 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>GCC CTF - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/gcc-ctf/</link>
+        <link>http://localhost:1313/tags/gcc-ctf/</link>
         <description>GCC CTF - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 04 Mar 2024 08:21:14 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/gcc-ctf/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 04 Mar 2024 08:21:14 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/gcc-ctf/" rel="self" type="application/rss+xml" /><item>
     <title>GCC CTF 2024</title>
-    <link>https://chovid99.github.io/posts/gcc-ctf-2024/</link>
+    <link>http://localhost:1313/posts/gcc-ctf-2024/</link>
     <pubDate>Mon, 04 Mar 2024 08:21:14 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/gcc-ctf-2024/</guid>
+    <guid>http://localhost:1313/posts/gcc-ctf-2024/</guid>
     <description><![CDATA[Writeup for GCC CTF 2024 by Chovid99]]></description>
 </item>
 <item>
     <title>GCC 3.0 CTF 2022</title>
-    <link>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</link>
+    <link>http://localhost:1313/posts/gcc-3.0-ctf-2022/</link>
     <pubDate>Tue, 11 Jan 2022 06:36:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</guid>
+    <guid>http://localhost:1313/posts/gcc-3.0-ctf-2022/</guid>
     <description><![CDATA[Writeup for GCC 3.0 CTF 2022 by Chovid99]]></description>
 </item>
 </channel>

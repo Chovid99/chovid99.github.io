@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Bridge - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/bridge/</link>
+        <link>http://localhost:1313/tags/bridge/</link>
         <description>Bridge - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/bridge/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/bridge/" rel="self" type="application/rss+xml" /><item>
     <title>Real World CTF 2024</title>
-    <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
+    <link>http://localhost:1313/posts/real-world-ctf-2024/</link>
     <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
+    <guid>http://localhost:1313/posts/real-world-ctf-2024/</guid>
     <description><![CDATA[Writeup for Real World CTF 2024]]></description>
 </item>
 </channel>

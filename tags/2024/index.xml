@@ -1,38 +1,38 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>2024 - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/2024/</link>
+        <link>http://localhost:1313/tags/2024/</link>
         <description>2024 - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/2024/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/2024/" rel="self" type="application/rss+xml" /><item>
     <title>SECCON CTF 13 Quals</title>
-    <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
+    <link>http://localhost:1313/posts/seccon-ctf-13-quals/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
+    <guid>http://localhost:1313/posts/seccon-ctf-13-quals/</guid>
     <description><![CDATA[Writeup for SECCON CTF 13 Quals]]></description>
 </item>
 <item>
     <title>GCC CTF 2024</title>
-    <link>https://chovid99.github.io/posts/gcc-ctf-2024/</link>
+    <link>http://localhost:1313/posts/gcc-ctf-2024/</link>
     <pubDate>Mon, 04 Mar 2024 08:21:14 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/gcc-ctf-2024/</guid>
+    <guid>http://localhost:1313/posts/gcc-ctf-2024/</guid>
     <description><![CDATA[Writeup for GCC CTF 2024 by Chovid99]]></description>
 </item>
 <item>
     <title>DiceCTF 2024 Quals</title>
-    <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
+    <link>http://localhost:1313/posts/dicectf-2024-quals/</link>
     <pubDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
+    <guid>http://localhost:1313/posts/dicectf-2024-quals/</guid>
     <description><![CDATA[Writeup for DiceCTF 2024 Quals]]></description>
 </item>
 <item>
     <title>Real World CTF 2024</title>
-    <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
+    <link>http://localhost:1313/posts/real-world-ctf-2024/</link>
     <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
+    <guid>http://localhost:1313/posts/real-world-ctf-2024/</guid>
     <description><![CDATA[Writeup for Real World CTF 2024]]></description>
 </item>
 </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Got - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/got/</link>
+        <link>http://localhost:1313/tags/got/</link>
         <description>Got - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/got/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/got/" rel="self" type="application/rss+xml" /><item>
     <title>KalmarCTF 2024</title>
-    <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
+    <link>http://localhost:1313/posts/kalmarctf-2024/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
+    <guid>http://localhost:1313/posts/kalmarctf-2024/</guid>
     <description><![CDATA[Writeup for KalmarCTF 2024 by Chovid99]]></description>
 </item>
 </channel>

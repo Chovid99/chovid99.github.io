@@ -1,87 +1,87 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Writeup - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/writeup/</link>
+        <link>http://localhost:1313/tags/writeup/</link>
         <description>Writeup - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/writeup/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/writeup/" rel="self" type="application/rss+xml" /><item>
     <title>SECCON CTF 13 Quals</title>
-    <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
+    <link>http://localhost:1313/posts/seccon-ctf-13-quals/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
+    <guid>http://localhost:1313/posts/seccon-ctf-13-quals/</guid>
     <description><![CDATA[Writeup for SECCON CTF 13 Quals]]></description>
 </item>
 <item>
     <title>KalmarCTF 2024</title>
-    <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
+    <link>http://localhost:1313/posts/kalmarctf-2024/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
+    <guid>http://localhost:1313/posts/kalmarctf-2024/</guid>
     <description><![CDATA[Writeup for KalmarCTF 2024 by Chovid99]]></description>
 </item>
 <item>
     <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
+    <link>http://localhost:1313/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
     <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
+    <guid>http://localhost:1313/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
     <description><![CDATA[Writeup for Blockchain &amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
 </item>
 <item>
     <title>Cyber Apocalypse 2024: Crypto</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</link>
+    <link>http://localhost:1313/posts/cyber-apocalypse-2024-crypto/</link>
     <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</guid>
+    <guid>http://localhost:1313/posts/cyber-apocalypse-2024-crypto/</guid>
     <description><![CDATA[Writeup for Crypto challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
 </item>
 <item>
     <title>Cyber Apocalypse 2024: Pwn</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</link>
+    <link>http://localhost:1313/posts/cyber-apocalypse-2024-pwn/</link>
     <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</guid>
+    <guid>http://localhost:1313/posts/cyber-apocalypse-2024-pwn/</guid>
     <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
 </item>
 <item>
+    <title>Cyber Apocalypse 2024</title>
+    <link>http://localhost:1313/posts/cyber-apocalypse-2024/</link>
+    <pubDate>Wed, 13 Mar 2024 15:56:15 &#43;0700</pubDate>
+    <author>Author</author>
+    <guid>http://localhost:1313/posts/cyber-apocalypse-2024/</guid>
+    <description><![CDATA[Writeup for HackTheBox - Cyber Apocalypse 2024: Hacker Royale]]></description>
+</item>
+<item>
     <title>GCC CTF 2024</title>
-    <link>https://chovid99.github.io/posts/gcc-ctf-2024/</link>
+    <link>http://localhost:1313/posts/gcc-ctf-2024/</link>
     <pubDate>Mon, 04 Mar 2024 08:21:14 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/gcc-ctf-2024/</guid>
+    <guid>http://localhost:1313/posts/gcc-ctf-2024/</guid>
     <description><![CDATA[Writeup for GCC CTF 2024 by Chovid99]]></description>
 </item>
 <item>
     <title>DiceCTF 2024 Quals</title>
-    <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
+    <link>http://localhost:1313/posts/dicectf-2024-quals/</link>
     <pubDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
+    <guid>http://localhost:1313/posts/dicectf-2024-quals/</guid>
     <description><![CDATA[Writeup for DiceCTF 2024 Quals]]></description>
 </item>
 <item>
     <title>Real World CTF 2024</title>
-    <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
+    <link>http://localhost:1313/posts/real-world-ctf-2024/</link>
     <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
+    <guid>http://localhost:1313/posts/real-world-ctf-2024/</guid>
     <description><![CDATA[Writeup for Real World CTF 2024]]></description>
 </item>
 <item>
     <title>ASIS CTF Finals 2023</title>
-    <link>https://chovid99.github.io/posts/asis-ctf-finals-2023/</link>
+    <link>http://localhost:1313/posts/asis-ctf-finals-2023/</link>
     <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>https://chovid99.github.io/posts/asis-ctf-finals-2023/</guid>
+    <guid>http://localhost:1313/posts/asis-ctf-finals-2023/</guid>
     <description><![CDATA[Writeup for ASIS CTF Finals 2023]]></description>
-</item>
-<item>
-    <title>0CTF/TCTF 2023</title>
-    <link>https://chovid99.github.io/posts/0ctf-tctf-2023/</link>
-    <pubDate>Mon, 11 Dec 2023 04:56:22 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/0ctf-tctf-2023/</guid>
-    <description><![CDATA[Writeup for 0CTF/TCTF 2023]]></description>
 </item>
 </channel>
 </rss>
