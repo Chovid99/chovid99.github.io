@@ -3,12 +3,19 @@
         <title>Evm - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/evm/</link>
         <description>Evm - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/evm/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/evm/" rel="self" type="application/rss+xml" /><item>
+    <title>SECCON CTF 13 Quals</title>
+    <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
+    <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
+    <author>Author</author>
+    <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
+    <description><![CDATA[Writeup for SECCON CTF 13 Quals]]></description>
+</item>
+<item>
     <title>Real World CTF 2024</title>
     <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
     <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
     <description><![CDATA[Writeup for Real World CTF 2024]]></description>
 </item>
@@ -16,7 +23,7 @@
     <title>SekaiCTF 2023</title>
     <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
     <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
     <description><![CDATA[Writeup for SekaiCTF 2023]]></description>
 </item>

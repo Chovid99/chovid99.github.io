@@ -3,12 +3,11 @@
         <title>Solang - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/solang/</link>
         <description>Solang - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/solang/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/solang/" rel="self" type="application/rss+xml" /><item>
     <title>SekaiCTF 2023</title>
     <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
     <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
     <description><![CDATA[Writeup for SekaiCTF 2023]]></description>
 </item>

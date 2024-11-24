@@ -4,20 +4,32 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>KalmarCTF 2024 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:title" content="KalmarCTF 2024" />
-<meta property="og:description" content="Writeup for KalmarCTF 2024 by Chovid99" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://chovid99.github.io/posts/kalmarctf-2024/" /><meta property="og:image" content="https://chovid99.github.io/C99-web-card.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2024-03-24T00:44:40+07:00" />
-<meta property="article:modified_time" content="2024-03-24T02:03:18+07:00" /><meta property="og:site_name" content="Welcome to Chovid99&#39;s Blog" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png" /><meta name="twitter:title" content="KalmarCTF 2024"/>
-<meta name="twitter:description" content="Writeup for KalmarCTF 2024 by Chovid99"/>
-      <meta name="twitter:site" content="@Chovid99"/>
+        <title>KalmarCTF 2024 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:url" content="https://chovid99.github.io/posts/kalmarctf-2024/">
+  <meta property="og:site_name" content="Chovid99&#39;s Blog">
+  <meta property="og:title" content="KalmarCTF 2024">
+  <meta property="og:description" content="Writeup for KalmarCTF 2024 by Chovid99">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-03-24T00:44:40+07:00">
+    <meta property="article:modified_time" content="2024-07-02T20:25:32-04:00">
+    <meta property="article:tag" content="Writeup">
+    <meta property="article:tag" content="KalmarCTF">
+    <meta property="article:tag" content="Pwn">
+    <meta property="article:tag" content="Heap">
+    <meta property="article:tag" content="Tcache">
+    <meta property="article:tag" content="Got">
+    <meta property="og:image" content="https://chovid99.github.io/C99-web-card.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png">
+  <meta name="twitter:title" content="KalmarCTF 2024">
+  <meta name="twitter:description" content="Writeup for KalmarCTF 2024 by Chovid99">
+      <meta name="twitter:site" content="@Chovid99">
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/kalmarctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/kalmarctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/" /><link rel="next" href="https://chovid99.github.io/posts/seccon-ctf-13-quals/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
     {
@@ -29,11 +41,11 @@
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/kalmarctf-2024\/"
         },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, KalmarCTF, pwn, heap, tcache, got, json","wordcount":  7516 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/kalmarctf-2024\/","datePublished": "2024-03-24T00:44:40+07:00","dateModified": "2024-03-24T02:03:18+07:00","publisher": {
+        "url": "https:\/\/chovid99.github.io\/posts\/kalmarctf-2024\/","datePublished": "2024-03-24T00:44:40+07:00","dateModified": "2024-07-02T20:25:32-04:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
-                "name": "Chovid99"
+                "name": "Author"
             },"description": ""
     }
     </script></head>
@@ -2106,11 +2118,12 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/cyber-apocalypse-2024-blockchain-hardware/" class="prev" rel="prev" title="Cyber Apocalypse 2024: Blockchain &amp; Hardware"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Cyber Apocalypse 2024: Blockchain & Hardware</a></div>
+    <div class="post-nav"><a href="/posts/cyber-apocalypse-2024-blockchain-hardware/" class="prev" rel="prev" title="Cyber Apocalypse 2024: Blockchain &amp; Hardware"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Cyber Apocalypse 2024: Blockchain & Hardware</a>
+            <a href="/posts/seccon-ctf-13-quals/" class="next" rel="next" title="SECCON CTF 13 Quals">SECCON CTF 13 Quals<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://twitter.com/Chovid99" target="_blank">Chovid99</a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

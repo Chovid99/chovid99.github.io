@@ -3,12 +3,11 @@
         <title>2019 - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/2019/</link>
         <description>2019 - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 16 Sep 2019 20:02:14 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/2019/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 20:02:14 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/2019/" rel="self" type="application/rss+xml" /><item>
     <title>CSAW CTF 2019</title>
     <link>https://chovid99.github.io/posts/csaw-ctf-2019/</link>
     <pubDate>Mon, 16 Sep 2019 20:02:14 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/csaw-ctf-2019/</guid>
     <description><![CDATA[Writeup for CSAW CTF 2019 by Chovid99]]></description>
 </item>

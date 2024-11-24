@@ -3,12 +3,11 @@
         <title>Binary Search - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/binary-search/</link>
         <description>Binary Search - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/binary-search/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/binary-search/" rel="self" type="application/rss+xml" /><item>
     <title>BlackHat MEA CTF 2023</title>
     <link>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</link>
     <pubDate>Tue, 10 Oct 2023 22:25:19 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</guid>
     <description><![CDATA[Writeup for BlackHat MEA CTF 2023]]></description>
 </item>

@@ -3,12 +3,11 @@
         <title>TAMUctf - Tag - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/tags/tamuctf/</link>
         <description>TAMUctf - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>choovid99@gmail.com (Chovid99)</managingEditor>
-            <webMaster>choovid99@gmail.com (Chovid99)</webMaster><lastBuildDate>Mon, 01 May 2023 00:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/tamuctf/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 01 May 2023 00:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/tamuctf/" rel="self" type="application/rss+xml" /><item>
     <title>TAMUctf 2023</title>
     <link>https://chovid99.github.io/posts/tamuctf-2023/</link>
     <pubDate>Mon, 01 May 2023 00:00:00 &#43;0700</pubDate>
-    <author>Chovid99</author>
+    <author>Author</author>
     <guid>https://chovid99.github.io/posts/tamuctf-2023/</guid>
     <description><![CDATA[Short writeup for TAMUctf 2023 by Chovid99]]></description>
 </item>
