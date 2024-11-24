@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Wasm - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/wasm/</link>
+        <link>https://chovid99.github.io/tags/wasm/</link>
         <description>Wasm - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/wasm/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/wasm/" rel="self" type="application/rss+xml" /><item>
     <title>DiceCTF 2022</title>
-    <link>http://localhost:1313/posts/dicectf-2022/</link>
+    <link>https://chovid99.github.io/posts/dicectf-2022/</link>
     <pubDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/dicectf-2022/</guid>
+    <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
     <description><![CDATA[Writeup for DiceCTF 2022 by Chovid99]]></description>
 </item>
 </channel>

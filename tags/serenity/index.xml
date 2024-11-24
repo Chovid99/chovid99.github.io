@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Serenity - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/serenity/</link>
+        <link>https://chovid99.github.io/tags/serenity/</link>
         <description>Serenity - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/serenity/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/serenity/" rel="self" type="application/rss+xml" /><item>
     <title>DiceCTF 2024 Quals</title>
-    <link>http://localhost:1313/posts/dicectf-2024-quals/</link>
+    <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
     <pubDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/dicectf-2024-quals/</guid>
+    <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
     <description><![CDATA[Writeup for DiceCTF 2024 Quals]]></description>
 </item>
 </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>2021 - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/2021/</link>
+        <link>https://chovid99.github.io/tags/2021/</link>
         <description>2021 - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/2021/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/2021/" rel="self" type="application/rss+xml" /><item>
     <title>PBCTF 2021</title>
-    <link>http://localhost:1313/posts/pbctf-2021/</link>
+    <link>https://chovid99.github.io/posts/pbctf-2021/</link>
     <pubDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/pbctf-2021/</guid>
+    <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
     <description><![CDATA[Writeup for PBCTF 2021 by Chovid99]]></description>
 </item>
 </channel>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>TAMUctf - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/tamuctf/</link>
+        <link>https://chovid99.github.io/tags/tamuctf/</link>
         <description>TAMUctf - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 01 May 2023 00:00:00 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/tamuctf/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 01 May 2023 00:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/tamuctf/" rel="self" type="application/rss+xml" /><item>
     <title>TAMUctf 2023</title>
-    <link>http://localhost:1313/posts/tamuctf-2023/</link>
+    <link>https://chovid99.github.io/posts/tamuctf-2023/</link>
     <pubDate>Mon, 01 May 2023 00:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/tamuctf-2023/</guid>
+    <guid>https://chovid99.github.io/posts/tamuctf-2023/</guid>
     <description><![CDATA[Short writeup for TAMUctf 2023 by Chovid99]]></description>
 </item>
 </channel>

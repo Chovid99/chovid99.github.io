@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Postgresql - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/postgresql/</link>
+        <link>https://chovid99.github.io/tags/postgresql/</link>
         <description>Postgresql - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/postgresql/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/postgresql/" rel="self" type="application/rss+xml" /><item>
     <title>Plaid CTF 2023</title>
-    <link>http://localhost:1313/posts/plaidctf-2023/</link>
+    <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
     <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/plaidctf-2023/</guid>
+    <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
     <description><![CDATA[Writeup for Pwn challenges in PlaidCTF 2023]]></description>
 </item>
 </channel>

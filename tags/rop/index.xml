@@ -1,87 +1,87 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>ROP - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/rop/</link>
+        <link>https://chovid99.github.io/tags/rop/</link>
         <description>ROP - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/rop/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/rop/" rel="self" type="application/rss+xml" /><item>
     <title>Cyber Apocalypse 2024: Pwn</title>
-    <link>http://localhost:1313/posts/cyber-apocalypse-2024-pwn/</link>
+    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</link>
     <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/cyber-apocalypse-2024-pwn/</guid>
+    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</guid>
     <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
 </item>
 <item>
-    <title>Cyber Apocalypse 2024</title>
-    <link>http://localhost:1313/posts/cyber-apocalypse-2024/</link>
-    <pubDate>Wed, 13 Mar 2024 15:56:15 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>http://localhost:1313/posts/cyber-apocalypse-2024/</guid>
-    <description><![CDATA[Writeup for HackTheBox - Cyber Apocalypse 2024: Hacker Royale]]></description>
-</item>
-<item>
     <title>Cyber Jawara 2023 Writeup</title>
-    <link>http://localhost:1313/posts/cyber-jawara-2023/</link>
+    <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
     <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/cyber-jawara-2023/</guid>
+    <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
     <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
 </item>
 <item>
     <title>WaniCTF 2023</title>
-    <link>http://localhost:1313/posts/wanictf-2023/</link>
+    <link>https://chovid99.github.io/posts/wanictf-2023/</link>
     <pubDate>Sat, 06 May 2023 12:12:01 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/wanictf-2023/</guid>
+    <guid>https://chovid99.github.io/posts/wanictf-2023/</guid>
     <description><![CDATA[Short writeup for WaniCTF 2023 by Chovid99]]></description>
 </item>
 <item>
     <title>TAMUctf 2023</title>
-    <link>http://localhost:1313/posts/tamuctf-2023/</link>
+    <link>https://chovid99.github.io/posts/tamuctf-2023/</link>
     <pubDate>Mon, 01 May 2023 00:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/tamuctf-2023/</guid>
+    <guid>https://chovid99.github.io/posts/tamuctf-2023/</guid>
     <description><![CDATA[Short writeup for TAMUctf 2023 by Chovid99]]></description>
 </item>
 <item>
     <title>LINE CTF 2023</title>
-    <link>http://localhost:1313/posts/line-ctf-2023/</link>
+    <link>https://chovid99.github.io/posts/line-ctf-2023/</link>
     <pubDate>Sun, 26 Mar 2023 07:00:01 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/line-ctf-2023/</guid>
+    <guid>https://chovid99.github.io/posts/line-ctf-2023/</guid>
     <description><![CDATA[Writeup for Pwn challenges in LINE CTF 2023]]></description>
 </item>
 <item>
     <title>Cyber Apocalypse 2023: Pwn</title>
-    <link>http://localhost:1313/posts/cyber-apocalypse-2023-pwn/</link>
+    <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</link>
     <pubDate>Thu, 23 Mar 2023 20:00:01 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/cyber-apocalypse-2023-pwn/</guid>
+    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</guid>
     <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99]]></description>
 </item>
 <item>
     <title>Google CTF 2022</title>
-    <link>http://localhost:1313/posts/google-ctf-2022/</link>
+    <link>https://chovid99.github.io/posts/google-ctf-2022/</link>
     <pubDate>Mon, 04 Jul 2022 02:00:00 &#43;0800</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/google-ctf-2022/</guid>
+    <guid>https://chovid99.github.io/posts/google-ctf-2022/</guid>
     <description><![CDATA[Writeup for Google CTF 2022 by Chovid99]]></description>
 </item>
 <item>
     <title>JustCTF 2022</title>
-    <link>http://localhost:1313/posts/justctf-2022/</link>
+    <link>https://chovid99.github.io/posts/justctf-2022/</link>
     <pubDate>Mon, 13 Jun 2022 13:11:24 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/justctf-2022/</guid>
+    <guid>https://chovid99.github.io/posts/justctf-2022/</guid>
     <description><![CDATA[Writeup for justCTF 2022 by Chovid99]]></description>
 </item>
 <item>
     <title>DiceCTF 2022</title>
-    <link>http://localhost:1313/posts/dicectf-2022/</link>
+    <link>https://chovid99.github.io/posts/dicectf-2022/</link>
     <pubDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/dicectf-2022/</guid>
+    <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
     <description><![CDATA[Writeup for DiceCTF 2022 by Chovid99]]></description>
+</item>
+<item>
+    <title>GCC 3.0 CTF 2022</title>
+    <link>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</link>
+    <pubDate>Tue, 11 Jan 2022 06:36:00 &#43;0700</pubDate>
+    <author>Author</author>
+    <guid>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</guid>
+    <description><![CDATA[Writeup for GCC 3.0 CTF 2022 by Chovid99]]></description>
 </item>
 </channel>
 </rss>

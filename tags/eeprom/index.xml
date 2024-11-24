@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Eeprom - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/eeprom/</link>
+        <link>https://chovid99.github.io/tags/eeprom/</link>
         <description>Eeprom - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/eeprom/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/eeprom/" rel="self" type="application/rss+xml" /><item>
     <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
-    <link>http://localhost:1313/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
+    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
     <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
+    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
     <description><![CDATA[Writeup for Blockchain &amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
 </item>
 </channel>

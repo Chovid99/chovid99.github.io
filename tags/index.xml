@@ -1,86 +1,86 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>https://chovid99.github.io/tags/</link>
         <description>Tags - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/" rel="self" type="application/rss+xml" /><item>
     <title>2024</title>
-    <link>http://localhost:1313/tags/2024/</link>
+    <link>https://chovid99.github.io/tags/2024/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/2024/</guid>
+    <guid>https://chovid99.github.io/tags/2024/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Blockchain</title>
-    <link>http://localhost:1313/tags/blockchain/</link>
+    <link>https://chovid99.github.io/tags/blockchain/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/blockchain/</guid>
+    <guid>https://chovid99.github.io/tags/blockchain/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Evm</title>
-    <link>http://localhost:1313/tags/evm/</link>
+    <link>https://chovid99.github.io/tags/evm/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/evm/</guid>
+    <guid>https://chovid99.github.io/tags/evm/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Pwn</title>
-    <link>http://localhost:1313/tags/pwn/</link>
+    <link>https://chovid99.github.io/tags/pwn/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/pwn/</guid>
+    <guid>https://chovid99.github.io/tags/pwn/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Qemu</title>
-    <link>http://localhost:1313/tags/qemu/</link>
+    <link>https://chovid99.github.io/tags/qemu/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/qemu/</guid>
+    <guid>https://chovid99.github.io/tags/qemu/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Writeup</title>
-    <link>http://localhost:1313/tags/writeup/</link>
+    <link>https://chovid99.github.io/tags/writeup/</link>
     <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/writeup/</guid>
+    <guid>https://chovid99.github.io/tags/writeup/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Got</title>
-    <link>http://localhost:1313/tags/got/</link>
+    <link>https://chovid99.github.io/tags/got/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/got/</guid>
+    <guid>https://chovid99.github.io/tags/got/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Heap</title>
-    <link>http://localhost:1313/tags/heap/</link>
+    <link>https://chovid99.github.io/tags/heap/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/heap/</guid>
+    <guid>https://chovid99.github.io/tags/heap/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Json</title>
-    <link>http://localhost:1313/tags/json/</link>
+    <link>https://chovid99.github.io/tags/json/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/json/</guid>
+    <guid>https://chovid99.github.io/tags/json/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>KalmarCTF</title>
-    <link>http://localhost:1313/tags/kalmarctf/</link>
+    <link>https://chovid99.github.io/tags/kalmarctf/</link>
     <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/tags/kalmarctf/</guid>
+    <guid>https://chovid99.github.io/tags/kalmarctf/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

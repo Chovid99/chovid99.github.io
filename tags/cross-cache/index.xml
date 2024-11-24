@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Cross-Cache - Tag - Chovid99&#39;s Blog</title>
-        <link>http://localhost:1313/tags/cross-cache/</link>
+        <link>https://chovid99.github.io/tags/cross-cache/</link>
         <description>Cross-Cache - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</lastBuildDate><atom:link href="http://localhost:1313/tags/cross-cache/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/cross-cache/" rel="self" type="application/rss+xml" /><item>
     <title>HITCON CTF 2023</title>
-    <link>http://localhost:1313/posts/hitcon-ctf-2023/</link>
+    <link>https://chovid99.github.io/posts/hitcon-ctf-2023/</link>
     <pubDate>Wed, 13 Sep 2023 08:07:38 &#43;0700</pubDate>
     <author>Author</author>
-    <guid>http://localhost:1313/posts/hitcon-ctf-2023/</guid>
+    <guid>https://chovid99.github.io/posts/hitcon-ctf-2023/</guid>
     <description><![CDATA[Writeup for HITCON CTF 2023]]></description>
 </item>
 </channel>
