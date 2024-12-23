@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Jop - Tag - Chovid99&#39;s Blog</title>
+        <link>https://chovid99.github.io/tags/jop/</link>
+        <description>Jop - Tag - Chovid99&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/jop/" rel="self" type="application/rss+xml" /><item>
+    <title>0CTF 2024</title>
+    <link>https://chovid99.github.io/posts/0ctf-2024/</link>
+    <pubDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</pubDate>
+    <author>Author</author>
+    <guid>https://chovid99.github.io/posts/0ctf-2024/</guid>
+    <description><![CDATA[Writeup for 0CTF 2024]]></description>
+</item>
+</channel>
+</rss>
