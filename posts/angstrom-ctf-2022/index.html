@@ -165,9 +165,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">flag</span> <span class="o">:=</span> <span class="s">&#34;actf{REDACTEDREDACTEDREDACTED!!}&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span> <span class="c1">// the actual seed is not 12345
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// drastically slow down naive brute force
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span> <span class="c1">// the actual seed is not 12345</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// drastically slow down naive brute force</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">rand</span><span class="p">.</span><span class="nf">Uint64</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">{</span>
@@ -249,42 +249,42 @@
 </span><span class="lnt">52
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// A Source represents a source of uniformly-distributed
-</span></span></span><span class="line"><span class="cl"><span class="c1">// pseudo-random int64 values in the range [0, 1&lt;&lt;63).
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Source</span> <span class="kd">interface</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// A Source represents a source of uniformly-distributed</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// pseudo-random int64 values in the range [0, 1&lt;&lt;63).</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Source</span> <span class="kd">interface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">Int63</span><span class="p">()</span> <span class="kt">int64</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span> <span class="kt">int64</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// A Source64 is a Source that can also generate
-</span></span></span><span class="line"><span class="cl"><span class="c1">// uniformly-distributed pseudo-random uint64 values in
-</span></span></span><span class="line"><span class="cl"><span class="c1">// the range [0, 1&lt;&lt;64) directly.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// If a Rand r&#39;s underlying Source s implements Source64,
-</span></span></span><span class="line"><span class="cl"><span class="c1">// then r.Uint64 returns the result of one call to s.Uint64
-</span></span></span><span class="line"><span class="cl"><span class="c1">// instead of making two calls to s.Int63.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Source64</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// A Source64 is a Source that can also generate</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// uniformly-distributed pseudo-random uint64 values in</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// the range [0, 1&lt;&lt;64) directly.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// If a Rand r&#39;s underlying Source s implements Source64,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// then r.Uint64 returns the result of one call to s.Uint64</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// instead of making two calls to s.Int63.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Source64</span> <span class="kd">interface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">Source</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">Uint64</span><span class="p">()</span> <span class="kt">uint64</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// A Rand is a source of random numbers.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Rand</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// A Rand is a source of random numbers.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Rand</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">src</span> <span class="nx">Source</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">s64</span> <span class="nx">Source64</span> <span class="c1">// non-nil if src is source64
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// readVal contains remainder of 63-bit integer used for bytes
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// generation during most recent Read call.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// It is saved so next Read call can start where the previous
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// one finished.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">readVal</span> <span class="kt">int64</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// readPos indicates the number of low-order bytes of readVal
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// that are still valid.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">readPos</span> <span class="kt">int8</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">s64</span> <span class="nx">Source64</span> <span class="c1">// non-nil if src is source64</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// readVal contains remainder of 63-bit integer used for bytes</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// generation during most recent Read call.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// It is saved so next Read call can start where the previous</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// one finished.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">readVal</span> <span class="kt">int64</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// readPos indicates the number of low-order bytes of readVal</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// that are still valid.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">readPos</span> <span class="kt">int8</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Seed uses the provided seed value to initialize the generator to a deterministic state.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// Seed should not be called concurrently with any other Rand method.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Rand</span><span class="p">)</span> <span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Seed uses the provided seed value to initialize the generator to a deterministic state.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Seed should not be called concurrently with any other Rand method.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Rand</span><span class="p">)</span> <span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">lk</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">r</span><span class="p">.</span><span class="nx">src</span><span class="p">.(</span><span class="o">*</span><span class="nx">lockedSource</span><span class="p">);</span> <span class="nx">ok</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">lk</span><span class="p">.</span><span class="nf">seedPos</span><span class="p">(</span><span class="nx">seed</span><span class="p">,</span> <span class="o">&amp;</span><span class="nx">r</span><span class="p">.</span><span class="nx">readPos</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span>
@@ -294,8 +294,8 @@
 </span></span><span class="line"><span class="cl">	<span class="nx">r</span><span class="p">.</span><span class="nx">readPos</span> <span class="p">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Uint64 returns a pseudo-random 64-bit value as a uint64.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Rand</span><span class="p">)</span> <span class="nf">Uint64</span><span class="p">()</span> <span class="kt">uint64</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Uint64 returns a pseudo-random 64-bit value as a uint64.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">r</span> <span class="o">*</span><span class="nx">Rand</span><span class="p">)</span> <span class="nf">Uint64</span><span class="p">()</span> <span class="kt">uint64</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">r</span><span class="p">.</span><span class="nx">s64</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">r</span><span class="p">.</span><span class="nx">s64</span><span class="p">.</span><span class="nf">Uint64</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -377,13 +377,13 @@
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">rngSource</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">tap</span>  <span class="kt">int</span>           <span class="c1">// index into vec
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">feed</span> <span class="kt">int</span>           <span class="c1">// index into vec
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">vec</span>  <span class="p">[</span><span class="nx">rngLen</span><span class="p">]</span><span class="kt">int64</span> <span class="c1">// current feedback register
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">tap</span>  <span class="kt">int</span>           <span class="c1">// index into vec</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">feed</span> <span class="kt">int</span>           <span class="c1">// index into vec</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">vec</span>  <span class="p">[</span><span class="nx">rngLen</span><span class="p">]</span><span class="kt">int64</span> <span class="c1">// current feedback register</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Seed uses the provided seed value to initialize the generator to a deterministic state.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rng</span> <span class="o">*</span><span class="nx">rngSource</span><span class="p">)</span> <span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Seed uses the provided seed value to initialize the generator to a deterministic state.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">rng</span> <span class="o">*</span><span class="nx">rngSource</span><span class="p">)</span> <span class="nf">Seed</span><span class="p">(</span><span class="nx">seed</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">rng</span><span class="p">.</span><span class="nx">tap</span> <span class="p">=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">rng</span><span class="p">.</span><span class="nx">feed</span> <span class="p">=</span> <span class="nx">rngLen</span> <span class="o">-</span> <span class="nx">rngTap</span>
 </span></span><span class="line"><span class="cl">
@@ -411,8 +411,8 @@
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Uint64 returns a non-negative pseudo-random 64-bit integer as an uint64.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">rng</span> <span class="o">*</span><span class="nx">rngSource</span><span class="p">)</span> <span class="nf">Uint64</span><span class="p">()</span> <span class="kt">uint64</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Uint64 returns a non-negative pseudo-random 64-bit integer as an uint64.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">rng</span> <span class="o">*</span><span class="nx">rngSource</span><span class="p">)</span> <span class="nf">Uint64</span><span class="p">()</span> <span class="kt">uint64</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">rng</span><span class="p">.</span><span class="nx">tap</span><span class="o">--</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">rng</span><span class="p">.</span><span class="nx">tap</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">rng</span><span class="p">.</span><span class="nx">tap</span> <span class="o">+=</span> <span class="nx">rngLen</span>
@@ -484,9 +484,9 @@
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="nx">flag</span> <span class="o">:=</span> <span class="s">&#34;actf{REDACTEDREDACTEDREDACTED!!}&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span> <span class="c1">// the actual seed is not 12345
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// drastically slow down naive brute force
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="mi">12345</span><span class="p">)</span> <span class="c1">// the actual seed is not 12345</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// drastically slow down naive brute force</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">100000</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nx">rand</span><span class="p">.</span><span class="nf">Uint64</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">1</span> <span class="p">{</span>
@@ -683,8 +683,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: actf{i_c4n_f0rs33_th3_p4s7_t00_}</p>
-</blockquote>
+<p>Flag: actf{i_c4n_f0rs33_th3_p4s7_t00_}</p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -715,7 +714,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

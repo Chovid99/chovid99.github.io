@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>AES-GCM - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/aes-gcm/</link>
-        <description>AES-GCM - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/aes-gcm/" rel="self" type="application/rss+xml" /><item>
-    <title>PBCTF 2021</title>
-    <link>https://chovid99.github.io/posts/pbctf-2021/</link>
-    <pubDate>Mon, 11 Oct 2021 20:31:19 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
-    <description><![CDATA[Writeup for PBCTF 2021 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AES-GCM on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/aes-gcm/</link>
+    <description>Recent content in AES-GCM on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 23 Feb 2023 18:03:33 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/aes-gcm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PBCTF 2021</title>
+      <link>https://chovid99.github.io/posts/pbctf-2021/</link>
+      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
+      <description>Writeup for PBCTF 2021 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

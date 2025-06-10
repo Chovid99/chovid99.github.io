@@ -906,12 +906,10 @@ What it does is generate a c pointer to the given function.</p>
 <p>We see that from the retrieved pointer <code>v</code>, we try to get the bytecode, get its <code>op</code> and <code>index</code>, and then the <code>index</code> got passed to <code>getTrace</code> function. And the result isn&rsquo;t allowed to be nil.</p>
 <p>I don&rsquo;t know at all what is <code>GCtrace</code>, and I don&rsquo;t know how Luajit working. So let&rsquo;s try to gather some knowledge on what it is, and what the code is doing.</p>
 <blockquote>
-<p>Notes that what a JIT does is usually parsing the source code into their own bytecode, and then execute it. This bytecodes are machine agnostic. And then, some bytecode will be compiled and stored as native machine code as part of JIT optimization. By doing this, JIT can always ensure that it will always optimize the compiled code based on the target machine architecture.</p>
-</blockquote>
+<p>Notes that what a JIT does is usually parsing the source code into their own bytecode, and then execute it. This bytecodes are machine agnostic. And then, some bytecode will be compiled and stored as native machine code as part of JIT optimization. By doing this, JIT can always ensure that it will always optimize the compiled code based on the target machine architecture.</p></blockquote>
 <p>Based on this <a href="https://pwparchive.wordpress.com/2012/10/16/peeking-inside-luajit/" target="_blank" rel="noopener noreffer ">nice article</a> about Luajit, I learned that Luajit is a <strong>tracing-JIT</strong> instead of <strong>method-JIT</strong>. So, instead of optimizing hot method (method those are frequently called or executed), it will record sequence of executing operations frequency, and then only compile sequence which are frequently to be executed (hot traces). Based on <a href="https://en.wikipedia.org/wiki/Tracing_just-in-time_compilation" target="_blank" rel="noopener noreffer ">wikipedia</a>, tracing JIT assumes that hot loops (frequent loops or repetition of sequential operations) will make program spend a lot of time.</p>
 <blockquote>
-<p>trace is an object which refer to the JIT-Compiled machine code version of the sequence of the bytecodes</p>
-</blockquote>
+<p>trace is an object which refer to the JIT-Compiled machine code version of the sequence of the bytecodes</p></blockquote>
 <p>Moving back to the given code, now we can deduce more about what it actually does. So, my deduction is, from our chosen function, it will check its bytecode of the function. Based on the <a href="http://wiki.luajit.org/Bytecode-2.0" target="_blank" rel="noopener noreffer ">Luajit bytecode documentation</a>, there are two formats on how a bytecode stored.
 <img
         class="lazyload"
@@ -1171,7 +1169,7 @@ Now, we can understand better on what this snippet code does.</p>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

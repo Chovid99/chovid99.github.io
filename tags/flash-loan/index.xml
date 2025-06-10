@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Flash Loan - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/flash-loan/</link>
-        <description>Flash Loan - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/flash-loan/" rel="self" type="application/rss+xml" /><item>
-    <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
-    <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
-    <description><![CDATA[Writeup for Blockchain &amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flash Loan on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/flash-loan/</link>
+    <description>Recent content in Flash Loan on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 14 Mar 2024 22:46:00 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/flash-loan/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
+      <pubDate>Thu, 14 Mar 2024 20:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
+      <description>Writeup for Blockchain &amp;amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

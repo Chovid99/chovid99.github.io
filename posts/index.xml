@@ -3,7 +3,15 @@
         <title>All Posts - Chovid99&#39;s Blog</title>
         <link>https://chovid99.github.io/posts/</link>
         <description>All Posts | Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 08 Jun 2025 21:22:34 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>GreyCTF 2025</title>
+    <link>https://chovid99.github.io/posts/greyctf-2025/</link>
+    <pubDate>Sun, 08 Jun 2025 21:22:34 &#43;0700</pubDate>
+    <author>Author</author>
+    <guid>https://chovid99.github.io/posts/greyctf-2025/</guid>
+    <description><![CDATA[Writeup for GreyCTF 2025]]></description>
+</item>
+<item>
     <title>0CTF 2024</title>
     <link>https://chovid99.github.io/posts/0ctf-2024/</link>
     <pubDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</pubDate>
@@ -74,14 +82,6 @@
     <author>Author</author>
     <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
     <description><![CDATA[Writeup for Real World CTF 2024]]></description>
-</item>
-<item>
-    <title>ASIS CTF Finals 2023</title>
-    <link>https://chovid99.github.io/posts/asis-ctf-finals-2023/</link>
-    <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/asis-ctf-finals-2023/</guid>
-    <description><![CDATA[Writeup for ASIS CTF Finals 2023]]></description>
 </item>
 </channel>
 </rss>

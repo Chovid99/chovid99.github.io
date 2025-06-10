@@ -1,87 +1,334 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Writeup - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/writeup/</link>
-        <description>Writeup - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/writeup/" rel="self" type="application/rss+xml" /><item>
-    <title>0CTF 2024</title>
-    <link>https://chovid99.github.io/posts/0ctf-2024/</link>
-    <pubDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/0ctf-2024/</guid>
-    <description><![CDATA[Writeup for 0CTF 2024]]></description>
-</item>
-<item>
-    <title>SECCON CTF 13 Quals</title>
-    <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
-    <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
-    <description><![CDATA[Writeup for SECCON CTF 13 Quals]]></description>
-</item>
-<item>
-    <title>KalmarCTF 2024</title>
-    <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
-    <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
-    <description><![CDATA[Writeup for KalmarCTF 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
-    <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
-    <description><![CDATA[Writeup for Blockchain &amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2024: Crypto</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</link>
-    <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</guid>
-    <description><![CDATA[Writeup for Crypto challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2024: Pwn</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</link>
-    <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>GCC CTF 2024</title>
-    <link>https://chovid99.github.io/posts/gcc-ctf-2024/</link>
-    <pubDate>Mon, 04 Mar 2024 08:21:14 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/gcc-ctf-2024/</guid>
-    <description><![CDATA[Writeup for GCC CTF 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>DiceCTF 2024 Quals</title>
-    <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
-    <pubDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
-    <description><![CDATA[Writeup for DiceCTF 2024 Quals]]></description>
-</item>
-<item>
-    <title>Real World CTF 2024</title>
-    <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
-    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
-    <description><![CDATA[Writeup for Real World CTF 2024]]></description>
-</item>
-<item>
-    <title>ASIS CTF Finals 2023</title>
-    <link>https://chovid99.github.io/posts/asis-ctf-finals-2023/</link>
-    <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/asis-ctf-finals-2023/</guid>
-    <description><![CDATA[Writeup for ASIS CTF Finals 2023]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Writeup on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/writeup/</link>
+    <description>Recent content in Writeup on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Jun 2025 21:22:34 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GreyCTF 2025</title>
+      <link>https://chovid99.github.io/posts/greyctf-2025/</link>
+      <pubDate>Sun, 08 Jun 2025 21:22:34 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/greyctf-2025/</guid>
+      <description>Writeup for GreyCTF 2025</description>
+    </item>
+    <item>
+      <title>0CTF 2024</title>
+      <link>https://chovid99.github.io/posts/0ctf-2024/</link>
+      <pubDate>Mon, 23 Dec 2024 09:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/0ctf-2024/</guid>
+      <description>Writeup for 0CTF 2024</description>
+    </item>
+    <item>
+      <title>SECCON CTF 13 Quals</title>
+      <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
+      <pubDate>Sun, 24 Nov 2024 19:59:02 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
+      <description>Writeup for SECCON CTF 13 Quals</description>
+    </item>
+    <item>
+      <title>KalmarCTF 2024</title>
+      <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
+      <pubDate>Sun, 24 Mar 2024 00:44:40 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
+      <description>Writeup for KalmarCTF 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
+      <pubDate>Thu, 14 Mar 2024 20:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
+      <description>Writeup for Blockchain &amp;amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2024: Crypto</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</link>
+      <pubDate>Thu, 14 Mar 2024 20:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</guid>
+      <description>Writeup for Crypto challenges in Cyber Apocalypse 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2024: Pwn</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</link>
+      <pubDate>Thu, 14 Mar 2024 20:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-pwn/</guid>
+      <description>Writeup for Pwn challenges in Cyber Apocalypse 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>GCC CTF 2024</title>
+      <link>https://chovid99.github.io/posts/gcc-ctf-2024/</link>
+      <pubDate>Mon, 04 Mar 2024 08:21:14 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/gcc-ctf-2024/</guid>
+      <description>Writeup for GCC CTF 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>DiceCTF 2024 Quals</title>
+      <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
+      <pubDate>Mon, 05 Feb 2024 04:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
+      <description>Writeup for DiceCTF 2024 Quals</description>
+    </item>
+    <item>
+      <title>Real World CTF 2024</title>
+      <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
+      <pubDate>Sun, 28 Jan 2024 23:54:28 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
+      <description>Writeup for Real World CTF 2024</description>
+    </item>
+    <item>
+      <title>ASIS CTF Finals 2023</title>
+      <link>https://chovid99.github.io/posts/asis-ctf-finals-2023/</link>
+      <pubDate>Sat, 30 Dec 2023 23:44:55 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/asis-ctf-finals-2023/</guid>
+      <description>Writeup for ASIS CTF Finals 2023</description>
+    </item>
+    <item>
+      <title>0CTF/TCTF 2023</title>
+      <link>https://chovid99.github.io/posts/0ctf-tctf-2023/</link>
+      <pubDate>Mon, 11 Dec 2023 04:56:22 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/0ctf-tctf-2023/</guid>
+      <description>Writeup for 0CTF/TCTF 2023</description>
+    </item>
+    <item>
+      <title>Cyber Jawara 2023 Writeup</title>
+      <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
+      <pubDate>Sun, 03 Dec 2023 21:09:30 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
+      <description>Writeup for Cyber Jawara 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>TCP1P CTF 2023</title>
+      <link>https://chovid99.github.io/posts/tcp1p-ctf-2023/</link>
+      <pubDate>Sun, 15 Oct 2023 21:52:15 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/tcp1p-ctf-2023/</guid>
+      <description>Writeup for TCP1P CTF 2023 by Fidethus</description>
+    </item>
+    <item>
+      <title>BlackHat MEA CTF 2023</title>
+      <link>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</link>
+      <pubDate>Tue, 10 Oct 2023 22:25:19 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/blackhat-mea-ctf-2023/</guid>
+      <description>Writeup for BlackHat MEA CTF 2023</description>
+    </item>
+    <item>
+      <title>HITCON CTF 2023</title>
+      <link>https://chovid99.github.io/posts/hitcon-ctf-2023/</link>
+      <pubDate>Wed, 13 Sep 2023 08:07:38 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/hitcon-ctf-2023/</guid>
+      <description>Writeup for HITCON CTF 2023</description>
+    </item>
+    <item>
+      <title>SekaiCTF 2023</title>
+      <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
+      <pubDate>Sun, 27 Aug 2023 23:00:38 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
+      <description>Writeup for SekaiCTF 2023</description>
+    </item>
+    <item>
+      <title>corCTF 2023</title>
+      <link>https://chovid99.github.io/posts/corctf-2023/</link>
+      <pubDate>Mon, 12 Jun 2023 09:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/corctf-2023/</guid>
+      <description>Writeup for corCTF 2023</description>
+    </item>
+    <item>
+      <title>SEETF 2023</title>
+      <link>https://chovid99.github.io/posts/seetf-2023/</link>
+      <pubDate>Mon, 12 Jun 2023 09:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/seetf-2023/</guid>
+      <description>Writeup for Smart Contract challenges in SEETF 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>WaniCTF 2023</title>
+      <link>https://chovid99.github.io/posts/wanictf-2023/</link>
+      <pubDate>Sat, 06 May 2023 12:12:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/wanictf-2023/</guid>
+      <description>Short writeup for WaniCTF 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>TAMUctf 2023</title>
+      <link>https://chovid99.github.io/posts/tamuctf-2023/</link>
+      <pubDate>Mon, 01 May 2023 00:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/tamuctf-2023/</guid>
+      <description>Short writeup for TAMUctf 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>Plaid CTF 2023</title>
+      <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
+      <pubDate>Mon, 17 Apr 2023 04:00:36 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
+      <description>Writeup for Pwn challenges in PlaidCTF 2023</description>
+    </item>
+    <item>
+      <title>LINE CTF 2023</title>
+      <link>https://chovid99.github.io/posts/line-ctf-2023/</link>
+      <pubDate>Sun, 26 Mar 2023 07:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/line-ctf-2023/</guid>
+      <description>Writeup for Pwn challenges in LINE CTF 2023</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2023: Crypto</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/</link>
+      <pubDate>Thu, 23 Mar 2023 20:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-crypto/</guid>
+      <description>Writeup for Crypto challenges in Cyber Apocalypse 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2023: Pwn</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</link>
+      <pubDate>Thu, 23 Mar 2023 20:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</guid>
+      <description>Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>ACSC 2023</title>
+      <link>https://chovid99.github.io/posts/acsc-2023/</link>
+      <pubDate>Sun, 26 Feb 2023 14:18:58 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/acsc-2023/</guid>
+      <description>Writeup for ACSC 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>HackTM CTF 2023</title>
+      <link>https://chovid99.github.io/posts/hacktm-ctf-2023/</link>
+      <pubDate>Sun, 19 Feb 2023 20:14:37 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/hacktm-ctf-2023/</guid>
+      <description>Writeup for HackTM CTF 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>STACK the Flags CTF 2022</title>
+      <link>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</link>
+      <pubDate>Mon, 05 Dec 2022 16:11:43 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/stack-the-flags-ctf-2022/</guid>
+      <description>Writeup for STACK the Flags CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>HITCON CTF 2022</title>
+      <link>https://chovid99.github.io/posts/hitcon-ctf-2022/</link>
+      <pubDate>Sun, 27 Nov 2022 21:06:10 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/hitcon-ctf-2022/</guid>
+      <description>Writeup for HITCON CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>BlackHat MEA CTF 2022</title>
+      <link>https://chovid99.github.io/posts/blackhat-mea-ctf-2022/</link>
+      <pubDate>Sun, 02 Oct 2022 02:53:04 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/blackhat-mea-ctf-2022/</guid>
+      <description>Writeup for BlackHat MEA CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>MapleCTF 2022</title>
+      <link>https://chovid99.github.io/posts/maplectf-2022/</link>
+      <pubDate>Mon, 29 Aug 2022 11:23:48 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/maplectf-2022/</guid>
+      <description>Writeup for MapleCTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>Google CTF 2022</title>
+      <link>https://chovid99.github.io/posts/google-ctf-2022/</link>
+      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
+      <guid>https://chovid99.github.io/posts/google-ctf-2022/</guid>
+      <description>Writeup for Google CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>TyphoonCon CTF 2022</title>
+      <link>https://chovid99.github.io/posts/typhooncon-ctf-2022/</link>
+      <pubDate>Sat, 25 Jun 2022 10:04:10 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/typhooncon-ctf-2022/</guid>
+      <description>Writeup for TyphoonCon CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>JustCTF 2022</title>
+      <link>https://chovid99.github.io/posts/justctf-2022/</link>
+      <pubDate>Mon, 13 Jun 2022 13:11:24 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/justctf-2022/</guid>
+      <description>Writeup for justCTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>SEETF 2022</title>
+      <link>https://chovid99.github.io/posts/seetf-2022/</link>
+      <pubDate>Mon, 06 Jun 2022 21:50:32 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/seetf-2022/</guid>
+      <description>Writeup for SEETF 2022 by Chovid99 and gmberlian</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse CTF 2022</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-ctf-2022/</link>
+      <pubDate>Thu, 19 May 2022 22:00:19 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-ctf-2022/</guid>
+      <description>Writeup of Cyber Apocalypse CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>SanDiego CTF 2022</title>
+      <link>https://chovid99.github.io/posts/sandiego-ctf-2022/</link>
+      <pubDate>Mon, 09 May 2022 08:54:22 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/sandiego-ctf-2022/</guid>
+      <description>Writeup for SanDiego CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>Angstrom CTF 2022</title>
+      <link>https://chovid99.github.io/posts/angstrom-ctf-2022/</link>
+      <pubDate>Thu, 05 May 2022 11:10:29 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/angstrom-ctf-2022/</guid>
+      <description>Writeup for Angstrom CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>NahamCon CTF 2022</title>
+      <link>https://chovid99.github.io/posts/nahamcon-ctf-2022/</link>
+      <pubDate>Sun, 01 May 2022 08:12:50 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/nahamcon-ctf-2022/</guid>
+      <description>Writeup for NahamCon CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>zer0pts CTF 2022</title>
+      <link>https://chovid99.github.io/posts/zer0pts-ctf-2022/</link>
+      <pubDate>Fri, 11 Mar 2022 20:31:19 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/zer0pts-ctf-2022/</guid>
+      <description>Writeup for zer0pts CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>Pragyan CTF 2022</title>
+      <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
+      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
+      <description>Writeup for Pragyan CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>DefCamp CTF 2022</title>
+      <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>
+      <pubDate>Mon, 14 Feb 2022 20:02:14 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/defcamp-ctf-2022/</guid>
+      <description>Writeup for DefCamp CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>DiceCTF 2022</title>
+      <link>https://chovid99.github.io/posts/dicectf-2022/</link>
+      <pubDate>Mon, 07 Feb 2022 08:01:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
+      <description>Writeup for DiceCTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>GCC 3.0 CTF 2022</title>
+      <link>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</link>
+      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</guid>
+      <description>Writeup for GCC 3.0 CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>PBCTF 2021</title>
+      <link>https://chovid99.github.io/posts/pbctf-2021/</link>
+      <pubDate>Mon, 11 Oct 2021 20:31:19 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/pbctf-2021/</guid>
+      <description>Writeup for PBCTF 2021 by Chovid99</description>
+    </item>
+    <item>
+      <title>CSAW CTF 2019</title>
+      <link>https://chovid99.github.io/posts/csaw-ctf-2019/</link>
+      <pubDate>Mon, 16 Sep 2019 20:02:14 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/csaw-ctf-2019/</guid>
+      <description>Writeup for CSAW CTF 2019 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

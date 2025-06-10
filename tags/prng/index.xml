@@ -1,23 +1,26 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Prng - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/prng/</link>
-        <description>Prng - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 04 Jul 2022 02:00:00 &#43;0800</lastBuildDate><atom:link href="https://chovid99.github.io/tags/prng/" rel="self" type="application/rss+xml" /><item>
-    <title>Google CTF 2022</title>
-    <link>https://chovid99.github.io/posts/google-ctf-2022/</link>
-    <pubDate>Mon, 04 Jul 2022 02:00:00 &#43;0800</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/google-ctf-2022/</guid>
-    <description><![CDATA[Writeup for Google CTF 2022 by Chovid99]]></description>
-</item>
-<item>
-    <title>Angstrom CTF 2022</title>
-    <link>https://chovid99.github.io/posts/angstrom-ctf-2022/</link>
-    <pubDate>Thu, 05 May 2022 11:10:29 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/angstrom-ctf-2022/</guid>
-    <description><![CDATA[Writeup for Angstrom CTF 2022 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prng on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/prng/</link>
+    <description>Recent content in Prng on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 23 Feb 2023 18:03:33 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/prng/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google CTF 2022</title>
+      <link>https://chovid99.github.io/posts/google-ctf-2022/</link>
+      <pubDate>Mon, 04 Jul 2022 02:00:00 +0800</pubDate>
+      <guid>https://chovid99.github.io/posts/google-ctf-2022/</guid>
+      <description>Writeup for Google CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>Angstrom CTF 2022</title>
+      <link>https://chovid99.github.io/posts/angstrom-ctf-2022/</link>
+      <pubDate>Thu, 05 May 2022 11:10:29 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/angstrom-ctf-2022/</guid>
+      <description>Writeup for Angstrom CTF 2022 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

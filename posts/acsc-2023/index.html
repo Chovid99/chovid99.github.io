@@ -1497,8 +1497,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: ACSC{r34ll0c_15_n07_ju57_r34ll0c473}</strong></p>
-</blockquote>
+<p><strong>Flag: ACSC{r34ll0c_15_n07_ju57_r34ll0c473}</strong></p></blockquote>
 <h1 id="web">Web</h1>
 <h2 id="easyssti-200-pts">easySSTI (200 pts)</h2>
 <div class="details admonition quote open">
@@ -1764,8 +1763,8 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="c1">// File sends a response with the content of the file.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">File</span><span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="c1">// File sends a response with the content of the file.</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">File</span><span class="p">(</span><span class="nx">file</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>However, we can&rsquo;t do that directly to the <code>/flag</code> because the WAF will prevent it.</p>
@@ -1825,24 +1824,24 @@
 </span><span class="lnt">47
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in echo/echo.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// Echo is the top-level framework instance.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Goroutine safety: Do not mutate Echo instance fields after server has started. Accessing these
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// fields from handlers/middlewares and changing field values at the same time leads to data-races.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Adding new routes after the server has been started is also not safe!
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Echo</span> <span class="kd">struct</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in echo/echo.go</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Echo is the top-level framework instance.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Goroutine safety: Do not mutate Echo instance fields after server has started. Accessing these</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// fields from handlers/middlewares and changing field values at the same time leads to data-races.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Adding new routes after the server has been started is also not safe!</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Echo</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">filesystem</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">common</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// startupMutex is mutex to lock Echo instance access during server configuration and startup. Useful for to get
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// listener address info (on which interface/port was listener binded) without having data races.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">startupMutex</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// startupMutex is mutex to lock Echo instance access during server configuration and startup. Useful for to get</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// listener address info (on which interface/port was listener binded) without having data races.</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">startupMutex</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">colorer</span>      <span class="o">*</span><span class="nx">color</span><span class="p">.</span><span class="nx">Color</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">// premiddleware are middlewares that are run before routing is done. In case a pre-middleware returns
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="c1">// an error the router is not executed and the request will end up in the global error handler.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">premiddleware</span> <span class="p">[]</span><span class="nx">MiddlewareFunc</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// premiddleware are middlewares that are run before routing is done. In case a pre-middleware returns</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// an error the router is not executed and the request will end up in the global error handler.</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">premiddleware</span> <span class="p">[]</span><span class="nx">MiddlewareFunc</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">middleware</span>    <span class="p">[]</span><span class="nx">MiddlewareFunc</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">maxParam</span>      <span class="o">*</span><span class="kt">int</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">router</span>        <span class="o">*</span><span class="nx">Router</span>
@@ -1868,8 +1867,8 @@
 </span></span><span class="line"><span class="cl">		<span class="nx">IPExtractor</span>      <span class="nx">IPExtractor</span>
 </span></span><span class="line"><span class="cl">		<span class="nx">ListenerNetwork</span>  <span class="kt">string</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">		<span class="c1">// OnAddRouteHandler is called when Echo adds new route to specific host router.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">OnAddRouteHandler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">host</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">route</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">HandlerFunc</span><span class="p">,</span> <span class="nx">middleware</span> <span class="p">[]</span><span class="nx">MiddlewareFunc</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// OnAddRouteHandler is called when Echo adds new route to specific host router.</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">OnAddRouteHandler</span> <span class="kd">func</span><span class="p">(</span><span class="nx">host</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">route</span> <span class="nx">Route</span><span class="p">,</span> <span class="nx">handler</span> <span class="nx">HandlerFunc</span><span class="p">,</span> <span class="nx">middleware</span> <span class="p">[]</span><span class="nx">MiddlewareFunc</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
@@ -1985,36 +1984,36 @@
 </span><span class="lnt">106
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in io/fs/fs.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// An FS provides access to a hierarchical file system.
-</span></span></span><span class="line"><span class="cl"><span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1">// The FS interface is the minimum implementation required of the file system.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// A file system may implement additional interfaces,
-</span></span></span><span class="line"><span class="cl"><span class="c1">// such as ReadFileFS, to provide additional or optimized functionality.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">FS</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// Open opens the named file.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// When Open returns an error, it should be of type *PathError
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// with the Op field set to &#34;open&#34;, the Path field set to name,
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// and the Err field describing the problem.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Open should reject attempts to open names that do not satisfy
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// ValidPath(name), returning a *PathError with Err set to
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// ErrInvalid or ErrNotExist.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">File</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in io/fs/fs.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// An FS provides access to a hierarchical file system.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// The FS interface is the minimum implementation required of the file system.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// A file system may implement additional interfaces,</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// such as ReadFileFS, to provide additional or optimized functionality.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">FS</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Open opens the named file.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// When Open returns an error, it should be of type *PathError</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// with the Op field set to &#34;open&#34;, the Path field set to name,</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// and the Err field describing the problem.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Open should reject attempts to open names that do not satisfy</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// ValidPath(name), returning a *PathError with Err set to</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// ErrInvalid or ErrNotExist.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="nx">File</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Located in echo/echo_fs.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Located in echo/echo_fs.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">filesystem</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="c1">// Filesystem is file system used by Static and File handlers to access files.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// Defaults to os.DirFS(&#34;.&#34;)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// When dealing with `embed.FS` use `fs := echo.MustSubFS(fs, &#34;rootDirectory&#34;) to create sub fs which uses necessary
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// prefix for directory path. This is necessary as `//go:embed assets/images` embeds files with paths
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// including `assets/images` as their prefix.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">Filesystem</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">FS</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Filesystem is file system used by Static and File handlers to access files.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Defaults to os.DirFS(&#34;.&#34;)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// When dealing with `embed.FS` use `fs := echo.MustSubFS(fs, &#34;rootDirectory&#34;) to create sub fs which uses necessary</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// prefix for directory path. This is necessary as `//go:embed assets/images` embeds files with paths</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// including `assets/images` as their prefix.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Filesystem</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">FS</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">createFilesystem</span><span class="p">()</span> <span class="nx">filesystem</span> <span class="p">{</span>
@@ -2023,14 +2022,14 @@
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// defaultFS exists to preserve pre v4.7.0 behaviour where files were open by `os.Open`.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// v4.7 introduced `echo.Filesystem` field which is Go1.16+ `fs.Fs` interface.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// Difference between `os.Open` and `fs.Open` is that FS does not allow opening path that start with `.`, `..` or `/`
-</span></span></span><span class="line"><span class="cl"><span class="c1">// etc. For example previously you could have `../images` in your application but `fs := os.DirFS(&#34;./&#34;)` would not
-</span></span></span><span class="line"><span class="cl"><span class="c1">// allow you to use `fs.Open(&#34;../images&#34;)` and this would break all old applications that rely on being able to
-</span></span></span><span class="line"><span class="cl"><span class="c1">// traverse up from current executable run path.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// NB: private because you really should use fs.FS implementation instances
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">defaultFS</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// defaultFS exists to preserve pre v4.7.0 behaviour where files were open by `os.Open`.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// v4.7 introduced `echo.Filesystem` field which is Go1.16+ `fs.Fs` interface.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Difference between `os.Open` and `fs.Open` is that FS does not allow opening path that start with `.`, `..` or `/`</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// etc. For example previously you could have `../images` in your application but `fs := os.DirFS(&#34;./&#34;)` would not</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// allow you to use `fs.Open(&#34;../images&#34;)` and this would break all old applications that rely on being able to</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// traverse up from current executable run path.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// NB: private because you really should use fs.FS implementation instances</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">defaultFS</span> <span class="kd">struct</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">prefix</span> <span class="kt">string</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">fs</span>     <span class="nx">fs</span><span class="p">.</span><span class="nx">FS</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -2050,35 +2049,35 @@
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">fs</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Located in os/file.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// Open opens the named file for reading. If successful, methods on
-</span></span></span><span class="line"><span class="cl"><span class="c1">// the returned file can be used for reading; the associated file
-</span></span></span><span class="line"><span class="cl"><span class="c1">// descriptor has mode O_RDONLY.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// If there is an error, it will be of type *PathError.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">File</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Located in os/file.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Open opens the named file for reading. If successful, methods on</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// the returned file can be used for reading; the associated file</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// descriptor has mode O_RDONLY.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// If there is an error, it will be of type *PathError.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">File</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nf">OpenFile</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">O_RDONLY</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Located in os/types.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// File represents an open file descriptor.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">File</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="nx">file</span> <span class="c1">// os specific
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Located in os/types.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// File represents an open file descriptor.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">File</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="o">*</span><span class="nx">file</span> <span class="c1">// os specific</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Located in os/file.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// Seek sets the offset for the next Read or Write on file to offset, interpreted
-</span></span></span><span class="line"><span class="cl"><span class="c1">// according to whence: 0 means relative to the origin of the file, 1 means
-</span></span></span><span class="line"><span class="cl"><span class="c1">// relative to the current offset, and 2 means relative to the end.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// It returns the new offset and an error, if any.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// The behavior of Seek on a file opened with O_APPEND is not specified.
-</span></span></span><span class="line"><span class="cl"><span class="c1">//
-</span></span></span><span class="line"><span class="cl"><span class="c1">// If f is a directory, the behavior of Seek varies by operating
-</span></span></span><span class="line"><span class="cl"><span class="c1">// system; you can seek to the beginning of the directory on Unix-like
-</span></span></span><span class="line"><span class="cl"><span class="c1">// operating systems, but not on Windows.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">File</span><span class="p">)</span> <span class="nf">Seek</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">whence</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">ret</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Located in os/file.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Seek sets the offset for the next Read or Write on file to offset, interpreted</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// according to whence: 0 means relative to the origin of the file, 1 means</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// relative to the current offset, and 2 means relative to the end.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// It returns the new offset and an error, if any.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// The behavior of Seek on a file opened with O_APPEND is not specified.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// If f is a directory, the behavior of Seek varies by operating</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// system; you can seek to the beginning of the directory on Unix-like</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// operating systems, but not on Windows.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">File</span><span class="p">)</span> <span class="nf">Seek</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">whence</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">ret</span> <span class="kt">int64</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nf">checkValid</span><span class="p">(</span><span class="s">&#34;seek&#34;</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">err</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -2135,8 +2134,8 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in echo/context.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in echo/context.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">context</span><span class="p">)</span> <span class="nf">Stream</span><span class="p">(</span><span class="nx">code</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">contentType</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">r</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nf">writeContentType</span><span class="p">(</span><span class="nx">contentType</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">response</span><span class="p">.</span><span class="nf">WriteHeader</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span>
@@ -2145,8 +2144,8 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Located in io/io/go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Located in io/io/go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="nf">Read</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -2169,12 +2168,12 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in os/file.go
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// Read reads up to len(b) bytes from the File and stores them in b.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// It returns the number of bytes read and any error encountered.
-</span></span></span><span class="line"><span class="cl"><span class="c1">// At end of file, Read returns 0, io.EOF.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">File</span><span class="p">)</span> <span class="nf">Read</span><span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Located in os/file.go</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Read reads up to len(b) bytes from the File and stores them in b.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// It returns the number of bytes read and any error encountered.</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// At end of file, Read returns 0, io.EOF.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">f</span> <span class="o">*</span><span class="nx">File</span><span class="p">)</span> <span class="nf">Read</span><span class="p">(</span><span class="nx">b</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">f</span><span class="p">.</span><span class="nf">checkValid</span><span class="p">(</span><span class="s">&#34;read&#34;</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">err</span>
 </span></span><span class="line"><span class="cl">	<span class="p">}</span>
@@ -2202,8 +2201,7 @@
         title="https://i.imgur.com/doZ7ATE.png" /></p>
 <p>We got the flag!</p>
 <blockquote>
-<p><strong>Flag: ACSC{h0w_did_y0u_leak_me}</strong></p>
-</blockquote>
+<p><strong>Flag: ACSC{h0w_did_y0u_leak_me}</strong></p></blockquote>
 <h1 id="hardware">Hardware</h1>
 <h2 id="hardware-is-not-so-hard-100-pts">Hardware is not so hard (100 pts)</h2>
 <div class="details admonition quote open">
@@ -2569,8 +2567,7 @@
         title="https://i.imgur.com/hGpr1Cz.png" /></p>
 <p>Turn out it is the flag!</p>
 <blockquote>
-<p><strong>Flag: ACSC{1tW@sE@syW@snt1t}</strong></p>
-</blockquote>
+<p><strong>Flag: ACSC{1tW@sE@syW@snt1t}</strong></p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -2601,7 +2598,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

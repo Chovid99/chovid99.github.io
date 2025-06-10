@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Backtracking - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/backtracking/</link>
-        <description>Backtracking - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/backtracking/" rel="self" type="application/rss+xml" /><item>
-    <title>Cyber Apocalypse 2024: Crypto</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</link>
-    <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</guid>
-    <description><![CDATA[Writeup for Crypto challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Backtracking on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/backtracking/</link>
+    <description>Recent content in Backtracking on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 20 Mar 2024 12:06:28 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/backtracking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cyber Apocalypse 2024: Crypto</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</link>
+      <pubDate>Thu, 14 Mar 2024 20:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-crypto/</guid>
+      <description>Writeup for Crypto challenges in Cyber Apocalypse 2024 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

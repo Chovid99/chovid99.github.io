@@ -381,8 +381,7 @@ $$</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: <code>HTB{gcd_+_2_*_R@6in_.|5_thi5_@_cro55over_epi5ode?}</code></p>
-</blockquote>
+<p>Flag: <code>HTB{gcd_+_2_*_R@6in_.|5_thi5_@_cro55over_epi5ode?}</code></p></blockquote>
 <h2 id="mind-in-the-clouds-375-pt">Mind in the Clouds (375 pt)</h2>
 <h3 id="initial-analysis-1">Initial Analysis</h3>
 <p>We were given a source code:</p>
@@ -855,14 +854,12 @@ Solving the equations, we will be able to retrieve the $k_{1}$ and $k_{2}$ by pu
         alt="https://i.imgur.com/7jiwdNd.png"
         title="https://i.imgur.com/7jiwdNd.png" /></p>
 <blockquote>
-<p>Flag: <code>HTB{y0u_4r3_th3_m4st3r_0f_LLL}</code></p>
-</blockquote>
+<p>Flag: <code>HTB{y0u_4r3_th3_m4st3r_0f_LLL}</code></p></blockquote>
 <h3 id="extra-notes">Extra notes</h3>
 <p>The solution is unstable, which after testing in the local, I found out that we can only apply our constructed lattice only if the bits length of the $c_2$ is &lt; $63$ bits. So, during the challenge, what I do is simply restart the docker so many times, until the $c_2$ value is &lt; $63$ bits.</p>
 <p>I believe one of the reason of this unstable result is due to the $K$ value that I set is $2^{56}$. I&rsquo;m pretty sure that my lattice can be improved so that it can recover the $\text{nonce}$ even though the $c_2$ bits length is between ${63,64}$ bits. Also in the paper, it is stated that</p>
 <blockquote>
-<p>The determinant bounds guarantee that we will find one short lattice vector, but do not guarantee that we will find four short lattice vectors. For that, we rely on the heuristic that the reduced vectors of a random lattice are close to the same length.</p>
-</blockquote>
+<p>The determinant bounds guarantee that we will find one short lattice vector, but do not guarantee that we will find four short lattice vectors. For that, we rely on the heuristic that the reduced vectors of a random lattice are close to the same length.</p></blockquote>
 <p>So maybe, it is expected that we might need to do several attempts to break the given ECDSA system.</p>
 <h3 id="full-script-1">Full Script</h3>
 <p>I use sage to run this script</p>
@@ -1162,7 +1159,7 @@ Solving the equations, we will be able to retrieve the $k_{1}$ and $k_{2}$ by pu
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

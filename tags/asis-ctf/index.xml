@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>ASIS CTF - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/asis-ctf/</link>
-        <description>ASIS CTF - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/asis-ctf/" rel="self" type="application/rss+xml" /><item>
-    <title>ASIS CTF Finals 2023</title>
-    <link>https://chovid99.github.io/posts/asis-ctf-finals-2023/</link>
-    <pubDate>Sat, 30 Dec 2023 23:44:55 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/asis-ctf-finals-2023/</guid>
-    <description><![CDATA[Writeup for ASIS CTF Finals 2023]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ASIS CTF on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/asis-ctf/</link>
+    <description>Recent content in ASIS CTF on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 31 Dec 2023 02:33:54 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/asis-ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ASIS CTF Finals 2023</title>
+      <link>https://chovid99.github.io/posts/asis-ctf-finals-2023/</link>
+      <pubDate>Sat, 30 Dec 2023 23:44:55 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/asis-ctf-finals-2023/</guid>
+      <description>Writeup for ASIS CTF Finals 2023</description>
+    </item>
+  </channel>
 </rss>

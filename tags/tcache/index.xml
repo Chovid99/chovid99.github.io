@@ -1,31 +1,33 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Tcache - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/tcache/</link>
-        <description>Tcache - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/tcache/" rel="self" type="application/rss+xml" /><item>
-    <title>KalmarCTF 2024</title>
-    <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
-    <pubDate>Sun, 24 Mar 2024 00:44:40 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
-    <description><![CDATA[Writeup for KalmarCTF 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>Cyber Jawara 2023 Writeup</title>
-    <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
-    <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
-    <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2023: Pwn</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</link>
-    <pubDate>Thu, 23 Mar 2023 20:00:01 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tcache on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/tcache/</link>
+    <description>Recent content in Tcache on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 02 Jul 2024 20:25:32 -0400</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/tcache/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KalmarCTF 2024</title>
+      <link>https://chovid99.github.io/posts/kalmarctf-2024/</link>
+      <pubDate>Sun, 24 Mar 2024 00:44:40 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/kalmarctf-2024/</guid>
+      <description>Writeup for KalmarCTF 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>Cyber Jawara 2023 Writeup</title>
+      <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
+      <pubDate>Sun, 03 Dec 2023 21:09:30 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
+      <description>Writeup for Cyber Jawara 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2023: Pwn</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</link>
+      <pubDate>Thu, 23 Mar 2023 20:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2023-pwn/</guid>
+      <description>Writeup for Pwn challenges in Cyber Apocalypse 2023 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

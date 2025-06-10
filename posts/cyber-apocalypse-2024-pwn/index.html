@@ -1555,8 +1555,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{gL0aT_aLl_y0u_l1k3,c0mb4t_cHoOsES_tH3_viCt0rS}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{gL0aT_aLl_y0u_l1k3,c0mb4t_cHoOsES_tH3_viCt0rS}</strong></p></blockquote>
 <h2 id="maze-of-mist-hard">Maze of Mist [hard]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -1971,8 +1970,7 @@
 </div><p>Executing the above script will give us the flag</p>
 <img src="https://i.imgur.com/fuxbcjc.png">
 <blockquote>
-<p><strong>Flag: HTB{Sm4sh1nG_Th3_V01d_F0r_Fun_4nd_Pr0f1t}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{Sm4sh1nG_Th3_V01d_F0r_Fun_4nd_Pr0f1t}</strong></p></blockquote>
 <h2 id="oracle-hard">Oracle [hard]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -3117,8 +3115,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{wH4t_d1D_tH3_oRAcL3_s4y_tO_tH3_f1gHt3r?}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{wH4t_d1D_tH3_oRAcL3_s4y_tO_tH3_f1gHt3r?}</strong></p></blockquote>
 <h2 id="sound-of-silence-medium">Sound of Silence [medium]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -3373,8 +3370,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{n0_n33d_4_l34k5_wh3n_u_h4v3_5y5t3m}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{n0_n33d_4_l34k5_wh3n_u_h4v3_5y5t3m}</strong></p></blockquote>
 <h2 id="deathnote-medium">Deathnote [medium]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -3876,8 +3872,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{0m43_w4_m0u_5h1nd31ru~uWu}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{0m43_w4_m0u_5h1nd31ru~uWu}</strong></p></blockquote>
 <h2 id="rocket-blaster-xxx-easy">Rocket Blaster XXX [easy]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -4107,8 +4102,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{b00m_b00m_r0ck3t_2_th3_m00n}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{b00m_b00m_r0ck3t_2_th3_m00n}</strong></p></blockquote>
 <h2 id="pet-companion-easy">Pet Companion [easy]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -4320,8 +4314,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{c0nf1gur3_w3r_d0g}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{c0nf1gur3_w3r_d0g}</strong></p></blockquote>
 <h2 id="writing-on-the-wall-very-easy">Writing on the Wall [very easy]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -4504,8 +4497,7 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Flag: HTB{3v3ryth1ng_15_r34d4bl3}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{3v3ryth1ng_15_r34d4bl3}</strong></p></blockquote>
 <h2 id="delulu-very-easy">Delulu [very easy]</h2>
 <div class="details admonition quote open">
         <div class="details-summary admonition-title">
@@ -4603,8 +4595,7 @@
 <h3 id="solution-8">Solution</h3>
 <p>To exploit this challenge, leveraging the format string vulnerability is key. Through manual inspection, <code>%7$p</code> reveals the value of <code>v4[1]</code>, which is effectively <code>v4[0]</code>. To precisely overwrite the last two bytes of <code>v4[0]</code>, sending the input <code>%48879c%7$hn</code> to the challenge suffices. The directive <code>%48879c</code> generates <code>0xBEEF</code> worth of space characters, followed by <code>%7$hn</code> which alters the referenced address value (in this instance, <code>v4[0]</code>) to match the count of characters printed so far (which amounts to <code>0xBEEF</code> characters). Successfully executing this sequence overwrites <code>v4[0]</code>, enabling us to retrieve the flag.</p>
 <blockquote>
-<p><strong>Flag: HTB{m45t3r_0f_d3c3pt10n}</strong></p>
-</blockquote>
+<p><strong>Flag: HTB{m45t3r_0f_d3c3pt10n}</strong></p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -4635,7 +4626,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

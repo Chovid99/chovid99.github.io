@@ -1,55 +1,54 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Web - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/web/</link>
-        <description>Web - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/web/" rel="self" type="application/rss+xml" /><item>
-    <title>Cyber Jawara 2023 Writeup</title>
-    <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
-    <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
-    <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
-</item>
-<item>
-    <title>Plaid CTF 2023</title>
-    <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
-    <pubDate>Mon, 17 Apr 2023 04:00:36 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in PlaidCTF 2023]]></description>
-</item>
-<item>
-    <title>Pragyan CTF 2022</title>
-    <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
-    <pubDate>Mon, 07 Mar 2022 08:01:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
-    <description><![CDATA[Writeup for Pragyan CTF 2022 by Chovid99]]></description>
-</item>
-<item>
-    <title>DefCamp CTF 2022</title>
-    <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>
-    <pubDate>Mon, 14 Feb 2022 20:02:14 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/defcamp-ctf-2022/</guid>
-    <description><![CDATA[Writeup for DefCamp CTF 2022 by Chovid99]]></description>
-</item>
-<item>
-    <title>DiceCTF 2022</title>
-    <link>https://chovid99.github.io/posts/dicectf-2022/</link>
-    <pubDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
-    <description><![CDATA[Writeup for DiceCTF 2022 by Chovid99]]></description>
-</item>
-<item>
-    <title>GCC 3.0 CTF 2022</title>
-    <link>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</link>
-    <pubDate>Tue, 11 Jan 2022 06:36:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</guid>
-    <description><![CDATA[Writeup for GCC 3.0 CTF 2022 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Web on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/web/</link>
+    <description>Recent content in Web on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 04 Dec 2023 16:17:44 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cyber Jawara 2023 Writeup</title>
+      <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
+      <pubDate>Sun, 03 Dec 2023 21:09:30 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
+      <description>Writeup for Cyber Jawara 2023 by Chovid99</description>
+    </item>
+    <item>
+      <title>Plaid CTF 2023</title>
+      <link>https://chovid99.github.io/posts/plaidctf-2023/</link>
+      <pubDate>Mon, 17 Apr 2023 04:00:36 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/plaidctf-2023/</guid>
+      <description>Writeup for Pwn challenges in PlaidCTF 2023</description>
+    </item>
+    <item>
+      <title>Pragyan CTF 2022</title>
+      <link>https://chovid99.github.io/posts/pragyan-ctf-2022/</link>
+      <pubDate>Mon, 07 Mar 2022 08:01:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/pragyan-ctf-2022/</guid>
+      <description>Writeup for Pragyan CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>DefCamp CTF 2022</title>
+      <link>https://chovid99.github.io/posts/defcamp-ctf-2022/</link>
+      <pubDate>Mon, 14 Feb 2022 20:02:14 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/defcamp-ctf-2022/</guid>
+      <description>Writeup for DefCamp CTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>DiceCTF 2022</title>
+      <link>https://chovid99.github.io/posts/dicectf-2022/</link>
+      <pubDate>Mon, 07 Feb 2022 08:01:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
+      <description>Writeup for DiceCTF 2022 by Chovid99</description>
+    </item>
+    <item>
+      <title>GCC 3.0 CTF 2022</title>
+      <link>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</link>
+      <pubDate>Tue, 11 Jan 2022 06:36:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/gcc-3.0-ctf-2022/</guid>
+      <description>Writeup for GCC 3.0 CTF 2022 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

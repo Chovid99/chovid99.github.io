@@ -910,8 +910,7 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: p_ctf{Ch4Ng3_1T_t0_M4x1Mum}</p>
-</blockquote>
+<p>Flag: p_ctf{Ch4Ng3_1T_t0_M4x1Mum}</p></blockquote>
 <h2 id="poly-flow">Poly-Flow</h2>
 <h3 id="intro-1">Intro</h3>
 <p>We were given a binary, let&rsquo;s decompile it. Below is the main function</p>
@@ -1116,8 +1115,7 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: p_ctf{mUlT1Pl3_BuFf3R_Ov3rF|0w}</p>
-</blockquote>
+<p>Flag: p_ctf{mUlT1Pl3_BuFf3R_Ov3rF|0w}</p></blockquote>
 <h2 id="portal">Portal</h2>
 <h3 id="intro-2">Intro</h3>
 <p>We were given a binary. Below is the main decompiled:</p>
@@ -1469,8 +1467,7 @@ This is the bug that we can use to solve the challenge.</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: p_ctf{W3ll_1t_W4s_3aSy_0n1y}</p>
-</blockquote>
+<p>Flag: p_ctf{W3ll_1t_W4s_3aSy_0n1y}</p></blockquote>
 <h1 id="web">Web</h1>
 <h2 id="php-train">PHP Train</h2>
 <p>We were given a website with the below source code</p>
@@ -1616,8 +1613,7 @@ This is the bug that we can use to solve the challenge.</p>
 <h3 id="flag-7">Flag 7</h3>
 <p>We just need to pass <code>param8=1.env</code> because <code>in_array</code> use loose comparison, so as long as our first string start with <code>1</code>, <code>in_array</code> will return true. We got <code>y0ur_7r41n}</code>.</p>
 <blockquote>
-<p>Flag: p_ctf{ech0_1f_7h3_7r41n_d035_n07_5t0p_1n_y0ur_5t4t10n_7h3n_1t5_n07_y0ur_7r41n}</p>
-</blockquote>
+<p>Flag: p_ctf{ech0_1f_7h3_7r41n_d035_n07_5t0p_1n_y0ur_5t4t10n_7h3n_1t5_n07_y0ur_7r41n}</p></blockquote>
 <h2 id="inception">Inception</h2>
 <p>We were given a website. Checking the source code, we got obfuscated javascript. Now, we just need to examine properly the obfuscated.
 The first part is this code</p>
@@ -1694,8 +1690,7 @@ The first part is this code</p>
         title="https://i.imgur.com/ueYuijt.png" />
 We got the flag :D</p>
 <blockquote>
-<p>Flag: p_ctf{INfjnity5_b3g1n5_w1th_4n_1nc3pt10n}</p>
-</blockquote>
+<p>Flag: p_ctf{INfjnity5_b3g1n5_w1th_4n_1nc3pt10n}</p></blockquote>
 <h2 id="code-of-chaos">Code of Chaos</h2>
 <p>We were given a website, where we need to bypass the login page.
 <img
@@ -1803,8 +1798,7 @@ Forged jwt: <code>eyJ0eXAiOiAiSldTIiwgImFsZyI6ICJub25lIn0.eyJ1c2VyIjogImFkbWluIn
         alt="https://i.imgur.com/g6ots03.png"
         title="https://i.imgur.com/g6ots03.png" /></p>
 <blockquote>
-<p>Flag: p_ctf{un1c0de_4nd_j3t_m4kes_fu7}</p>
-</blockquote>
+<p>Flag: p_ctf{un1c0de_4nd_j3t_m4kes_fu7}</p></blockquote>
 <h1 id="crypto">Crypto</h1>
 <h2 id="one-try">One Try</h2>
 <p>We were given a file like below</p>
@@ -1966,8 +1960,7 @@ Forged jwt: <code>eyJ0eXAiOiAiSldTIiwgImFsZyI6ICJub25lIn0.eyJ1c2VyIjogImFkbWluIn
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: p_ctf{0ne_T1m3_Pads_are_1ns3cur5}</p>
-</blockquote>
+<p>Flag: p_ctf{0ne_T1m3_Pads_are_1ns3cur5}</p></blockquote>
 <h2 id="blind-scout">Blind Scout</h2>
 <p>We were given base64 of encrypted text, and 5 pem file. I try to check whether there is common factor between the modulus of each file, and I found a common modulus between the second and the fourth pem, which mean now we can factor the second and the fourth pem. Trying to decrypt the encrypted with the second pem gave me the result.</p>
 <div class="highlight"><div class="chroma">
@@ -2046,8 +2039,7 @@ Forged jwt: <code>eyJ0eXAiOiAiSldTIiwgImFsZyI6ICJub25lIn0.eyJ1c2VyIjogImFkbWluIn
 </div>
 </div><p>Because the challenge name is Blind, I assume that the binary is braille. We will get the correct flag after decrypting the binary with braille</p>
 <blockquote>
-<p>Flag: p_ctf{I_AM_DAREDEVIL}</p>
-</blockquote>
+<p>Flag: p_ctf{I_AM_DAREDEVIL}</p></blockquote>
 <h1 id="rev">Rev</h1>
 <h2 id="oak">Oak</h2>
 <p>We were given a file <code>Oak.class</code>. We can decompile it and it will give us this result</p>
@@ -2300,8 +2292,7 @@ Basically, what it do is only <code>flag[i] &lt;&lt; 8 + flag[i+1]</code>. And b
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p>Flag: p_ctf{0r1g1n4|_<em>n@M3-0f_J4vA_Wa5</em>()/|&lt;}</p>
-</blockquote>
+<p>Flag: p_ctf{0r1g1n4|_<em>n@M3-0f_J4vA_Wa5</em>()/|&lt;}</p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -2332,7 +2323,7 @@ Basically, what it do is only <code>flag[i] &lt;&lt; 8 + flag[i+1]</code>. And b
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

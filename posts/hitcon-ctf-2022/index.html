@@ -223,8 +223,7 @@ During the weekends, I spent my time working on the HITCON CTF challenge called 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
-<p><strong>Additional Step:</strong> My <code>pwndbg</code> doesn&rsquo;t recognize the <code>job</code> command, which is very useful to debug the v8 shell later. After spending some quite time, turn out the solution is I need to add this LOC to my <code>.gdbinit</code> file: <code>source &lt;path_to_your_v8_folder&gt;/tools/gdbinit</code></p>
-</blockquote>
+<p><strong>Additional Step:</strong> My <code>pwndbg</code> doesn&rsquo;t recognize the <code>job</code> command, which is very useful to debug the v8 shell later. After spending some quite time, turn out the solution is I need to add this LOC to my <code>.gdbinit</code> file: <code>source &lt;path_to_your_v8_folder&gt;/tools/gdbinit</code></p></blockquote>
 <p>After we successfully build the <code>d8</code> binary, then we are ready to start the challenge.</p>
 <h3 id="analyze-the-patch">Analyze the patch</h3>
 <p>Let&rsquo;s check the patch file.</p>
@@ -1506,13 +1505,11 @@ During the weekends, I spent my time working on the HITCON CTF challenge called 
 <li><code>weak_write</code> the property <code>f_code-&gt;code_entry_point</code> which is equivalent to <code>f_code+0xc</code> by <code>f_code_code_entry_point+shift_offset</code>, where the <code>shift_offset</code> is the distance between the starting JIT code instructions and your smuggled shellcode.</li>
 </ul>
 <blockquote>
-<p><strong>Notes:</strong> The offset of the smuggled shellcode in the jitted area is different between ubuntu and debian. So, if you want to run this POC in ubuntu, you might need to adjust the offset to be added in our leaked <code>f_code_code_entry_point</code> value during the last call of <code>weak_write</code>.</p>
-</blockquote>
+<p><strong>Notes:</strong> The offset of the smuggled shellcode in the jitted area is different between ubuntu and debian. So, if you want to run this POC in ubuntu, you might need to adjust the offset to be added in our leaked <code>f_code_code_entry_point</code> value during the last call of <code>weak_write</code>.</p></blockquote>
 <p>And let&rsquo;s try to execute this. We will get a shell!</p>
 <img src="https://i.imgur.com/SGFdLxM.png">
 <blockquote>
-<p><strong>Flag:</strong> hitcon{tH3_xPl01t_n0_l0ng3r_wOrk_aF+3r_66c8de2cdac10cad9e622ecededda411b44ac5b3_:((}</p>
-</blockquote>
+<p><strong>Flag:</strong> hitcon{tH3_xPl01t_n0_l0ng3r_wOrk_aF+3r_66c8de2cdac10cad9e622ecededda411b44ac5b3_:((}</p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -1543,7 +1540,7 @@ During the weekends, I spent my time working on the HITCON CTF challenge called 
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

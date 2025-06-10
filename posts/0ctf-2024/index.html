@@ -18,7 +18,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-23T09:00:00+07:00">
-    <meta property="article:modified_time" content="2024-12-23T09:00:00+07:00">
+    <meta property="article:modified_time" content="2024-12-23T11:45:20+07:00">
     <meta property="article:tag" content="Writeup">
     <meta property="article:tag" content="0CTF">
     <meta property="article:tag" content="Blockchain">
@@ -29,7 +29,7 @@
 <meta name="application-name" content="Chovid99&#39;s Blog">
 <meta name="apple-mobile-web-app-title" content="Chovid99&#39;s Blog"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/0ctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/seccon-ctf-13-quals/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://chovid99.github.io/posts/0ctf-2024/" /><link rel="prev" href="https://chovid99.github.io/posts/seccon-ctf-13-quals/" /><link rel="next" href="https://chovid99.github.io/posts/greyctf-2025/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><meta name="google-site-verification" content="9bWYU2tJlhINPHANaxcXkK63aSnxvqj7GHrr_r5tb9s" /><script type="application/ld+json">
     {
@@ -41,7 +41,7 @@
             "@type": "WebPage",
             "@id": "https:\/\/chovid99.github.io\/posts\/0ctf-2024\/"
         },"image": ["https:\/\/chovid99.github.io\/C99-web-card.png"],"genre": "posts","keywords": "Writeup, 0CTF, blockchain, evm, rev, uniswap, jop, 2024","wordcount":  4822 ,
-        "url": "https:\/\/chovid99.github.io\/posts\/0ctf-2024\/","datePublished": "2024-12-23T09:00:00+07:00","dateModified": "2024-12-23T09:00:00+07:00","publisher": {
+        "url": "https:\/\/chovid99.github.io\/posts\/0ctf-2024\/","datePublished": "2024-12-23T09:00:00+07:00","dateModified": "2024-12-23T11:45:20+07:00","publisher": {
             "@type": "Organization",
             "name": "Chovid99","logo": "https:\/\/chovid99.github.io\/C99-Black3.png"},"author": {
                 "@type": "Person",
@@ -199,7 +199,7 @@
 </span></span><span class="line"><span class="cl"><span class="kd">contract</span> <span class="nc">GasSaver</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">constructor</span><span class="p">(</span><span class="kt">address</span> <span class="n">owner</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="kt">bytes</span> <span class="k">memory</span> <span class="n">bytecode</span> <span class="o">=</span> <span class="s">hex&#34;5f3560e01c80638da5cb5b1461008257333214610623576104a6565b7f23b872dd000000000000000000000000000000000000000000000000000000005f5230600452336024526024356044525f5f60645f5f73c02aaa39b223fe8d0a0e5c4f27ead9083c756cc25af1005b5f3560e01c806313af4035146104925761008b565b005b46545f5260205ff35b005b7c04000000000000000000000000000000000000000000000000000000005f523d5f60043e3d6004015ffdfd0000005b5f5f355f1a565b610127565b6101e8565b6102ae565b61039e565b61032a565b7365ddbabf2d31e444c0929bbe54f17eafe91a879a77496620796f75206c696b652074686973206368616c6c2c2077796f752063616e2073656e64206d6520736f6d65206574685b005b601a015f5f60a45f5f60023560601c5f5f7f022c0d9f000000000000000000000000000000000000000000000000000000005f7fa9059cbb000000000000000000000000000000000000000000000000000000005f5284600452346024525f5f60445f5f73a0b86991c6218b36c1d19d4a2e9eb0ce3606eb485af150526004526024526016357fffffffff00000000000000000000000000000000000000000000000000000000165f35461a523060445260806064525af16100805761008d565b6030017f128acb08000000000000000000000000000000000000000000000000000000005f5230600452602c3546355f1a5273fffd8963efd1fc6a506488495d951d5263988d2560645260a0608452602c60a4527fc02aaa39b223fe8d0a0e5c4f27ead9083c756cc200000000000000000000000060c4526002357fffffffffffffffffffffffffffffffffffffffffffff00000000000000000000166105e960401b0160d85260405f60f05f5f600c355af13460201b5f515f0311166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f523060045260433546355f1a5273fffd8963efd1fc6a506488495d951d5263988d2560645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b5f515f0311166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f52306004524660245260433546355f1a1c5f036044526401000276a460645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b5f5110166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f52306004524660245260433546355f1a526401000276a460645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b6020515f0311166100805761008d565b6047017f128acb08000000000000000000000000000000000000000000000000000000005f523060045260433546355f1a1c5f0360445273fffd8963efd1fc6a506488495d951d5263988d2560645260a0608452602c60a452602c600360c43760405f60f05f5f6023355af1344635461a1b60205110166100805761008d565f005b4654331461049e575f5ffd5b600435804655005b5f34116104905732737e5f4552091a69125d5dfcb7b8c2659029395bdf146104d2573346541461006b57005b60ae3560f05f501c60146084600c3760146098602c37600260ac605e3760605f207fff1f98431c8ad98523631ae4a59f267346ea31f98400000000000000000000005f52806015527fe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b5460355260555f2073ffffffffffffffffffffffffffffffffffffffff16331482577fffbaceb8ec6b9355dfc0269c18bac9d6e2bdc29c4f00000000000000000000005f526015527fe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b5460355260555f2073ffffffffffffffffffffffffffffffffffffffff16331490577c01000000000000000000000000000000000000000000000000000000005f5260045ffd5b7fa9059cbb000000000000000000000000000000000000000000000000000000005f52336004526024356024525f5f60445f5f608c355af1005b33737e5f4552091a69125d5dfcb7b8c2659029395bdf146100bd5761006b56&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="k">assembly</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assembly</span> {
 </span></span><span class="line"><span class="cl">            <span class="nf">sstore</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">owner</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="nf">return</span> <span class="p">(</span><span class="nf">add</span><span class="p">(</span><span class="n">bytecode</span><span class="p">,</span> <span class="mh">0x20</span><span class="p">),</span> <span class="nf">mload</span><span class="p">(</span><span class="n">bytecode</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
@@ -1511,8 +1511,7 @@ This means the code will enter the branch that verifies if the computed address 
 <p>Now, we can simply call the <code>GasSaver</code> with this calldata, and we will become the <code>owner()</code> :).</p>
 <img src="https://i.imgur.com/tlFAqZF.png"/>
 <blockquote>
-<p><strong>Flag: 0ops{Gr34t_EtH_gReAt_UuU_Yr_S0_G00d_4t_rev_and_Unisw4p_0x65DDbaBF2d31E444c0929BbE54f17eafE91A879a}</strong></p>
-</blockquote>
+<p><strong>Flag: 0ops{Gr34t_EtH_gReAt_UuU_Yr_S0_G00d_4t_rev_and_Unisw4p_0x65DDbaBF2d31E444c0929BbE54f17eafE91A879a}</strong></p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -1538,11 +1537,12 @@ This means the code will enter the branch that verifies if the computed address 
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/seccon-ctf-13-quals/" class="prev" rel="prev" title="SECCON CTF 13 Quals"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SECCON CTF 13 Quals</a></div>
+    <div class="post-nav"><a href="/posts/seccon-ctf-13-quals/" class="prev" rel="prev" title="SECCON CTF 13 Quals"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SECCON CTF 13 Quals</a>
+            <a href="/posts/greyctf-2025/" class="next" rel="next" title="GreyCTF 2025">GreyCTF 2025<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

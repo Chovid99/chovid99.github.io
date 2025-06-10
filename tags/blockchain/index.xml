@@ -1,55 +1,61 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Blockchain - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/blockchain/</link>
-        <description>Blockchain - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/blockchain/" rel="self" type="application/rss+xml" /><item>
-    <title>0CTF 2024</title>
-    <link>https://chovid99.github.io/posts/0ctf-2024/</link>
-    <pubDate>Mon, 23 Dec 2024 09:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/0ctf-2024/</guid>
-    <description><![CDATA[Writeup for 0CTF 2024]]></description>
-</item>
-<item>
-    <title>SECCON CTF 13 Quals</title>
-    <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
-    <pubDate>Sun, 24 Nov 2024 19:59:02 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
-    <description><![CDATA[Writeup for SECCON CTF 13 Quals]]></description>
-</item>
-<item>
-    <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
-    <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
-    <pubDate>Thu, 14 Mar 2024 20:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
-    <description><![CDATA[Writeup for Blockchain &amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99]]></description>
-</item>
-<item>
-    <title>Real World CTF 2024</title>
-    <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
-    <pubDate>Sun, 28 Jan 2024 23:54:28 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
-    <description><![CDATA[Writeup for Real World CTF 2024]]></description>
-</item>
-<item>
-    <title>TCP1P CTF 2023</title>
-    <link>https://chovid99.github.io/posts/tcp1p-ctf-2023/</link>
-    <pubDate>Sun, 15 Oct 2023 21:52:15 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/tcp1p-ctf-2023/</guid>
-    <description><![CDATA[Writeup for TCP1P CTF 2023 by Fidethus]]></description>
-</item>
-<item>
-    <title>SekaiCTF 2023</title>
-    <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
-    <pubDate>Sun, 27 Aug 2023 23:00:38 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
-    <description><![CDATA[Writeup for SekaiCTF 2023]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blockchain on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/blockchain/</link>
+    <description>Recent content in Blockchain on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Jun 2025 21:22:34 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/blockchain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GreyCTF 2025</title>
+      <link>https://chovid99.github.io/posts/greyctf-2025/</link>
+      <pubDate>Sun, 08 Jun 2025 21:22:34 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/greyctf-2025/</guid>
+      <description>Writeup for GreyCTF 2025</description>
+    </item>
+    <item>
+      <title>0CTF 2024</title>
+      <link>https://chovid99.github.io/posts/0ctf-2024/</link>
+      <pubDate>Mon, 23 Dec 2024 09:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/0ctf-2024/</guid>
+      <description>Writeup for 0CTF 2024</description>
+    </item>
+    <item>
+      <title>SECCON CTF 13 Quals</title>
+      <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
+      <pubDate>Sun, 24 Nov 2024 19:59:02 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/seccon-ctf-13-quals/</guid>
+      <description>Writeup for SECCON CTF 13 Quals</description>
+    </item>
+    <item>
+      <title>Cyber Apocalypse 2024: Blockchain &amp; Hardware</title>
+      <link>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</link>
+      <pubDate>Thu, 14 Mar 2024 20:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-apocalypse-2024-blockchain-hardware/</guid>
+      <description>Writeup for Blockchain &amp;amp; Hardware challenges in Cyber Apocalypse 2024 by Chovid99</description>
+    </item>
+    <item>
+      <title>Real World CTF 2024</title>
+      <link>https://chovid99.github.io/posts/real-world-ctf-2024/</link>
+      <pubDate>Sun, 28 Jan 2024 23:54:28 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/real-world-ctf-2024/</guid>
+      <description>Writeup for Real World CTF 2024</description>
+    </item>
+    <item>
+      <title>TCP1P CTF 2023</title>
+      <link>https://chovid99.github.io/posts/tcp1p-ctf-2023/</link>
+      <pubDate>Sun, 15 Oct 2023 21:52:15 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/tcp1p-ctf-2023/</guid>
+      <description>Writeup for TCP1P CTF 2023 by Fidethus</description>
+    </item>
+    <item>
+      <title>SekaiCTF 2023</title>
+      <link>https://chovid99.github.io/posts/sekaictf-2023/</link>
+      <pubDate>Sun, 27 Aug 2023 23:00:38 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/sekaictf-2023/</guid>
+      <description>Writeup for SekaiCTF 2023</description>
+    </item>
+  </channel>
 </rss>

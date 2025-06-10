@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>LINE CTF - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/line-ctf/</link>
-        <description>LINE CTF - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 26 Mar 2023 07:00:01 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/line-ctf/" rel="self" type="application/rss+xml" /><item>
-    <title>LINE CTF 2023</title>
-    <link>https://chovid99.github.io/posts/line-ctf-2023/</link>
-    <pubDate>Sun, 26 Mar 2023 07:00:01 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/line-ctf-2023/</guid>
-    <description><![CDATA[Writeup for Pwn challenges in LINE CTF 2023]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LINE CTF on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/line-ctf/</link>
+    <description>Recent content in LINE CTF on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 26 Mar 2023 11:50:05 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/line-ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LINE CTF 2023</title>
+      <link>https://chovid99.github.io/posts/line-ctf-2023/</link>
+      <pubDate>Sun, 26 Mar 2023 07:00:01 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/line-ctf-2023/</guid>
+      <description>Writeup for Pwn challenges in LINE CTF 2023</description>
+    </item>
+  </channel>
 </rss>

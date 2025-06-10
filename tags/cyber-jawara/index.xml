@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Cyber Jawara - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/cyber-jawara/</link>
-        <description>Cyber Jawara - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/cyber-jawara/" rel="self" type="application/rss+xml" /><item>
-    <title>Cyber Jawara 2023 Writeup</title>
-    <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
-    <pubDate>Sun, 03 Dec 2023 21:09:30 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
-    <description><![CDATA[Writeup for Cyber Jawara 2023 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cyber Jawara on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/cyber-jawara/</link>
+    <description>Recent content in Cyber Jawara on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 04 Dec 2023 16:17:44 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/cyber-jawara/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cyber Jawara 2023 Writeup</title>
+      <link>https://chovid99.github.io/posts/cyber-jawara-2023/</link>
+      <pubDate>Sun, 03 Dec 2023 21:09:30 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/cyber-jawara-2023/</guid>
+      <description>Writeup for Cyber Jawara 2023 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

@@ -149,8 +149,7 @@
 <h1 id="pwn">Pwn</h1>
 <h2 id="fixed-aslr">Fixed ASLR</h2>
 <blockquote>
-<p>I wasn&rsquo;t happy with the default ASLR, so I fixed it. The flag is in a file called &ldquo;flag&rdquo; both in / and cwd.</p>
-</blockquote>
+<p>I wasn&rsquo;t happy with the default ASLR, so I fixed it. The flag is in a file called &ldquo;flag&rdquo; both in / and cwd.</p></blockquote>
 <p>I worked on this challenge together with my teammate <code>pivik</code>. Thanks a lot <code>pivik</code>!</p>
 <h3 id="initial-analysis">Initial Analysis</h3>
 <p><img
@@ -1095,8 +1094,7 @@
 <h4 id="decompilation-of-loader">Decompilation of loader</h4>
 <p>Now we have understood the <code>game.o</code> object file, we still haven&rsquo;t found a way to leak the canary value, so that we can use the buffer overflow bug. Remember the challenge desc:</p>
 <blockquote>
-<p>I wasn&rsquo;t happy with the default ASLR, so I fixed it.</p>
-</blockquote>
+<p>I wasn&rsquo;t happy with the default ASLR, so I fixed it.</p></blockquote>
 <p>Reading through it, it seems like this binary is implementing its own <a href="https://en.wikipedia.org/wiki/Address_space_layout_randomization" target="_blank" rel="noopener noreffer ">ASLR</a>. In case you didn&rsquo;t know ASLR, it is a common mitigation technique to make it harder for an attacker to exploit a binary, by setting a random address for the binary function address, stack address, heap, including the used libraries also, so that it will be harder for the attacker to predict the address of each property during crafting their exploit because each new run will have different addresses.</p>
 <p>We can deduce that maybe <code>loader</code> file is the one that has the implementation of the custom ASLR as it is the main binary. Let&rsquo;s check how the <code>loader</code> binary works by decompiling it one by one.</p>
 <p>Let&rsquo;s start by decompiling the <code>_start</code> method, which is the first entry of the loader.</p>
@@ -2736,13 +2734,11 @@
         alt="https://i.imgur.com/z6FznJI.png"
         title="https://i.imgur.com/z6FznJI.png" /></p>
 <blockquote>
-<p>Flag: <code>CTF{GuessYouCanSayTheCookieGotRandomlyBroken}</code></p>
-</blockquote>
+<p>Flag: <code>CTF{GuessYouCanSayTheCookieGotRandomlyBroken}</code></p></blockquote>
 <h1 id="misc">Misc</h1>
 <h2 id="appnotetxt">Appnote.txt</h2>
 <blockquote>
-<p>Every single archive manager unpacks this to a different file&hellip;</p>
-</blockquote>
+<p>Every single archive manager unpacks this to a different file&hellip;</p></blockquote>
 <h3 id="analysis--solution">Analysis &amp; Solution</h3>
 <p>We were given a zip file called <code>dump.zip</code>. Trying to extract it, I found that the size of the file&rsquo;s output doesn&rsquo;t make sense. So, let&rsquo;s try to open it in a hex editor.</p>
 <p>Turn out, as you can see, there are a lot of zip files on there. What makes it more interesting is there are a lot of zip files with the same name (Example: there is a lot of <code>flag00.zip</code> in the file), but with different contents. There are flag00.zip - flag18.zip. Each zip file with the same name contains only one char. In fact, the name indicates the n-th character of the flags. So, with deduction, we can guess that:</p>
@@ -2886,8 +2882,7 @@
         title="https://i.imgur.com/XRl4QHd.png" /></p>
 <p>Doing the same to the rest of the signatures, we got the flag.</p>
 <blockquote>
-<p>Flag: <code>CTF{p0s7m0d3rn_z1p}</code></p>
-</blockquote>
+<p>Flag: <code>CTF{p0s7m0d3rn_z1p}</code></p></blockquote>
 <h1 id="social-media">Social Media</h1>
 <p>Follow me on <a href="https://twitter.com/chovid99" target="_blank" rel="noopener noreffer ">twitter</a></p>
 </div><div class="post-footer" id="post-footer">
@@ -2918,7 +2913,7 @@
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
         </div>
     </footer></div>
 

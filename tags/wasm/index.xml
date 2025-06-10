@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Wasm - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/wasm/</link>
-        <description>Wasm - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/wasm/" rel="self" type="application/rss+xml" /><item>
-    <title>DiceCTF 2022</title>
-    <link>https://chovid99.github.io/posts/dicectf-2022/</link>
-    <pubDate>Mon, 07 Feb 2022 08:01:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
-    <description><![CDATA[Writeup for DiceCTF 2022 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wasm on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/wasm/</link>
+    <description>Recent content in Wasm on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 23 Feb 2023 18:03:33 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/wasm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DiceCTF 2022</title>
+      <link>https://chovid99.github.io/posts/dicectf-2022/</link>
+      <pubDate>Mon, 07 Feb 2022 08:01:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/dicectf-2022/</guid>
+      <description>Writeup for DiceCTF 2022 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

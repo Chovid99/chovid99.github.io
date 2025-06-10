@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>MapleCTF - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/maplectf/</link>
-        <description>MapleCTF - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 29 Aug 2022 11:23:48 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/maplectf/" rel="self" type="application/rss+xml" /><item>
-    <title>MapleCTF 2022</title>
-    <link>https://chovid99.github.io/posts/maplectf-2022/</link>
-    <pubDate>Mon, 29 Aug 2022 11:23:48 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/maplectf-2022/</guid>
-    <description><![CDATA[Writeup for MapleCTF 2022 by Chovid99]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MapleCTF on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/maplectf/</link>
+    <description>Recent content in MapleCTF on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 23 Feb 2023 18:03:33 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/maplectf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MapleCTF 2022</title>
+      <link>https://chovid99.github.io/posts/maplectf-2022/</link>
+      <pubDate>Mon, 29 Aug 2022 11:23:48 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/maplectf-2022/</guid>
+      <description>Writeup for MapleCTF 2022 by Chovid99</description>
+    </item>
+  </channel>
 </rss>

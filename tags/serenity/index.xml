@@ -1,15 +1,19 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Serenity - Tag - Chovid99&#39;s Blog</title>
-        <link>https://chovid99.github.io/tags/serenity/</link>
-        <description>Serenity - Tag - Chovid99&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</lastBuildDate><atom:link href="https://chovid99.github.io/tags/serenity/" rel="self" type="application/rss+xml" /><item>
-    <title>DiceCTF 2024 Quals</title>
-    <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
-    <pubDate>Mon, 05 Feb 2024 04:00:00 &#43;0700</pubDate>
-    <author>Author</author>
-    <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
-    <description><![CDATA[Writeup for DiceCTF 2024 Quals]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Serenity on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/serenity/</link>
+    <description>Recent content in Serenity on Chovid99&#39;s Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 05 Feb 2024 10:53:20 +0700</lastBuildDate>
+    <atom:link href="https://chovid99.github.io/tags/serenity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DiceCTF 2024 Quals</title>
+      <link>https://chovid99.github.io/posts/dicectf-2024-quals/</link>
+      <pubDate>Mon, 05 Feb 2024 04:00:00 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/dicectf-2024-quals/</guid>
+      <description>Writeup for DiceCTF 2024 Quals</description>
+    </item>
+  </channel>
 </rss>
