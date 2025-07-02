@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>2025 on Chovid99&#39;s Blog</title>
-    <link>https://chovid99.github.io/tags/2025/</link>
-    <description>Recent content in 2025 on Chovid99&#39;s Blog</description>
+    <title>Unicorn on Chovid99&#39;s Blog</title>
+    <link>https://chovid99.github.io/tags/unicorn/</link>
+    <description>Recent content in Unicorn on Chovid99&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Tue, 01 Jul 2025 21:12:16 +0700</lastBuildDate>
-    <atom:link href="https://chovid99.github.io/tags/2025/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://chovid99.github.io/tags/unicorn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google CTF 2025</title>
       <link>https://chovid99.github.io/posts/google-ctf-2025/</link>
       <pubDate>Tue, 01 Jul 2025 21:12:16 +0700</pubDate>
       <guid>https://chovid99.github.io/posts/google-ctf-2025/</guid>
       <description>Writeup for Google CTF 2025 by Chovid99</description>
-    </item>
-    <item>
-      <title>GreyCTF 2025</title>
-      <link>https://chovid99.github.io/posts/greyctf-2025/</link>
-      <pubDate>Sun, 08 Jun 2025 21:22:34 +0700</pubDate>
-      <guid>https://chovid99.github.io/posts/greyctf-2025/</guid>
-      <description>Writeup for GreyCTF 2025</description>
     </item>
   </channel>
 </rss>

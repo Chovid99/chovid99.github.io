@@ -6,8 +6,15 @@
     <description>Recent content in Pwn on Chovid99&#39;s Blog</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 25 Nov 2024 00:14:44 +0700</lastBuildDate>
+    <lastBuildDate>Tue, 01 Jul 2025 21:12:16 +0700</lastBuildDate>
     <atom:link href="https://chovid99.github.io/tags/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Google CTF 2025</title>
+      <link>https://chovid99.github.io/posts/google-ctf-2025/</link>
+      <pubDate>Tue, 01 Jul 2025 21:12:16 +0700</pubDate>
+      <guid>https://chovid99.github.io/posts/google-ctf-2025/</guid>
+      <description>Writeup for Google CTF 2025 by Chovid99</description>
+    </item>
     <item>
       <title>SECCON CTF 13 Quals</title>
       <link>https://chovid99.github.io/posts/seccon-ctf-13-quals/</link>
